@@ -8,7 +8,7 @@ class Routes extends React.Component {
       <Router>
         <Switch>
           <Route exact path="/admin" component={AdminBoard} />
-          <Route exact path="/admin/registWine" component={AdminRegist} />
+          <Route exact path="/admin/regist" component={AdminRegist} />
         </Switch>
       </Router>
     );
