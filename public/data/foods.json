@@ -1,0 +1,14 @@
+[
+    {
+      "foodId": 1,
+      "foodNm": "스테이크"
+    },
+    {
+      "foodId": 2,
+      "foodNm": "양고기"
+    },
+    {
+      "foodId": 3,
+      "foodNm": "돼지고기"
+    }
+  ]
