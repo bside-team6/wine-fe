@@ -1,0 +1,32 @@
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+
+import { CFormCheck, CButton } from "@coreui/react";
+
+function ToggleBtnGroup(props) {
+  const foodList = props.data;
+  console.log(foodList);
+  return (
+    <FormBtnGroup>
+      {foodList.map((key, index) => {
+        return (
+          <CFormCheck
+            button={{ color: "primary", variant: "outline" }}
+            id={"btn-check-outlined" + index}
+            autoComplete="off"
+            label={key.foodName}
+          />
+        );
+      })}
+    </FormBtnGroup>
+  );
+}
+
+export default ToggleBtnGroup;
+
+const FormBtnGroup = styled.div`
+  button {
+    margin: 5px 0 5px 10px;
+    justify-content: space-between;
+  }
+`;
