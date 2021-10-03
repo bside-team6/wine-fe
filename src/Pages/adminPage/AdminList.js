@@ -10,6 +10,10 @@ import {
   CTableHeaderCell,
   CTableBody,
   CTableDataCell,
+  CInputGroup, 
+  CInputGroupText, 
+  CFormInput,
+  CFormSelect,
   CTableFoot,
   CButton,
 } from "@coreui/react";
@@ -29,10 +33,25 @@ function AdminList() {
     paddingTop: "10px",
     height: "35px"
   };
+  
+  const searchStyle = {
+    width:"700px",
+    height:"40px",
+    marginTop: "10px",
+    marginLeft: "20px",
+    float:"left"
+  };
+
+  const selectStyle = {
+    marginLeft: "10px"
+  };
 
   const [wineList, setWineList] = useState([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
+  const [sort, setSort] = useState("id,desc");
+  const [wineNm, setWineNm] = useState("");
+  const [publicType, setPublicType] = useState("");
   const limit = 10;
   const pageNum = [];
   
@@ -40,13 +59,24 @@ function AdminList() {
     setPage(page-1); 
   };
 
+  const handleSortChange = (sort) => { 
+    //setSort(); 
+  };
+
+  const handlePublicTypeChange = (publicType) => {
+    console.log("******publicType : " + publicType); 
+    setPublicType(publicType); 
+  };
+
   useEffect(() => {
     fetch(
-      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082//api/v1/wine?sort=id,desc&size=10&isPublic=true&page=${page}`
+      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082//api/v1/wine?size=10&page=${page}&sort=${sort}&isPublic=${publicType}`
     )
       .then((res) => {return res.json();})
       .then((data) => {
-        console.log(data)
+        console.log("page : " + page)
+        console.log("publicType : "  + publicType)
+        console.log("sort : "  + sort)
         if(data.result){
           setWineList(data.data.wineList);
           console.log('wineList : '+ wineList);
@@ -63,7 +93,7 @@ function AdminList() {
         
 
       });
-  }, [page]);
+  }, [page, sort, publicType, wineNm]);
 
   return (
     <div>
@@ -73,14 +103,32 @@ function AdminList() {
             <CButton style={style}> 와인 등록하기 </CButton>
         </Link>
         <CCardHeader>WINE LIST</CCardHeader>
+        <CInputGroup className="mb-3" style={searchStyle}>
+          <CInputGroupText id="basic-addon3">
+            와인명(KR)
+          </CInputGroupText>
+          <CFormInput id="sWineName" aria-describedby="basic-addon3" />
+          <CInputGroupText id="basic-addon1" style={selectStyle}>
+            공개여부
+          </CInputGroupText>
+          <CFormSelect aria-label="Default select example">
+            <option>선택</option>
+            <option value="true">공개</option>
+            <option value="false">미공개</option>
+          </CFormSelect>
+          <CButton style={selectStyle}> 검색 </CButton>
+        </CInputGroup>
+        
         <CCardBody>
           <CTable hover responsive align="middle" className="mb-0 border">
             <CTableHead color="light">
               <CTableRow>
-                <CTableHeaderCell className="text-center">Wine No</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Wine Name</CTableHeaderCell>
-                <CTableHeaderCell className="text-center">Type</CTableHeaderCell>
-		            <CTableHeaderCell className="text-center">Wine Variety Name</CTableHeaderCell>
+                <Link> <CTableHeaderCell className="text-center">와인번호</CTableHeaderCell></Link>
+                <CTableHeaderCell className="text-center">와인명 (KR)</CTableHeaderCell>
+                <CTableHeaderCell className="text-center">종류</CTableHeaderCell>
+		            <CTableHeaderCell className="text-center">품종</CTableHeaderCell>
+                <CTableHeaderCell className="text-center">이미지 등록 여부</CTableHeaderCell>
+		            <CTableHeaderCell className="text-center">공개여부</CTableHeaderCell>
               </CTableRow>
             </CTableHead>
             <CTableBody>
@@ -93,6 +141,8 @@ function AdminList() {
                     <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineNo=${wine.id}`}>{wine.wineNameKr}</Link></CTableDataCell>
                     <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineNo=${wine.id}`}>{wine.wineType}</Link></CTableDataCell>
                     <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineNo=${wine.id}`}>{wine.wineVarietyName}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineNo=${wine.id}`}>{wine.isImageRegistered}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineNo=${wine.id}`}>{wine.isPublic}</Link></CTableDataCell>
                   </CTableRow>
                 ))
               }
