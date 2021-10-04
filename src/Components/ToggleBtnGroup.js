@@ -5,16 +5,17 @@ import { CFormCheck, CButton } from "@coreui/react";
 
 function ToggleBtnGroup(props) {
   const foodList = props.data;
-  console.log(foodList);
   return (
     <FormBtnGroup>
       {foodList.map((key, index) => {
         return (
           <CFormCheck
             button={{ color: "primary", variant: "outline" }}
-            id={"btn-check-outlined" + index}
+            id={key.id}
             autoComplete="off"
             label={key.foodName}
+            key={index}
+            onChange={props.handleFoodsInput}
           />
         );
       })}
