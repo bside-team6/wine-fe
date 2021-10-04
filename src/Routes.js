@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AdminRegist from "./Pages/adminPage/AdminRegist";
-import AdminList from "./Pages/adminPage/AdminList";
+import AdminBoard from "./Pages/adminPage/AdminBoard";
 
 class Routes extends React.Component {
   render() {
