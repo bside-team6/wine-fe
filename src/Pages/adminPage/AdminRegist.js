@@ -13,14 +13,14 @@ import {
 import React, { useEffect, useState } from "react";
 import RadioGroup from "../../Components/RadioGroup";
 import ToggleBtnGroup from "../../Components/ToggleBtnGroup";
-
+import MultiSelect from "../../Components/MutliSelect";
 function AdminRegist(props) {
   const pageType = props.match.url.split("/")[2];
   const [foodsList, setfoodsList] = useState([{}]);
   const [regionsList, setRegionsList] = useState([{}]);
   const [varietyList, setVarietyList] = useState([{}]);
   const [validated, setValidated] = useState(false);
-  const [readOnly, setReadOnly] = useState(true);
+  const [imgFile, setImgFile] = useState();
 
   const [wineData, setWineData] = useState({
     id: 0,
@@ -38,27 +38,47 @@ function AdminRegist(props) {
     alchol: 13.5,
     priceKrw: 95000,
     priceUsd: 100,
-    place: "ssg",
+    places: [],
     score: 2,
     isPublic: "true",
-    file: {},
   });
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (e.target.checkValidity()) {
+      console.log("data : ", wineData, "file : ", imgFile);
+      const response = await fetch(
+        "http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/wine",
+        {
+          headers: {
+            // Authorization: localStorage.getItem("access_token"),
+            // "Content-Type": "multipart/form-data",
+          },
+          method: "POST",
+          file: imgFile,
+          wind_data: wineData,
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => console.log(res));
+      console.log(response);
     }
-    setValidated(true);
 
-    console.log("wineData : ", wineData);
+    // setValidated(true);
   };
 
   const onChangePicture = (e) => {
+    setImgFile(e.target.files[0]);
+  };
+
+  const handleInputPlaces = (opt) => {
+    const places = opt.reduce((acc, cur) => {
+      acc.push(cur.value);
+      return acc;
+    }, []);
     setWineData((prevState) => ({
       ...prevState,
-      file: e.target.files[0],
+      places: places,
     }));
   };
 
@@ -74,9 +94,20 @@ function AdminRegist(props) {
       foods: checkedFoods,
     }));
   };
+  const handleInputSteps = (e) => {
+    switch (e.target.name) {
+      case "sweet":
+        setWineData((prevState) => ({ ...prevState, sweet: e.target.value }));
+      case "body":
+        setWineData((prevState) => ({ ...prevState, body: e.target.value }));
+      case "acidity":
+        setWineData((prevState) => ({ ...prevState, acidity: e.target.value }));
+      case "tanin":
+        setWineData((prevState) => ({ ...prevState, tannin: e.target.value }));
+    }
+    console.log("******:", e.target.value, e.target.name);
+  };
   const handleInput = (e) => {
-    console.log("******:", e);
-
     switch (e.target.id) {
       case "nameKr":
         setWineData((prevState) => ({
@@ -126,26 +157,13 @@ function AdminRegist(props) {
           wineRegionId: e.target.value,
         }));
         break;
-      case "place":
-        if (e.target.value == 0) {
-          //직접입력
-          setReadOnly(false);
-          break;
-        }
-        setReadOnly(true);
-
-        setWineData((prevState) => ({
-          ...prevState,
-          place: e.target.value,
-        }));
-        break;
     }
     console.log("wineData:", wineData);
   };
 
   useEffect(() => {
     fetch(
-      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082//api/v1/food`
+      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/food`
     )
       .then((res) => res.json())
       .then((res) => {
@@ -156,7 +174,6 @@ function AdminRegist(props) {
     )
       .then((res) => res.json())
       .then((res) => {
-        console.log("RegionsList", res.data);
         setRegionsList(res.data);
       });
 
@@ -247,12 +264,7 @@ function AdminRegist(props) {
               <Required>*</Required>품종
             </CInputGroupText>
 
-            <CFormSelect
-              aria-label="Default select example"
-              required
-              onChange={handleInput}
-              id="wineVarietyId"
-            >
+            <CFormSelect required onChange={handleInput} id="wineVarietyId">
               {varietyList.map((key, index) => {
                 return (
                   <option key={index} value={key.id}>
@@ -269,11 +281,7 @@ function AdminRegist(props) {
               <Required>*</Required>생산지
             </CInputGroupText>
 
-            <CFormSelect
-              aria-label="Default select example"
-              id="wineRegionId"
-              onChange={handleInput}
-            >
+            <CFormSelect id="wineRegionId" onChange={handleInput}>
               {regionsList.map((key, index) => {
                 return (
                   <option key={index} value={key.id}>
@@ -283,47 +291,28 @@ function AdminRegist(props) {
               })}
             </CFormSelect>
           </CInputGroup>
-
-          <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
-              <Required>*</Required>당도
-            </CInputGroupText>
-            <RadioGroup
-              name="wineSteps_sweet"
-              data={["1단계", "2단계", "3단계", "4단계", "5단계"]}
-              handleInput={handleInput}
-            />
-          </CInputGroup>
-
-          <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
-              <Required>*</Required>산도
-            </CInputGroupText>
-            <RadioGroup
-              name="wineSteps_acidic"
-              data={["1단계", "2단계", "3단계", "4단계", "5단계"]}
-            />
-          </CInputGroup>
-
-          <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
-              <Required>*</Required>바디
-            </CInputGroupText>
-            <RadioGroup
-              name="wineSteps_body"
-              data={["1단계", "2단계", "3단계", "4단계", "5단계"]}
-            />
-          </CInputGroup>
-
-          <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
-              <Required>*</Required>타닌
-            </CInputGroupText>
-            <RadioGroup
-              name="wineSteps_tanin"
-              data={["1단계", "2단계", "3단계", "4단계", "5단계"]}
-            />
-          </CInputGroup>
+          {detailType.map((key, index) => {
+            return (
+              <CInputGroup className="mb-3" key={index}>
+                <CInputGroupText>
+                  <Required>*</Required>
+                  {key.name}
+                </CInputGroupText>
+                <RadioGroup
+                  name={key.id}
+                  type="wineSteps"
+                  data={[
+                    { 1: "1단계" },
+                    { 2: "2단계" },
+                    { 3: "3단계" },
+                    { 4: "4단계" },
+                    { 5: "5단계" },
+                  ]}
+                  handleInput={handleInputSteps}
+                />
+              </CInputGroup>
+            );
+          })}
 
           <CInputGroup className="mb-3">
             <CInputGroupText>알코올도수</CInputGroupText>
@@ -366,22 +355,9 @@ function AdminRegist(props) {
               handleFoodsInput={handleFoodsInput}
             />
           </FormBtnsGroup>
-          <CInputGroup className="mb-3">
+          <CInputGroup>
             <CInputGroupText id="basic-addon1">출몰매장</CInputGroupText>
-
-            <CFormSelect onChange={handleInput} id="place">
-              <option>선택</option>
-              <option value="롯데마트">롯데마트</option>
-              <option value="이마트">이마트</option>
-              <option value="이마트트레이더스">이마트트레이더스</option>
-              <option value="홈플러스">홈플러스</option>
-              <option value="0">직접입력</option>
-            </CFormSelect>
-            <CFormInput
-              type="text"
-              placeholder="매장을 입력해주세요"
-              readOnly={readOnly}
-            />
+            <MultiSelect handleInput={handleInputPlaces} />
           </CInputGroup>
 
           <EditBtnGroup>
@@ -408,6 +384,14 @@ function AdminRegist(props) {
 }
 
 export default AdminRegist;
+
+const detailType = [
+  { id: "sweet", name: "당도", steps: 5 },
+  { id: "acidity", name: "산도", steps: 5 },
+  { id: "body", name: "바디", steps: 5 },
+  { id: "tanin", name: "타닌", steps: 5 },
+];
+
 const Header = styled.div`
   display: flex;
   align-items: center;
