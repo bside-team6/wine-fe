@@ -14,6 +14,8 @@ import React, { useEffect, useState } from "react";
 import RadioGroup from "../../Components/RadioGroup";
 import ToggleBtnGroup from "../../Components/ToggleBtnGroup";
 import MultiSelect from "../../Components/MutliSelect";
+import { BACKAPI } from "../../config";
+
 function AdminRegist(props) {
   const pageType = props.match.url.split("/")[2];
   const [foodsList, setfoodsList] = useState([{}]);
@@ -56,13 +58,10 @@ function AdminRegist(props) {
         })
       );
 
-      const response = await fetch(
-        "http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/wine",
-        {
-          method: "POST",
-          body: formData,
-        }
-      )
+      const response = await fetch(`${BACKAPI}/v1/wine`, {
+        method: "POST",
+        body: formData,
+      })
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
@@ -74,8 +73,6 @@ function AdminRegist(props) {
           }
         });
     }
-
-    // setValidated(true);
   };
 
   const onChangePicture = (e) => {
@@ -173,24 +170,18 @@ function AdminRegist(props) {
   };
 
   useEffect(() => {
-    fetch(
-      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/food`
-    )
+    fetch(`${BACKAPI}/v1/food`)
       .then((res) => res.json())
       .then((res) => {
         setfoodsList(res.data);
       });
-    fetch(
-      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/wine-regions`
-    )
+    fetch(`${BACKAPI}/v1/wine-regions`)
       .then((res) => res.json())
       .then((res) => {
         setRegionsList(res.data);
       });
 
-    fetch(
-      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/wine-varieties`
-    )
+    fetch(`${BACKAPI}/v1/wine-varieties`)
       .then((res) => res.json())
       .then((res) => {
         setVarietyList(res.data);
@@ -200,9 +191,7 @@ function AdminRegist(props) {
   return (
     <div>
       <Header>Wineasy Admin-와인등록</Header>
-      {foodsList.map((value, index) => {
-        return <span key={index}>{value.foodNm}</span>;
-      })}
+
       <Form className="inputContainer">
         <CForm
           className="row g-3 needs-validation"

@@ -26,18 +26,33 @@ function RadioGroup(props) {
     return (
       <FormCheckGroup id="wineType" onChange={props.handleInput}>
         {props.data.map((key, index) => {
-          return (
-            <CFormCheck
-              inline
-              key={index}
-              id={props.name + index}
-              value={Object.keys(key)}
-              label={Object.values(key)}
-              type="radio"
-              name={props.name}
-              required
-            />
-          );
+          if (props.checkedVal) {
+            return (
+              <CFormCheck
+                inline
+                key={index}
+                id={props.name + index}
+                value={Object.keys(key)}
+                label={Object.values(key)}
+                type="radio"
+                name={props.name}
+                checked={props.checkedVal == Object.keys(key) && "checked"}
+              />
+            );
+          } else {
+            return (
+              <CFormCheck
+                inline
+                key={index}
+                id={props.name + index}
+                value={Object.keys(key)}
+                label={Object.values(key)}
+                type="radio"
+                name={props.name}
+                required
+              />
+            );
+          }
         })}
       </FormCheckGroup>
     );
