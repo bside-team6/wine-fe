@@ -46,22 +46,33 @@ function AdminRegist(props) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (e.target.checkValidity()) {
-      console.log("data : ", wineData, "file : ", imgFile);
+      const formData = new FormData();
+
+      formData.append("file", imgFile);
+      formData.append(
+        "wine_data",
+        new Blob([JSON.stringify(wineData)], {
+          type: "application/json",
+        })
+      );
+
       const response = await fetch(
         "http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082/api/v1/wine",
         {
-          headers: {
-            // Authorization: localStorage.getItem("access_token"),
-            // "Content-Type": "multipart/form-data",
-          },
           method: "POST",
-          file: imgFile,
-          wind_data: wineData,
+          body: formData,
         }
       )
         .then((res) => res.json())
-        .then((res) => console.log(res));
-      console.log(response);
+        .then((res) => {
+          console.log(res);
+          if (res.data) {
+            alert("신규 와인 정상 등록되었습니다.");
+            props.history.push("/admin");
+          } else {
+            alert("오류발생");
+          }
+        });
     }
 
     // setValidated(true);
