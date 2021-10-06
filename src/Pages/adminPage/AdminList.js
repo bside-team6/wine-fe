@@ -80,6 +80,7 @@ function AdminList() {
     //와인명 검색 클릭 시
     console.log(searchText);
     setWineName(searchText);
+    setPage(0);
   }
 
   useEffect(() => {
