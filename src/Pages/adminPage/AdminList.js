@@ -112,7 +112,7 @@ function AdminList() {
     <div>
       <Header>Wineasy Admin-와인목록</Header>
       <CCard className="mb-4">
-        <Link to="./admin/registWine">
+        <Link to="./admin/regist">
             <CButton style={style}> 와인 등록하기 </CButton>
         </Link>
         <CCardHeader>WINE LIST</CCardHeader>
@@ -156,12 +156,12 @@ function AdminList() {
                 :
                 wineList.map(wine => (
                   <CTableRow key={wine.id}>
-                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineid=${wine.id}`}>{wine.id}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineid=${wine.id}`}>{wine.wineNameKr}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineid=${wine.id}`}>{wine.wineType}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineid=${wine.id}`}>{wine.wineVarietyName}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineid=${wine.id}`}>{wine.isImageRegistered === true ? "true"  : "false"}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/registWine?wineid=${wine.id}`}>{wine.isPublic === true ? "true"  : "false"}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.id}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.wineNameKr}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.wineType}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.wineVarietyName}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.isImageRegistered === true ? "true"  : "false"}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.isPublic === true ? "true"  : "false"}</Link></CTableDataCell>
                   </CTableRow>
                 ))
               }
