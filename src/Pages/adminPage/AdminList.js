@@ -157,12 +157,12 @@ function AdminList() {
                 :
                 wineList.map(wine => (
                   <CTableRow key={wine.id}>
-                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.id}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.wineNameKr}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.wineType}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.wineVarietyName}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.isImageRegistered === true ? "true"  : "false"}</Link></CTableDataCell>
-                    <CTableDataCell className="text-center"><Link to={`./admin/regist?wineid=${wine.id}`}>{wine.isPublic === true ? "true"  : "false"}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?id=${wine.id}`}>{wine.id}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?id=${wine.id}`}>{wine.wineNameKr}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?id=${wine.id}`}>{wine.wineType}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?id=${wine.id}`}>{wine.wineVarietyName}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?id=${wine.id}`}>{wine.isImageRegistered === true ? "true"  : "false"}</Link></CTableDataCell>
+                    <CTableDataCell className="text-center"><Link to={`./admin/regist?id=${wine.id}`}>{wine.isPublic === true ? "true"  : "false"}</Link></CTableDataCell>
                   </CTableRow>
                 ))
               }
