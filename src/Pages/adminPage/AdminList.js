@@ -89,7 +89,7 @@ function AdminList() {
       .then((res) => {return res.json();})
       .then((data) => {
         console.log("page : " + page)
-        console.log("setPublicType : "  + setPublicType)
+        console.log("setPublicType : "  + publicType)
         console.log("sort : "  + sort)
         console.log("wineName : "  + wineName)
         if(data.result){
