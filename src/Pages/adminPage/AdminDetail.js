@@ -13,8 +13,22 @@ import {
   CFormFeedback,
 } from "@coreui/react";
 import RadioGroup from "../../Components/RadioGroup";
+import { BACKAPI } from "../../config";
 
-function AdminDetail() {
+function AdminDetail(props) {
+  useEffect(() => {
+    handleFetch();
+  });
+
+  const handleFetch = () => {
+    const id = props.match.params.id;
+    fetch(`${BACKAPI}/v1/wine/${id}`, {})
+      .then((res) => res.json())
+      .then((res) => {
+        console.log(res.data);
+      });
+  };
+
   const wineName = "새로운와인";
   const isChecked = true;
 
@@ -27,7 +41,11 @@ function AdminDetail() {
         <CFormInput id="basic-url" aria-describedby="basic-addon3" readOnly />
         <CInputGroupText>공개여부</CInputGroupText>
         <FormSwitch>
-          <CFormSwitch id="formSwitchCheckDefault" size="lg" />
+          <CFormSwitch
+            id="formSwitchCheckDefault"
+            size="lg"
+            checked={isChecked}
+          />
         </FormSwitch>
       </CInputGroup>
 
