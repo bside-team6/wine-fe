@@ -389,7 +389,7 @@ const detailType = [
   { id: "sweet", name: "당도", steps: 5 },
   { id: "acidity", name: "산도", steps: 5 },
   { id: "body", name: "바디", steps: 5 },
-  { id: "tanin", name: "타닌", steps: 5 },
+  { id: "tannin", name: "타닌", steps: 5 },
 ];
 
 const Header = styled.div`
