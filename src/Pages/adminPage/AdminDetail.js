@@ -158,7 +158,10 @@ function AdminDetail(props) {
             fluid
             rounded
             thumbnail
-            src={wineData && wineData.wineImage.imagePath}
+            src={
+              wineData &&
+              (wineData.wineImage ? wineData.wineImage.imagePath : "")
+            }
             width={200}
             height={200}
           />
