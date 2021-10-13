@@ -28,24 +28,28 @@ function AdminDetail(props) {
     const result = await fetch(`${BACKAPI}/v1/wine/${id}`, {})
       .then((res) => res.json())
       .then((res) => {
-        // console.log(res.data);
         return res.data;
-        // setWineData(res.data);
-        // setFoods(res.data.foods);
       });
     // console.log(result);
     setWineData(result);
   };
 
-  if (wineData) {
-    console.log(wineData);
-  }
-  // console.log(Object.keys(wineData.foods));
-  // console.log(wineData.foods.hasOwnProperty("id"));
-
-  // for (const item in wineData.foods) {
-  //   console.log(item);
-  // }
+  const handleDelete = async () => {
+    const id = props.match.params.id;
+    if (window.confirm("해당 와인을 삭제하시겠습니까?")) {
+      const result = await fetch(`${BACKAPI}/v1/wine/${id}`, {
+        method: "DELETE",
+      })
+        .then((res) => res.json())
+        .then((res) => {
+          if (!res.result) alert(res.message);
+          else {
+            props.history.push("/admin");
+          }
+        });
+      // console.log(result);
+    }
+  };
 
   return (
     <CForm className="row g-3 needs-validation" noValidate>
@@ -180,6 +184,9 @@ function AdminDetail(props) {
           }
         />
       </CInputGroup>
+      <CButton onClick={handleDelete} color="primary">
+        삭제
+      </CButton>
     </CForm>
   );
 }

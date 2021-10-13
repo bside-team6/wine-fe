@@ -360,23 +360,9 @@ function AdminRegist(props) {
             <MultiSelect handleInput={handleInputPlaces} />
           </CInputGroup>
 
-          <EditBtnGroup>
-            <CButton type="submit" color="primary">
-              목록
-            </CButton>
-            <div>
-              <CButton type="submit" color="primary">
-                수정
-              </CButton>
-              <CButton type="submit" color="primary">
-                삭제
-              </CButton>
-            </div>
-
-            <CButton type="submit" color="primary">
-              등록
-            </CButton>
-          </EditBtnGroup>
+          <CButton type="submit" color="primary">
+            저장
+          </CButton>
         </CForm>
       </Form>
     </div>
