@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import AdminRegist from "./Pages/adminPage/AdminRegist";
 import AdminList from "./Pages/adminPage/AdminList";
 import AdminDetail from "./Pages/adminPage/AdminDetail";
+import MainSearchBar from "./Components/MainSearchBar";
 
 class Routes extends React.Component {
   render() {
@@ -12,6 +13,7 @@ class Routes extends React.Component {
           <Route exact path="/admin/detail/:id" component={AdminDetail} />
           <Route exact path="/admin" component={AdminList} />
           <Route exact path="/admin/regist" component={AdminRegist} />
+          <Route exact path="/search" component={MainSearchBar} />
         </Switch>
       </Router>
     );
