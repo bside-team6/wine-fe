@@ -1,9 +1,8 @@
 const theme = {
-  primePurple: "#7430E4",
-  darkPurple: "#520BC6",
-  lightPurple1: "#D7BFFF",
-  lightPurple2: "#F1EAFC",
-
+  primePurple: '#7430E4',
+  darkPurple: '#520BC6',
+  lightPurple1: '#D7BFFF',
+  lightPurple2: '#F1EAFC',
   // background: "#FFFEFC",
   // white: "#FFFFFF",
   // vermilion: "#ff7425",

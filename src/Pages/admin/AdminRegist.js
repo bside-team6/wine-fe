@@ -1,4 +1,5 @@
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import {
   CInputGroup,
   CInputGroupText,
@@ -8,16 +9,14 @@ import {
   CButton,
   CForm,
   CFormFeedback,
-} from "@coreui/react";
-
-import React, { useEffect, useState } from "react";
-import RadioGroup from "../../Components/RadioGroup";
-import ToggleBtnGroup from "../../Components/ToggleBtnGroup";
-import MultiSelect from "../../Components/MutliSelect";
-import { BACKAPI } from "../../config";
+} from '@coreui/react';
+import RadioGroup from 'components/RadioGroup';
+import ToggleBtnGroup from 'components/ToggleBtnGroup';
+import MultiSelect from 'components/MutliSelect';
+import { BACKAPI } from 'helpers/config';
 
 function AdminRegist(props) {
-  const pageType = props.match.url.split("/")[2];
+  const pageType = props.match.url.split('/')[2];
   const [foodsList, setfoodsList] = useState([{}]);
   const [regionsList, setRegionsList] = useState([{}]);
   const [varietyList, setVarietyList] = useState([{}]);
@@ -26,12 +25,12 @@ function AdminRegist(props) {
 
   const [wineData, setWineData] = useState({
     id: 0,
-    nameKr: "",
-    nameEn: "",
+    nameKr: '',
+    nameEn: '',
     wineVarietyId: 0,
     foods: [],
     wineRegionId: 5,
-    type: "RED",
+    type: 'RED',
     sweet: 4,
     acidity: 3,
     body: 1,
@@ -42,7 +41,7 @@ function AdminRegist(props) {
     priceUsd: 100,
     places: [],
     score: 2,
-    isPublic: "true",
+    isPublic: 'true',
   });
 
   const handleSubmit = async (e) => {
@@ -50,26 +49,26 @@ function AdminRegist(props) {
     if (e.target.checkValidity()) {
       const formData = new FormData();
 
-      formData.append("file", imgFile);
+      formData.append('file', imgFile);
       formData.append(
-        "wine_data",
+        'wine_data',
         new Blob([JSON.stringify(wineData)], {
-          type: "application/json",
-        })
+          type: 'application/json',
+        }),
       );
 
       const response = await fetch(`${BACKAPI}/v1/wine`, {
-        method: "POST",
+        method: 'POST',
         body: formData,
       })
         .then((res) => res.json())
         .then((res) => {
           console.log(res);
           if (res.data) {
-            alert("신규 와인 정상 등록되었습니다.");
-            props.history.push("/admin");
+            alert('신규 와인 정상 등록되었습니다.');
+            props.history.push('/admin');
           } else {
-            alert("오류발생");
+            alert('오류발생');
           }
         });
     }
@@ -104,69 +103,69 @@ function AdminRegist(props) {
   };
   const handleInputSteps = (e) => {
     switch (e.target.name) {
-      case "sweet":
+      case 'sweet':
         setWineData((prevState) => ({ ...prevState, sweet: e.target.value }));
-      case "body":
+      case 'body':
         setWineData((prevState) => ({ ...prevState, body: e.target.value }));
-      case "acidity":
+      case 'acidity':
         setWineData((prevState) => ({ ...prevState, acidity: e.target.value }));
-      case "tanin":
+      case 'tanin':
         setWineData((prevState) => ({ ...prevState, tannin: e.target.value }));
     }
-    console.log("******:", e.target.value, e.target.name);
+    console.log('******:', e.target.value, e.target.name);
   };
   const handleInput = (e) => {
     switch (e.target.id) {
-      case "nameKr":
+      case 'nameKr':
         setWineData((prevState) => ({
           ...prevState,
           nameKr: e.target.value,
         }));
         break;
-      case "nameEn":
+      case 'nameEn':
         setWineData((prevState) => ({
           ...prevState,
           nameEn: e.target.value,
         }));
         break;
-      case "wineVarietyId":
+      case 'wineVarietyId':
         setWineData((prevState) => ({
           ...prevState,
           wineVarietyId: e.target.value,
         }));
         break;
-      case "wineType":
+      case 'wineType':
         setWineData((prevState) => ({
           ...prevState,
           type: e.target.value,
         }));
         break;
-      case "alchol":
+      case 'alchol':
         setWineData((prevState) => ({
           ...prevState,
           alchol: e.target.value,
         }));
         break;
-      case "priceKrw":
+      case 'priceKrw':
         setWineData((prevState) => ({
           ...prevState,
           priceKrw: e.target.value,
         }));
         break;
-      case "wineVarietyId":
+      case 'wineVarietyId':
         setWineData((prevState) => ({
           ...prevState,
           wineVarietyId: e.target.value,
         }));
         break;
-      case "wineRegionId":
+      case 'wineRegionId':
         setWineData((prevState) => ({
           ...prevState,
           wineRegionId: e.target.value,
         }));
         break;
     }
-    console.log("wineData:", wineData);
+    console.log('wineData:', wineData);
   };
 
   useEffect(() => {
@@ -250,10 +249,10 @@ function AdminRegist(props) {
             <RadioGroup
               name="wineType"
               data={[
-                { RED: "레드" },
-                { WHITE: "화이트" },
-                { SPARK: "스파클링" },
-                { ROSE: "로제" },
+                { RED: '레드' },
+                { WHITE: '화이트' },
+                { SPARK: '스파클링' },
+                { ROSE: '로제' },
               ]}
               handleInput={handleInput}
             />
@@ -302,11 +301,11 @@ function AdminRegist(props) {
                   name={key.id}
                   type="wineSteps"
                   data={[
-                    { 1: "1단계" },
-                    { 2: "2단계" },
-                    { 3: "3단계" },
-                    { 4: "4단계" },
-                    { 5: "5단계" },
+                    { 1: '1단계' },
+                    { 2: '2단계' },
+                    { 3: '3단계' },
+                    { 4: '4단계' },
+                    { 5: '5단계' },
                   ]}
                   handleInput={handleInputSteps}
                 />
@@ -320,7 +319,7 @@ function AdminRegist(props) {
               id="alchol"
               type="number"
               onChange={handleInput}
-              onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+              onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             />
             <CInputGroupText id="basic-addon2">%</CInputGroupText>
           </CInputGroup>
@@ -331,7 +330,7 @@ function AdminRegist(props) {
               id="priceKrw"
               type="number"
               onChange={handleInput}
-              onKeyDown={(e) => e.key === "e" && e.preventDefault()}
+              onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             />
             <CInputGroupText>원</CInputGroupText>
           </CInputGroup>
@@ -372,10 +371,10 @@ function AdminRegist(props) {
 export default AdminRegist;
 
 const detailType = [
-  { id: "sweet", name: "당도", steps: 5 },
-  { id: "acidity", name: "산도", steps: 5 },
-  { id: "body", name: "바디", steps: 5 },
-  { id: "tannin", name: "타닌", steps: 5 },
+  { id: 'sweet', name: '당도', steps: 5 },
+  { id: 'acidity', name: '산도', steps: 5 },
+  { id: 'body', name: '바디', steps: 5 },
+  { id: 'tannin', name: '타닌', steps: 5 },
 ];
 
 const Header = styled.div`

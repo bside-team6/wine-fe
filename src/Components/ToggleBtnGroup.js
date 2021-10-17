@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-
-import { CFormCheck, CButton } from "@coreui/react";
+import React from 'react';
+import styled from 'styled-components';
+import { CFormCheck } from '@coreui/react';
 
 function ToggleBtnGroup(props) {
   const foodList = props.data;
@@ -10,11 +9,11 @@ function ToggleBtnGroup(props) {
       {foodList.map((key, index) => {
         return (
           <CFormCheck
-            button={{ color: "primary", variant: "outline" }}
+            button={{ color: 'primary', variant: 'outline' }}
+            key={index}
             id={key.id}
             autoComplete="off"
             label={key.foodName}
-            key={index}
             onChange={props.handleFoodsInput}
           />
         );

@@ -1,19 +1,16 @@
-import React, { useEffect, useState } from "react";
-
-import styled from "styled-components";
-
+import React, { useEffect, useState } from 'react';
 import {
   CInputGroup,
   CInputGroupText,
   CFormInput,
   CFormSwitch,
-  CFormSelect,
   CButton,
   CForm,
   CImage,
-} from "@coreui/react";
-import RadioGroup from "../../Components/RadioGroup";
-import { BACKAPI } from "../../config";
+} from '@coreui/react';
+import styled from 'styled-components';
+import RadioGroup from 'components/RadioGroup';
+import { BACKAPI } from 'helpers/config';
 
 function AdminDetail(props) {
   const [wineData, setWineData] = useState();
@@ -36,15 +33,15 @@ function AdminDetail(props) {
 
   const handleDelete = async () => {
     const id = props.match.params.id;
-    if (window.confirm("해당 와인을 삭제하시겠습니까?")) {
+    if (window.confirm('해당 와인을 삭제하시겠습니까?')) {
       const result = await fetch(`${BACKAPI}/v1/wine/${id}`, {
-        method: "DELETE",
+        method: 'DELETE',
       })
         .then((res) => res.json())
         .then((res) => {
           if (!res.result) alert(res.message);
           else {
-            props.history.push("/admin");
+            props.history.push('/admin');
           }
         });
       // console.log(result);
@@ -96,10 +93,10 @@ function AdminDetail(props) {
           name="wineType"
           checkedVal={wineData && wineData.type}
           data={[
-            { RED: "레드" },
-            { WHITE: "화이트" },
-            { SPARK: "스파클링" },
-            { ROSE: "로제" },
+            { RED: '레드' },
+            { WHITE: '화이트' },
+            { SPARK: '스파클링' },
+            { ROSE: '로제' },
           ]}
         />
       </CInputGroup>
@@ -119,11 +116,11 @@ function AdminDetail(props) {
 
       {detailType.map((key, index) => {
         let detailType = 0;
-        if (key.id === "sweet") detailType = wineData && wineData.sweet;
-        else if (key.id === "acidity")
+        if (key.id === 'sweet') detailType = wineData && wineData.sweet;
+        else if (key.id === 'acidity')
           detailType = wineData && wineData.acidity;
-        else if (key.id === "body") detailType = wineData && wineData.body;
-        else if (key.id === "tannin") detailType = wineData && wineData.tannin;
+        else if (key.id === 'body') detailType = wineData && wineData.body;
+        else if (key.id === 'tannin') detailType = wineData && wineData.tannin;
         return (
           <CInputGroup className="mb-3" key={index}>
             <CInputGroupText>
@@ -135,11 +132,11 @@ function AdminDetail(props) {
               type="wineSteps"
               checkedVal={detailType}
               data={[
-                { 1: "1단계" },
-                { 2: "2단계" },
-                { 3: "3단계" },
-                { 4: "4단계" },
-                { 5: "5단계" },
+                { 1: '1단계' },
+                { 2: '2단계' },
+                { 3: '3단계' },
+                { 4: '4단계' },
+                { 5: '5단계' },
               ]}
             />
           </CInputGroup>
@@ -164,7 +161,7 @@ function AdminDetail(props) {
             thumbnail
             src={
               wineData &&
-              (wineData.wineImage ? wineData.wineImage.imagePath : "")
+              (wineData.wineImage ? wineData.wineImage.imagePath : '')
             }
             width={200}
             height={200}
@@ -194,10 +191,10 @@ function AdminDetail(props) {
 export default AdminDetail;
 
 const detailType = [
-  { id: "sweet", name: "당도", steps: 5 },
-  { id: "acidity", name: "산도", steps: 5 },
-  { id: "body", name: "바디", steps: 5 },
-  { id: "tannin", name: "타닌", steps: 5 },
+  { id: 'sweet', name: '당도', steps: 5 },
+  { id: 'acidity', name: '산도', steps: 5 },
+  { id: 'body', name: '바디', steps: 5 },
+  { id: 'tannin', name: '타닌', steps: 5 },
 ];
 
 const Required = styled.span`

@@ -1,10 +1,10 @@
-import styled from "styled-components";
+import React, { useEffect, useState } from 'react';
+import styled from 'styled-components';
 import {
   CCard,
   CCardBody,
   CCardHeader,
   CTable,
-  CTableCaption,
   CTableHead,
   CTableRow,
   CTableHeaderCell,
@@ -14,51 +14,48 @@ import {
   CInputGroupText,
   CFormInput,
   CFormSelect,
-  CTableFoot,
   CButton,
-} from "@coreui/react";
-import Pagination from "react-js-pagination"; // install 해주어야 함.
-import { Link } from "react-router-dom";
-import React, { useEffect, useState } from "react";
-import Style from "./Paging.css";
+} from '@coreui/react';
+import Pagination from 'react-js-pagination';
+import { Link } from 'react-router-dom';
 
 function AdminList() {
   const style = {
-    marginTop: "10px",
-    marginBottom: "10px",
-    marginRight: "10px",
-    float: "right",
+    marginTop: '10px',
+    marginBottom: '10px',
+    marginRight: '10px',
+    float: 'right',
   };
   const nodataStyle = {
-    paddingTop: "10px",
-    height: "35px",
+    paddingTop: '10px',
+    height: '35px',
   };
 
   const searchStyle = {
-    width: "700px",
-    height: "40px",
-    marginTop: "10px",
-    marginLeft: "20px",
-    float: "left",
+    width: '700px',
+    height: '40px',
+    marginTop: '10px',
+    marginLeft: '20px',
+    float: 'left',
   };
 
   const selectStyle = {
-    marginLeft: "10px",
+    marginLeft: '10px',
   };
 
   const sortStyle = {
-    fontSize: "10px",
-    padding: "5px 5px",
-    color: "secondary",
+    fontSize: '10px',
+    padding: '5px 5px',
+    color: 'secondary',
   };
 
   const [wineList, setWineList] = useState([]);
   const [page, setPage] = useState(0);
   const [total, setTotal] = useState(0);
-  const [sort, setSort] = useState("id,desc");
-  const [wineName, setWineName] = useState("");
-  const [searchText, setSearchText] = useState("");
-  const [publicType, setPublicType] = useState("");
+  const [sort, setSort] = useState('id,desc');
+  const [wineName, setWineName] = useState('');
+  const [searchText, setSearchText] = useState('');
+  const [publicType, setPublicType] = useState('');
   const limit = 10;
   const pageNum = [];
 
@@ -85,20 +82,20 @@ function AdminList() {
 
   useEffect(() => {
     fetch(
-      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082//api/v1/wine?size=10&page=${page}&sort=${sort}&isPublic=${publicType}&wineName=${wineName}`
+      `http://ec2-13-125-218-253.ap-northeast-2.compute.amazonaws.com:8082//api/v1/wine?size=10&page=${page}&sort=${sort}&isPublic=${publicType}&wineName=${wineName}`,
     )
       .then((res) => {
         return res.json();
       })
       .then((data) => {
-        console.log("page : " + page);
-        console.log("setPublicType : " + publicType);
-        console.log("sort : " + sort);
-        console.log("wineName : " + wineName);
+        console.log('page : ' + page);
+        console.log('setPublicType : ' + publicType);
+        console.log('sort : ' + sort);
+        console.log('wineName : ' + wineName);
         if (data.result) {
           setWineList(data.data.wineList);
-          console.log("wineList : " + wineList);
-          console.log("totalPages" + data.data.totalPages);
+          console.log('wineList : ' + wineList);
+          console.log('totalPages' + data.data.totalPages);
           for (let i = 1; i <= data.data.totalPages; i++) {
             pageNum.push(i);
           }
@@ -106,7 +103,7 @@ function AdminList() {
           console.log(pageNum);
           //setPageCnt(data.data.totalPages);
         } else {
-          console.log("false");
+          console.log('false');
         }
       });
   }, [page, sort, publicType, wineName]);
@@ -127,8 +124,8 @@ function AdminList() {
             onChange={handleWineNameChange}
           />
           <CButton style={selectStyle} onClick={setSearchWineName}>
-            {" "}
-            검색{" "}
+            {' '}
+            검색{' '}
           </CButton>
           <CInputGroupText id="basic-addon1" style={selectStyle}>
             공개여부
@@ -153,7 +150,7 @@ function AdminList() {
                     style={sortStyle}
                     color="secondary"
                     onClick={() => {
-                      setSort("id,asc");
+                      setSort('id,asc');
                     }}
                   >
                     ▲
@@ -162,7 +159,7 @@ function AdminList() {
                     style={sortStyle}
                     color="secondary"
                     onClick={() => {
-                      setSort("id,desc");
+                      setSort('id,desc');
                     }}
                   >
                     ▼
@@ -174,7 +171,7 @@ function AdminList() {
                     style={sortStyle}
                     color="secondary"
                     onClick={() => {
-                      setSort("nameKr,asc");
+                      setSort('nameKr,asc');
                     }}
                   >
                     ▲
@@ -183,7 +180,7 @@ function AdminList() {
                     style={sortStyle}
                     color="secondary"
                     onClick={() => {
-                      setSort("nameKr,desc");
+                      setSort('nameKr,desc');
                     }}
                   >
                     ▼
@@ -210,7 +207,7 @@ function AdminList() {
                   colSpan="6"
                   style={nodataStyle}
                 >
-                  {" "}
+                  {' '}
                   데이터가 존재하지 않습니다.
                 </CTableDataCell>
               ) : (
@@ -236,12 +233,12 @@ function AdminList() {
                     </CTableDataCell>
                     <CTableDataCell className="text-center">
                       <Link to={`./admin/detail/${wine.id}`}>
-                        {wine.isImageRegistered === true ? "true" : "false"}
+                        {wine.isImageRegistered === true ? 'true' : 'false'}
                       </Link>
                     </CTableDataCell>
                     <CTableDataCell className="text-center">
                       <Link to={`./admin/detail/${wine.id}`}>
-                        {wine.isPublic === true ? "true" : "false"}
+                        {wine.isPublic === true ? 'true' : 'false'}
                       </Link>
                     </CTableDataCell>
                   </CTableRow>
@@ -254,8 +251,8 @@ function AdminList() {
             itemsCountPerPage={10}
             totalItemsCount={total}
             pageRangeDisplayed={10}
-            prevPageText={"‹"}
-            nextPageText={"›"}
+            prevPageText={'‹'}
+            nextPageText={'›'}
             onChange={handlePageChange}
           />
         </CCardBody>

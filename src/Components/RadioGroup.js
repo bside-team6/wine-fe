@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { CFormCheck } from "@coreui/react";
+import React from 'react';
+import styled from 'styled-components';
+import { CFormCheck } from '@coreui/react';
 
 function RadioGroup(props) {
-  if (props.type === "wineSteps") {
+  if (props.type === 'wineSteps') {
     return (
       <FormCheckGroup id={props.id} onChange={props.handleInput}>
         {props.data.map((key, index) => {
@@ -17,7 +17,7 @@ function RadioGroup(props) {
                 label={Object.values(key)}
                 type="radio"
                 name={props.name}
-                checked={props.checkedVal == Object.keys(key) && "checked"}
+                checked={props.checkedVal === Object.keys(key) && 'checked'}
                 required
               />
             );
@@ -52,7 +52,7 @@ function RadioGroup(props) {
                 label={Object.values(key)}
                 type="radio"
                 name={props.name}
-                checked={props.checkedVal == Object.keys(key) && "checked"}
+                checked={props.checkedVal === Object.keys(key) && 'checked'}
               />
             );
           } else {
