@@ -20,6 +20,9 @@ const GlobalStyle = createGlobalStyle`
   .notKor {
     font-family: 'Lato', sans-serif;
   }
+  .ReactQueryDevtools * {
+    color: white;
+  }
 `;
 
 export default GlobalStyle;

@@ -6,7 +6,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path="/admin" component={Routes.Admin} />
+        <Route path="/admin" component={Routes.Admin} />
       </Switch>
     </Router>
   );

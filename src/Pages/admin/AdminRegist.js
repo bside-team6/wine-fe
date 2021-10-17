@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import {
   CInputGroup,
@@ -9,18 +9,18 @@ import {
   CButton,
   CForm,
   CFormFeedback,
+  CSpinner,
 } from '@coreui/react';
 import RadioGroup from 'components/RadioGroup';
 import ToggleBtnGroup from 'components/ToggleBtnGroup';
 import MultiSelect from 'components/MutliSelect';
-import { BACKAPI } from 'helpers/config';
+import { useHistory } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { getFood, getWineRegions, getWineVarieties } from 'helpers/api';
 
-function AdminRegist(props) {
-  const pageType = props.match.url.split('/')[2];
-  const [foodsList, setfoodsList] = useState([{}]);
-  const [regionsList, setRegionsList] = useState([{}]);
-  const [varietyList, setVarietyList] = useState([{}]);
-  const [validated, setValidated] = useState(false);
+function AdminRegist() {
+  const history = useHistory();
+
   const [imgFile, setImgFile] = useState();
 
   const [wineData, setWineData] = useState({
@@ -48,7 +48,6 @@ function AdminRegist(props) {
     e.preventDefault();
     if (e.target.checkValidity()) {
       const formData = new FormData();
-
       formData.append('file', imgFile);
       formData.append(
         'wine_data',
@@ -57,16 +56,15 @@ function AdminRegist(props) {
         }),
       );
 
-      const response = await fetch(`${BACKAPI}/v1/wine`, {
+      await fetch(`/api/v1/wine`, {
         method: 'POST',
         body: formData,
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res);
           if (res.data) {
             alert('신규 와인 정상 등록되었습니다.');
-            props.history.push('/admin');
+            history.push('/admin');
           } else {
             alert('오류발생');
           }
@@ -83,6 +81,7 @@ function AdminRegist(props) {
       acc.push(cur.value);
       return acc;
     }, []);
+
     setWineData((prevState) => ({
       ...prevState,
       places: places,
@@ -101,105 +100,70 @@ function AdminRegist(props) {
       foods: checkedFoods,
     }));
   };
+
   const handleInputSteps = (e) => {
-    switch (e.target.name) {
-      case 'sweet':
-        setWineData((prevState) => ({ ...prevState, sweet: e.target.value }));
-      case 'body':
-        setWineData((prevState) => ({ ...prevState, body: e.target.value }));
-      case 'acidity':
-        setWineData((prevState) => ({ ...prevState, acidity: e.target.value }));
-      case 'tanin':
-        setWineData((prevState) => ({ ...prevState, tannin: e.target.value }));
-    }
+    setWineData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
     console.log('******:', e.target.value, e.target.name);
   };
+
   const handleInput = (e) => {
-    switch (e.target.id) {
-      case 'nameKr':
-        setWineData((prevState) => ({
-          ...prevState,
-          nameKr: e.target.value,
-        }));
-        break;
-      case 'nameEn':
-        setWineData((prevState) => ({
-          ...prevState,
-          nameEn: e.target.value,
-        }));
-        break;
-      case 'wineVarietyId':
-        setWineData((prevState) => ({
-          ...prevState,
-          wineVarietyId: e.target.value,
-        }));
-        break;
-      case 'wineType':
-        setWineData((prevState) => ({
-          ...prevState,
-          type: e.target.value,
-        }));
-        break;
-      case 'alchol':
-        setWineData((prevState) => ({
-          ...prevState,
-          alchol: e.target.value,
-        }));
-        break;
-      case 'priceKrw':
-        setWineData((prevState) => ({
-          ...prevState,
-          priceKrw: e.target.value,
-        }));
-        break;
-      case 'wineVarietyId':
-        setWineData((prevState) => ({
-          ...prevState,
-          wineVarietyId: e.target.value,
-        }));
-        break;
-      case 'wineRegionId':
-        setWineData((prevState) => ({
-          ...prevState,
-          wineRegionId: e.target.value,
-        }));
-        break;
-    }
+    setWineData((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
     console.log('wineData:', wineData);
   };
 
-  useEffect(() => {
-    fetch(`${BACKAPI}/v1/food`)
-      .then((res) => res.json())
-      .then((res) => {
-        setfoodsList(res.data);
-      });
-    fetch(`${BACKAPI}/v1/wine-regions`)
-      .then((res) => res.json())
-      .then((res) => {
-        setRegionsList(res.data);
-      });
+  const { data: foodsList, isLoading: isLoadingFoods } = useQuery(
+    'get-food',
+    getFood,
+    {
+      staleTime: Infinity,
+      select: (data) => data.data,
+    },
+  );
 
-    fetch(`${BACKAPI}/v1/wine-varieties`)
-      .then((res) => res.json())
-      .then((res) => {
-        setVarietyList(res.data);
-      });
-  }, []);
+  const { data: regionsList, isLoading: isLoadingRegion } = useQuery(
+    'get-wine-regions',
+    getWineRegions,
+    {
+      staleTime: Infinity,
+      select: (data) => data.data,
+    },
+  );
+
+  const { data: varietyList, isLoading: isLoadingVariety } = useQuery(
+    'get-wine-varieties',
+    getWineVarieties,
+    {
+      staleTime: Infinity,
+      select: (data) => data.data,
+    },
+  );
+
+  if (isLoadingFoods || isLoadingRegion || isLoadingVariety) {
+    return (
+      <div className="my-5 d-flex justify-content-center">
+        <CSpinner color="primary" />
+      </div>
+    );
+  }
 
   return (
     <div>
       <Header>Wineasy Admin-와인등록</Header>
-
       <Form className="inputContainer">
         <CForm
           className="row g-3 needs-validation"
           noValidate
-          validated={validated}
+          validated={false}
           onSubmit={handleSubmit}
         >
           <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
+            <CInputGroupText>
               <Required>*</Required>와인등록번호
             </CInputGroupText>
             <CFormInput
@@ -218,7 +182,7 @@ function AdminRegist(props) {
           </CInputGroup>
 
           <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
+            <CInputGroupText>
               <Required>*</Required>와인명(한글)
             </CInputGroupText>
             <CFormInput
@@ -230,7 +194,7 @@ function AdminRegist(props) {
           </CInputGroup>
 
           <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
+            <CInputGroupText>
               <Required>*</Required>와인명(영문)
             </CInputGroupText>
             <CFormInput
@@ -242,7 +206,7 @@ function AdminRegist(props) {
           </CInputGroup>
 
           <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon3">
+            <CInputGroupText>
               <Required>*</Required>종류
             </CInputGroupText>
 
@@ -259,59 +223,53 @@ function AdminRegist(props) {
           </CInputGroup>
 
           <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon1">
+            <CInputGroupText>
               <Required>*</Required>품종
             </CInputGroupText>
 
             <CFormSelect required onChange={handleInput} id="wineVarietyId">
-              {varietyList.map((key, index) => {
-                return (
-                  <option key={index} value={key.id}>
-                    {key.name}
-                  </option>
-                );
-              })}
+              {varietyList.map((key) => (
+                <option key={key.id} value={key.id}>
+                  {key.name}
+                </option>
+              ))}
             </CFormSelect>
             <CFormFeedback invalid>Please provide a valid city.</CFormFeedback>
           </CInputGroup>
 
           <CInputGroup className="mb-3">
-            <CInputGroupText id="basic-addon1">
+            <CInputGroupText>
               <Required>*</Required>생산지
             </CInputGroupText>
-
             <CFormSelect id="wineRegionId" onChange={handleInput}>
-              {regionsList.map((key, index) => {
-                return (
-                  <option key={index} value={key.id}>
-                    {key.nameKr}
-                  </option>
-                );
-              })}
+              {regionsList.map((region) => (
+                <option key={region.id} value={region.id}>
+                  {region.nameKr}
+                </option>
+              ))}
             </CFormSelect>
           </CInputGroup>
-          {detailType.map((key, index) => {
-            return (
-              <CInputGroup className="mb-3" key={index}>
-                <CInputGroupText>
-                  <Required>*</Required>
-                  {key.name}
-                </CInputGroupText>
-                <RadioGroup
-                  name={key.id}
-                  type="wineSteps"
-                  data={[
-                    { 1: '1단계' },
-                    { 2: '2단계' },
-                    { 3: '3단계' },
-                    { 4: '4단계' },
-                    { 5: '5단계' },
-                  ]}
-                  handleInput={handleInputSteps}
-                />
-              </CInputGroup>
-            );
-          })}
+
+          {detailType.map((key) => (
+            <CInputGroup className="mb-3" key={key.id}>
+              <CInputGroupText>
+                <Required>*</Required>
+                {key.name}
+              </CInputGroupText>
+              <RadioGroup
+                name={key.id}
+                type="wineSteps"
+                data={[
+                  { 1: '1단계' },
+                  { 2: '2단계' },
+                  { 3: '3단계' },
+                  { 4: '4단계' },
+                  { 5: '5단계' },
+                ]}
+                handleInput={handleInputSteps}
+              />
+            </CInputGroup>
+          ))}
 
           <CInputGroup className="mb-3">
             <CInputGroupText>알코올도수</CInputGroupText>
@@ -321,7 +279,7 @@ function AdminRegist(props) {
               onChange={handleInput}
               onKeyDown={(e) => e.key === 'e' && e.preventDefault()}
             />
-            <CInputGroupText id="basic-addon2">%</CInputGroupText>
+            <CInputGroupText>%</CInputGroupText>
           </CInputGroup>
 
           <CInputGroup className="mb-3">
@@ -355,7 +313,7 @@ function AdminRegist(props) {
             />
           </FormBtnsGroup>
           <CInputGroup>
-            <CInputGroupText id="basic-addon1">출몰매장</CInputGroupText>
+            <CInputGroupText>출몰매장</CInputGroupText>
             <MultiSelect handleInput={handleInputPlaces} />
           </CInputGroup>
 
@@ -385,6 +343,7 @@ const Header = styled.div`
   padding-top: 40px;
   font-size: 50px;
 `;
+
 const Form = styled.div`
   display: flex;
   align-items: center;
@@ -405,39 +364,6 @@ const FormSwitch = styled.div`
   padding: 0px 10px;
 `;
 
-const FormCheckGroup = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0px 10px;
-  div {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  input {
-    display: flex;
-    margin: 0px 5px;
-  }
-`;
-
 const FormBtnsGroup = styled.div`
   display: flex;
-`;
-const FormBtnGroup = styled.div`
-  button {
-    margin: 5px 0 5px 10px;
-    justify-content: space-between;
-  }
-`;
-const EditBtnGroup = styled.div`
-  display: flex;
-  width: 100%;
-  margin: 10px 0px;
-  align-items: center;
-  justify-content: space-between;
-  div button {
-    display: none;
-    margin: 0px 10px;
-  }
 `;

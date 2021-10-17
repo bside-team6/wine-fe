@@ -1,78 +1,53 @@
 import React from 'react';
-import styled from 'styled-components';
 import { CFormCheck } from '@coreui/react';
+import styled from 'styled-components';
 
-function RadioGroup(props) {
-  if (props.type === 'wineSteps') {
+function RadioGroup({ type, id, handleInput, data, checkedVal, name }) {
+  if (type === 'wineSteps') {
     return (
-      <FormCheckGroup id={props.id} onChange={props.handleInput}>
-        {props.data.map((key, index) => {
-          if (props.checkedVal) {
-            return (
-              <CFormCheck
-                inline
-                key={index}
-                id={props.name + index}
-                value={Object.keys(key)}
-                label={Object.values(key)}
-                type="radio"
-                name={props.name}
-                checked={props.checkedVal === Object.keys(key) && 'checked'}
-                required
-              />
-            );
-          } else {
-            return (
-              <CFormCheck
-                inline
-                key={index}
-                id={props.name + index}
-                value={Object.keys(key)}
-                label={Object.values(key)}
-                type="radio"
-                name={props.name}
-                required
-              />
-            );
-          }
-        })}
-      </FormCheckGroup>
-    );
-  } else {
-    return (
-      <FormCheckGroup id="wineType" onChange={props.handleInput}>
-        {props.data.map((key, index) => {
-          if (props.checkedVal) {
-            return (
-              <CFormCheck
-                inline
-                key={index}
-                id={props.name + index}
-                value={Object.keys(key)}
-                label={Object.values(key)}
-                type="radio"
-                name={props.name}
-                checked={props.checkedVal === Object.keys(key) && 'checked'}
-              />
-            );
-          } else {
-            return (
-              <CFormCheck
-                inline
-                key={index}
-                id={props.name + index}
-                value={Object.keys(key)}
-                label={Object.values(key)}
-                type="radio"
-                name={props.name}
-                required
-              />
-            );
-          }
-        })}
+      <FormCheckGroup id={id} onChange={handleInput}>
+        {data.map((key, index) => (
+          <CFormCheck
+            inline
+            key={index}
+            id={name + index}
+            value={Object.keys(key)}
+            label={Object.values(key)}
+            type="radio"
+            name={name}
+            checked={
+              checkedVal
+                ? checkedVal === Object.keys(key) && 'checked'
+                : undefined
+            }
+            required
+          />
+        ))}
       </FormCheckGroup>
     );
   }
+
+  return (
+    <FormCheckGroup id="wineType" onChange={handleInput}>
+      {data.map((key, index) => (
+        <CFormCheck
+          inline
+          key={index}
+          id={name + index}
+          value={Object.keys(key)}
+          label={Object.values(key)}
+          type="radio"
+          name={name}
+          checked={
+            checkedVal
+              ? checkedVal === Object.keys(key) && 'checked'
+              : undefined
+          }
+          required={!checkedVal}
+        />
+      ))}
+    </FormCheckGroup>
+  );
 }
 
 export default RadioGroup;

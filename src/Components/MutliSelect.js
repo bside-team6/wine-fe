@@ -9,16 +9,11 @@ const aquaticCreatures = [
   { label: '트레이더스', value: '트레이더스' },
 ];
 
-function MultiSelect(props) {
+function MultiSelect({ handleInput }) {
+  // FIXME: className이 App?
   return (
     <div className="App">
-      <Creatable
-        options={aquaticCreatures}
-        isMulti
-        onChange={(opt) => {
-          props.handleInput(opt);
-        }}
-      />
+      <Creatable options={aquaticCreatures} isMulti onChange={handleInput} />
     </div>
   );
 }
