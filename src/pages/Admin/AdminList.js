@@ -20,7 +20,7 @@ import {
 import Pagination from 'react-js-pagination';
 import { Link } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getAllWines } from 'helpers/api';
+import { getAllWines } from 'api/admin';
 
 const style = {
   marginTop: '10px',
