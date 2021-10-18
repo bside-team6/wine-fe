@@ -13,7 +13,7 @@ import styled from 'styled-components';
 import RadioGroup from 'components/RadioGroup';
 import { useHistory, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getWine } from 'helpers/api';
+import { getWine } from 'api/admin';
 
 function AdminDetail() {
   const history = useHistory();

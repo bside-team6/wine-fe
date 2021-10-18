@@ -16,7 +16,7 @@ import ToggleBtnGroup from 'components/ToggleBtnGroup';
 import MultiSelect from 'components/MutliSelect';
 import { useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getFood, getWineRegions, getWineVarieties } from 'helpers/api';
+import { getFood, getWineRegions, getWineVarieties } from 'api/admin';
 
 function AdminRegist() {
   const history = useHistory();
