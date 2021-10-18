@@ -4,7 +4,7 @@ import WineNote from './WineNote';
 import WineNoteDetail from './WineNoteDetail';
 
 const WindNote = () => {
-  // TODO: 작성, 수정 라우트 추가
+  // TODO: 와인노트작성, 와인노트수정 라우트 추가
   return (
     <Switch>
       <Route exact path="/wine-note">
