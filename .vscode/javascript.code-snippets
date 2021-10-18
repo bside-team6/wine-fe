@@ -1,0 +1,50 @@
+{
+  "Use State": {
+    "prefix": "usst",
+    "body": ["const [$1, $2] = useState$3($4);"]
+  },
+  "Use Effect": {
+    "prefix": "usef",
+    "body": ["useEffect$1(() => {", "\t$2", "}, [$3]);"]
+  },
+  "Use Callback": {
+    "prefix": "uscb",
+    "body": ["const $1 = useCallback$2(() => {", "\t$3", "}, [$4]);"]
+  },
+  "Use Memo": {
+    "prefix": "usmm",
+    "body": ["const $1 = useMemo$2(() => {", "\t$3", "}, [$4]);"]
+  },
+  "Use Ref": {
+    "prefix": "usrf",
+    "body": ["const $1 = useRef$2<$3>(null);"]
+  },
+  "Use Recoil State": {
+    "prefix": "usrs",
+    "body": ["const [$1, $2] = useRecoilState($3);"]
+  },
+  "Use Recoil Value": {
+    "prefix": "usrv",
+    "body": ["const $1 = useRecoilValue($2);"]
+  },
+  "Use Set Recoil State": {
+    "prefix": "ussrs",
+    "body": ["const $1 = useSetRecoilState($2);"]
+  },
+  "functional component template": {
+    "prefix": "fct",
+    "body": [
+      "import React from 'react';",
+      "",
+      "const ${1:${TM_FILENAME_BASE}} = () => {",
+      "  return <>$3</>;",
+      "};",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}};"
+    ]
+  },
+  "test block": {
+    "prefix": "itt",
+    "body": ["it(\"$1\", () => {", "\t$2", "});"]
+  }
+}

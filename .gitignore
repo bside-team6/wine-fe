@@ -22,5 +22,5 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# vscode settings
-.vscode
+# vscode workspace settings
+.vscode/settings.json

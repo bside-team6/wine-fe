@@ -1,7 +1,7 @@
-import { createGlobalStyle } from 'styled-components';
+import * as styled from 'styled-components';
 import reset from 'styled-reset';
 
-const GlobalStyle = createGlobalStyle`
+const GlobalStyle = styled.createGlobalStyle`
   ${reset}
   body {
     font-family: 'Noto Sans KR', sans-serif;
