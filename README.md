@@ -6,6 +6,8 @@
 - Create React App
 - ESLint
 - Prettier
+- Recoil
+- React Query
 
 ## Getting Started
 
