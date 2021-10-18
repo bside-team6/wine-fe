@@ -2,7 +2,8 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import logo from 'assets/logo.png';
-import user from 'assets/user.png';
+import user from 'assets/user.svg';
+import bookmark from 'assets/bookmark.svg';
 
 const Header = () => {
   // TODO: search form 추가
@@ -16,7 +17,7 @@ const Header = () => {
         <NavLink exact to="/">
           홈
         </NavLink>
-        <NavLink to="/wine">와인</NavLink>
+        <NavLink to="/wine-list">와인리스트</NavLink>
         <NavLink to="/wine-note">와인노트</NavLink>
         <NavLink to="/wine-check">와인이 어렵다면?</NavLink>
       </Nav>
@@ -25,7 +26,9 @@ const Header = () => {
         <NavLink to="/">
           <img src={user} alt="user icon" />
         </NavLink>
-        <NavLink to="/">북마크</NavLink>
+        <NavLink to="/">
+          <img src={bookmark} alt="bookmark icon" />
+        </NavLink>
       </UserLinkGroup>
     </HeaderContainer>
   );
@@ -78,8 +81,8 @@ const UserLinkGroup = styled.div`
       margin-right: 0;
     }
     img {
-      width: 32px;
-      height: 32px;
+      width: 24px;
+      height: 24px;
     }
   }
 `;
