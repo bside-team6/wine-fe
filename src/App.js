@@ -14,6 +14,9 @@ function App() {
           <Route path="/admin">
             <Routes.Admin />
           </Route>
+          <Route path="/wine-note">
+            <Routes.WineNote />
+          </Route>
         </Switch>
       </Layout>
     </Router>
