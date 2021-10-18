@@ -5,6 +5,8 @@ import logo from 'assets/logo.png';
 import user from 'assets/user.png';
 
 const Header = () => {
+  // TODO: search form 추가
+  // TODO: auth 상태에 따라 분기 추가
   return (
     <HeaderContainer>
       <Logo>
