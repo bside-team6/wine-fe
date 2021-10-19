@@ -1,7 +1,11 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { useQuery } from 'react-query';
+import { getWineNote } from 'api/wine-note';
+import { formatDate } from 'helpers/utils';
 import Chip from 'components/common/Chip';
 import Divider from 'components/common/Divider';
+import Spinner from 'components/common/Spinner';
 import sprites from 'assets/sprites-24.png';
 
 const Timeline = () => {
@@ -15,7 +19,15 @@ const Timeline = () => {
 
 export default Timeline;
 
+const queryKey = 'wine-note';
+
 const TimelineHeader = () => {
+  // TODO: 쿼리 페이징 확인
+  const { data, isLoading } = useQuery(queryKey, getWineNote, {
+    enabled: false,
+  });
+
+  // TODO: sort 기능 추가
   return (
     <div
       css={css`
@@ -30,7 +42,7 @@ const TimelineHeader = () => {
           font-weight: 700;
         `}
       >
-        총 80건
+        총 {isLoading ? '...' : data?.totalElements}건
       </div>
       <div
         css={css`
@@ -57,16 +69,36 @@ const TimelineHeader = () => {
 };
 
 const TimelineList = () => {
+  const { data, isLoading } = useQuery(queryKey, getWineNote, {
+    staleTime: 1000 * 60 * 5, // 5min
+  });
+
+  if (isLoading) {
+    return <Spinner />;
+  }
+
+  // TODO: 노트가 0개인 경우 디자인 추가
+  const listData = data.wineNoteTimeLineResultList;
   return (
     <div>
-      <TimelineItem />
-      <TimelineItem />
-      <TimelineItem />
+      {listData.map((item) => (
+        <TimelineItem key={item.id} {...item} />
+      ))}
     </div>
   );
 };
 
-const TimelineItem = () => {
+const TimelineItem = ({
+  descript,
+  wineName,
+  wineType,
+  wineasyUserNickName,
+  regDate,
+  viewCount,
+  wineNoteLikeCount,
+  wineNoteWineImagePath,
+}) => {
+  const imageUrl = wineNoteWineImagePath || 'https://via.placeholder.com/160';
   return (
     <div
       css={css`
@@ -90,12 +122,13 @@ const TimelineItem = () => {
           margin-right: 32px;
         `}
       >
-        <img
-          src="https://via.placeholder.com/160"
-          alt="thumb"
+        <div
           css={css`
             width: 160px;
             height: 160px;
+            background-image: url(${imageUrl});
+            background-size: cover;
+            background-repeat: no-repeat;
           `}
         />
         <button
@@ -133,7 +166,7 @@ const TimelineItem = () => {
             margin-bottom: 11px;
           `}
         >
-          <Chip color="red" label="RED" />
+          <Chip color="red" label={wineType} />
           <div
             css={css`
               font-size: 14px;
@@ -142,7 +175,7 @@ const TimelineItem = () => {
               margin-left: 8px;
             `}
           >
-            장 로롱, 꼬또 뒤 리오네
+            {wineName}
           </div>
         </div>
         <h3
@@ -151,7 +184,7 @@ const TimelineItem = () => {
             margin-bottom: auto;
           `}
         >
-          와인 초보의 첫 와인
+          {descript}
         </h3>
         <div
           css={(theme) => css`
@@ -162,11 +195,11 @@ const TimelineItem = () => {
             font-size: 12px;
           `}
         >
-          <span>Oct 1. 2021</span>
+          <span>{formatDate(regDate)}</span>
           <Divider />
-          <span>조회 82</span>
+          <span>조회 {viewCount}</span>
           <Divider />
-          <span>좋아요 5</span>
+          <span>좋아요 {wineNoteLikeCount}</span>
         </div>
         <div
           css={(theme) => css`
@@ -174,7 +207,7 @@ const TimelineItem = () => {
             color: #424242;
           `}
         >
-          by. Wineasy
+          by. {wineasyUserNickName}
         </div>
       </div>
     </div>

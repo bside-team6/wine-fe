@@ -1,8 +1,21 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { useQuery } from 'react-query';
+import { getWineNotePopular } from 'api/wine-note';
+import { formatDate } from 'helpers/utils';
 import Divider from 'components/common/Divider';
+import Spinner from 'components/common/Spinner';
 
 const PopularNote = () => {
+  const { data, isLoading } = useQuery(
+    'wine-note-popular',
+    getWineNotePopular,
+    {
+      staleTime: 1000 * 60 * 5, // 5min
+    },
+  );
+
+  // TODO: 노트가 0개인 경우 디자인 추가
   return (
     <div
       css={css`
@@ -26,18 +39,36 @@ const PopularNote = () => {
       >
         이달의 인기 노트
       </h2>
-      <ul>
-        <PopularNoteItem />
-        <PopularNoteItem />
-        <PopularNoteItem />
-      </ul>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <ul>
+          {data.map(
+            ({
+              id,
+              descript,
+              wineasyUserNickName,
+              regDate,
+              wineNoteWineImages,
+            }) => (
+              <PopularNoteItem
+                key={id}
+                description={descript}
+                userName={wineasyUserNickName}
+                date={regDate}
+                imageUrl={wineNoteWineImages[0]?.imagePath}
+              />
+            ),
+          )}
+        </ul>
+      )}
     </div>
   );
 };
 
 export default PopularNote;
 
-const PopularNoteItem = () => {
+const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
   return (
     <li
       css={css`
@@ -58,7 +89,7 @@ const PopularNoteItem = () => {
         `}
       >
         <img
-          src="https://via.placeholder.com/48"
+          src={imageUrl || 'https://via.placeholder.com/48'}
           alt="thumb"
           css={css`
             width: 48px;
@@ -82,7 +113,7 @@ const PopularNoteItem = () => {
             text-overflow: ellipsis;
           `}
         >
-          와인 초보의 첫 와인
+          {description}
         </h3>
         <div
           css={css`
@@ -96,7 +127,7 @@ const PopularNoteItem = () => {
               color: #424242;
             `}
           >
-            by. Wineasy
+            by. {userName}
           </span>
           <Divider />
           <span
@@ -106,7 +137,7 @@ const PopularNoteItem = () => {
               font-size: 12px;
             `}
           >
-            Oct 1. 2021
+            {formatDate(date)}
           </span>
         </div>
       </div>

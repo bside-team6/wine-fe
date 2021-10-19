@@ -30,16 +30,14 @@ const WineNoteMainHeader = () => {
           align-items: center;
         `}
       >
-        <div>
-          <RoundButton
-            css={css`
-              margin-right: 8px;
-            `}
-          >
-            전체 노트
-          </RoundButton>
-          <RoundButton color="secondary">나의 노트</RoundButton>
-        </div>
+        <RoundButton
+          css={css`
+            margin-right: 8px;
+          `}
+        >
+          전체 노트
+        </RoundButton>
+        <RoundButton color="secondary">나의 노트</RoundButton>
       </div>
     </div>
   );
