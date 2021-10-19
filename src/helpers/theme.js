@@ -3,7 +3,15 @@ import reset from 'emotion-reset';
 
 export const theme = {
   colors: {
-    primary: '#7430E4',
+    purple: '#7430e4',
+    border: '#dfdfdf',
+    black02: '#424242',
+    black04: '#757575',
+    black06: '#a8a8a8',
+    black08: '#dfdfdf',
+  },
+  typography: {
+    lato: "'Lato', 'Noto Sans KR', sans-serif",
   },
   // primePurple: '#7430E4',
   // darkPurple: '#520BC6',
@@ -30,6 +38,8 @@ const globalStyle = css`
   body {
     font-family: 'Noto Sans KR', sans-serif;
     font-size: 14px;
+    color: #000000;
+    line-height: 1.5;
   }
   * {
     box-sizing: border-box;
@@ -38,8 +48,9 @@ const globalStyle = css`
     text-decoration: none;
     color: inherit;
   }
-  li {
-    cursor: pointer;
+  img {
+    max-width: 100%;
+    vertical-align: middle;
   }
   .notKor {
     font-family: 'Lato', sans-serif;
