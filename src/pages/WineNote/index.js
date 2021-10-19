@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import WineNote from './WineNote';
+import WineNoteMain from './WineNoteMain';
 import WineNoteDetail from './WineNoteDetail';
 
 const WindNote = () => {
@@ -8,7 +8,7 @@ const WindNote = () => {
   return (
     <Switch>
       <Route exact path="/wine-note">
-        <WineNote />
+        <WineNoteMain />
       </Route>
       <Route path="/wine-note/:wineNoteId">
         <WineNoteDetail />
