@@ -1,88 +1,94 @@
 import React from 'react';
-import styled from '@emotion/styled';
 import { NavLink } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { spritesStyle, alignCenter } from 'styles/common';
 import logo from 'assets/logo.png';
-import user from 'assets/user.svg';
-import bookmark from 'assets/bookmark.svg';
 
 const Header = () => {
   // TODO: search form 추가
   // TODO: auth 상태에 따라 분기 추가
   return (
-    <HeaderContainer>
-      <Logo>
-        <img src={logo} alt="logo" />
-      </Logo>
-      <Nav>
+    <div
+      css={(theme) => css`
+        ${alignCenter}
+        justify-content: center;
+        height: 80px;
+        border-bottom: 1px solid ${theme.colors.black08};
+      `}
+    >
+      <div
+        css={css`
+          margin-right: 42px;
+        `}
+      >
+        <img
+          src={logo}
+          alt="logo"
+          css={css`
+            width: 110px;
+            height: 34px;
+          `}
+        />
+      </div>
+      <div
+        css={(theme) => css`
+          ${alignCenter}
+          a {
+            padding: 5px 30px;
+            font-size: 16px;
+            font-weight: 700;
+            line-height: 24px;
+            color: ${theme.colors.black06};
+            &.active {
+              color: ${theme.colors.black02};
+            }
+            &:last-child {
+              padding: 5px 16px;
+            }
+          }
+        `}
+      >
         <NavLink exact to="/">
           홈
         </NavLink>
         <NavLink to="/wine-list">와인리스트</NavLink>
         <NavLink to="/wine-note">와인노트</NavLink>
         <NavLink to="/wine-check">와인이 어렵다면?</NavLink>
-      </Nav>
-      <UserLinkGroup>
+      </div>
+      <div
+        css={css`
+          margin-left: 460px;
+          ${alignCenter}
+          a {
+            margin-right: 32px;
+            &::last-child {
+              margin-right: 0;
+            }
+          }
+        `}
+      >
         <NavLink to="/">카카오로 로그인</NavLink>
         <NavLink to="/">
-          <img src={user} alt="user icon" />
+          <span
+            css={css`
+              ${spritesStyle}
+              display: block;
+              background-position: -68px 0px;
+            `}
+          />
         </NavLink>
         <NavLink to="/">
-          <img src={bookmark} alt="bookmark icon" />
+          <span
+            css={css`
+              ${spritesStyle}
+              display: block;
+              background-position: -272px 0px;
+            `}
+          />
         </NavLink>
-      </UserLinkGroup>
-    </HeaderContainer>
+      </div>
+    </div>
   );
 };
 
 export default Header;
-
-const HeaderContainer = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 80px;
-  border-bottom: 1px solid #dfdfdf;
-`;
-
-const Logo = styled.div`
-  margin-right: 42px;
-  img {
-    width: 110px;
-    height: 34px;
-    vertical-align: middle;
-  }
-`;
-
-const Nav = styled.div`
-  display: flex;
-  align-items: center;
-  a {
-    padding: 5px 30px;
-    font-size: 16px;
-    font-weight: 700;
-    line-height: 24px;
-    color: #ababab;
-    &.active {
-      color: #424242;
-    }
-    &:last-child {
-      padding: 5px 16px;
-    }
-  }
-`;
-
-const UserLinkGroup = styled.div`
-  margin-left: 460px;
-  display: flex;
-  align-items: center;
-  a {
-    margin-right: 32px;
-    &::last-child {
-      margin-right: 0;
-    }
-    img {
-      width: 24px;
-      height: 24px;
-    }
-  }
-`;
