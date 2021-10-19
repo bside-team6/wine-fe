@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from '@emotion/styled';
+import { css } from '@emotion/react';
 import Header from './Header';
 import Footer from './Footer';
 
@@ -7,14 +7,16 @@ const Layout = ({ children }) => {
   return (
     <>
       <Header />
-      <Content>{children}</Content>
+      <div
+        css={css`
+          min-height: 200px;
+        `}
+      >
+        {children}
+      </div>
       <Footer />
     </>
   );
 };
 
 export default Layout;
-
-const Content = styled.div`
-  min-height: 200px;
-`;

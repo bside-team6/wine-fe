@@ -1,6 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import sprites from 'assets/sprites-24.png';
+import { spritesStyle } from 'styles/common';
 
 const dropdownStyle = css`
   padding-right: 40px;
@@ -9,13 +9,8 @@ const dropdownStyle = css`
     top: 6px;
     right: 14px;
     content: ' ';
-    width: 24px;
-    height: 24px;
-    background-color: transparent;
-    background-image: url('${sprites}');
-    background-repeat: no-repeat;
+    ${spritesStyle}
     background-position: -436px 0px;
-    background-size: 658px 24px;
     translate: transform 200ms;
   }
 `;

@@ -3,10 +3,10 @@ import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
 import { getWineNote } from 'api/wine-note';
 import { formatDate } from 'helpers/utils';
+import { spritesStyle } from 'styles/common';
 import Chip from 'components/common/Chip';
 import Divider from 'components/common/Divider';
 import Spinner from 'components/common/Spinner';
-import sprites from 'assets/sprites-24.png';
 
 const Timeline = () => {
   return (
@@ -52,13 +52,8 @@ const TimelineHeader = () => {
             position: absolute;
             top: 0px;
             content: ' ';
-            width: 24px;
-            height: 24px;
-            background-color: transparent;
-            background-image: url('${sprites}');
-            background-repeat: no-repeat;
+            ${spritesStyle}
             background-position: -436px 0px;
-            background-size: 658px 24px;
           }
         `}
       >
@@ -139,13 +134,11 @@ const TimelineItem = ({
             right: 12px;
             z-index: 1;
             background-color: rgba(0, 0, 0, 0.3);
-            width: 32px;
-            height: 32px;
             border-radius: 50%;
             border: 0;
-            background-image: url('${sprites}');
-            background-repeat: no-repeat;
-            background-size: 658px 24px;
+            ${spritesStyle}
+            width: 32px;
+            height: 32px;
             background-position: -132px 4px; // filled: -166px
           `}
         />
