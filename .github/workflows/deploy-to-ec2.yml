@@ -7,8 +7,6 @@ on:
       - '**/README.md'
       - '**/.prettierrc'
       - '**/.gitignore'
-  pull_request:
-    branches: [master]
 
 jobs:
   build-and-deploy:
