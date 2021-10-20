@@ -1,0 +1,32 @@
+name: Deploy to Amazon EC2
+
+on:
+  push:
+    branches: [master]
+    paths-ignore:
+      - '**/README.md'
+      - '**/.prettierrc'
+      - '**/.gitignore'
+  pull_request:
+    branches: [master]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Executing Remote SSH Commands Using Password
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.USERNAME }}
+          key: ${{ secrets.SSH_TEAM6_DEPLOY_KEY }}
+          port: ${{ secrets.PORT }}
+          script: |
+            cd ~
+            rm -rf beside-front-end
+            git clone https://github.com/bside-team6/beside-front-end.git
+            cd beside-front-end
+            npm install
+            npm run build
+            pm2 reload server
