@@ -67,8 +67,8 @@ const Header = () => {
           }
         `}
       >
-        <NavLink to="/">카카오로 로그인</NavLink>
-        <NavLink to="/">
+        <NavLink to="/login">카카오로 로그인</NavLink>
+        <NavLink to="/signup">
           <span
             css={css`
               ${spritesStyle}
