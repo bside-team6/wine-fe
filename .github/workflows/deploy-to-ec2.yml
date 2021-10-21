@@ -39,7 +39,7 @@ jobs:
           npm run build
 
       - name: Create Zip
-        run: zip -qq -r ./build.zip ./build
+        run: zip -qq -r ./build.zip ./build server.js appspec.yml deploy.sh
         shell: bash
 
       - name: Configure AWS credentials
@@ -56,7 +56,7 @@ jobs:
         run: |
           aws s3 cp --region ap-northeast-2 ./build.zip s3://codepipeline-ap-northeast-2-299742750115/gh-fe/build.zip
 
-      - name: AWSDeploy
+      - name: AWS Deploy
         run: aws deploy create-deployment
           --application-name wine-fe-deploy
           --deployment-config-name CodeDeployDefault.AllAtOnce

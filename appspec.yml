@@ -13,6 +13,5 @@ permissions:
     mode: 755
 
 hooks:
-  AfterInstall:
-    - location: pm2 reload server
-      timeout: 60
+  ApplicationStart:
+    - location: deploy.sh

@@ -58,7 +58,7 @@ function Login() {
         <br />
         카카오로 간편하고 빠르게 로그인 하세요
       </div>
-    
+
       <div
        css={(theme) => css`
           height: 60px;
