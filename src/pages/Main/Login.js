@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { useHistory } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { spritesStyle, alignCenter } from 'styles/common';
 import { KAKAO_AUTH_URL } from 'helpers/oauth';
+import kakaoLoginImg from 'assets/kakao_login_large_wide.png';
 
 const style = {
   marginTop: '10px',
@@ -18,33 +20,61 @@ const styleInfo = {
 };
 
 function Login() {
-  const history = useHistory();
-
-  const handleLogin = async () => {
-    await fetch(`${KAKAO_AUTH_URL}`)
-      .then((res) => res.json())
-      .then((res) => {
-        if (!res.result) alert(res.message);
-        else {
-          //결과가 에러일때 뒤로가기 말고 다른 처리 필요
-          history.push('/kakaoCallback');
-        }
-      });
-  };
-
+  console.log("ddddd : " , `${KAKAO_AUTH_URL}`);
   return (
     //현재 그려지는 화면이 없음
-    <div>
-      <Header>Wineasy</Header>
-      <h1 className={style}>로그인</h1>
-      <h2 className={styleInfo}>
-        아이디, 비밀번호 입력하기 귀찮으시죠?
+    <div >
+      <div
+        css={(theme) => css`
+            font-family: Noto Sans KR;
+            font-size: 32px;
+            font-style: normal;
+            font-weight: 700;
+            line-height: 46px;
+            letter-spacing: 0em;
+            text-align: center;
+            display: block;
+            margin: 0px auto;
+            height: 46px;
+            width: 89px;
+            left: 916px;
+            top: 241px;
+            border-radius: 0;
+            margin-bottom: 0;
+        `}
+      > 로그인</div>
+      <div
+        css={(theme) => css`
+            font-family: Noto Sans KR;
+            font-size: 18px;
+            font-style: normal;
+            font-weight: 400;
+            line-height: 26px;
+            letter-spacing: 0em;
+            text-align: center;
+            margin-top: 52px;
+        `}
+      >아이디, 비밀번호 입력하기 귀찮으시죠?
         <br />
         카카오로 간편하고 빠르게 로그인 하세요
-      </h2>
-      <button style={style} onClick={handleLogin}>
-        카카오로 시작하기
-      </button>
+      </div>
+    
+      <div
+       css={(theme) => css`
+          height: 60px;
+          width: 432px;
+          left: 744px;
+          top: 415px;
+          display: block;
+          margin: 0px auto;
+          margin-top: 24px;
+      `}>
+      <img
+        src={kakaoLoginImg}
+        alt="kakaoLoginImg"
+        onClick={() => window.open(`${KAKAO_AUTH_URL}`)}
+      />
+      </div>
     </div>
   );
 }
