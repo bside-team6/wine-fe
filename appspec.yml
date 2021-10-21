@@ -20,3 +20,4 @@ hooks:
   ApplicationStart:
     - location: scripts/reload_server.sh
       timeout: 300
+      runas: ec2-user
