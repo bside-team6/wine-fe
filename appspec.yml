@@ -4,7 +4,6 @@ os: linux
 files:
   - source: /
     destination: /home/ec2-user/deploy-fe
-    overwrite: yes
 
 permissions:
   - object: /home/ec2-user/deploy-fe
@@ -13,10 +12,17 @@ permissions:
     mode: 755
 
 hooks:
-  AfterInstall:
-    - location: scripts/change_permission.sh
+  BeforeInstall:
+    - location: scripts/remove_deploy_dir.sh
       timeout: 300
       runas: root
+  AfterInstall:
+    # - location: scripts/change_permission.sh
+    #   timeout: 300
+    #   runas: root
+    - location: scripts/install_node_modules.sh
+      timeout: 300
+      runas: ec2-user
   ApplicationStart:
     - location: scripts/reload_server.sh
       timeout: 300

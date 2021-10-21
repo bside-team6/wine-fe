@@ -6,7 +6,7 @@ const port = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const staticDir = path.resolve(__dirname, 'build');
+const staticDir = path.resolve(__dirname, '../build');
 const indexFile = path.resolve(staticDir, 'index.html');
 app.use(express.static(staticDir));
 
