@@ -1,8 +1,5 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { kakaoSignUp } from 'api/main';
 
 const style = {
   width: '89px',
@@ -35,8 +32,7 @@ function kakaoCallback() {
         카카오로 간편하고 빠르게 로그인 하세요.
       </h2>
       <button style={style} onClick={kakaoCallback}>
-        {' '}
-        카카오로 시작하기{' '}
+        카카오로 시작하기
       </button>
     </div>
   );

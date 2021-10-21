@@ -1,8 +1,8 @@
-import React, { useState, Button } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
-import { Link, useHistory, useParams } from 'react-router-dom';
-import { useQuery } from 'react-query';
-import { kakaoSignUp } from 'api/main';
+// import { useParams } from 'react-router-dom';
+// import { useQuery } from 'react-query';
+// import { kakaoSignUp } from 'api/main';
 
 const style = {
   width: '89px',
@@ -11,19 +11,19 @@ const style = {
   top: '241px',
 };
 
-const styleInfo = {
-  width: '304px',
-  height: '52px',
-  left: '804px',
-  top: '339px',
-};
+// const styleInfo = {
+//   width: '304px',
+//   height: '52px',
+//   left: '804px',
+//   top: '339px',
+// };
 
 function KakaoCallback() {
-  const { code } = useParams();
+  // const { code } = useParams();
 
-  const { data, isLoading } = useQuery(['kakao-signUp', code], () =>
-    kakaoSignUp(code),
-  );
+  // const { data, isLoading } = useQuery(['kakao-signUp', code], () =>
+  //   kakaoSignUp(code),
+  // );
 
   return (
     //따로 화면이 아닌데...??
