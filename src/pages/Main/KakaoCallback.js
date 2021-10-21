@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
-import styled from '@emotion/styled';
-import { useQuery } from 'react-query';
+// import styled from '@emotion/styled';
+// import { useQuery } from 'react-query';
 import { css } from '@emotion/react';
-import { kakaoSignUp } from 'api/main';
+// import { kakaoSignUp } from 'api/main';
 
-const style = {
-  width: '89px',
-  height: '46px',
-  left: '916px',
-  top: '241px',
-};
+// const style = {
+//   width: '89px',
+//   height: '46px',
+//   left: '916px',
+//   top: '241px',
+// };
 
 // const styleInfo = {
 //   width: '304px',
@@ -30,11 +30,11 @@ function KakaoCallback() {
   console.log('code : ', code);
   //TO-DO: 가입 링크 404 해결
   //TO-DO: 닉네임 다음에,확인 시 동작 확인
-  const { data } = useQuery(
-    ['kakao-signUp', code],
-    () => kakaoSignUp(code),
-    {},
-  );
+  // const { data } = useQuery(
+  //   ['kakao-signUp', code],
+  //   () => kakaoSignUp(code),
+  //   {},
+  // );
 
   const handleInput = (e) => {
     //닉네임 입력감 세팅
@@ -165,11 +165,11 @@ function KakaoCallback() {
 
 export default KakaoCallback;
 
-const Header = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding-top: 40px;
-  font-size: 50px;
-`;
+// const Header = styled.div`
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   flex-direction: column;
+//   padding-top: 40px;
+//   font-size: 50px;
+// `;
