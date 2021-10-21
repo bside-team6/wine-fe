@@ -1,5 +1,6 @@
 {
-  "name": "beside-wine-frontend",
+  "name": "wine-fe",
+  "description": "디오니소스 FE",
   "version": "0.1.0",
   "private": true,
   "scripts": {
