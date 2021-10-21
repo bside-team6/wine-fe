@@ -12,19 +12,53 @@ jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [14.x]
+
     steps:
-      - name: Executing Remote SSH Commands Using Password
-        uses: appleboy/ssh-action@master
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2
         with:
-          host: ${{ secrets.HOST }}
-          username: ${{ secrets.USERNAME }}
-          key: ${{ secrets.SSH_TEAM6_DEPLOY_KEY }}
-          port: ${{ secrets.PORT }}
-          script: |
-            cd ~
-            rm -rf beside-front-end
-            git clone https://github.com/bside-team6/beside-front-end.git
-            cd beside-front-end
-            npm install
-            npm run build
-            pm2 reload server
+          node-version: ${{ matrix.node-version }}
+
+      - name: Cache npm
+        uses: actions/cache@v2
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run build
+
+      - name: Create Zip
+        run: zip -qq -r ./build.zip ./build
+        shell: bash
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-northeast-2
+
+      - name: Upload to S3
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 cp --region ap-northeast-2 ./build-fe.zip s3://codepipeline-ap-northeast-2-299742750115/gh-fe/build.zip
+
+      - name: AWSDeploy
+        run: aws deploy create-deployment
+          --application-name wine-fe-deploy
+          --deployment-config-name CodeDeployDefault.AllAtOnce
+          --deployment-group-name wine-fe-deploy-group
+          --s3-location bucket=codepipeline-ap-northeast-2-299742750115,key=gh-fe/build.zip,bundleType=zip
