@@ -8,14 +8,14 @@ function App() {
     <Router>
       <Layout>
         <Switch>
-          <Route exact path="/">
-            <Routes.Home />
-          </Route>
           <Route path="/admin">
             <Routes.Admin />
           </Route>
           <Route path="/wine-note">
             <Routes.WineNote />
+          </Route>
+          <Route path="/">
+            <Routes.Main />
           </Route>
         </Switch>
       </Layout>
