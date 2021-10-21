@@ -39,7 +39,7 @@ jobs:
           npm run build
 
       - name: Create Zip
-        run: zip -qq -r ./build.zip ./build server.js appspec.yml
+        run: zip -qq -r ./build.zip ./build server.js appspec.yml deploy.sh
         shell: bash
 
       - name: Configure AWS credentials
