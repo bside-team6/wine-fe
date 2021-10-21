@@ -13,5 +13,10 @@ permissions:
     mode: 755
 
 hooks:
+  AfterInstall:
+    - location: scripts/change_permission.sh
+      timeout: 300
+      runas: root
   ApplicationStart:
-    - location: deploy.sh
+    - location: scripts/reload_server.sh
+      timeout: 300
