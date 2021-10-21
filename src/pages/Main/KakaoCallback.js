@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from '@emotion/styled';
-// import { useParams } from 'react-router-dom';
-// import { useQuery } from 'react-query';
-// import { kakaoSignUp } from 'api/main';
+import { useQuery } from 'react-query';
+import { css } from '@emotion/react';
+import { kakaoSignUp } from 'api/main';
 
 const style = {
   width: '89px',
