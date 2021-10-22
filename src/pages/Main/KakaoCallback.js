@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useState } from 'react';
 // import styled from '@emotion/styled';
 // import { useQuery } from 'react-query';
@@ -17,6 +18,12 @@ import { css } from '@emotion/react';
 //   left: '804px',
 //   top: '339px',
 // };
+=======
+import React, { useEffect } from 'react';
+import { css } from '@emotion/react';
+import { useHistory } from 'react-router-dom';
+import { KAKAO_TOKEN_URL} from 'helpers/oauth';
+>>>>>>> Stashed changes
 
 function KakaoCallback() {
   //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
@@ -25,9 +32,10 @@ function KakaoCallback() {
   const search = current.split('?')[1];
   const params = new URLSearchParams(search);
   const code = params.get('code');
-  const [nickName, setNickName] = useState('');
+  const history = useHistory();
 
   console.log('code : ', code);
+<<<<<<< Updated upstream
   //TO-DO: 가입 링크 404 해결
   //TO-DO: 닉네임 다음에,확인 시 동작 확인
   // const { data } = useQuery(
@@ -35,12 +43,46 @@ function KakaoCallback() {
   //   () => kakaoSignUp(code),
   //   {},
   // );
+=======
+  const url = `${KAKAO_TOKEN_URL}&code=`+ code;
+  
+  console.log('url : ',`${KAKAO_TOKEN_URL}`,);
+  console.log('Furl : ',url,);
+  useEffect(() => {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      body: JSON.stringify({
+        'grant_type':'authorization_code',
+        'code':code
+      })
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      if (data !== '') {
+        return data.access_token;
+      }
+    })
+    .then((token) => {
+      //window.open("history.push(`/login/:${userInfo}`);","_self");
+      console.log(token);
+      history.push(`/signup/${token}`);   
+    });
+    
+  },[]);
 
-  const handleInput = (e) => {
+  
+>>>>>>> Stashed changes
+
+  //const handleInput = (e) => {
     //닉네임 입력감 세팅
-    setNickName(e.target.value);
-    console.log('nickName:', nickName);
-  };
+    //setNickName(e.target.value);
+   // console.log('nickName:', nickName);
+  //};
 
   return (
     <div>
@@ -105,12 +147,19 @@ function KakaoCallback() {
             left: 744px;
             top: 415px;
             border-radius: 8px;
+<<<<<<< Updated upstream
           `}
           type="text"
           placeholder="닉네임"
           id="nickName"
           onChange={handleInput}
         ></input>
+=======
+        `} type="text"
+           placeholder="닉네임"
+           id="nickName"
+           ></input>
+>>>>>>> Stashed changes
         <span
           css={(theme) => css`
             font-family: Noto Sans KR;
@@ -164,6 +213,7 @@ function KakaoCallback() {
 }
 
 export default KakaoCallback;
+<<<<<<< Updated upstream
 
 // const Header = styled.div`
 //   display: flex;
@@ -173,3 +223,5 @@ export default KakaoCallback;
 //   padding-top: 40px;
 //   font-size: 50px;
 // `;
+=======
+>>>>>>> Stashed changes

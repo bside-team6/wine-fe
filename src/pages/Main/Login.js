@@ -1,9 +1,13 @@
 import React from 'react';
+<<<<<<< Updated upstream
 // import styled from '@emotion/styled';
+=======
+>>>>>>> Stashed changes
 import { css } from '@emotion/react';
 import { KAKAO_AUTH_URL } from 'helpers/oauth';
 import kakaoLoginImg from 'assets/kakao_login_large_wide.png';
 
+<<<<<<< Updated upstream
 // const style = {
 //   marginTop: '10px',
 //   marginBottom: '10px',
@@ -18,6 +22,8 @@ import kakaoLoginImg from 'assets/kakao_login_large_wide.png';
 //   top: '339px',
 // };
 
+=======
+>>>>>>> Stashed changes
 function Login() {
   console.log('ddddd : ', `${KAKAO_AUTH_URL}`);
   return (
@@ -70,6 +76,7 @@ function Login() {
           display: block;
           margin: 0px auto;
           margin-top: 24px;
+<<<<<<< Updated upstream
         `}
       >
         <img
@@ -77,6 +84,14 @@ function Login() {
           alt="kakaoLoginImg"
           onClick={() => window.open(`${KAKAO_AUTH_URL}`)}
         />
+=======
+      `}>
+      <img
+        src={kakaoLoginImg}
+        alt="kakaoLoginImg"
+        onClick={() => window.open(`${KAKAO_AUTH_URL}`,"_self")}
+      />
+>>>>>>> Stashed changes
       </div>
     </div>
   );
@@ -84,6 +99,7 @@ function Login() {
 
 export default Login;
 
+<<<<<<< Updated upstream
 // const Header = styled.div`
 //   display: flex;
 //   align-items: center;
@@ -92,3 +108,5 @@ export default Login;
 //   padding-top: 40px;
 //   font-size: 50px;
 // `;
+=======
+>>>>>>> Stashed changes
