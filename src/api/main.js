@@ -6,11 +6,10 @@ import instance from './instance';
 export const kakaoSignUp = async (
   kakaoAccessToken,
 ) => {
-  const { data } = await instance.get('/sign-up/kakao', {
+  const { data } = await instance.get('/sign-up', {
     params: {
       kakaoAccessToken,
     },
   });
   return data;
 };
-
