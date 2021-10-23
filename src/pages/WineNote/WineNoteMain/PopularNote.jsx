@@ -3,6 +3,7 @@ import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
 import { getWineNotePopular } from 'api/wine-note';
 import { formatDate } from 'helpers/utils';
+import { alignCenter } from 'styles/common';
 import Divider from 'components/common/Divider';
 import Spinner from 'components/common/Spinner';
 
@@ -18,13 +19,13 @@ const PopularNote = () => {
   // TODO: 노트가 0개인 경우 디자인 추가
   return (
     <div
-      css={css`
+      css={(theme) => css`
         position: absolute;
         top: 43px;
         right: 0;
         z-index: 1;
         width: 384px;
-        border: 1px solid #dfdfdf;
+        border: 1px solid ${theme.colors.black08};
         background: #ffffff;
         border-radius: 20px;
         padding: 36px 32px;
@@ -72,8 +73,7 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
   return (
     <li
       css={css`
-        display: flex;
-        align-items: center;
+        ${alignCenter}
         margin-bottom: 24px;
         &:last-child {
           margin-bottom: 0;
@@ -104,8 +104,8 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
         `}
       >
         <h3
-          css={css`
-            color: #424242;
+          css={(theme) => css`
+            color: ${theme.colors.black02};
             font-size: 16px;
             margin-bottom: 4px;
             white-space: nowrap;
@@ -115,16 +115,11 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
         >
           {description}
         </h3>
-        <div
-          css={css`
-            display: flex;
-            align-items: center;
-          `}
-        >
+        <div css={alignCenter}>
           <span
             css={(theme) => css`
               font-family: ${theme.typography.lato};
-              color: #424242;
+              color: ${theme.colors.black02};
             `}
           >
             by. {userName}
@@ -133,7 +128,7 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
           <span
             css={(theme) => css`
               font-family: ${theme.typography.lato};
-              color: #757575;
+              color: ${theme.colors.black04};
               font-size: 12px;
             `}
           >

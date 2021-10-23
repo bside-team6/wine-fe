@@ -3,7 +3,7 @@ import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
 import { getWineNote } from 'api/wine-note';
 import { formatDate } from 'helpers/utils';
-import { spritesStyle } from 'styles/common';
+import { alignCenter, spritesStyle } from 'styles/common';
 import Chip from 'components/common/Chip';
 import Divider from 'components/common/Divider';
 import Spinner from 'components/common/Spinner';
@@ -22,7 +22,7 @@ export default Timeline;
 const queryKey = 'wine-note';
 
 const TimelineHeader = () => {
-  // TODO: 쿼리 페이징 확인
+  // TODO: 쿼리 페이징 확인 -> 무한 스크롤 방식
   const { data, isLoading } = useQuery(queryKey, getWineNote, {
     enabled: false,
   });
@@ -31,9 +31,8 @@ const TimelineHeader = () => {
   return (
     <div
       css={css`
-        display: flex;
+        ${alignCenter}
         justify-content: space-between;
-        align-items: center;
         margin-bottom: 22px;
       `}
     >
@@ -72,8 +71,8 @@ const TimelineList = () => {
     return <Spinner />;
   }
 
-  // TODO: 노트가 0개인 경우 디자인 추가
   const listData = data.wineNoteTimeLineResultList;
+
   return (
     <div>
       {listData.map((item) => (
@@ -154,16 +153,15 @@ const TimelineItem = ({
       >
         <div
           css={css`
-            display: flex;
-            align-items: center;
+            ${alignCenter}
             margin-bottom: 11px;
           `}
         >
           <Chip color="red" label={wineType} />
           <div
-            css={css`
+            css={(theme) => css`
               font-size: 14px;
-              color: #424242;
+              color: ${theme.colors.black02};
               letter-spacing: -3%;
               margin-left: 8px;
             `}
@@ -181,10 +179,9 @@ const TimelineItem = ({
         </h3>
         <div
           css={(theme) => css`
-            display: flex;
-            align-items: center;
+            ${alignCenter}
             font-family: ${theme.typography.lato};
-            color: #757575;
+            color: ${theme.colors.black04};
             font-size: 12px;
           `}
         >

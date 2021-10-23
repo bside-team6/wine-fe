@@ -1,5 +1,6 @@
 import React from 'react';
 import { css } from '@emotion/react';
+import { alignCenter } from 'styles/common';
 import RoundButton from 'components/common/RoundButton';
 
 const WineNoteMainHeader = () => {
@@ -26,8 +27,7 @@ const WineNoteMainHeader = () => {
       <div
         css={css`
           margin-top: 80px;
-          display: flex;
-          align-items: center;
+          ${alignCenter}
         `}
       >
         <RoundButton

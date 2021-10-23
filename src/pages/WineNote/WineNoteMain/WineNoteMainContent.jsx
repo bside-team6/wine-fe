@@ -8,7 +8,7 @@ const WineNoteMainContent = () => {
     <div
       css={css`
         background: #fafafa;
-        padding: 62px 0;
+        padding: 62px 0 120px;
       `}
     >
       <div
