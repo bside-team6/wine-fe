@@ -54,16 +54,16 @@ function Login() {
           display: block;
           margin: 0px auto;
           margin-top: 24px;
-      `}>
-      <img
-        src={kakaoLoginImg}
-        alt="kakaoLoginImg"
-        onClick={() => window.open(`${KAKAO_AUTH_URL}`,"_self")}
-      />
+        `}
+      >
+        <img
+          src={kakaoLoginImg}
+          alt="kakaoLoginImg"
+          onClick={() => window.open(`${KAKAO_AUTH_URL}`, '_self')}
+        />
       </div>
     </div>
   );
 }
 
 export default Login;
-

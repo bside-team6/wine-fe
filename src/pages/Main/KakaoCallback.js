@@ -1,12 +1,10 @@
-
-import React, {useEffect}  from 'react';
+import React, { useEffect } from 'react';
 import { css } from '@emotion/react';
-import { useHistory} from 'react-router-dom';
-import { KAKAO_TOKEN_URL} from 'helpers/oauth';
-
+import { useHistory } from 'react-router-dom';
+import { KAKAO_TOKEN_URL } from 'helpers/oauth';
 
 function KakaoCallback() {
-  //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
+  //TODO : 로그인 , 회원가입 화면 나눌지 체크하기
 
   const current = decodeURI(window.location.href);
   const search = current.split('?')[1];
@@ -16,36 +14,35 @@ function KakaoCallback() {
 
   console.log('code : ', code);
 
-  const url = `${KAKAO_TOKEN_URL}&code=`+ code;
-  
-  console.log('url : ',`${KAKAO_TOKEN_URL}`,);
-  console.log('Furl : ',url,);
+  const url = `${KAKAO_TOKEN_URL}&code=` + code;
+
+  console.log('url : ', `${KAKAO_TOKEN_URL}`);
+  console.log('Furl : ', url);
   useEffect(() => {
     fetch(url, {
       method: 'POST',
       headers: {
-          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+        'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8',
       },
       body: JSON.stringify({
-        'grant_type':'authorization_code',
-        'code':code
+        grant_type: 'authorization_code',
+        code: code,
+      }),
+    })
+      .then((res) => {
+        return res.json();
       })
-    })
-    .then((res) => {
-      return res.json();
-    })
-    .then((data) => {
-      if (data !== '') {
-        return data.access_token;
-      }
-    })
-    .then((token) => {
-      //window.open("history.push(`/login/:${userInfo}`);","_self");
-      console.log(token);
-      history.push(`/signup/${token}`);   
-    });
-    
-  },[]);
+      .then((data) => {
+        if (data !== '') {
+          return data.access_token;
+        }
+      })
+      .then((token) => {
+        //window.open("history.push(`/login/:${userInfo}`);","_self");
+        console.log(token);
+        history.push(`/signup/${token}`);
+      });
+  }, [code, history, url]);
 
   return (
     <div>
@@ -110,10 +107,11 @@ function KakaoCallback() {
             left: 744px;
             top: 415px;
             border-radius: 8px;
-        `} type="text"
-           placeholder="닉네임"
-           id="nickName"
-           ></input>
+          `}
+          type="text"
+          placeholder="닉네임"
+          id="nickName"
+        ></input>
         <span
           css={(theme) => css`
             font-family: Noto Sans KR;
