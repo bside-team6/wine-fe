@@ -1,22 +1,9 @@
-import React, { useState } from 'react';
-// import styled from '@emotion/styled';
-// import { useQuery } from 'react-query';
+
+import React, {useEffect}  from 'react';
 import { css } from '@emotion/react';
-// import { kakaoSignUp } from 'api/main';
+import { useHistory} from 'react-router-dom';
+import { KAKAO_TOKEN_URL} from 'helpers/oauth';
 
-// const style = {
-//   width: '89px',
-//   height: '46px',
-//   left: '916px',
-//   top: '241px',
-// };
-
-// const styleInfo = {
-//   width: '304px',
-//   height: '52px',
-//   left: '804px',
-//   top: '339px',
-// };
 
 function KakaoCallback() {
   //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
@@ -25,22 +12,40 @@ function KakaoCallback() {
   const search = current.split('?')[1];
   const params = new URLSearchParams(search);
   const code = params.get('code');
-  const [nickName, setNickName] = useState('');
+  const history = useHistory();
 
   console.log('code : ', code);
-  //TO-DO: 가입 링크 404 해결
-  //TO-DO: 닉네임 다음에,확인 시 동작 확인
-  // const { data } = useQuery(
-  //   ['kakao-signUp', code],
-  //   () => kakaoSignUp(code),
-  //   {},
-  // );
 
-  const handleInput = (e) => {
-    //닉네임 입력감 세팅
-    setNickName(e.target.value);
-    console.log('nickName:', nickName);
-  };
+  const url = `${KAKAO_TOKEN_URL}&code=`+ code;
+  
+  console.log('url : ',`${KAKAO_TOKEN_URL}`,);
+  console.log('Furl : ',url,);
+  useEffect(() => {
+    fetch(url, {
+      method: 'POST',
+      headers: {
+          'Content-Type': 'application/x-www-form-urlencoded;charset=utf-8'
+      },
+      body: JSON.stringify({
+        'grant_type':'authorization_code',
+        'code':code
+      })
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .then((data) => {
+      if (data !== '') {
+        return data.access_token;
+      }
+    })
+    .then((token) => {
+      //window.open("history.push(`/login/:${userInfo}`);","_self");
+      console.log(token);
+      history.push(`/signup/${token}`);   
+    });
+    
+  },[]);
 
   return (
     <div>
@@ -105,12 +110,10 @@ function KakaoCallback() {
             left: 744px;
             top: 415px;
             border-radius: 8px;
-          `}
-          type="text"
-          placeholder="닉네임"
-          id="nickName"
-          onChange={handleInput}
-        ></input>
+        `} type="text"
+           placeholder="닉네임"
+           id="nickName"
+           ></input>
         <span
           css={(theme) => css`
             font-family: Noto Sans KR;
@@ -164,12 +167,3 @@ function KakaoCallback() {
 }
 
 export default KakaoCallback;
-
-// const Header = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   padding-top: 40px;
-//   font-size: 50px;
-// `;
