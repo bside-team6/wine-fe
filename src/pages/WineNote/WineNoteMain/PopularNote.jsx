@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import useWineNotesQuery from 'queries/useWineNotesQuery';
 import usePopularWineNotesQuery from 'queries/usePopularWineNotesQuery';
@@ -73,6 +74,7 @@ const PopularNotes = ({ notes }) => {
         }) => (
           <PopularNoteItem
             key={id}
+            id={id}
             description={descript}
             userName={wineasyUserNickName}
             date={regDate}
@@ -84,73 +86,79 @@ const PopularNotes = ({ notes }) => {
   );
 };
 
-const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
+const PopularNoteItem = ({ id, description, userName, date, imageUrl }) => {
   return (
     <li
       css={css`
-        ${alignCenter}
         margin-bottom: 24px;
         &:last-child {
           margin-bottom: 0;
         }
       `}
     >
-      <div
+      <Link
+        to={`/wine-note/${id}`}
         css={css`
-          flex-shrink: 0;
-          border-radius: 50%;
-          margin-right: 12px;
-          overflow: hidden;
+          ${alignCenter}
         `}
       >
-        <img
-          src={imageUrl || 'https://via.placeholder.com/48'}
-          alt="thumb"
+        <div
           css={css`
-            width: 48px;
-            height: 48px;
-          `}
-        />
-      </div>
-      <div
-        css={css`
-          flex-grow: 1;
-          min-width: 0;
-        `}
-      >
-        <h3
-          css={(theme) => css`
-            color: ${theme.colors.black02};
-            font-size: 16px;
-            margin-bottom: 4px;
-            white-space: nowrap;
+            flex-shrink: 0;
+            border-radius: 50%;
+            margin-right: 12px;
             overflow: hidden;
-            text-overflow: ellipsis;
           `}
         >
-          {description}
-        </h3>
-        <div css={alignCenter}>
-          <span
-            css={(theme) => css`
-              font-family: ${theme.typography.lato};
-              color: ${theme.colors.black02};
+          <img
+            src={imageUrl || 'https://via.placeholder.com/48'}
+            alt="thumb"
+            css={css`
+              width: 48px;
+              height: 48px;
             `}
-          >
-            by. {userName}
-          </span>
-          <Divider />
-          <span
-            css={(theme) => css`
-              font-family: ${theme.typography.lato};
-              color: ${theme.colors.black04};
-              font-size: 12px;
-            `}
-          >
-            {formatDate(date)}
-          </span>
+          />
         </div>
-      </div>
+        <div
+          css={css`
+            flex-grow: 1;
+            min-width: 0;
+          `}
+        >
+          <h3
+            css={(theme) => css`
+              color: ${theme.colors.black02};
+              font-size: 16px;
+              margin-bottom: 4px;
+              white-space: nowrap;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            `}
+          >
+            {description}
+          </h3>
+          <div css={alignCenter}>
+            <span
+              css={(theme) => css`
+                font-family: ${theme.typography.lato};
+                color: ${theme.colors.black02};
+              `}
+            >
+              by. {userName}
+            </span>
+            <Divider />
+            <span
+              css={(theme) => css`
+                font-family: ${theme.typography.lato};
+                color: ${theme.colors.black04};
+                font-size: 12px;
+              `}
+            >
+              {formatDate(date)}
+            </span>
+          </div>
+        </div>
+      </Link>
     </li>
   );
 };

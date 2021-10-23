@@ -9,6 +9,7 @@ export const theme = {
     black04: '#757575',
     black06: '#a8a8a8',
     black08: '#dfdfdf',
+    shadow: '0px 4px 8px rgba(0, 0, 0, 0.05)',
   },
   typography: {
     lato: "'Lato', 'Noto Sans KR', sans-serif",
