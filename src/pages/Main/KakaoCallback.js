@@ -1,29 +1,9 @@
-<<<<<<< Updated upstream
-import React, { useState } from 'react';
-// import styled from '@emotion/styled';
-// import { useQuery } from 'react-query';
-import { css } from '@emotion/react';
-// import { kakaoSignUp } from 'api/main';
 
-// const style = {
-//   width: '89px',
-//   height: '46px',
-//   left: '916px',
-//   top: '241px',
-// };
-
-// const styleInfo = {
-//   width: '304px',
-//   height: '52px',
-//   left: '804px',
-//   top: '339px',
-// };
-=======
-import React, { useEffect } from 'react';
+import React, {useEffect}  from 'react';
 import { css } from '@emotion/react';
-import { useHistory } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import { KAKAO_TOKEN_URL} from 'helpers/oauth';
->>>>>>> Stashed changes
+
 
 function KakaoCallback() {
   //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
@@ -35,15 +15,7 @@ function KakaoCallback() {
   const history = useHistory();
 
   console.log('code : ', code);
-<<<<<<< Updated upstream
-  //TO-DO: 가입 링크 404 해결
-  //TO-DO: 닉네임 다음에,확인 시 동작 확인
-  // const { data } = useQuery(
-  //   ['kakao-signUp', code],
-  //   () => kakaoSignUp(code),
-  //   {},
-  // );
-=======
+
   const url = `${KAKAO_TOKEN_URL}&code=`+ code;
   
   console.log('url : ',`${KAKAO_TOKEN_URL}`,);
@@ -74,15 +46,6 @@ function KakaoCallback() {
     });
     
   },[]);
-
-  
->>>>>>> Stashed changes
-
-  //const handleInput = (e) => {
-    //닉네임 입력감 세팅
-    //setNickName(e.target.value);
-   // console.log('nickName:', nickName);
-  //};
 
   return (
     <div>
@@ -147,19 +110,10 @@ function KakaoCallback() {
             left: 744px;
             top: 415px;
             border-radius: 8px;
-<<<<<<< Updated upstream
-          `}
-          type="text"
-          placeholder="닉네임"
-          id="nickName"
-          onChange={handleInput}
-        ></input>
-=======
         `} type="text"
            placeholder="닉네임"
            id="nickName"
            ></input>
->>>>>>> Stashed changes
         <span
           css={(theme) => css`
             font-family: Noto Sans KR;
@@ -213,15 +167,3 @@ function KakaoCallback() {
 }
 
 export default KakaoCallback;
-<<<<<<< Updated upstream
-
-// const Header = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   padding-top: 40px;
-//   font-size: 50px;
-// `;
-=======
->>>>>>> Stashed changes

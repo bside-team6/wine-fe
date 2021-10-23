@@ -1,33 +1,11 @@
 import React from 'react';
-<<<<<<< Updated upstream
-// import styled from '@emotion/styled';
-=======
->>>>>>> Stashed changes
 import { css } from '@emotion/react';
 import { KAKAO_AUTH_URL } from 'helpers/oauth';
 import kakaoLoginImg from 'assets/kakao_login_large_wide.png';
 
-<<<<<<< Updated upstream
-// const style = {
-//   marginTop: '10px',
-//   marginBottom: '10px',
-//   marginRight: '10px',
-//   float: 'right',
-// };
-
-// const styleInfo = {
-//   width: '304px',
-//   height: '52px',
-//   left: '804px',
-//   top: '339px',
-// };
-
-=======
->>>>>>> Stashed changes
 function Login() {
   console.log('ddddd : ', `${KAKAO_AUTH_URL}`);
   return (
-    //현재 그려지는 화면이 없음
     <div>
       <div
         css={(theme) => css`
@@ -76,22 +54,12 @@ function Login() {
           display: block;
           margin: 0px auto;
           margin-top: 24px;
-<<<<<<< Updated upstream
-        `}
-      >
-        <img
-          src={kakaoLoginImg}
-          alt="kakaoLoginImg"
-          onClick={() => window.open(`${KAKAO_AUTH_URL}`)}
-        />
-=======
       `}>
       <img
         src={kakaoLoginImg}
         alt="kakaoLoginImg"
         onClick={() => window.open(`${KAKAO_AUTH_URL}`,"_self")}
       />
->>>>>>> Stashed changes
       </div>
     </div>
   );
@@ -99,14 +67,3 @@ function Login() {
 
 export default Login;
 
-<<<<<<< Updated upstream
-// const Header = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: center;
-//   flex-direction: column;
-//   padding-top: 40px;
-//   font-size: 50px;
-// `;
-=======
->>>>>>> Stashed changes

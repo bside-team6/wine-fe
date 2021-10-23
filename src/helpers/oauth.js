@@ -6,4 +6,6 @@ export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id
 
 export const KAKAO_TOKEN_URL = `https://kauth.kakao.com/oauth/token?grant_type=authorization_code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&client_secret=${CLIENT_SECRET}`;
 
-export const KAKAO_SIGNUP_URL = `http://ec2-54-180-133-23.ap-northeast-2.compute.amazonaws.com:8081/api/sign-up/kakao?kakaoAccessToken=`;
+export const KAKAO_SIGNUP_URL = `http://ec2-54-180-133-23.ap-northeast-2.compute.amazonaws.com:8081/api/sign-up/kakao`;
+
+export const NICKNAME_URL = `http://ec2-54-180-133-23.ap-northeast-2.compute.amazonaws.com:8081/api/sign-up/nick-name`;

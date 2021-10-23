@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 //import { useQuery } from 'react-query';
 import { css } from '@emotion/react';
 //import { kakaoSignUp } from 'api/main';
-import { KAKAO_SIGNUP_URL} from 'helpers/oauth';
+import { KAKAO_SIGNUP_URL, NICKNAME_URL} from 'helpers/oauth';
 
 function Signup() {
+  const [wineToken, setWineToken] = useState('');
+  const [nickName, setNickName] = useState('');
   //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
   console.log("Signup page ");
   const { token } = useParams();
@@ -13,29 +15,45 @@ function Signup() {
   //const { data } = useQuery(['sign-up', token], () => kakaoSignUp(token), {
   //  select: (data) => data.data,
   //});
-  const url = `${KAKAO_SIGNUP_URL}`+ token;
+  const url = + token;
   console.log(url);
 
 
   useEffect(() => {
-    handleFetch();
+    fetch(`${KAKAO_SIGNUP_URL}`, {
+      method: 'POST',
+      headers: {
+          'Authorization': token
+      },
+    })
+    .then((res) => {
+      return res.json();
+    }).catch((error) => console.log("error:", error));
   }, []);
 
-  const handleFetch = async () => {
-    fetch(`${url}`, {})
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res);
+  const nickNameInsert = async () => {
+    fetch(`${NICKNAME_URL}`, {
+      method: 'POST',
+      headers: {
+          'AccessToken': wineToken
+          ,'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: new URLSearchParams({
+        'nickName ': nickName
       })
-      .catch((error) => console.log("error:", error));
+    })
+    .then((res) => {
+      return res.json();
+    })
+    .catch((error) => console.log("error:", error));
     
   };
   
-  //const handleInput = (e) => {
+  const handleInput = (e) => {
     //닉네임 입력감 세팅
-    //setNickName(e.target.value);
-   // console.log('nickName:', nickName);
-  //};
+    setNickName(e.target.value);
+    console.log('nickName:', nickName);
+  };
 
   return (
   <div >
@@ -100,6 +118,7 @@ function Signup() {
         `} type="text"
            placeholder="닉네임"
            id="nickName"
+           onChange={handleInput}
            ></input>
         <span
             css={(theme) => css`
@@ -140,7 +159,8 @@ function Signup() {
               color:rgba(255,255,255, 1.0);
               background-color: rgba(0, 0, 0, 1.0);
 
-        `}>확인</button>
+        `}
+        onClick={() =>nickNameInsert}>확인</button>
       </div>
     </div>
   );
