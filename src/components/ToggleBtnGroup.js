@@ -1,6 +1,6 @@
 import React from 'react';
 import { CFormCheck } from '@coreui/react';
-import styled from '@emotion/styled'
+import styled from '@emotion/styled';
 
 function ToggleBtnGroup({ data, handleFoodsInput }) {
   return (
