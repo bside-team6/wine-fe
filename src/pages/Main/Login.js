@@ -4,7 +4,6 @@ import { KAKAO_AUTH_URL } from 'helpers/oauth';
 import kakaoLoginImg from 'assets/kakao_login_large_wide.png';
 
 function Login() {
-  console.log('ddddd : ', `${KAKAO_AUTH_URL}`);
   return (
     <div>
       <div

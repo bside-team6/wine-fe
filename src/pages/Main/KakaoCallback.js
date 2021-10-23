@@ -14,12 +14,8 @@ function KakaoCallback() {
   const code = params.get('code');
   const history = useHistory();
 
-  console.log('code : ', code);
-
   const url = `${KAKAO_TOKEN_URL}&code=`+ code;
   
-  console.log('url : ',`${KAKAO_TOKEN_URL}`,);
-  console.log('Furl : ',url,);
   useEffect(() => {
     fetch(url, {
       method: 'POST',
@@ -41,7 +37,6 @@ function KakaoCallback() {
     })
     .then((token) => {
       //window.open("history.push(`/login/:${userInfo}`);","_self");
-      console.log(token);
       history.push(`/signup/${token}`);   
     });
     

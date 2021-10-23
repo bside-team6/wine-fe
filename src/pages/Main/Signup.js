@@ -7,6 +7,7 @@ import { KAKAO_SIGNUP_URL, NICKNAME_URL} from 'helpers/oauth';
 
 function Signup() {
   const [wineToken, setWineToken] = useState('');
+  const [wineRToken, setWineRToken] = useState('');
   const [nickName, setNickName] = useState('');
   //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
   console.log("Signup page ");
@@ -28,6 +29,18 @@ function Signup() {
     })
     .then((res) => {
       return res.json();
+    })
+    .then((res) => {
+      console.log("res : ",res);
+      console.log("res.result : ",res.result);
+      if(res.result){
+        setWineToken(res.data.accessToken);
+        setWineRToken(res.data.refreshToken);
+        console.log("wineRToken",wineRToken);
+        console.log("wineToken",wineToken);
+      }else{
+        console.log("result false:", res.message)
+      }
     }).catch((error) => console.log("error:", error));
   }, []);
 
@@ -44,6 +57,8 @@ function Signup() {
     })
     .then((res) => {
       return res.json();
+    }).then((res) => {
+      console.log(res);
     })
     .catch((error) => console.log("error:", error));
     
@@ -160,7 +175,7 @@ function Signup() {
               background-color: rgba(0, 0, 0, 1.0);
 
         `}
-        onClick={() =>nickNameInsert}>확인</button>
+        onClick={nickNameInsert}>확인</button>
       </div>
     </div>
   );
