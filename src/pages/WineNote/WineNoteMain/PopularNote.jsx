@@ -1,31 +1,32 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { useQuery } from 'react-query';
-import { getWineNotePopular } from 'api/wine-note';
+import useWineNotesQuery from 'queries/useWineNotesQuery';
+import usePopularWineNotesQuery from 'queries/usePopularWineNotesQuery';
 import { formatDate } from 'helpers/utils';
+import { alignCenter } from 'styles/common';
 import Divider from 'components/common/Divider';
 import Spinner from 'components/common/Spinner';
 
 const PopularNote = () => {
-  const { data, isLoading } = useQuery(
-    'wine-note-popular',
-    getWineNotePopular,
-    {
-      staleTime: 1000 * 60 * 5, // 5min
-    },
-  );
+  const { data: wineNotes } = useWineNotesQuery();
+  const hasWineNotes = !!wineNotes?.totalElements;
 
-  // TODO: 노트가 0개인 경우 디자인 추가
+  // Dependent Queries
+  const { data, isLoading } = usePopularWineNotesQuery({
+    enabled: hasWineNotes,
+  });
+
+  if (!hasWineNotes) {
+    // 와인노트가 아예 없는 경우 이달의 인기노트 출력할 필요 X
+    return null;
+  }
+
   return (
     <div
-      css={css`
-        position: absolute;
-        top: 43px;
-        right: 0;
-        z-index: 1;
+      css={(theme) => css`
         width: 384px;
-        border: 1px solid #dfdfdf;
-        background: #ffffff;
+        border: 1px solid ${theme.colors.black08};
+        background: ${!isLoading && data.length !== 0 ? '#ffffff' : '#ececec'};
         border-radius: 20px;
         padding: 36px 32px;
       `}
@@ -39,41 +40,55 @@ const PopularNote = () => {
       >
         이달의 인기 노트
       </h2>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <ul>
-          {data.map(
-            ({
-              id,
-              descript,
-              wineasyUserNickName,
-              regDate,
-              wineNoteWineImages,
-            }) => (
-              <PopularNoteItem
-                key={id}
-                description={descript}
-                userName={wineasyUserNickName}
-                date={regDate}
-                imageUrl={wineNoteWineImages[0]?.imagePath}
-              />
-            ),
-          )}
-        </ul>
-      )}
+      {isLoading ? <Spinner /> : <PopularNotes notes={data} />}
     </div>
   );
 };
 
 export default PopularNote;
 
+const PopularNotes = ({ notes }) => {
+  if (notes.length === 0) {
+    return (
+      <div
+        css={(theme) => css`
+          font-size: 16px;
+          color: ${theme.colors.black04};
+        `}
+      >
+        서비스 준비중입니다. 조금만 기다려주세요!
+      </div>
+    );
+  }
+
+  return (
+    <ul>
+      {notes.map(
+        ({
+          id,
+          descript,
+          wineasyUserNickName,
+          regDate,
+          wineNoteWineImages,
+        }) => (
+          <PopularNoteItem
+            key={id}
+            description={descript}
+            userName={wineasyUserNickName}
+            date={regDate}
+            imageUrl={wineNoteWineImages[0]?.imagePath}
+          />
+        ),
+      )}
+    </ul>
+  );
+};
+
 const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
   return (
     <li
       css={css`
-        display: flex;
-        align-items: center;
+        ${alignCenter}
         margin-bottom: 24px;
         &:last-child {
           margin-bottom: 0;
@@ -104,8 +119,8 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
         `}
       >
         <h3
-          css={css`
-            color: #424242;
+          css={(theme) => css`
+            color: ${theme.colors.black02};
             font-size: 16px;
             margin-bottom: 4px;
             white-space: nowrap;
@@ -115,16 +130,11 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
         >
           {description}
         </h3>
-        <div
-          css={css`
-            display: flex;
-            align-items: center;
-          `}
-        >
+        <div css={alignCenter}>
           <span
             css={(theme) => css`
               font-family: ${theme.typography.lato};
-              color: #424242;
+              color: ${theme.colors.black02};
             `}
           >
             by. {userName}
@@ -133,7 +143,7 @@ const PopularNoteItem = ({ description, userName, date, imageUrl }) => {
           <span
             css={(theme) => css`
               font-family: ${theme.typography.lato};
-              color: #757575;
+              color: ${theme.colors.black04};
               font-size: 12px;
             `}
           >

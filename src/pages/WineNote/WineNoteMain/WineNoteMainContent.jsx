@@ -8,11 +8,15 @@ const WineNoteMainContent = () => {
     <div
       css={css`
         background: #fafafa;
-        padding: 62px 0;
+        padding: 80px 0 120px;
+        min-height: 568px;
       `}
     >
       <div
         css={css`
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-start;
           position: relative;
           width: 1200px;
           max-width: 100%;
