@@ -9,7 +9,7 @@ function Main() {
       <Route exact path="/" component={() => <div>Home</div>} />
       <Route path="/login" component={Login} />
       <Route path="/kakaoCallback" component={KakaoCallback} />
-      <Route path="/signup/:token" component={Signup} />
+      <Route path="/signup" component={Signup} />
     </Switch>
   );
 }
