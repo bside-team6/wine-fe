@@ -1,86 +1,61 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { useQuery } from 'react-query';
-import { getWineNote } from 'api/wine-note';
 import { formatDate } from 'helpers/utils';
-import { alignCenter, spritesStyle } from 'styles/common';
+import useWineNotesQuery from 'queries/useWineNotesQuery';
+import { alignCenter } from 'styles/common';
 import Chip from 'components/common/Chip';
 import Divider from 'components/common/Divider';
 import Spinner from 'components/common/Spinner';
+import { ReactComponent as Heart } from 'assets/ic_heart.svg';
+import { ReactComponent as HeartOn } from 'assets/ic_heart_on.svg';
 
 const Timeline = () => {
-  return (
-    <div>
-      <TimelineHeader />
-      <TimelineList />
-    </div>
-  );
-};
-
-export default Timeline;
-
-const queryKey = 'wine-note';
-
-const TimelineHeader = () => {
-  // TODO: 쿼리 페이징 확인 -> 무한 스크롤 방식
-  const { data, isLoading } = useQuery(queryKey, getWineNote, {
-    enabled: false,
-  });
-
-  // TODO: sort 기능 추가
-  return (
-    <div
-      css={css`
-        ${alignCenter}
-        justify-content: space-between;
-        margin-bottom: 22px;
-      `}
-    >
-      <div
-        css={css`
-          font-weight: 700;
-        `}
-      >
-        총 {isLoading ? '...' : data?.totalElements}건
-      </div>
-      <div
-        css={css`
-          padding-right: 20px;
-          position: relative;
-          &:after {
-            position: absolute;
-            top: 0px;
-            content: ' ';
-            ${spritesStyle}
-            background-position: -436px 0px;
-          }
-        `}
-      >
-        작성날짜순
-      </div>
-    </div>
-  );
-};
-
-const TimelineList = () => {
-  const { data, isLoading } = useQuery(queryKey, getWineNote, {
-    staleTime: 1000 * 60 * 5, // 5min
-  });
+  // TODO: 무한 스크롤 방식으로 변경
+  const { data, isLoading } = useWineNotesQuery();
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  const listData = data.wineNoteTimeLineResultList;
+  if (data.totalElements === 0) {
+    return (
+      <>
+        <div
+          css={css`
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 24px;
+          `}
+        >
+          <img src="https://via.placeholder.com/180" alt="no-wine-note" />
+        </div>
+        <div
+          css={css`
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+          `}
+        >
+          아직 작성된 와인노트가 없습니다.
+          <br />
+          첫번째 작성자가 되어주세요!
+        </div>
+      </>
+    );
+  }
 
   return (
     <div>
-      {listData.map((item) => (
+      {data.wineNoteTimeLineResultList.map((item) => (
         <TimelineItem key={item.id} {...item} />
       ))}
     </div>
   );
 };
+
+export default Timeline;
 
 const TimelineItem = ({
   descript,
@@ -91,7 +66,9 @@ const TimelineItem = ({
   viewCount,
   wineNoteLikeCount,
   wineNoteWineImagePath,
+  isLike,
 }) => {
+  // TODO: 와인노트 좋아요 기능 추가
   const imageUrl = wineNoteWineImagePath || 'https://via.placeholder.com/160';
   return (
     <div
@@ -130,17 +107,22 @@ const TimelineItem = ({
             cursor: pointer;
             position: absolute;
             top: 12px;
-            right: 12px;
+            left: 12px;
             z-index: 1;
             background-color: rgba(0, 0, 0, 0.3);
             border-radius: 50%;
             border: 0;
-            ${spritesStyle}
             width: 32px;
             height: 32px;
-            background-position: -132px 4px; // filled: -166px
+            ${alignCenter}
+            justify-content: center;
+            svg {
+              color: #fff;
+            }
           `}
-        />
+        >
+          {isLike ? <HeartOn /> : <Heart />}
+        </button>
       </div>
       <div
         css={css`
