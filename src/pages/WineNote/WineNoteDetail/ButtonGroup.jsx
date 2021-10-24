@@ -28,14 +28,10 @@ const ButtonGroup = () => {
       >
         <RoundButton color="secondary">이전글</RoundButton>
         <RoundButton color="secondary">다음글</RoundButton>
-        <RoundButton
-          color="secondary"
-          onClick={() => history.push('/wine-note')}
-        >
-          목록으로
-        </RoundButton>
       </div>
-      <RoundButton>와인냉장고에 담기</RoundButton>
+      <RoundButton color="secondary" onClick={() => history.push('/wine-note')}>
+        목록으로
+      </RoundButton>
     </div>
   );
 };
