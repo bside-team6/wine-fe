@@ -33,10 +33,28 @@ export const postWineNoteLike = async (wineNoteId) => {
 };
 
 /**
- * POST 와인노트 공개여부 변경
+ * PATCH 잘맞아요/안맞아요
  */
-export const postWineNotePublic = async (wineNoteId) => {
-  await instance.post(`/v1/wine-name-public`, {
+export const patchWineNoteFitsMe = async (wineNoteId) => {
+  await instance.patch(`/v1/wine-note-fits-me`, {
+    wineNoteId,
+  });
+};
+
+/**
+ * PATCH 와인노트 공개여부 변경
+ */
+export const patchWineNotePublic = async (wineNoteId) => {
+  await instance.patch(`/v1/wine-note-public`, {
+    wineNoteId,
+  });
+};
+
+/**
+ * PATCH 와인노트 와인명 공개여부 변경(관리자)
+ */
+export const patchWineNoteWineNamePublicAdmin = async (wineNoteId) => {
+  await instance.patch(`/v1/manager/wine-note-wine-name-public`, {
     wineNoteId,
   });
 };
@@ -62,6 +80,18 @@ export const getPopularWineNotes = async () => {
  */
 export const getSearchWineName = async (searchName) => {
   const { data } = await instance.get(`/v1/wine-name-search`, {
+    params: {
+      searchName,
+    },
+  });
+  return data;
+};
+
+/**
+ * GET 와인명 조회 (관리자)
+ */
+export const getSearchWineNameAdmin = async (searchName) => {
+  const { data } = await instance.get(`/v1/manager/wine-name`, {
     params: {
       searchName,
     },
