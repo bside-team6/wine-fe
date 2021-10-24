@@ -9,7 +9,7 @@
     "test": "craco test",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "lint": "eslint './src/**/*.{js,jsx}'",
-    "storybook": "start-storybook -p 6006 -s public"
+    "storybook": "start-storybook -p 6006 -s public --modern"
   },
   "dependencies": {
     "@coreui/coreui": "^4.0.5",
@@ -45,6 +45,8 @@
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
     "http-proxy-middleware": "^2.0.1",
+    "msw": "^0.35.0",
+    "msw-storybook-addon": "^1.4.1",
     "prettier": "^2.4.1",
     "sass": "^1.43.2",
     "storybook-preset-craco": "0.0.6"

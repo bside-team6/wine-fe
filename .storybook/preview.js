@@ -1,11 +1,13 @@
-import React from 'react';
 import { INITIAL_VIEWPORTS } from '@storybook/addon-viewport';
-import { ThemeProvider } from '../src/helpers/theme';
+import { initialize, mswDecorator } from 'msw-storybook-addon';
+import { themeDecorator } from '../src/helpers/storybook';
+
+initialize({
+  onUnhandledRequest: 'bypass',
+});
 
 /** @type {import("@storybook/addons").BaseDecorators } */
-export const decorators = [
-  (StoryFn) => <ThemeProvider>{StoryFn()}</ThemeProvider>,
-];
+export const decorators = [mswDecorator, themeDecorator];
 
 /** @type {import("@storybook/addons").Parameters } */
 export const parameters = {
@@ -13,11 +15,5 @@ export const parameters = {
   actions: { argTypesRegex: '^on[A-Z].*' },
   viewport: {
     viewports: INITIAL_VIEWPORTS,
-  },
-  controls: {
-    matchers: {
-      color: /(background|color)$/i,
-      date: /Date$/,
-    },
   },
 };
