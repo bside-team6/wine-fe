@@ -57,7 +57,7 @@ const DetailNote = ({
           flex-grow: 1;
         `}
       >
-        <Chip color="red" label={wineType} />
+        <Chip wineType={wineType} />
         <div
           css={css`
             font-weight: 700;

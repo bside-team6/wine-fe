@@ -27,7 +27,7 @@ const PopularNote = () => {
       css={(theme) => css`
         width: 384px;
         border: 1px solid ${theme.colors.black08};
-        background: ${!isLoading && data.length !== 0 ? '#ffffff' : '#ececec'};
+        background: ${isLoading || data.length !== 0 ? '#ffffff' : '#ececec'};
         border-radius: 20px;
         padding: 36px 32px;
       `}

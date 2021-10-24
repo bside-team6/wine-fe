@@ -2,32 +2,44 @@ import React from 'react';
 import { css } from '@emotion/react';
 
 const colorMap = {
-  red: {
+  RED: {
     text: '#E53858',
     bg: '#FAE6EA',
   },
-  orange: {
+  ROSE: {
     text: '#F86818',
     bg: '#FEF0E8',
   },
-  blue: {
+  WHITE: {
     text: '#387DE5',
-    bg: 'rgba(56, 125, 229, 0.1)',
+    bg: '#EBF2FC',
   },
-  green: {
+  SPARKLING: {
     text: '#0EAB44',
     bg: '#EAFEEC',
   },
+  CHAMPAGNE: {
+    text: '#A39200',
+    bg: '#FCF9DF',
+  },
+  FORTIFIED: {
+    text: '#AE4444',
+    bg: '#F9EBEB',
+  },
+  SWEET: {
+    text: '#F06496',
+    bg: '#FFEDF6',
+  },
 };
 
-const Chip = ({ color = 'red', label = '' }) => {
+const Chip = ({ wineType }) => {
   return (
     <div
       css={css`
         padding-left: 8px;
         padding-right: 8px;
         border-radius: 99px;
-        background-color: ${colorMap[color].bg};
+        background-color: ${colorMap[wineType].bg};
         height: 20px;
         display: inline-flex;
         align-items: center;
@@ -42,10 +54,10 @@ const Chip = ({ color = 'red', label = '' }) => {
           font-size: 12px;
           line-height: 12px;
           font-weight: 700;
-          color: ${colorMap[color].text};
+          color: ${colorMap[wineType].text};
         `}
       >
-        {label}
+        {wineType}
       </span>
     </div>
   );
