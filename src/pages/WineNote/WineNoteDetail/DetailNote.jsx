@@ -158,7 +158,7 @@ const DetailNote = ({
               <span>당도</span>
               <div>{formatSweet(sweet)}</div>
             </div>
-            {price && (
+            {!!price && (
               <div>
                 <span>가격</span>
                 <div>{price.toLocaleString()}</div>
