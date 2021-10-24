@@ -102,7 +102,7 @@ const WineNote = ({
               margin-bottom: 11px;
             `}
           >
-            <Chip color="red" label={wineType} />
+            <Chip wineType={wineType} />
             <div
               css={(theme) => css`
                 font-size: 14px;
