@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
-import useWineNotesQuery from 'queries/useWineNotesQuery';
+import useWineNoteTimelineQuery from 'queries/useWineNoteTimelineQuery';
 import usePopularWineNotesQuery from 'queries/usePopularWineNotesQuery';
 import { formatDate } from 'helpers/utils';
 import { alignCenter } from 'styles/common';
@@ -9,7 +9,7 @@ import Divider from 'components/common/Divider';
 import Spinner from 'components/common/Spinner';
 
 const PopularNote = () => {
-  const { data: wineNotes } = useWineNotesQuery();
+  const { data: wineNotes } = useWineNoteTimelineQuery();
   const hasWineNotes = !!wineNotes?.totalElements;
 
   // Dependent Queries

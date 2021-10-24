@@ -1,12 +1,12 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import useWineNotesQuery from 'queries/useWineNotesQuery';
+import useWineNoteTimelineQuery from 'queries/useWineNoteTimelineQuery';
 import WineNote from 'components/wineNote/WineNote';
 import Spinner from 'components/common/Spinner';
 
 const Timeline = () => {
   // TODO: 무한 스크롤 방식으로 변경
-  const { data, isLoading } = useWineNotesQuery();
+  const { data, isLoading } = useWineNoteTimelineQuery();
 
   if (isLoading) {
     return <Spinner />;
@@ -14,7 +14,11 @@ const Timeline = () => {
 
   if (data.totalElements === 0) {
     return (
-      <>
+      <div
+        css={css`
+          margin: 20px auto;
+        `}
+      >
         <div
           css={css`
             width: 180px;
@@ -37,7 +41,7 @@ const Timeline = () => {
           <br />
           첫번째 작성자가 되어주세요!
         </div>
-      </>
+      </div>
     );
   }
 
