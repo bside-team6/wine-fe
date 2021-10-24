@@ -9,7 +9,9 @@
     "test": "craco test",
     "format": "prettier --write \"**/*.{js,jsx,json,md}\"",
     "lint": "eslint './src/**/*.{js,jsx}'",
-    "storybook": "start-storybook -p 6006 -s public --modern"
+    "storybook": "start-storybook -p 6006 -s public --modern",
+    "build-storybook": "build-storybook -s public --modern",
+    "deploy-storybook": "storybook-to-ghpages"
   },
   "dependencies": {
     "@coreui/coreui": "^4.0.5",
@@ -41,6 +43,7 @@
     "@storybook/node-logger": "^6.3.12",
     "@storybook/preset-create-react-app": "^3.2.0",
     "@storybook/react": "^6.3.12",
+    "@storybook/storybook-deployer": "^2.8.10",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
