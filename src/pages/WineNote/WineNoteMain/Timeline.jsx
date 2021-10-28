@@ -1,208 +1,57 @@
 import React from 'react';
 import { css } from '@emotion/react';
-import { useQuery } from 'react-query';
-import { getWineNote } from 'api/wine-note';
-import { formatDate } from 'helpers/utils';
-import { spritesStyle } from 'styles/common';
-import Chip from 'components/common/Chip';
-import Divider from 'components/common/Divider';
+import useWineNoteTimelineQuery from 'queries/useWineNoteTimelineQuery';
+import WineNote from 'components/wineNote/WineNote';
 import Spinner from 'components/common/Spinner';
 
 const Timeline = () => {
-  return (
-    <div>
-      <TimelineHeader />
-      <TimelineList />
-    </div>
-  );
-};
-
-export default Timeline;
-
-const queryKey = 'wine-note';
-
-const TimelineHeader = () => {
-  // TODO: 쿼리 페이징 확인
-  const { data, isLoading } = useQuery(queryKey, getWineNote, {
-    enabled: false,
-  });
-
-  // TODO: sort 기능 추가
-  return (
-    <div
-      css={css`
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 22px;
-      `}
-    >
-      <div
-        css={css`
-          font-weight: 700;
-        `}
-      >
-        총 {isLoading ? '...' : data?.totalElements}건
-      </div>
-      <div
-        css={css`
-          padding-right: 20px;
-          position: relative;
-          &:after {
-            position: absolute;
-            top: 0px;
-            content: ' ';
-            ${spritesStyle}
-            background-position: -436px 0px;
-          }
-        `}
-      >
-        작성날짜순
-      </div>
-    </div>
-  );
-};
-
-const TimelineList = () => {
-  const { data, isLoading } = useQuery(queryKey, getWineNote, {
-    staleTime: 1000 * 60 * 5, // 5min
-  });
+  // TODO: 무한 스크롤 방식으로 변경
+  const { data, isLoading } = useWineNoteTimelineQuery();
 
   if (isLoading) {
     return <Spinner />;
   }
 
-  // TODO: 노트가 0개인 경우 디자인 추가
-  const listData = data.wineNoteTimeLineResultList;
+  if (data.totalElements === 0) {
+    return (
+      <div
+        css={css`
+          margin: 20px auto;
+        `}
+      >
+        <div
+          css={css`
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto 24px;
+          `}
+        >
+          <img src="https://via.placeholder.com/180" alt="no-wine-note" />
+        </div>
+        <div
+          css={css`
+            text-align: center;
+            font-weight: 700;
+            font-size: 18px;
+          `}
+        >
+          아직 작성된 와인노트가 없습니다.
+          <br />
+          첫번째 작성자가 되어주세요!
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div>
-      {listData.map((item) => (
-        <TimelineItem key={item.id} {...item} />
+      {data.wineNoteTimeLineResultList.map((item) => (
+        <WineNote key={item.id} {...item} />
       ))}
     </div>
   );
 };
 
-const TimelineItem = ({
-  descript,
-  wineName,
-  wineType,
-  wineasyUserNickName,
-  regDate,
-  viewCount,
-  wineNoteLikeCount,
-  wineNoteWineImagePath,
-}) => {
-  const imageUrl = wineNoteWineImagePath || 'https://via.placeholder.com/160';
-  return (
-    <div
-      css={css`
-        display: flex;
-        width: 792px;
-        border: 1px solid #dfdfdf;
-        background: #ffffff;
-        border-radius: 20px;
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.05);
-        padding: 32px;
-        margin-bottom: 20px;
-        &:last-child {
-          margin-bottom: 0;
-        }
-      `}
-    >
-      <div
-        css={css`
-          position: relative;
-          flex-shrink: 0;
-          margin-right: 32px;
-        `}
-      >
-        <div
-          css={css`
-            width: 160px;
-            height: 160px;
-            background-image: url(${imageUrl});
-            background-size: cover;
-            background-repeat: no-repeat;
-          `}
-        />
-        <button
-          css={css`
-            cursor: pointer;
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            z-index: 1;
-            background-color: rgba(0, 0, 0, 0.3);
-            border-radius: 50%;
-            border: 0;
-            ${spritesStyle}
-            width: 32px;
-            height: 32px;
-            background-position: -132px 4px; // filled: -166px
-          `}
-        />
-      </div>
-      <div
-        css={css`
-          display: flex;
-          flex-direction: column;
-          flex-grow: 1;
-          margin-top: 8px;
-          margin-bottom: 8px;
-        `}
-      >
-        <div
-          css={css`
-            display: flex;
-            align-items: center;
-            margin-bottom: 11px;
-          `}
-        >
-          <Chip color="red" label={wineType} />
-          <div
-            css={css`
-              font-size: 14px;
-              color: #424242;
-              letter-spacing: -3%;
-              margin-left: 8px;
-            `}
-          >
-            {wineName}
-          </div>
-        </div>
-        <h3
-          css={css`
-            font-size: 18px;
-            margin-bottom: auto;
-          `}
-        >
-          {descript}
-        </h3>
-        <div
-          css={(theme) => css`
-            display: flex;
-            align-items: center;
-            font-family: ${theme.typography.lato};
-            color: #757575;
-            font-size: 12px;
-          `}
-        >
-          <span>{formatDate(regDate)}</span>
-          <Divider />
-          <span>조회 {viewCount}</span>
-          <Divider />
-          <span>좋아요 {wineNoteLikeCount}</span>
-        </div>
-        <div
-          css={(theme) => css`
-            font-family: ${theme.typography.lato};
-            color: #424242;
-          `}
-        >
-          by. {wineasyUserNickName}
-        </div>
-      </div>
-    </div>
-  );
-};
+export default Timeline;
