@@ -2,6 +2,7 @@ import { Switch, Route } from 'react-router-dom';
 import Login from './Login';
 import KakaoCallback from './KakaoCallback';
 import Signup from './Signup';
+import SignupComplete from './SignupComplete';
 
 function Main() {
   return (
@@ -10,6 +11,8 @@ function Main() {
       <Route path="/login" component={Login} />
       <Route path="/kakaoCallback" component={KakaoCallback} />
       <Route path="/signup/:token" component={Signup} />
+      <Route path="/signupComplete" component={SignupComplete} />
+      
     </Switch>
   );
 }
