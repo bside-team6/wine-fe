@@ -1,5 +1,4 @@
 import React from 'react';
-import { css } from '@emotion/react';
 import { KAKAO_AUTH_URL } from 'helpers/oauth';
 import kakaoLoginImg from 'assets/login/kakao_login_large_wide.png';
 import signupStep1 from 'assets/login/signup_step1.png';
