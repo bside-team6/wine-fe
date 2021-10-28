@@ -2,7 +2,19 @@ import React from 'react';
 import { css } from '@emotion/react';
 import { alignCenter } from 'styles/common';
 import WineNote from 'components/wineNote/WineNote';
-import { wineNotes } from 'api/mocks/wine-note'; // FIXME: mock 데이터 삭제 필요
+
+const tempWindNoteItemData = {
+  id: 10,
+  descript: '와인 초보의 첫 와인',
+  wineName: '장 로롱, 꼬또 뒤 리오네',
+  isLike: false,
+  wineType: 'RED',
+  wineasyUserNickName: 'Wineasy',
+  regDate: '2021-10-01',
+  viewCount: 82,
+  wineNoteLikeCount: 5,
+  wineNoteWineImagePath: null,
+};
 
 const RelatedWineNotes = () => {
   return (
@@ -42,10 +54,10 @@ const RelatedWineNotes = () => {
               margin-right: 36px;
             `}
           >
-            <WineNote {...wineNotes[2]} />
+            <WineNote {...tempWindNoteItemData} />
           </li>
           <li>
-            <WineNote {...wineNotes[1]} />
+            <WineNote {...tempWindNoteItemData} />
           </li>
         </ul>
       </div>

@@ -19,11 +19,11 @@ const DetailNote = ({
   descript,
   isLike,
   wineNoteLikeCount,
-  sweet, // required
-  score, // required
-  price, // optional
-  drinkDate, // optional
-  wineNoteFood, // optional
+  sweet,
+  score,
+  price,
+  drinkDate,
+  wineNoteFood,
 }) => {
   const imageUrl =
     wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/420';
@@ -158,28 +158,22 @@ const DetailNote = ({
               <span>당도</span>
               <div>{formatSweet(sweet)}</div>
             </div>
-            {!!price && (
-              <div>
-                <span>가격</span>
-                <div>{price.toLocaleString()}</div>
-              </div>
-            )}
-            {drinkDate && (
-              <div>
-                <span>마신날</span>
-                <div>{formatDate(drinkDate)}</div>
-              </div>
-            )}
-            {wineNoteFood && (
-              <div
-                css={css`
-                  grid-column: span 2 / span 2;
-                `}
-              >
-                <span>음식</span>
-                <div>{wineNoteFood}</div>
-              </div>
-            )}
+            <div>
+              <span>가격</span>
+              <div>{price.toLocaleString()}</div>
+            </div>
+            <div>
+              <span>마신날</span>
+              <div>{formatDate(drinkDate)}</div>
+            </div>
+            <div
+              css={css`
+                grid-column: span 2 / span 2;
+              `}
+            >
+              <span>음식</span>
+              <div>{wineNoteFood}</div>
+            </div>
           </div>
         </div>
       </div>

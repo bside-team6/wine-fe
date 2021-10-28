@@ -10,7 +10,7 @@ export const getAllWines = async (
   isPublic = true,
   page = 0,
 ) => {
-  const { data } = await instance.get('/manager/v1/wine', {
+  const { data } = await instance.get('/v1/wine', {
     params: {
       sort,
       size,

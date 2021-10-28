@@ -1,26 +1,61 @@
 import React from 'react';
 import { css } from '@emotion/react';
 import { KAKAO_AUTH_URL } from 'helpers/oauth';
-import kakaoLoginImg from 'assets/login/kakao_login_large_wide.png';
-import signupStep1 from 'assets/login/signup_step1.png';
-import {loginStep, loginKrTitle, loginKrStr, loginIcon } from 'styles/login';
+import kakaoLoginImg from 'assets/kakao_login_large_wide.png';
 
 function Login() {
+  console.log('ddddd : ', `${KAKAO_AUTH_URL}`);
   return (
     <div>
-      <div style={loginStep}>
-        <img src={signupStep1} alt=""></img>
-      </div>
-      <div style={loginKrTitle}>
+      <div
+        css={(theme) => css`
+          font-family: Noto Sans KR;
+          font-size: 32px;
+          font-style: normal;
+          font-weight: 700;
+          line-height: 46px;
+          letter-spacing: 0em;
+          text-align: center;
+          display: block;
+          margin: 0px auto;
+          height: 46px;
+          width: 89px;
+          left: 916px;
+          top: 241px;
+          border-radius: 0;
+          margin-bottom: 0;
+        `}
+      >
         로그인
       </div>
-      <div style={loginKrStr}>
+      <div
+        css={(theme) => css`
+          font-family: Noto Sans KR;
+          font-size: 18px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 26px;
+          letter-spacing: 0em;
+          text-align: center;
+          margin-top: 52px;
+        `}
+      >
         아이디, 비밀번호 입력하기 귀찮으시죠?
         <br />
         카카오로 간편하고 빠르게 로그인 하세요
       </div>
 
-      <div style={loginIcon}>
+      <div
+        css={(theme) => css`
+          height: 60px;
+          width: 432px;
+          left: 744px;
+          top: 415px;
+          display: block;
+          margin: 0px auto;
+          margin-top: 24px;
+        `}
+      >
         <img
           src={kakaoLoginImg}
           alt="kakaoLoginImg"
