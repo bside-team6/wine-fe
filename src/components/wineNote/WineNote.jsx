@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { formatDate } from 'helpers/utils';
@@ -20,8 +20,14 @@ const WineNote = ({
   wineNoteWineImagePath,
   isLike,
 }) => {
-  // TODO: 와인노트 좋아요 기능 추가
+  // TODO: 와인노트 좋아요 mutation 기능 추가
   const imageUrl = wineNoteWineImagePath || 'https://via.placeholder.com/160';
+
+  const description = useMemo(() => {
+    return descript && descript.length > 80
+      ? descript.substring(0, 80) + '...'
+      : descript;
+  }, [descript]);
 
   return (
     <Link
@@ -120,7 +126,7 @@ const WineNote = ({
               margin-bottom: auto;
             `}
           >
-            {descript}
+            {description}
           </h3>
           <div
             css={(theme) => css`
