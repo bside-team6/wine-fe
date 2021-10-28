@@ -27,7 +27,6 @@ const RoundButton = ({
   dropdown,
   ...restProps
 }) => {
-  // TODO: disabled color 추가
   return (
     <button
       css={(theme) => css`
