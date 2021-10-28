@@ -12,7 +12,6 @@ function Main() {
       <Route path="/kakaoCallback" component={KakaoCallback} />
       <Route path="/signup/:token" component={Signup} />
       <Route path="/signupComplete" component={SignupComplete} />
-      
     </Switch>
   );
 }
