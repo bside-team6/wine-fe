@@ -1,12 +1,23 @@
 import React, { useState, useCallback } from 'react';
 import { Router, withRouter } from 'react-router';
 import { css } from '@emotion/react';
-import { theme } from 'helpers/theme';
+import { getFood } from 'api/admin';
+import { useQuery } from 'react-query';
 
 function MainSearchBar() {
-  const handleMenu = () => {
-    console.log('test');
+  const [clickedId, setClickedId] = useState('1');
+
+  const handleClickMenu = (e, id) => {
+    setClickedId(id);
+    // console.log('test', e.target.classList, id);
+    // e.target.classList.add('on');
+    // e.target.className = 'on';
   };
+
+  const { data: foodsList } = useQuery('get-food', getFood, {
+    staleTime: Infinity,
+    select: (data) => data.data,
+  });
   return (
     <div
       css={() => css`
@@ -14,7 +25,8 @@ function MainSearchBar() {
         width: 100vw;
         height: calc(100vh - 10px);
         justify-content: center;
-        align-items: center;
+        position: relative;
+        top: calc(100vh / 5);
       `}
     >
       <div
@@ -40,9 +52,24 @@ function MainSearchBar() {
             box-shadow: 0px 4px 8px 0px #0000000d;
           `}
         >
-          <InnerSearch menuType={'메인음식'} className={'on'}></InnerSearch>
-          <InnerSearch menuType={'가격대'}></InnerSearch>
-          <InnerSearch menuType={'당도'}></InnerSearch>
+          <InnerSearch
+            menuType={'메인음식'}
+            handleClickMenu={(e) => handleClickMenu(e, '1')}
+            menuId="1"
+            clickedId={clickedId}
+          ></InnerSearch>
+          <InnerSearch
+            menuType={'가격대'}
+            handleClickMenu={(e) => handleClickMenu(e, '2')}
+            menuId="2"
+            clickedId={clickedId}
+          ></InnerSearch>
+          <InnerSearch
+            menuType={'당도'}
+            handleClickMenu={(e) => handleClickMenu(e, '3')}
+            menuId="3"
+            clickedId={clickedId}
+          ></InnerSearch>
           <div
             css={(theme) => css`
               display: flex;
@@ -75,10 +102,10 @@ function MainSearchBar() {
             margin-top: 15px;
             padding: 20px;
             .foodOptions {
-              display: none;
+              /* display: none; */
             }
             .priceOptions {
-              display: none;
+              /* display: none; */
             }
             .sweetOptions {
               display: flex;
@@ -97,7 +124,46 @@ function MainSearchBar() {
             }
           `}
         >
-          <BtnGrey text={'스테이크'} />
+          {clickedId === '1' && (
+            <div className="foodOptions">
+              <div css={(theme) => divOptStyle(theme)}>
+                <span>메인음식</span>
+                <span>한 가지 음식만 선택해주세요</span>
+              </div>
+              {foodsList?.map((foods) => {
+                return <BtnGrey data={foods.foodName} />;
+              })}
+            </div>
+          )}
+
+          {clickedId === '2' && (
+            <div className="PriceOptions">
+              <div css={(theme) => divOptStyle(theme)}>
+                <span>가격대</span>
+                <span>복수 선택이 가능해요</span>
+              </div>
+              {foodsList?.map((foods) => {
+                return <BtnGrey data={foods.foodName} />;
+              })}
+            </div>
+          )}
+
+          {clickedId === '3' && (
+            <div className="PriceOptions">
+              <div css={(theme) => divOptStyle(theme)}>
+                <span>달달한 순서대로 보여드릴까요?</span>
+              </div>
+              <div
+                css={css`
+                  display: flex;
+                  flex-direction: column;
+                `}
+              >
+                <BtnGrey data={'네'} />
+                <BtnGrey data={'아니요'} />
+              </div>
+            </div>
+          )}
         </div>
       </div>
     </div>
@@ -107,10 +173,12 @@ function MainSearchBar() {
 // export default withRouter(MainSearchBar);
 export default MainSearchBar;
 
-const InnerSearch = ({ menuType, className }) => {
+const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
   return (
     <div
-      onClick={this.handleMenu}
+      onClick={handleClickMenu}
+      id={menuId}
+      className={clickedId === menuId && 'on'}
       css={(theme) => css`
         display: flex;
         justify-content: left;
@@ -125,29 +193,47 @@ const InnerSearch = ({ menuType, className }) => {
           background-color: ${theme.lightPurple2};
         }
       `}
-      className={className}
     >
       {menuType}
     </div>
   );
 };
-const BtnGrey = ({ text }) => {
+
+const BtnGrey = ({ data }) => {
   return (
     <div
       css={(theme) => css`
         display: inline-block;
-        padding: 11px 20px 10px;
-        height: 40px;
+        padding: 8px 20px;
+        min-height: 40px;
         border: 2px solid #dfdfdf;
         box-sizing: border-box;
         border-radius: 20px;
         margin: 4px;
+        color: ${theme.colors.black06};
+        text-align: center;
         :hover {
-          border: 2px solid ${theme.primePurple};
+          border: 2px solid ${theme.colors.purple};
+          color: ${theme.colors.purple};
         }
       `}
     >
-      {text}
+      {data}
     </div>
   );
 };
+
+const divOptStyle = (theme) => css`
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+
+  span:first-child {
+    font-size: 18px;
+    font-weight: 700;
+  }
+  span:nth-child(2) {
+    font-size: 12px;
+    color: ${theme.colors.black06};
+  }
+`;
