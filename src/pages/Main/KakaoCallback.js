@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { css } from '@emotion/react';
 import { useHistory } from 'react-router-dom';
 import { KAKAO_TOKEN_URL } from 'helpers/oauth';
 import signupStep2 from 'assets/login/signup_step2.png';
