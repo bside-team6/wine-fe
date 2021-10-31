@@ -167,7 +167,7 @@ const DetailNote = ({
             {drinkDate && (
               <div>
                 <span>마신날</span>
-                <div>{formatDate(drinkDate)}</div>
+                <div>{formatDate(drinkDate, 'yyyy-MM-dd')}</div>
               </div>
             )}
             {wineNoteFood && (
