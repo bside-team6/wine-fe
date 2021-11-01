@@ -3,6 +3,8 @@ import { Router, withRouter } from 'react-router';
 import { css } from '@emotion/react';
 import { getFood } from 'api/admin';
 import { useQuery } from 'react-query';
+import Spinner from 'components/common/Spinner';
+import useWineSearchQuery from 'queries/useWineSearchQuery';
 import { ReactComponent as Search } from 'assets/ic_search.svg';
 import { ReactComponent as ArrowDown } from 'assets/Vector.svg';
 import { ReactComponent as Info } from 'assets/ic_info.svg';
@@ -11,20 +13,13 @@ function MainSearchBar() {
   const [clickedId, setClickedId] = useState('0');
   const [foodId, setFoodId] = useState();
   const [priceInfo, setPriceInfo] = useState({
-    strId: 1,
+    id: 0,
+    strId: 0,
     endId: 0,
     min: 0,
     max: null,
   });
   const [sortBy, setSortBy] = useState();
-  // const [searchData, setSearchData] = useState({
-  //   page: 0,
-  //   count: 16,
-  //   foodId: 0,
-  //   minPrice: null,
-  //   maxPrice: null,
-  //   sortBy: 'sweet',
-  // });
 
   const handleClickFood = (e, id) => {
     if (id === foodId) {
@@ -36,7 +31,10 @@ function MainSearchBar() {
   const handleClickPrice = (e, price) => {
     // setPrice(id);
     setPriceInfo((prevState) => ({
-      strId: Math.min(prevState.strId, price.id),
+      ...prevState,
+      id: price.id,
+      strId: price.id <= prevState.id ? price.id : prevState.strId,
+      endId: price.id >= prevState.id ? price.id : prevState.endId,
     }));
     console.log(priceInfo);
   };
@@ -48,13 +46,28 @@ function MainSearchBar() {
     }
   };
   const handleClickMenu = (e, id) => {
-    setClickedId(id);
+    setClickedId((prevState) => (prevState === id ? 0 : id));
+  };
+
+  const handleSubmit = (e) => {
+    refetch();
   };
 
   const { data: foodsList } = useQuery('get-food', getFood, {
     staleTime: Infinity,
     select: (data) => data.data,
   });
+
+  const { data, isLoading, refetch } = useWineSearchQuery(
+    {
+      enabled: false,
+    },
+    { count: 10, page: 1 },
+  );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
   return (
     <div
       css={() => css`
@@ -96,7 +109,7 @@ function MainSearchBar() {
             clickedId={clickedId}
           ></InnerSearch>
           <div css={(theme) => RoundBtnStyle(theme)}>
-            <Search />
+            <Search onClick={(e) => handleSubmit(e)} />
           </div>
         </div>
         {clickedId !== '0' && (
@@ -152,6 +165,7 @@ function MainSearchBar() {
                       id={price.id}
                       price={price}
                       handleClickButton={handleClickPrice}
+                      priceInfo={priceInfo}
                     />
                   );
                 })}
@@ -268,12 +282,12 @@ const BtnFood = ({ id, data, foodId, handleClickButton }) => {
     </div>
   );
 };
-const BtnPrice = ({ id, price, handleClickButton }) => {
+const BtnPrice = ({ id, price, handleClickButton, priceInfo }) => {
   return (
     <div
       id={id}
       onClick={(e) => handleClickButton(e, price)}
-      // className={id === foodId && 'on'}
+      className={id >= priceInfo.strId && id <= priceInfo.endId && 'on'}
       css={() => BtnGreyStyle}
     >
       {price.name}
