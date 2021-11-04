@@ -11,3 +11,14 @@ export const kakaoSignUp = async (kakaoAccessToken) => {
   });
   return data;
 };
+
+/**
+ * GET 간편검색
+ */
+export const getWineSearch = async (param) => {
+  console.log('param &&&&& :', param.queryKey[1]);
+  const { data } = await instance.get('/v1/simple-search', {
+    params: param.queryKey[1],
+  });
+  return data;
+};
