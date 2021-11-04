@@ -1,12 +1,10 @@
-import React, { useState, useCallback } from 'react';
-import { Router, withRouter } from 'react-router';
+import React, { useState } from 'react';
 import { css } from '@emotion/react';
 import { getFood } from 'api/admin';
 import { useQuery } from 'react-query';
 import Spinner from 'components/common/Spinner';
 import useWineSearchQuery from 'queries/useWineSearchQuery';
 import { ReactComponent as Search } from 'assets/ic_search.svg';
-import { ReactComponent as ArrowDown } from 'assets/Vector.svg';
 import { ReactComponent as Info } from 'assets/ic_info.svg';
 
 function MainSearchBar() {
@@ -58,7 +56,7 @@ function MainSearchBar() {
     select: (data) => data.data,
   });
 
-  const { data, isLoading, refetch } = useWineSearchQuery(
+  const { isLoading, refetch } = useWineSearchQuery(
     {
       enabled: false,
     },
