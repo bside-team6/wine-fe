@@ -3,6 +3,8 @@ import Login from './Login';
 import KakaoCallback from './KakaoCallback';
 import Signup from './Signup';
 import MainSearchBar from './MainSearchBar';
+import SignupComplete from './SignupComplete';
+
 function Main() {
   return (
     <Switch>
@@ -11,6 +13,7 @@ function Main() {
       <Route path="/login" component={Login} />
       <Route path="/kakaoCallback" component={KakaoCallback} />
       <Route path="/signup/:token" component={Signup} />
+      <Route path="/signupComplete" component={SignupComplete} />
     </Switch>
   );
 }
