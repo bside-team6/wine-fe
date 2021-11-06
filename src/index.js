@@ -5,6 +5,7 @@ import { QueryProvider } from 'helpers/query';
 import { ThemeProvider } from 'helpers/theme';
 import App from './App';
 
+
 ReactDOM.render(
   <React.StrictMode>
     <RecoilRoot>

@@ -2,14 +2,17 @@ import React, { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { KAKAO_SIGNUP_URL, NICKNAME_URL, RTOKEN_URL } from 'helpers/oauth';
 import signupStep2 from 'assets/login/signup_step2.png'; 
-import {loginStep, loginKrTitle, loginKrStr, nickNameInputArea,  nickNameInput, nickNameInputStr, btnArea, btnConfirm} from 'styles/login';
+import {loginStep, loginKrTitle, loginKrStr, nickNameInputArea, nickNameInput, nFalse, nTrue, nickNameInputStr, btnArea, btnConfirm, fBtnConfirm} from 'styles/login';
 // nTrue, nFalse, 
 function SignupStep2() {
   const [wineToken, setWineToken] = useState('');
   const [wineRToken, setWineRToken] = useState('');
   const [nickName, setNickName] = useState(''); 
   const history = useHistory();
-  const [str, setStr] = useState('2-16자 국문/영문 대소문자/숫자');
+  const [str, setStr] = useState('2-8자 국문/영문 대소문자/숫자');
+  const [chk, setLChk] = useState('');
+  const [cName, setCName] = useState(nickNameInput);
+  const [bName, setBName] = useState(fBtnConfirm);
   const { token } = useParams();
   useEffect(() => {
     
@@ -23,6 +26,7 @@ function SignupStep2() {
         return res.json();
       })
       .then((res) => {
+        console.log(res);
         if(res.result){
           if(!res.data.isNewUser){
             history.push(`/getUserInfo/${res.data.accessToken}/${res.data.refreshToken}`);
@@ -36,31 +40,35 @@ function SignupStep2() {
   });
 
   const nickNameInsert = async () => {
-    fetch(`${NICKNAME_URL}`, {
-      method: 'POST',
-      headers: {
-        'AccessToken': wineToken,
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      body: `nickName=${nickName}`
-    })
-      .then((res) => {
-        return res.json();
+    if(chk === true){
+      fetch(`${NICKNAME_URL}`, {
+        method: 'POST',
+        headers: {
+          'AccessToken': wineToken,
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: `nickName=${nickName}`
       })
-      .then((res) => {
-        if(res.result){
-          history.push(`/signupComplete`);
-        }else{
-          if(res.status === '401'){
-            console.log('토큰만료');
-            tokenRefresh();
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if(res.result){
+            history.push(`/signupComplete`);
+          }else{
+            if(res.status === '401'){
+              console.log('토큰만료');
+              tokenRefresh();
+            }
+            if(res.message.length > 0){
+              setStr(res.message); 
+              setCName(nFalse);    
+              setBName(fBtnConfirm);       
+            }
           }
-          if(res.message.length > 0){
-            setStr(res.message);            
-          }
-        }
-      })
-      .catch((error) => console.log('error:', error));
+        })
+        .catch((error) => console.log('error:', error));
+    }    
   };
 
   const tokenRefresh = async () => {
@@ -90,14 +98,17 @@ function SignupStep2() {
     setNickName(e.target.value);
     
     //TODO:닉네임 길이에 따라 클래스 명 설정
-    /*
     if(e.target.value.length < 2 || e.target.value.length > 16){
       setLChk(false);
+      setCName(nFalse);
+      setBName(fBtnConfirm);
       console.log(e.currentTarget);
     }else{
       setLChk(true);
+      setCName(nTrue);
+      setBName(btnConfirm);
       console.log(e.currentTarget);
-    }*/
+    }
   };
 
   return (
@@ -116,7 +127,7 @@ function SignupStep2() {
         <div style={nickNameInputArea}   
         >
           <input 
-            style={nickNameInput}
+            style={cName}
             type="text"
             placeholder="닉네임"
             id="nickName"
@@ -127,12 +138,12 @@ function SignupStep2() {
           </span>
         </div>
         <div style={btnArea}>
-          <button 
-            style={btnConfirm}
-            onClick={nickNameInsert}>
-            확인
-          </button>
-        </div>
+            <button 
+              style={bName}
+              onClick={nickNameInsert}>
+              확인
+            </button>
+          </div>
       </div>
   );
   

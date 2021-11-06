@@ -3,7 +3,6 @@ import { useParams, useHistory } from 'react-router-dom';
 import { USERINFO_URL, RTOKEN_URL } from 'helpers/oauth';
 
 function GetUserInfo() {
-  //console.log('GetUserInfo page ');
   const { token } = useParams();
   const { rToken } = useParams();
   const history = useHistory();
@@ -17,11 +16,10 @@ function GetUserInfo() {
         return res.json();
       })
       .then((res) => {
-        //console.log(res);
         if(res.result){
           sessionStorage.setItem("isAuthorized", "true");
           sessionStorage.setItem("nickName", res.data.nickName);
-          history.push(`/`);
+          window.location.replace("/");
         }else{
           if(res.status === 401){
             tokenRefresh();
@@ -43,7 +41,6 @@ function GetUserInfo() {
     })
     .then((res) => {
       if(res.result){
-        //console.log(res);
         history.push(`/getUserInfo/${res.data}/`);
       }
     })

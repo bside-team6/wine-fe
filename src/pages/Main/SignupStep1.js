@@ -4,7 +4,7 @@ import kakaoLoginImg from 'assets/login/kakao_login_large_wide.png';
 import signupStep1 from 'assets/login/signup_step1.png';
 import {loginStep, loginKrTitle, loginKrStr, loginIcon } from 'styles/login';
 
-function SignupStep2() {
+function SignupStep1() {
   return (
     <div>
       <div style={loginStep}>
@@ -30,4 +30,4 @@ function SignupStep2() {
   );
 }
 
-export default SignupStep2;
+export default SignupStep1;

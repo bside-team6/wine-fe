@@ -35,7 +35,6 @@ function KakaoCallback() {
         }
       })
       .then((token) => {
-        console.log(token);
         history.push(`/signupStep2/${token}`);
       });
   }, [code, history, url]);
