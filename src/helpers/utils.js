@@ -9,9 +9,10 @@ import { format, parse } from 'date-fns';
  */
 export const formatDate = (
   date,
-  formatString = 'yyyy-MM-dd',
+  formatString = "yyyy-MM-dd'T'HH:mm:ss",
   formatString2 = 'PP',
 ) => {
+  console.log(date);
   const parsed = parse(date, formatString, new Date());
   return format(parsed, formatString2);
 };
