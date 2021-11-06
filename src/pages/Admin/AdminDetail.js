@@ -10,12 +10,12 @@ import {
 } from '@coreui/react';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getWine } from '~/api/admin';
 import RadioGroup from '~/components/RadioGroup';
 
 function AdminDetail() {
-  const history = useHistory();
+  const navigate = useNavigate();
   const { id } = useParams();
 
   const { data, isLoading } = useQuery(['get-wine', id], () => getWine(id), {
@@ -31,7 +31,7 @@ function AdminDetail() {
         .then((res) => {
           if (!res.result) alert(res.message);
           else {
-            history.push('/admin');
+            navigate('/admin');
           }
         });
     }

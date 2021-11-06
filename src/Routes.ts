@@ -1,13 +1,17 @@
 import loadable from '@loadable/component';
 
-const MainPage = loadable(() => import('./pages/Main'));
-const AdminPage = loadable(() => import('./pages/Admin'));
-const WineNotePage = loadable(() => import('./pages/WineNote'));
+export const Main = loadable(
+  () =>
+    import(
+      /* webpackChunkName: "main-page" */
+      './pages/Main'
+    ),
+);
 
-const Routes = {
-  Main: MainPage,
-  Admin: AdminPage,
-  WineNote: WineNotePage,
-};
+export const Admin = loadable(
+  () => import(/* webpackChunkName: "admin-page" */ './pages/Admin'),
+);
 
-export default Routes;
+export const WineNote = loadable(
+  () => import(/* webpackChunkName: "wine-note-page" */ './pages/WineNote'),
+);

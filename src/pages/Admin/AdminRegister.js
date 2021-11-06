@@ -12,14 +12,14 @@ import {
 } from '@coreui/react';
 import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getFood, getWineRegions, getWineVarieties } from '~/api/admin';
 import MultiSelect from '~/components/MutliSelect';
 import RadioGroup from '~/components/RadioGroup';
 import ToggleBtnGroup from '~/components/ToggleBtnGroup';
 
-function AdminRegist() {
-  const history = useHistory();
+function AdminRegister() {
+  const navigate = useNavigate();
 
   const [imgFile, setImgFile] = useState();
 
@@ -64,7 +64,7 @@ function AdminRegist() {
         .then((res) => {
           if (res.data) {
             alert('신규 와인 정상 등록되었습니다.');
-            history.push('/admin');
+            navigate('/admin');
           } else {
             alert('오류발생');
           }
@@ -326,7 +326,7 @@ function AdminRegist() {
   );
 }
 
-export default AdminRegist;
+export default AdminRegister;
 
 const detailType = [
   { id: 'sweet', name: '당도', steps: 5 },

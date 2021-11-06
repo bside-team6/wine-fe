@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { KAKAO_TOKEN_URL } from '~/helpers/oauth';
 import {
   btnArea,
@@ -19,7 +19,7 @@ function KakaoCallback() {
   const search = current.split('?')[1];
   const params = new URLSearchParams(search);
   const code = params.get('code');
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const url = `${KAKAO_TOKEN_URL}&code=` + code;
 
@@ -45,9 +45,9 @@ function KakaoCallback() {
       .then((token) => {
         //window.open("history.push(`/login/:${userInfo}`);","_self");
         console.log(token);
-        history.push(`/signup/${token}`);
+        navigate(`/signup/${token}`);
       });
-  }, [code, history, url]);
+  }, [code, navigate, url]);
 
   return (
     <div>

@@ -90,7 +90,7 @@ function AdminList() {
     <div>
       <Header>Wineasy Admin-와인목록</Header>
       <CCard className="mb-4">
-        <Link to="/admin/regist">
+        <Link to="/admin/register">
           <CButton style={style}> 와인 등록하기 </CButton>
         </Link>
         <CCardHeader>WINE LIST</CCardHeader>

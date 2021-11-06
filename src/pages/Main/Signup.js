@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useHistory, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { KAKAO_SIGNUP_URL, NICKNAME_URL, RTOKEN_URL } from '~/helpers/oauth';
 import {
   btnArea,
@@ -17,7 +17,7 @@ function Signup() {
   const [wineRToken, setWineRToken] = useState('');
   const [nickName, setNickName] = useState('');
   const [cKind, setCKind] = useState('');
-  const history = useHistory();
+  const navigate = useNavigate();
   //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
   console.log('Signup page ');
   const { token } = useParams();
@@ -57,7 +57,7 @@ function Signup() {
         setCKind('nickName');
         console.log(res);
         if (res.result) {
-          history.push(`/signupComplete`);
+          navigate(`/signupComplete`);
         } else {
           if (res.status === '401') {
             console.log('토큰만료');

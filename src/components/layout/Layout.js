@@ -1,8 +1,9 @@
 import { css } from '@emotion/react';
+import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import Header from './Header';
 
-const Layout = ({ children }) => {
+const Layout = () => {
   return (
     <>
       <Header />
@@ -11,7 +12,7 @@ const Layout = ({ children }) => {
           min-height: 200px;
         `}
       >
-        {children}
+        <Outlet />
       </div>
       <Footer />
     </>

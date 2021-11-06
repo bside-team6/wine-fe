@@ -1,17 +1,17 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import AdminDetail from './AdminDetail';
 import AdminList from './AdminList';
-import AdminRegist from './AdminRegist';
+import AdminRegister from './AdminRegister';
 import '@coreui/coreui/dist/css/coreui.min.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 function Admin() {
   return (
-    <Switch>
-      <Route exact path="/admin" component={AdminList} />
-      <Route path="/admin/detail/:id" component={AdminDetail} />
-      <Route path="/admin/regist" component={AdminRegist} />
-    </Switch>
+    <Routes>
+      <Route index element={<AdminList />} />
+      <Route path="detail/:id" element={<AdminDetail />} />
+      <Route path="register" element={<AdminRegister />} />
+    </Routes>
   );
 }
 

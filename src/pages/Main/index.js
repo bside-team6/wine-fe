@@ -1,4 +1,4 @@
-import { Route, Switch } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import KakaoCallback from './KakaoCallback';
 import Login from './Login';
 import MainSearchBar from './MainSearchBar';
@@ -7,14 +7,14 @@ import SignupComplete from './SignupComplete';
 
 function Main() {
   return (
-    <Switch>
-      <Route exact path="/" component={MainSearchBar} />
-      {/* <Route exact path="/" component={() => <div>Home</div>} /> */}
-      <Route path="/login" component={Login} />
-      <Route path="/kakaoCallback" component={KakaoCallback} />
-      <Route path="/signup/:token" component={Signup} />
-      <Route path="/signupComplete" component={SignupComplete} />
-    </Switch>
+    <Routes>
+      <Route index element={<MainSearchBar />} />
+      <Route path="login" element={<Login />} />
+      <Route path="kakaoCallback" element={<KakaoCallback />} />
+      <Route path="signup/:token" element={<Signup />} />
+      <Route path="signupComplete" element={<SignupComplete />} />
+      <Route path="*" element={<div>Not Found</div>} />
+    </Routes>
   );
 }
 
