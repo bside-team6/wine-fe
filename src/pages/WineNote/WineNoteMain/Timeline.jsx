@@ -1,8 +1,7 @@
-import React from 'react';
 import { css } from '@emotion/react';
-import useWineNoteTimelineQuery from 'queries/useWineNoteTimelineQuery';
-import WineNote from 'components/wineNote/WineNote';
-import Spinner from 'components/common/Spinner';
+import Spinner from '~/components/common/Spinner';
+import WineNote from '~/components/wineNote/WineNote';
+import useWineNoteTimelineQuery from '~/queries/useWineNoteTimelineQuery';
 
 const Timeline = () => {
   // TODO: 무한 스크롤 방식으로 변경

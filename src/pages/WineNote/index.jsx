@@ -1,7 +1,6 @@
-import React from 'react';
-import { Switch, Route } from 'react-router-dom';
-import WineNoteMain from './WineNoteMain';
+import { Route, Switch } from 'react-router-dom';
 import WineNoteDetail from './WineNoteDetail';
+import WineNoteMain from './WineNoteMain';
 
 const WindNote = () => {
   // TODO: 와인노트작성, 와인노트수정 라우트 추가

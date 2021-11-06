@@ -1,4 +1,3 @@
-import React from 'react';
 import WineNoteMainContent from './WineNoteMainContent';
 import WineNoteMainHeader from './WineNoteMainHeader';
 

@@ -1,10 +1,9 @@
-import React from 'react';
-import { wineNotes } from 'api/mocks/wine-note';
-import { providerDecorator } from 'helpers/storybook';
 import WineNote from './WineNote';
+import { wineNotes } from '~/api/mocks/wine-note';
+import { providerDecorator } from '~/helpers/storybook';
 
 export default {
-  title: 'Components/WineNote',
+  title: '~/components/WineNote',
   component: WineNote,
   args: {
     ...wineNotes[0], // timeline item format

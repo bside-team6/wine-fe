@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { css } from '@emotion/react';
-import { getFood } from 'api/admin';
 import { useQuery } from 'react-query';
-import Spinner from 'components/common/Spinner';
-import useWineSearchQuery from 'queries/useWineSearchQuery';
-import { ReactComponent as Search } from 'assets/ic_search.svg';
-import { ReactComponent as Info } from 'assets/ic_info.svg';
+import { getFood } from '~/api/admin';
+import Spinner from '~/components/common/Spinner';
+import useWineSearchQuery from '~/queries/useWineSearchQuery';
+import { ReactComponent as Info } from '~/assets/ic_info.svg';
+import { ReactComponent as Search } from '~/assets/ic_search.svg';
 
 function MainSearchBar() {
   const [clickedId, setClickedId] = useState('0');

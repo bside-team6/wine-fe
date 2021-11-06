@@ -1,7 +1,6 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { alignCenter } from 'styles/common';
+import { Link } from 'react-router-dom';
+import { alignCenter } from '~/styles/common';
 
 const Footer = () => {
   return (

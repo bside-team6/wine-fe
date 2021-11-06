@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import styled from '@emotion/styled';
+import { useState } from 'react';
 import {
-  CInputGroup,
-  CInputGroupText,
-  CFormInput,
-  CFormSwitch,
-  CFormSelect,
   CButton,
   CForm,
   CFormFeedback,
+  CFormInput,
+  CFormSelect,
+  CFormSwitch,
+  CInputGroup,
+  CInputGroupText,
   CSpinner,
 } from '@coreui/react';
-import RadioGroup from 'components/RadioGroup';
-import ToggleBtnGroup from 'components/ToggleBtnGroup';
-import MultiSelect from 'components/MutliSelect';
-import { useHistory } from 'react-router-dom';
+import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
-import { getFood, getWineRegions, getWineVarieties } from 'api/admin';
+import { useHistory } from 'react-router-dom';
+import { getFood, getWineRegions, getWineVarieties } from '~/api/admin';
+import MultiSelect from '~/components/MutliSelect';
+import RadioGroup from '~/components/RadioGroup';
+import ToggleBtnGroup from '~/components/ToggleBtnGroup';
 
 function AdminRegist() {
   const history = useHistory();

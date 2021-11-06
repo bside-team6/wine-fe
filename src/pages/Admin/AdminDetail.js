@@ -1,19 +1,18 @@
-import React from 'react';
 import {
-  CInputGroup,
-  CInputGroupText,
-  CFormInput,
-  CFormSwitch,
   CButton,
   CForm,
+  CFormInput,
+  CFormSwitch,
   CImage,
+  CInputGroup,
+  CInputGroupText,
   CSpinner,
 } from '@coreui/react';
 import styled from '@emotion/styled';
-import RadioGroup from 'components/RadioGroup';
-import { useHistory, useParams } from 'react-router-dom';
 import { useQuery } from 'react-query';
-import { getWine } from 'api/admin';
+import { useHistory, useParams } from 'react-router-dom';
+import { getWine } from '~/api/admin';
+import RadioGroup from '~/components/RadioGroup';
 
 function AdminDetail() {
   const history = useHistory();

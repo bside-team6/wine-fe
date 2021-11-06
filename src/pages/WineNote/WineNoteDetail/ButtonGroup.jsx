@@ -1,7 +1,6 @@
-import React from 'react';
-import { useHistory } from 'react-router-dom';
 import { css } from '@emotion/react';
-import RoundButton from 'components/common/RoundButton';
+import { useHistory } from 'react-router-dom';
+import RoundButton from '~/components/common/RoundButton';
 
 const ButtonGroup = () => {
   const history = useHistory();

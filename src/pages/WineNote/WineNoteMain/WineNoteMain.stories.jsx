@@ -1,12 +1,11 @@
-import React from 'react';
 import { rest } from 'msw';
-import { providerDecorator } from 'helpers/storybook';
 import WineNoteMain from './index';
-import { successResponse, pageableResponse } from 'api/mocks';
-import { wineNotes, popularWineNotes } from 'api/mocks/wine-note';
+import { pageableResponse, successResponse } from '~/api/mocks';
+import { popularWineNotes, wineNotes } from '~/api/mocks/wine-note';
+import { providerDecorator } from '~/helpers/storybook';
 
 export default {
-  title: 'Pages/WineNoteMain',
+  title: '~/pages/WineNoteMain',
   component: WineNoteMain,
   args: {},
   decorators: [providerDecorator()],

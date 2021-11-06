@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import sprites from 'assets/sprites-24.png';
+import sprites from '~/assets/sprites-24.png';
 
 export const spritesStyle = css`
   width: 24px;

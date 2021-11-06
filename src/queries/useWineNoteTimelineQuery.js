@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getWineNoteTimeline } from 'api/wine-note';
+import { getWineNoteTimeline } from '~/api/wine-note';
 
 const useWineNoteTimelineQuery = (options) => {
   return useQuery('wine-note-timeline', getWineNoteTimeline, {

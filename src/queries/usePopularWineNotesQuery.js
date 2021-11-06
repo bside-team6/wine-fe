@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getPopularWineNotes } from 'api/wine-note';
+import { getPopularWineNotes } from '~/api/wine-note';
 
 const usePopularWineNotesQuery = (options) => {
   return useQuery('popular-wine-notes', getPopularWineNotes, {

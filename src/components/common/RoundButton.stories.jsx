@@ -1,8 +1,7 @@
-import React from 'react';
 import RoundButton from './RoundButton';
 
 export default {
-  title: 'Components/RoundButton',
+  title: '~/components/RoundButton',
   component: RoundButton,
   args: {
     color: 'primary',

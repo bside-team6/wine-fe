@@ -1,7 +1,7 @@
 import { MemoryRouter, Route } from 'react-router-dom';
 import { RecoilRoot } from 'recoil';
-import { QueryProvider } from 'helpers/query';
-import { ThemeProvider } from 'helpers/theme';
+import { QueryProvider } from '~/helpers/query';
+import { ThemeProvider } from '~/helpers/theme';
 
 export const themeDecorator = (StoryFn) => (
   <ThemeProvider>{StoryFn()}</ThemeProvider>

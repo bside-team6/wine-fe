@@ -1,6 +1,5 @@
-import React from 'react';
 import { css } from '@emotion/react';
-import { spritesStyle } from 'styles/common';
+import { spritesStyle } from '~/styles/common';
 
 const dropdownStyle = css`
   padding-right: 40px;

@@ -1,5 +1,5 @@
 import { useQuery } from 'react-query';
-import { getWineNote } from 'api/wine-note';
+import { getWineNote } from '~/api/wine-note';
 
 const useWineNoteQuery = (wineNoteId, options) => {
   return useQuery(['wine-note', wineNoteId], () => getWineNote(wineNoteId), {

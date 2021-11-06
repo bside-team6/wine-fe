@@ -1,7 +1,6 @@
-import React from 'react';
 import { css } from '@emotion/react';
-import Timeline from './Timeline';
 import PopularNote from './PopularNote';
+import Timeline from './Timeline';
 
 const WineNoteMainContent = () => {
   return (

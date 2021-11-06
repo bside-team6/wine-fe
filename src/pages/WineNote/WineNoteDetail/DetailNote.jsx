@@ -1,13 +1,12 @@
-import React from 'react';
 import { css } from '@emotion/react';
 import StarRatings from 'react-star-ratings';
-import { alignCenter } from 'styles/common';
-import { formatDate, formatSweet } from 'helpers/utils';
-import Chip from 'components/common/Chip';
-import Divider from 'components/common/Divider';
-import { ReactComponent as Heart } from 'assets/ic_heart.svg';
-import { ReactComponent as HeartOn } from 'assets/ic_heart_on.svg';
-import { theme } from 'helpers/theme';
+import Chip from '~/components/common/Chip';
+import Divider from '~/components/common/Divider';
+import { theme } from '~/helpers/theme';
+import { formatDate, formatSweet } from '~/helpers/utils';
+import { alignCenter } from '~/styles/common';
+import { ReactComponent as Heart } from '~/assets/ic_heart.svg';
+import { ReactComponent as HeartOn } from '~/assets/ic_heart_on.svg';
 
 const DetailNote = ({
   wineNoteWineImages,

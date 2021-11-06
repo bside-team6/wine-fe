@@ -1,7 +1,6 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import Layout from 'components/layout/Layout';
-import Routes from './Routes';
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
+import Layout from '~/components/layout/Layout';
+import Routes from '~/Routes';
 
 function App() {
   return (

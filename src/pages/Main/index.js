@@ -1,8 +1,8 @@
-import { Switch, Route } from 'react-router-dom';
-import Login from './Login';
+import { Route, Switch } from 'react-router-dom';
 import KakaoCallback from './KakaoCallback';
-import Signup from './Signup';
+import Login from './Login';
 import MainSearchBar from './MainSearchBar';
+import Signup from './Signup';
 import SignupComplete from './SignupComplete';
 
 function Main() {

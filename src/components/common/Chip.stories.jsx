@@ -1,8 +1,7 @@
-import React from 'react';
 import Chip from './Chip';
 
 export default {
-  title: 'Components/Chip',
+  title: '~/components/Chip',
   component: Chip,
   args: {
     wineType: 'RED',

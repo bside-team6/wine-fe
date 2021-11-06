@@ -1,8 +1,16 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { KAKAO_TOKEN_URL } from 'helpers/oauth';
-import signupStep2 from 'assets/login/signup_step2.png';
-import {loginStep, loginKrTitle, loginKrStr, nickNameInput, nickNameInputStr, btnArea, btnConfirm} from 'styles/login';
+import { KAKAO_TOKEN_URL } from '~/helpers/oauth';
+import {
+  btnArea,
+  btnConfirm,
+  loginKrStr,
+  loginKrTitle,
+  loginStep,
+  nickNameInput,
+  nickNameInputStr,
+} from '~/styles/login';
+import signupStep2 from '~/assets/login/signup_step2.png';
 
 function KakaoCallback() {
   //TODO : 로그인 , 회원가입 화면 나눌지 체크하기
@@ -46,30 +54,23 @@ function KakaoCallback() {
       <div style={loginStep}>
         <img src={signupStep2} alt=""></img>
       </div>
-      <div style={loginKrTitle}>
-        닉네임
-      </div>
+      <div style={loginKrTitle}>닉네임</div>
       <div style={loginKrStr}>
-        환영합니다! 만나서 반가워요. 
+        환영합니다! 만나서 반가워요.
         <br />
         와인이지에서 쓰실 닉네임을 정해주시면 가입 완료!
       </div>
-      <div
-      >
-        <input 
+      <div>
+        <input
           style={nickNameInput}
           type="text"
           placeholder="닉네임"
           id="nickName"
         ></input>
-        <span style={nickNameInputStr}>
-          2-16자 국문/영문 대소문자/숫자
-        </span>
+        <span style={nickNameInputStr}>2-16자 국문/영문 대소문자/숫자</span>
       </div>
       <div style={btnArea}>
-        <button style={btnConfirm}>
-          확인
-        </button>
+        <button style={btnConfirm}>확인</button>
       </div>
     </div>
   );

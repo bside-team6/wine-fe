@@ -1,12 +1,12 @@
-import React, { useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import { useMemo } from 'react';
 import { css } from '@emotion/react';
-import { formatDate } from 'helpers/utils';
-import { alignCenter } from 'styles/common';
-import Chip from 'components/common/Chip';
-import Divider from 'components/common/Divider';
-import { ReactComponent as Heart } from 'assets/ic_heart.svg';
-import { ReactComponent as HeartOn } from 'assets/ic_heart_on.svg';
+import { Link } from 'react-router-dom';
+import Chip from '~/components/common/Chip';
+import Divider from '~/components/common/Divider';
+import { formatDate } from '~/helpers/utils';
+import { alignCenter } from '~/styles/common';
+import { ReactComponent as Heart } from '~/assets/ic_heart.svg';
+import { ReactComponent as HeartOn } from '~/assets/ic_heart_on.svg';
 
 const WineNote = ({
   id,

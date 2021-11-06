@@ -1,12 +1,11 @@
-import React from 'react';
 import { rest } from 'msw';
-import { providerDecorator } from 'helpers/storybook';
 import WineNoteDetail from './index';
-import { successResponse } from 'api/mocks';
-import { wineNote } from 'api/mocks/wine-note';
+import { successResponse } from '~/api/mocks';
+import { wineNote } from '~/api/mocks/wine-note';
+import { providerDecorator } from '~/helpers/storybook';
 
 export default {
-  title: 'Pages/WineNoteDetail',
+  title: '~/pages/WineNoteDetail',
   component: WineNoteDetail,
   decorators: [
     providerDecorator({

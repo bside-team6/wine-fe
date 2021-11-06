@@ -1,8 +1,7 @@
-import React from 'react';
-import { NavLink } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { spritesStyle, alignCenter } from 'styles/common';
-import logo from 'assets/logo.png';
+import { NavLink } from 'react-router-dom';
+import { alignCenter, spritesStyle } from '~/styles/common';
+import logo from '~/assets/logo.png';
 
 const Header = () => {
   // TODO: search form 추가

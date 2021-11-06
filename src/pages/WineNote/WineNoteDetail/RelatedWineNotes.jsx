@@ -1,8 +1,9 @@
-import React from 'react';
 import { css } from '@emotion/react';
-import { alignCenter } from 'styles/common';
-import WineNote from 'components/wineNote/WineNote';
-import { wineNotes } from 'api/mocks/wine-note'; // FIXME: mock 데이터 삭제 필요
+import { wineNotes } from '~/api/mocks/wine-note';
+import WineNote from '~/components/wineNote/WineNote';
+import { alignCenter } from '~/styles/common';
+
+// FIXME: mock 데이터 삭제 필요
 
 const RelatedWineNotes = () => {
   return (

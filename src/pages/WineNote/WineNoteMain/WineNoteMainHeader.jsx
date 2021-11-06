@@ -1,7 +1,6 @@
-import React from 'react';
 import { css } from '@emotion/react';
-import { alignCenter } from 'styles/common';
-import RoundButton from 'components/common/RoundButton';
+import RoundButton from '~/components/common/RoundButton';
+import { alignCenter } from '~/styles/common';
 
 const WineNoteMainHeader = () => {
   return (

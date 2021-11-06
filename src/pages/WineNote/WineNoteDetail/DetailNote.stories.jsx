@@ -1,9 +1,8 @@
-import React from 'react';
 import DetailNote from './DetailNote';
-import { wineNote } from 'api/mocks/wine-note';
+import { wineNote } from '~/api/mocks/wine-note';
 
 export default {
-  title: 'Pages/WineNoteDetail/DetailNote',
+  title: '~/pages/WineNoteDetail/DetailNote',
   component: DetailNote,
   args: {
     ...wineNote,
