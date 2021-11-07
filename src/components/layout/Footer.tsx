@@ -10,6 +10,7 @@ const Footer = () => {
         justify-content: center;
         height: 80px;
         border-top: 1px solid #dfdfdf;
+        flex-shrink: 0;
       `}
     >
       <div

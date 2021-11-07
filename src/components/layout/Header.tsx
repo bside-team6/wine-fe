@@ -1,22 +1,21 @@
-import { useEffect, useState } from 'react';
+// import { useEffect, useState } from 'react';
 import { css, Theme } from '@emotion/react';
 import { NavLink } from 'react-router-dom';
-import { KAKAO_AUTH_URL } from '~/helpers/oauth';
 import { alignCenter, spritesStyle } from '~/styles/common';
 import logo from '~/assets/logo.png';
 
 const Header = () => {
-  // TODO: search form 추가
-  // TODO: auth 상태에 따라 분기 추가
-  const [isLogin, setIsLogin] = useState('');
-  const [nickName, setNickName] = useState('');
+  // // TODO: search form 추가
+  // // TODO: auth 상태에 따라 분기 추가
+  // const [isLogin, setIsLogin] = useState('');
+  // const [nickName, setNickName] = useState('');
 
-  useEffect(() => {
-    setIsLogin(sessionStorage.getItem('isAuthorized') || 'false');
-    setNickName(sessionStorage.getItem('nickName') || '');
-    console.log('isLogin >>> ', sessionStorage.getItem('isAuthorized'));
-    console.log('sessionStorage >> ', sessionStorage);
-  }, []);
+  // useEffect(() => {
+  //   setIsLogin(sessionStorage.getItem('isAuthorized') || 'false');
+  //   setNickName(sessionStorage.getItem('nickName') || '');
+  //   console.log('isLogin >>> ', sessionStorage.getItem('isAuthorized'));
+  //   console.log('sessionStorage >> ', sessionStorage);
+  // }, []);
 
   return (
     <div
@@ -25,6 +24,7 @@ const Header = () => {
         justify-content: center;
         height: 80px;
         border-bottom: 1px solid ${theme.colors.black08};
+        flex-shrink: 0;
       `}
     >
       <div
@@ -76,7 +76,7 @@ const Header = () => {
           }
         `}
       >
-        {isLogin === 'true' ? (
+        {/* {isLogin === 'true' ? (
           <NavLink to="/logOut">로그아웃</NavLink>
         ) : (
           <NavLink
@@ -85,8 +85,8 @@ const Header = () => {
           >
             카카오로 로그인
           </NavLink>
-        )}
-        {isLogin !== 'true' ? (
+        )} */}
+        {/* {isLogin !== 'true' ? (
           <NavLink to="/signupStep1">
             <span
               css={css`
@@ -107,8 +107,7 @@ const Header = () => {
           >
             {nickName}님 환영합니다.
           </span>
-        )}
-
+        )} */}
         <NavLink to="/">
           <span
             css={css`

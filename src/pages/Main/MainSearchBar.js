@@ -71,7 +71,6 @@ function MainSearchBar() {
       css={() => css`
         display: flex;
         width: 100vw;
-        height: calc(100vh - 10px);
         justify-content: center;
         position: relative;
         top: calc(100vh / 5);
