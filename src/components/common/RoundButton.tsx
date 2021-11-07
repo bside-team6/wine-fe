@@ -20,6 +20,11 @@ const dropdownCloseStyle = css`
   }
 `;
 
+const inactiveStyle = (theme: Theme) => css`
+  color: ${theme.colors.black06};
+  border-color: ${theme.colors.black08};
+`;
+
 export interface RoundButtonProps
   extends React.DetailedHTMLProps<
     React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -27,15 +32,16 @@ export interface RoundButtonProps
   > {
   color?: 'primary' | 'secondary';
   dropdown?: 'open' | 'close';
+  inactive?: boolean;
 }
 
 const RoundButton: React.FC<RoundButtonProps> = ({
   children,
   color = 'primary',
   dropdown,
+  inactive,
   ...restProps
 }) => {
-  // TODO: disabled color 추가
   return (
     <button
       css={(theme: Theme) => css`
@@ -51,9 +57,15 @@ const RoundButton: React.FC<RoundButtonProps> = ({
           : theme.colors.black08};
         color: ${color === 'primary'
           ? theme.colors.main.primary
-          : theme.colors.black06};
+          : theme.colors.black02};
         ${dropdown && dropdownStyle}
         ${dropdown === 'close' && dropdownCloseStyle}
+        &:disabled {
+          cursor: not-allowed;
+          color: ${theme.colors.black06};
+          border-color: ${theme.colors.black08};
+        }
+        ${inactive && inactiveStyle(theme)}
       `}
       {...restProps}
     >
