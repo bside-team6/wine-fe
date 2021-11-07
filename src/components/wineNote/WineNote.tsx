@@ -43,6 +43,7 @@ const WineNote = ({
     >
       <div
         css={(theme: Theme) => css`
+          position: relative;
           display: flex;
           width: 792px;
           max-width: 100%;
@@ -56,6 +57,27 @@ const WineNote = ({
           }
         `}
       >
+        <button
+          css={css`
+            cursor: pointer;
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 1;
+            background: none;
+            border: 0;
+            width: 24px;
+            height: 24px;
+            padding: 0;
+            ${alignCenter}
+            justify-content: center;
+            svg {
+              color: #000;
+            }
+          `}
+        >
+          {isLike ? <HeartOn /> : <Heart />}
+        </button>
         <div
           css={css`
             position: relative;
@@ -72,27 +94,6 @@ const WineNote = ({
               background-repeat: no-repeat;
             `}
           />
-          <button
-            css={css`
-              cursor: pointer;
-              position: absolute;
-              top: 12px;
-              left: 12px;
-              z-index: 1;
-              background-color: rgba(0, 0, 0, 0.3);
-              border-radius: 50%;
-              border: 0;
-              width: 32px;
-              height: 32px;
-              ${alignCenter}
-              justify-content: center;
-              svg {
-                color: #fff;
-              }
-            `}
-          >
-            {isLike ? <HeartOn /> : <Heart />}
-          </button>
         </div>
         <div
           css={css`

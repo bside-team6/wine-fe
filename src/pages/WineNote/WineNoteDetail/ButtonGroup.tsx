@@ -2,7 +2,12 @@ import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import RoundButton from '~/components/common/RoundButton';
 
-const ButtonGroup = () => {
+export interface ButtonGroupProps {
+  prevId?: number;
+  nextId?: number;
+}
+
+const ButtonGroup = ({ prevId, nextId }: ButtonGroupProps) => {
   const navigate = useNavigate();
 
   return (
@@ -14,23 +19,35 @@ const ButtonGroup = () => {
         align-items: center;
       `}
     >
+      <RoundButton color="secondary" onClick={() => navigate('/wine-note')}>
+        목록으로
+      </RoundButton>
       <div
         css={css`
-          margin-right: auto;
+          margin-left: auto;
           button {
-            margin-right: 8px;
+            margin-left: 8px;
             &::last-child {
-              margin-right: 0;
+              margin-left: 0;
             }
           }
         `}
       >
-        <RoundButton color="secondary">이전글</RoundButton>
-        <RoundButton color="secondary">다음글</RoundButton>
+        <RoundButton
+          color="secondary"
+          disabled={!!prevId}
+          onClick={() => navigate(`/wine-note/${prevId}`)}
+        >
+          이전글
+        </RoundButton>
+        <RoundButton
+          color="secondary"
+          disabled={!!nextId}
+          onClick={() => navigate(`/wine-note/${nextId}`)}
+        >
+          다음글
+        </RoundButton>
       </div>
-      <RoundButton color="secondary" onClick={() => navigate('/wine-note')}>
-        목록으로
-      </RoundButton>
     </div>
   );
 };
