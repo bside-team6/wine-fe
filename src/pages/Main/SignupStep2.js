@@ -4,22 +4,28 @@ import { KAKAO_SIGNUP_URL, NICKNAME_URL, RTOKEN_URL } from '~/helpers/oauth';
 import {
   btnArea,
   btnConfirm,
+  fBtnConfirm,
   loginKrStr,
   loginKrTitle,
   loginStep,
+  nFalse,
   nickNameInput,
+  nickNameInputArea,
   nickNameInputStr,
+  nTrue,
 } from '~/styles/login';
 import signupStep2 from '~/assets/login/signup_step2.png';
 
-function Signup() {
+// nTrue, nFalse,
+function SignupStep2() {
   const [wineToken, setWineToken] = useState('');
   const [wineRToken, setWineRToken] = useState('');
   const [nickName, setNickName] = useState('');
-  const [cKind, setCKind] = useState('');
   const navigate = useNavigate();
-  //TO-DO : 로그인 , 회원가입 화면 나눌지 체크하기
-  console.log('Signup page ');
+  const [str, setStr] = useState('2-8자 국문/영문 대소문자/숫자');
+  const [chk, setLChk] = useState('');
+  const [cName, setCName] = useState(nickNameInput);
+  const [bName, setBName] = useState(fBtnConfirm);
   const { token } = useParams();
   useEffect(() => {
     fetch(`${KAKAO_SIGNUP_URL}`, {
@@ -34,42 +40,52 @@ function Signup() {
       .then((res) => {
         console.log(res);
         if (res.result) {
-          setWineToken(res.data.accessToken);
-          setWineRToken(res.data.refreshToken);
-        }
-      })
-      .catch((error) => console.log('error:', error));
-  }, [token]);
-
-  const nickNameInsert = async () => {
-    fetch(`${NICKNAME_URL}`, {
-      method: 'POST',
-      headers: {
-        AccessToken: wineToken,
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
-      },
-      body: `nickName=${nickName}`,
-    })
-      .then((res) => {
-        return res.json();
-      })
-      .then((res) => {
-        setCKind('nickName');
-        console.log(res);
-        if (res.result) {
-          navigate(`/signupComplete`);
-        } else {
-          if (res.status === '401') {
-            console.log('토큰만료');
-            tokenRefresh();
+          if (!res.data.isNewUser) {
+            navigate(
+              `/getUserInfo/${res.data.accessToken}/${res.data.refreshToken}`,
+            );
+          } else {
+            setWineToken(res.data.accessToken);
+            setWineRToken(res.data.refreshToken);
           }
         }
       })
       .catch((error) => console.log('error:', error));
+  });
+
+  const nickNameInsert = async () => {
+    if (chk === true) {
+      fetch(`${NICKNAME_URL}`, {
+        method: 'POST',
+        headers: {
+          AccessToken: wineToken,
+          'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+        },
+        body: `nickName=${nickName}`,
+      })
+        .then((res) => {
+          return res.json();
+        })
+        .then((res) => {
+          if (res.result) {
+            navigate(`/signupComplete`);
+          } else {
+            if (res.status === '401') {
+              console.log('토큰만료');
+              tokenRefresh();
+            }
+            if (res.message.length > 0) {
+              setStr(res.message);
+              setCName(nFalse);
+              setBName(fBtnConfirm);
+            }
+          }
+        })
+        .catch((error) => console.log('error:', error));
+    }
   };
 
   const tokenRefresh = async () => {
-    console.log('tokenRefresh', '    cKind :', cKind);
     fetch(`${RTOKEN_URL}`, {
       method: 'POST',
       headers: {
@@ -81,7 +97,7 @@ function Signup() {
       })
       .then((res) => {
         if (res.result) {
-          console.log(res);
+          //console.log(res);
           setWineToken(res.data);
         }
       })
@@ -94,6 +110,19 @@ function Signup() {
   const handleInput = (e) => {
     //닉네임 입력감 세팅
     setNickName(e.target.value);
+
+    //TODO:닉네임 길이에 따라 클래스 명 설정
+    if (e.target.value.length < 2 || e.target.value.length > 16) {
+      setLChk(false);
+      setCName(nFalse);
+      setBName(fBtnConfirm);
+      console.log(e.currentTarget);
+    } else {
+      setLChk(true);
+      setCName(nTrue);
+      setBName(btnConfirm);
+      console.log(e.currentTarget);
+    }
   };
 
   return (
@@ -107,18 +136,18 @@ function Signup() {
         <br />
         와인이지에서 쓰실 닉네임을 정해주시면 가입 완료!
       </div>
-      <div>
+      <div style={nickNameInputArea}>
         <input
-          style={nickNameInput}
+          style={cName}
           type="text"
           placeholder="닉네임"
           id="nickName"
           onChange={handleInput}
         ></input>
-        <span style={nickNameInputStr}>2-16자 국문/영문 대소문자/숫자</span>
+        <span style={nickNameInputStr}>{str}</span>
       </div>
       <div style={btnArea}>
-        <button style={btnConfirm} onClick={nickNameInsert}>
+        <button style={bName} onClick={nickNameInsert}>
           확인
         </button>
       </div>
@@ -126,4 +155,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default SignupStep2;

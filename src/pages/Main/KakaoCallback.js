@@ -13,7 +13,7 @@ import {
 import signupStep2 from '~/assets/login/signup_step2.png';
 
 function KakaoCallback() {
-  //TODO : 로그인 , 회원가입 화면 나눌지 체크하기
+  //카카오 토큰 가져와서 가입화면까지 넘어가야함
 
   const current = decodeURI(window.location.href);
   const search = current.split('?')[1];
@@ -43,9 +43,7 @@ function KakaoCallback() {
         }
       })
       .then((token) => {
-        //window.open("history.push(`/login/:${userInfo}`);","_self");
-        console.log(token);
-        navigate(`/signup/${token}`);
+        navigate(`/signupStep2/${token}`);
       });
   }, [code, navigate, url]);
 

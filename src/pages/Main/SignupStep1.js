@@ -3,7 +3,7 @@ import { loginIcon, loginKrStr, loginKrTitle, loginStep } from '~/styles/login';
 import kakaoLoginImg from '~/assets/login/kakao_login_large_wide.png';
 import signupStep1 from '~/assets/login/signup_step1.png';
 
-function Login() {
+function SignupStep1() {
   return (
     <div>
       <div style={loginStep}>
@@ -27,4 +27,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignupStep1;

@@ -1,11 +1,23 @@
+import { useEffect, useState } from 'react';
 import { css, Theme } from '@emotion/react';
 import { NavLink } from 'react-router-dom';
+import { KAKAO_AUTH_URL } from '~/helpers/oauth';
 import { alignCenter, spritesStyle } from '~/styles/common';
 import logo from '~/assets/logo.png';
 
 const Header = () => {
   // TODO: search form 추가
   // TODO: auth 상태에 따라 분기 추가
+  const [isLogin, setIsLogin] = useState('');
+  const [nickName, setNickName] = useState('');
+
+  useEffect(() => {
+    setIsLogin(sessionStorage.getItem('isAuthorized') || 'false');
+    setNickName(sessionStorage.getItem('nickName') || '');
+    console.log('isLogin >>> ', sessionStorage.getItem('isAuthorized'));
+    console.log('sessionStorage >> ', sessionStorage);
+  }, []);
+
   return (
     <div
       css={(theme: Theme) => css`
@@ -64,16 +76,39 @@ const Header = () => {
           }
         `}
       >
-        <NavLink to="/login">카카오로 로그인</NavLink>
-        <NavLink to="/signup">
+        {isLogin === 'true' ? (
+          <NavLink to="/logOut">로그아웃</NavLink>
+        ) : (
+          <NavLink
+            to="/"
+            onClick={() => window.open(`${KAKAO_AUTH_URL}`, '_self')}
+          >
+            카카오로 로그인
+          </NavLink>
+        )}
+        {isLogin !== 'true' ? (
+          <NavLink to="/signupStep1">
+            <span
+              css={css`
+                ${spritesStyle}
+                display: block;
+                background-position: -68px 0px;
+                margin-left: 10px;
+                margin-right: 10px;
+              `}
+            />
+          </NavLink>
+        ) : (
           <span
             css={css`
-              ${spritesStyle}
               display: block;
               background-position: -68px 0px;
             `}
-          />
-        </NavLink>
+          >
+            {nickName}님 환영합니다.
+          </span>
+        )}
+
         <NavLink to="/">
           <span
             css={css`
