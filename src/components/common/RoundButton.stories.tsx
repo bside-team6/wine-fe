@@ -33,3 +33,13 @@ export const DropdownOpen = Template.bind({});
 DropdownOpen.args = {
   dropdown: 'open',
 };
+
+export const Inactive = Template.bind({});
+Inactive.args = {
+  inactive: true,
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};

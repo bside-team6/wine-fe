@@ -23,7 +23,10 @@ const WineNoteDetail: React.VFC = () => {
       `}
     >
       <DetailNote {...data!} />
-      <ButtonGroup />
+      <ButtonGroup
+        prevId={data?.previousWineNoteId}
+        nextId={data?.nextWineNoteId}
+      />
       <RelatedWineNotes />
     </div>
   );

@@ -76,3 +76,15 @@ export interface IWineNoteDetail extends IWineNoteBase {
   previousWineNoteId?: number;
   nextWineNoteId?: number;
 }
+
+export interface IRelatedWineNote {
+  wineNoteId: number;
+  wineNoteTitle: string;
+  wineName: string;
+  /** @example 2021-10-11T15:02:00 */
+  regDate: string;
+  viewCount: number;
+  likeCount: number;
+  authorName: string;
+  thumbnailUrl: string;
+}

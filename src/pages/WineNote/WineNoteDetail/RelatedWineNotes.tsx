@@ -1,11 +1,17 @@
 import { css } from '@emotion/react';
+import { useParams } from 'react-router';
 import { wineNotes } from '~/api/mocks/wine-note';
+import Spinner from '~/components/common/Spinner';
 import WineNote from '~/components/wineNote/WineNote';
+import useRelatedWineNotesQuery from '~/queries/useRelatedWineNotesQuery';
 import { alignCenter } from '~/styles/common';
 
-// FIXME: mock 데이터 삭제 필요
+// FIXME: 백엔드 스펙 수정 후 목데이터 삭제 및 재연결
 
 const RelatedWineNotes = () => {
+  const { wineNoteId } = useParams();
+  const { data, isLoading } = useRelatedWineNotesQuery(Number(wineNoteId));
+
   return (
     <div
       css={css`
@@ -28,27 +34,30 @@ const RelatedWineNotes = () => {
         >
           관련 와인 노트
         </h2>
-        <ul
-          css={css`
-            ${alignCenter}
-            margin-top: 36px;
-            li {
-              width: calc(50% - 18px);
-              flex-basis: 50% - 18px;
-            }
-          `}
-        >
-          <li
+        {isLoading ? (
+          <Spinner />
+        ) : (
+          <ul
             css={css`
-              margin-right: 36px;
+              ${alignCenter}
+              margin-top: 36px;
+              li {
+                width: calc(50% - 18px);
+                flex-basis: 50% - 18px;
+              }
             `}
           >
-            <WineNote {...wineNotes[2]} />
-          </li>
-          <li>
-            <WineNote {...wineNotes[1]} />
-          </li>
-        </ul>
+            {data?.map((note) => (
+              <li
+                css={css`
+                  margin-right: 36px;
+                `}
+              >
+                <WineNote key={note.wineNoteId} {...wineNotes[0]} />
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
     </div>
   );

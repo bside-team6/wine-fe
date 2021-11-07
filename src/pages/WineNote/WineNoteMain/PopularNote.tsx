@@ -4,12 +4,12 @@ import Divider from '~/components/common/Divider';
 import Spinner from '~/components/common/Spinner';
 import { formatDate } from '~/helpers/utils';
 import usePopularWineNotesQuery from '~/queries/usePopularWineNotesQuery';
-import useWineNoteTimelineQuery from '~/queries/useWineNoteTimelineQuery';
+import useWineNotesQuery from '~/queries/useWineNotesQuery';
 import { alignCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
 const PopularNote = () => {
-  const { data: wineNotes } = useWineNoteTimelineQuery();
+  const { data: wineNotes } = useWineNotesQuery();
   const hasWineNotes = !!wineNotes?.totalElements;
 
   // Dependent Queries

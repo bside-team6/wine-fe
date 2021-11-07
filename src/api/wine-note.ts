@@ -1,5 +1,6 @@
 import instance from './instance';
 import type {
+  IRelatedWineNote,
   IResponse,
   ITimelineWineNoteList,
   IWineNoteDetail,
@@ -80,7 +81,7 @@ export const getWineNoteTimeline = async () => {
 
 /**
  * GET 타임라인 상세보기
- * - 내가 쓴 와인노트 상세보기
+ * @description 내가 쓴 와인노트 상세보기
  */
 export const getWineNoteTimelineDetail = async (wineNoteId: number) => {
   const { data } = await instance.get<IResponse<IWineNoteDetail>>(
@@ -95,6 +96,22 @@ export const getWineNoteTimelineDetail = async (wineNoteId: number) => {
 export const getPopularWineNotes = async () => {
   const { data } = await instance.get<IResponse<IWineNoteDetail[]>>(
     `/v1/wine-note-popular`,
+  );
+  return data;
+};
+
+/**
+ * GET 관련 와인 노트
+ * @description wineType과 당도가 같고 음식명이 하나라도 중첩되는 노트
+ */
+export const getRelatedWineNotes = async (wineNoteId: number) => {
+  const { data } = await instance.get<IResponse<IRelatedWineNote[]>>(
+    `/v1/wine-note/related`,
+    {
+      params: {
+        wineNoteId,
+      },
+    },
   );
   return data;
 };

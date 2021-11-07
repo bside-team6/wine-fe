@@ -36,7 +36,7 @@ const WineNoteMainHeader = () => {
         >
           전체 노트
         </RoundButton>
-        <RoundButton color="secondary">나의 노트</RoundButton>
+        <RoundButton inactive>나의 노트</RoundButton>
       </div>
     </div>
   );
