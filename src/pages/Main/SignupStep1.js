@@ -1,8 +1,7 @@
-import React from 'react';
-import { KAKAO_AUTH_URL } from 'helpers/oauth';
-import kakaoLoginImg from 'assets/login/kakao_login_large_wide.png';
-import signupStep1 from 'assets/login/signup_step1.png';
-import {loginStep, loginKrTitle, loginKrStr, loginIcon } from 'styles/login';
+import { KAKAO_AUTH_URL } from '~/helpers/oauth';
+import { loginIcon, loginKrStr, loginKrTitle, loginStep } from '~/styles/login';
+import kakaoLoginImg from '~/assets/login/kakao_login_large_wide.png';
+import signupStep1 from '~/assets/login/signup_step1.png';
 
 function SignupStep1() {
   return (
@@ -10,9 +9,7 @@ function SignupStep1() {
       <div style={loginStep}>
         <img src={signupStep1} alt=""></img>
       </div>
-      <div style={loginKrTitle}>
-        로그인
-      </div>
+      <div style={loginKrTitle}>로그인</div>
       <div style={loginKrStr}>
         아이디, 비밀번호 입력하기 귀찮으시죠?
         <br />

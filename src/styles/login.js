@@ -91,7 +91,7 @@ export const nFalse = {
   left: '744px',
   top: '415px',
   borderRadius: '8px',
-  outlineColor: 'rgba(255, 0, 0, 1)'
+  outlineColor: 'rgba(255, 0, 0, 1)',
 };
 
 export const nTrue = {
@@ -104,16 +104,15 @@ export const nTrue = {
   left: '744px',
   top: '415px',
   borderRadius: '8px',
-  outlineColor: 'rgba(28, 200, 45, 1)'
+  outlineColor: 'rgba(28, 200, 45, 1)',
 };
 
 export const btnArea = {
   display: 'block',
   margin: '0px auto',
   textAlign: 'center',
-  marginTop: '2px'
+  marginTop: '2px',
 };
-
 
 export const btnConfirm = {
   width: '432px',
@@ -125,12 +124,11 @@ export const btnConfirm = {
   backgroundColor: 'rgba(0, 0, 0, 1)',
 };
 
-
 export const fBtnConfirm = {
   width: '432px',
   height: '60px',
   left: '384px',
-  top: '522px',  
+  top: '522px',
   outline: '0',
   border: '0',
   borderRadius: '8px',

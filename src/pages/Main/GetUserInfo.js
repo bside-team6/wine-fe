@@ -1,27 +1,28 @@
-import React, { useEffect } from 'react';
-import { useParams, useHistory } from 'react-router-dom';
-import { USERINFO_URL, RTOKEN_URL } from 'helpers/oauth';
+import { useEffect } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { RTOKEN_URL, USERINFO_URL } from '~/helpers/oauth';
 
 function GetUserInfo() {
   const { token } = useParams();
   const { rToken } = useParams();
-  const history = useHistory();
-  
+  const navigate = useNavigate();
+
   useEffect(() => {
     fetch(`${USERINFO_URL}`, {
       headers: {
-        'AccessToken': token
-      }})
+        AccessToken: token,
+      },
+    })
       .then((res) => {
         return res.json();
       })
       .then((res) => {
-        if(res.result){
-          sessionStorage.setItem("isAuthorized", "true");
-          sessionStorage.setItem("nickName", res.data.nickName);
-          window.location.replace("/");
-        }else{
-          if(res.status === 401){
+        if (res.result) {
+          sessionStorage.setItem('isAuthorized', 'true');
+          sessionStorage.setItem('nickName', res.data.nickName);
+          window.location.replace('/');
+        } else {
+          if (res.status === 401) {
             tokenRefresh();
           }
         }
@@ -33,24 +34,21 @@ function GetUserInfo() {
     fetch(`${RTOKEN_URL}`, {
       method: 'POST',
       headers: {
-        'RefreshToken' : rToken,
-      }
+        RefreshToken: rToken,
+      },
     })
-    .then((res) => {
-      return res.json();
-    })
-    .then((res) => {
-      if(res.result){
-        history.push(`/getUserInfo/${res.data}/`);
-      }
-    })
-    .catch((error) => console.log('error:', error));
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        if (res.result) {
+          navigate(`/getUserInfo/${res.data}/`);
+        }
+      })
+      .catch((error) => console.log('error:', error));
   };
 
-  return (
-    <div></div>
-  );
-  
+  return <div></div>;
 }
 
 export default GetUserInfo;

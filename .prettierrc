@@ -6,5 +6,18 @@
   "tabWidth": 2,
   "arrowParens": "always",
   "useTabs": false,
-  "printWidth": 80
+  "printWidth": 80,
+  "importOrderSortSpecifiers": true,
+  "importOrderCaseInsensitive": true,
+  "importOrder": [
+    "^react$",
+    "^react-dom$",
+    "^(?![.~]).*(?<!\\.css|\\.scss|\\.png|\\.svg)$",
+    "^[.~].*(?<!\\.css|\\.scss|\\.png|\\.svg)$",
+    "^(?![.~]).*(?:\\.css|\\.scss)$",
+    "^[.~].*(?:\\.css|\\.scss)$",
+    "^(?![.~]).*",
+    "^[.~].*",
+    ".*"
+  ]
 }
