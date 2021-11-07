@@ -1,60 +1,48 @@
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import Chip from './Chip';
+import { WINE_TYPE } from '~/types';
 
 export default {
-  title: '~/components/Chip',
+  title: 'components/Chip',
   component: Chip,
   args: {
-    wineType: 'RED',
+    wineType: WINE_TYPE.RED,
   },
   parameters: {
     layout: 'padded',
   },
-  argTypes: {
-    wineType: {
-      options: [
-        'RED',
-        'ROSE',
-        'WHITE',
-        'SPARKLING',
-        'CHAMPAGNE',
-        'FORTIFIED',
-        'SWEET',
-      ],
-      control: { type: 'radio' },
-    },
-  },
-};
+} as ComponentMeta<typeof Chip>;
 
-const Template = (args) => <Chip {...args} />;
+const Template: ComponentStory<typeof Chip> = (args) => <Chip {...args} />;
 
 export const RED = Template.bind({});
 
 export const ROSE = Template.bind({});
 ROSE.args = {
-  wineType: 'ROSE',
+  wineType: WINE_TYPE.ROSE,
 };
 
 export const WHITE = Template.bind({});
 WHITE.args = {
-  wineType: 'WHITE',
+  wineType: WINE_TYPE.WHITE,
 };
 
 export const SPARKLING = Template.bind({});
 SPARKLING.args = {
-  wineType: 'SPARKLING',
+  wineType: WINE_TYPE.SPARKLING,
 };
 
 export const CHAMPAGNE = Template.bind({});
 CHAMPAGNE.args = {
-  wineType: 'CHAMPAGNE',
+  wineType: WINE_TYPE.CHAMPAGNE,
 };
 
 export const FORTIFIED = Template.bind({});
 FORTIFIED.args = {
-  wineType: 'FORTIFIED',
+  wineType: WINE_TYPE.FORTIFIED,
 };
 
 export const SWEET = Template.bind({});
 SWEET.args = {
-  wineType: 'SWEET',
+  wineType: WINE_TYPE.SWEET,
 };

@@ -214,7 +214,7 @@ const SearchMenuStyle = (theme) => css`
   justify-content: space-between;
   top: 0;
   border-radius: 30px;
-  border: 2px solid ${theme.primePurple};
+  border: 2px solid ${theme.colors.main.primary};
   box-shadow: 0px 4px 8px 0px #0000000d;
 `;
 const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
@@ -234,7 +234,7 @@ const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
           margin: 0px 8px;
         }
         &.on {
-          background-color: ${theme.lightPurple2};
+          background-color: ${theme.colors.main.light2};
         }
       `}
     >
@@ -316,12 +316,12 @@ const BtnGreyStyle = (theme) => css`
   color: ${theme.colors.black06};
   text-align: center;
   :hover {
-    border: 2px solid ${theme.colors.purple};
-    color: ${theme.colors.purple};
+    border: 2px solid ${theme.colors.main.primary};
+    color: ${theme.colors.main.primary};
   }
   &.on {
-    border: 2px solid ${theme.colors.purple};
-    color: ${theme.colors.purple};
+    border: 2px solid ${theme.colors.main.primary};
+    color: ${theme.colors.main.primary};
   }
 `;
 const divOptStyle = (theme) => css`
@@ -344,7 +344,7 @@ const RoundBtnStyle = (theme) => css`
   justify-content: center;
   align-items: center;
   position: absolute;
-  background-color: ${theme.primePurple};
+  background-color: ${theme.colors.main.primary};
   width: 44px;
   height: 44px;
   top: 6px;

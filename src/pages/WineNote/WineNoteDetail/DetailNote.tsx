@@ -1,10 +1,11 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import { theme } from '~/helpers/theme';
 import { formatDate, formatSweet } from '~/helpers/utils';
 import { alignCenter } from '~/styles/common';
+import type { IWineNoteDetail } from '~/types';
 import { ReactComponent as Heart } from '~/assets/ic_heart.svg';
 import { ReactComponent as HeartOn } from '~/assets/ic_heart_on.svg';
 
@@ -18,18 +19,18 @@ const DetailNote = ({
   descript,
   isLike,
   wineNoteLikeCount,
-  sweet, // required
-  score, // required
-  price, // optional
-  drinkDate, // optional
-  wineNoteFood, // optional
-}) => {
+  sweet,
+  score,
+  price,
+  drinkDate,
+  wineNoteFoodList,
+}: IWineNoteDetail) => {
   const imageUrl =
     wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/420';
 
   return (
     <div
-      css={(theme) => css`
+      css={(theme: Theme) => css`
         position: relative;
         display: flex;
         width: 1200px;
@@ -68,7 +69,7 @@ const DetailNote = ({
           {wineName}
         </div>
         <div
-          css={(theme) => css`
+          css={(theme: Theme) => css`
             ${alignCenter}
             font-family: ${theme.typography.lato};
             color: ${theme.colors.black06};
@@ -83,7 +84,7 @@ const DetailNote = ({
           <span>조회 {viewCount}</span>
         </div>
         <div
-          css={(theme) => css`
+          css={(theme: Theme) => css`
             color: ${theme.colors.black02};
           `}
         >
@@ -117,8 +118,8 @@ const DetailNote = ({
                 {wineasyUserNickName}님의 평가
               </div>
               <div
-                css={(theme) => css`
-                  color: ${theme.colors.purple};
+                css={(theme: Theme) => css`
+                  color: ${theme.colors.main.primary};
                 `}
               >
                 입맛에 잘 맞아요!
@@ -126,7 +127,7 @@ const DetailNote = ({
             </div>
           </div>
           <div
-            css={(theme) => css`
+            css={(theme: Theme) => css`
               flex-grow: 1;
               display: grid;
               grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -149,7 +150,7 @@ const DetailNote = ({
                 rating={score}
                 starDimension="12px"
                 starSpacing="0px"
-                starRatedColor={theme.colors.purple}
+                starRatedColor={theme.colors.main.primary}
                 starEmptyColor="#c5c5c5"
               />
             </div>
@@ -169,14 +170,14 @@ const DetailNote = ({
                 <div>{formatDate(drinkDate, 'yyyy-MM-dd')}</div>
               </div>
             )}
-            {wineNoteFood && (
+            {wineNoteFoodList.length > 0 && (
               <div
                 css={css`
                   grid-column: span 2 / span 2;
                 `}
               >
                 <span>음식</span>
-                <div>{wineNoteFood}</div>
+                <div>{wineNoteFoodList.join(', ')}</div>
               </div>
             )}
           </div>
@@ -196,7 +197,7 @@ const DetailNote = ({
       >
         <div>{isLike ? <HeartOn /> : <Heart />}</div>
         <div
-          css={(theme) => css`
+          css={(theme: Theme) => css`
             color: ${theme.colors.black04};
             font-size: 12px;
             font-family: ${theme.typography.lato};

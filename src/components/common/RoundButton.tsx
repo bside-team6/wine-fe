@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { spritesStyle } from '~/styles/common';
 
 const dropdownStyle = css`
@@ -20,7 +20,16 @@ const dropdownCloseStyle = css`
   }
 `;
 
-const RoundButton = ({
+export interface RoundButtonProps
+  extends React.DetailedHTMLProps<
+    React.ButtonHTMLAttributes<HTMLButtonElement>,
+    HTMLButtonElement
+  > {
+  color?: 'primary' | 'secondary';
+  dropdown?: 'open' | 'close';
+}
+
+const RoundButton: React.FC<RoundButtonProps> = ({
   children,
   color = 'primary',
   dropdown,
@@ -29,7 +38,7 @@ const RoundButton = ({
   // TODO: disabled color 추가
   return (
     <button
-      css={(theme) => css`
+      css={(theme: Theme) => css`
         cursor: pointer;
         position: relative;
         font-weight: bold;
@@ -38,10 +47,10 @@ const RoundButton = ({
         border-radius: 22px;
         border: 2px solid;
         border-color: ${color === 'primary'
-          ? theme.colors.purple
+          ? theme.colors.main.primary
           : theme.colors.black08};
         color: ${color === 'primary'
-          ? theme.colors.purple
+          ? theme.colors.main.primary
           : theme.colors.black06};
         ${dropdown && dropdownStyle}
         ${dropdown === 'close' && dropdownCloseStyle}

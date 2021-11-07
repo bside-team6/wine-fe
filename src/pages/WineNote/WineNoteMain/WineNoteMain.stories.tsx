@@ -1,17 +1,21 @@
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { rest } from 'msw';
 import WineNoteMain from './index';
-import { pageableResponse, successResponse } from '~/api/mocks';
+import { successResponse } from '~/api/mocks';
 import { popularWineNotes, wineNotes } from '~/api/mocks/wine-note';
 import { providerDecorator } from '~/helpers/storybook';
+import { ITimelineWineNoteList } from '~/types';
 
 export default {
-  title: '~/pages/WineNoteMain',
+  title: 'pages/WineNoteMain',
   component: WineNoteMain,
   args: {},
   decorators: [providerDecorator()],
-};
+} as ComponentMeta<typeof WineNoteMain>;
 
-const Template = (args) => <WineNoteMain {...args} />;
+const Template: ComponentStory<typeof WineNoteMain> = (args) => (
+  <WineNoteMain {...args} />
+);
 
 export const Default = Template.bind({});
 Default.storyName = '와인노트 메인 (타임라인)';
@@ -21,14 +25,12 @@ Default.parameters = {
       return res(
         ctx.delay('real'),
         ctx.json(
-          successResponse(
-            pageableResponse({
-              totalElements: 6,
-              totalPages: 1,
-              currentPage: 0,
-              wineNoteTimeLineResultList: wineNotes,
-            }),
-          ),
+          successResponse<ITimelineWineNoteList>({
+            totalElements: 6,
+            totalPages: 1,
+            currentPage: 0,
+            wineNoteTimeLineResultList: wineNotes,
+          }),
         ),
       );
     }),
@@ -62,14 +64,12 @@ NoTimeline.parameters = {
       return res(
         ctx.delay('real'),
         ctx.json(
-          successResponse(
-            pageableResponse({
-              totalElements: 0,
-              totalPages: 0,
-              currentPage: 0,
-              wineNoteTimeLineResultList: [],
-            }),
-          ),
+          successResponse<ITimelineWineNoteList>({
+            totalElements: 0,
+            totalPages: 0,
+            currentPage: 0,
+            wineNoteTimeLineResultList: [],
+          }),
         ),
       );
     }),
@@ -86,14 +86,12 @@ NoPopularNote.parameters = {
     rest.get(`/api/v1/wine-note-timeline`, (req, res, ctx) => {
       return res(
         ctx.json(
-          successResponse(
-            pageableResponse({
-              totalElements: 6,
-              totalPages: 1,
-              currentPage: 0,
-              wineNoteTimeLineResultList: wineNotes,
-            }),
-          ),
+          successResponse<ITimelineWineNoteList>({
+            totalElements: 6,
+            totalPages: 1,
+            currentPage: 0,
+            wineNoteTimeLineResultList: wineNotes,
+          }),
         ),
       );
     }),
@@ -110,14 +108,12 @@ LoadingPopularNote.parameters = {
     rest.get(`/api/v1/wine-note-timeline`, (req, res, ctx) => {
       return res(
         ctx.json(
-          successResponse(
-            pageableResponse({
-              totalElements: 6,
-              totalPages: 1,
-              currentPage: 0,
-              wineNoteTimeLineResultList: wineNotes,
-            }),
-          ),
+          successResponse<ITimelineWineNoteList>({
+            totalElements: 6,
+            totalPages: 1,
+            currentPage: 0,
+            wineNoteTimeLineResultList: wineNotes,
+          }),
         ),
       );
     }),

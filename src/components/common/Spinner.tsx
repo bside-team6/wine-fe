@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 
 const alignCenter = css`
   margin-left: auto;
@@ -8,7 +8,7 @@ const alignCenter = css`
 const Spinner = ({ align = 'center' }) => {
   return (
     <div
-      css={(theme) => css`
+      css={(theme: Theme) => css`
         @keyframes spinner {
           0% {
             opacity: 1;

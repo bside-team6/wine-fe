@@ -6,10 +6,10 @@ import RelatedWineNotes from './RelatedWineNotes';
 import Spinner from '~/components/common/Spinner';
 import useWineNoteQuery from '~/queries/useWineNoteQuery';
 
-const WineNoteDetail = () => {
+const WineNoteDetail: React.VFC = () => {
   const { wineNoteId } = useParams();
 
-  const { data, isLoading } = useWineNoteQuery(wineNoteId);
+  const { data, isLoading } = useWineNoteQuery(Number(wineNoteId));
 
   if (isLoading) {
     return <Spinner />;
@@ -22,7 +22,7 @@ const WineNoteDetail = () => {
         padding-top: 60px;
       `}
     >
-      <DetailNote {...data} />
+      <DetailNote {...data!} />
       <ButtonGroup />
       <RelatedWineNotes />
     </div>

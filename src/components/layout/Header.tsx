@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { NavLink } from 'react-router-dom';
 import { alignCenter, spritesStyle } from '~/styles/common';
 import logo from '~/assets/logo.png';
@@ -8,7 +8,7 @@ const Header = () => {
   // TODO: auth 상태에 따라 분기 추가
   return (
     <div
-      css={(theme) => css`
+      css={(theme: Theme) => css`
         ${alignCenter}
         justify-content: center;
         height: 80px;
@@ -30,7 +30,7 @@ const Header = () => {
         />
       </div>
       <div
-        css={(theme) => css`
+        css={(theme: Theme) => css`
           ${alignCenter}
           a {
             padding: 5px 30px;
@@ -47,9 +47,7 @@ const Header = () => {
           }
         `}
       >
-        <NavLink exact to="/">
-          홈
-        </NavLink>
+        <NavLink to="/">홈</NavLink>
         <NavLink to="/wine-list">와인리스트</NavLink>
         <NavLink to="/wine-note">와인노트</NavLink>
         <NavLink to="/wine-check">와인이 어렵다면?</NavLink>

@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { alignCenter } from '~/styles/common';
 
@@ -13,7 +13,7 @@ const Footer = () => {
       `}
     >
       <div
-        css={(theme) => css`
+        css={(theme: Theme) => css`
           ${alignCenter}
           a {
             color: ${theme.colors.black02};
@@ -32,7 +32,7 @@ const Footer = () => {
         <Link to="/">개인정보처리방침</Link>
       </div>
       <div
-        css={(theme) => css`
+        css={(theme: Theme) => css`
           margin-left: 505px;
           font-family: ${theme.typography.lato};
           color: ${theme.colors.black04};

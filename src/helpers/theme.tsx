@@ -1,9 +1,19 @@
-import { css, ThemeProvider as EmotionProvider, Global } from '@emotion/react';
+import {
+  css,
+  ThemeProvider as EmotionProvider,
+  Global,
+  Theme,
+} from '@emotion/react';
 import reset from 'emotion-reset';
 
-export const theme = {
+export const theme: Theme = {
   colors: {
-    purple: '#7430e4',
+    main: {
+      primary: '#7430e4',
+      dark: '#520bc6',
+      light1: '#d7bfff',
+      light2: '#f1eafc',
+    },
     border: '#dfdfdf',
     black02: '#424242',
     black04: '#757575',
@@ -14,24 +24,6 @@ export const theme = {
   typography: {
     lato: "'Lato', 'Noto Sans KR', sans-serif",
   },
-  primePurple: '#7430E4',
-  darkPurple: '#520BC6',
-  lightPurple1: '#D7BFFF',
-  lightPurple2: '#F1EAFC',
-  // background: "#FFFEFC",
-  // white: "#FFFFFF",
-  // vermilion: "#ff7425",
-  // orange: "#FF9900",
-  // opacityOrange: "rgba(242,153,74,0.5)",
-  // yellow: "#FFD66C",
-  // grey: "rgba(196,196,196,0.3)",
-  // middleGrey: "rgba(65,65,65,0.4)",
-  // deepGrey: "#828282",
-  // lightOrange: "rgba(255,195,170,0.3)",
-  // fontColor: "#2D2B2B",
-  // fontTitle: "'Alata', sans-serif;",
-  // fontContent: "'Noto Sans KR', sans-serif;",
-  // shadow: "1px 1px 1px 0px rgba(0, 0, 0, 0.3);",
 };
 
 const globalStyle = css`
@@ -61,7 +53,7 @@ const globalStyle = css`
   }
 `;
 
-export const ThemeProvider = ({ children }) => {
+export const ThemeProvider: React.FC = ({ children }) => {
   return (
     <EmotionProvider theme={theme}>
       {children}

@@ -1,7 +1,8 @@
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import RoundButton from './RoundButton';
 
 export default {
-  title: '~/components/RoundButton',
+  title: 'components/RoundButton',
   component: RoundButton,
   args: {
     color: 'primary',
@@ -10,9 +11,11 @@ export default {
   parameters: {
     layout: 'padded',
   },
-};
+} as ComponentMeta<typeof RoundButton>;
 
-const Template = (args) => <RoundButton {...args} />;
+const Template: ComponentStory<typeof RoundButton> = (args) => (
+  <RoundButton {...args} />
+);
 
 export const Primary = Template.bind({});
 

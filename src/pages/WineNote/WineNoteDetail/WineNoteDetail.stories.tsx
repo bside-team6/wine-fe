@@ -1,3 +1,4 @@
+import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { rest } from 'msw';
 import WineNoteDetail from './index';
 import { successResponse } from '~/api/mocks';
@@ -5,7 +6,7 @@ import { wineNote } from '~/api/mocks/wine-note';
 import { providerDecorator } from '~/helpers/storybook';
 
 export default {
-  title: '~/pages/WineNoteDetail',
+  title: 'pages/WineNoteDetail',
   component: WineNoteDetail,
   decorators: [
     providerDecorator({
@@ -13,9 +14,11 @@ export default {
       initialEntries: ['/wine-note/10'],
     }),
   ],
-};
+} as ComponentMeta<typeof WineNoteDetail>;
 
-const Template = (args) => <WineNoteDetail {...args} />;
+const Template: ComponentStory<typeof WineNoteDetail> = (args) => (
+  <WineNoteDetail {...args} />
+);
 
 export const Default = Template.bind({});
 Default.storyName = '와인노트상세';

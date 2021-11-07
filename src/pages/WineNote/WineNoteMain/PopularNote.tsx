@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import Divider from '~/components/common/Divider';
 import Spinner from '~/components/common/Spinner';
@@ -6,6 +6,7 @@ import { formatDate } from '~/helpers/utils';
 import usePopularWineNotesQuery from '~/queries/usePopularWineNotesQuery';
 import useWineNoteTimelineQuery from '~/queries/useWineNoteTimelineQuery';
 import { alignCenter } from '~/styles/common';
+import type { IWineNoteDetail } from '~/types';
 
 const PopularNote = () => {
   const { data: wineNotes } = useWineNoteTimelineQuery();
@@ -23,10 +24,10 @@ const PopularNote = () => {
 
   return (
     <div
-      css={(theme) => css`
+      css={(theme: Theme) => css`
         width: 384px;
         border: 1px solid ${theme.colors.black08};
-        background: ${isLoading || data.length !== 0 ? '#ffffff' : '#ececec'};
+        background: ${isLoading || data?.length !== 0 ? '#ffffff' : '#ececec'};
         border-radius: 20px;
         padding: 36px 32px;
       `}
@@ -40,18 +41,18 @@ const PopularNote = () => {
       >
         이달의 인기 노트
       </h2>
-      {isLoading ? <Spinner /> : <PopularNotes notes={data} />}
+      {isLoading ? <Spinner /> : <PopularNotes notes={data!} />}
     </div>
   );
 };
 
 export default PopularNote;
 
-const PopularNotes = ({ notes }) => {
+const PopularNotes = ({ notes }: { notes: IWineNoteDetail[] }) => {
   if (notes.length === 0) {
     return (
       <div
-        css={(theme) => css`
+        css={(theme: Theme) => css`
           font-size: 16px;
           color: ${theme.colors.black04};
         `}
@@ -63,29 +64,28 @@ const PopularNotes = ({ notes }) => {
 
   return (
     <ul>
-      {notes.map(
-        ({
-          id,
-          descript,
-          wineasyUserNickName,
-          regDate,
-          wineNoteWineImages,
-        }) => (
-          <PopularNoteItem
-            key={id}
-            id={id}
-            description={descript}
-            userName={wineasyUserNickName}
-            date={regDate}
-            imageUrl={wineNoteWineImages[0]?.imagePath}
-          />
-        ),
-      )}
+      {notes.map((note) => (
+        <PopularNoteItem key={note.id} {...note} />
+      ))}
     </ul>
   );
 };
 
-const PopularNoteItem = ({ id, description, userName, date, imageUrl }) => {
+type PopularNoteItemProps = Pick<
+  IWineNoteDetail,
+  'id' | 'descript' | 'wineasyUserNickName' | 'regDate' | 'wineNoteWineImages'
+>;
+
+const PopularNoteItem = ({
+  id,
+  descript,
+  wineNoteWineImages,
+  wineasyUserNickName,
+  regDate,
+}: PopularNoteItemProps) => {
+  const imageUrl =
+    wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/48';
+
   return (
     <li
       css={css`
@@ -110,7 +110,7 @@ const PopularNoteItem = ({ id, description, userName, date, imageUrl }) => {
           `}
         >
           <img
-            src={imageUrl || 'https://via.placeholder.com/48'}
+            src={imageUrl}
             alt="thumb"
             css={css`
               width: 48px;
@@ -125,7 +125,7 @@ const PopularNoteItem = ({ id, description, userName, date, imageUrl }) => {
           `}
         >
           <h3
-            css={(theme) => css`
+            css={(theme: Theme) => css`
               color: ${theme.colors.black02};
               font-size: 16px;
               margin-bottom: 4px;
@@ -134,26 +134,26 @@ const PopularNoteItem = ({ id, description, userName, date, imageUrl }) => {
               text-overflow: ellipsis;
             `}
           >
-            {description}
+            {descript}
           </h3>
           <div css={alignCenter}>
             <span
-              css={(theme) => css`
+              css={(theme: Theme) => css`
                 font-family: ${theme.typography.lato};
                 color: ${theme.colors.black02};
               `}
             >
-              by. {userName}
+              by. {wineasyUserNickName}
             </span>
             <Divider />
             <span
-              css={(theme) => css`
+              css={(theme: Theme) => css`
                 font-family: ${theme.typography.lato};
                 color: ${theme.colors.black04};
                 font-size: 12px;
               `}
             >
-              {formatDate(date)}
+              {formatDate(regDate)}
             </span>
           </div>
         </div>

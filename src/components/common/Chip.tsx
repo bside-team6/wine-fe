@@ -1,37 +1,42 @@
 import { css } from '@emotion/react';
+import { WINE_TYPE } from '~/types';
 
-const colorMap = {
-  RED: {
+const colorMap: Record<WINE_TYPE, { text: string; bg: string }> = {
+  [WINE_TYPE.RED]: {
     text: '#E53858',
     bg: '#FAE6EA',
   },
-  ROSE: {
+  [WINE_TYPE.ROSE]: {
     text: '#F86818',
     bg: '#FEF0E8',
   },
-  WHITE: {
+  [WINE_TYPE.WHITE]: {
     text: '#387DE5',
     bg: '#EBF2FC',
   },
-  SPARKLING: {
+  [WINE_TYPE.SPARKLING]: {
     text: '#0EAB44',
     bg: '#EAFEEC',
   },
-  CHAMPAGNE: {
+  [WINE_TYPE.CHAMPAGNE]: {
     text: '#A39200',
     bg: '#FCF9DF',
   },
-  FORTIFIED: {
+  [WINE_TYPE.FORTIFIED]: {
     text: '#AE4444',
     bg: '#F9EBEB',
   },
-  SWEET: {
+  [WINE_TYPE.SWEET]: {
     text: '#F06496',
     bg: '#FFEDF6',
   },
 };
 
-const Chip = ({ wineType }) => {
+export interface ChipProps {
+  wineType: WINE_TYPE;
+}
+
+const Chip = ({ wineType }: ChipProps) => {
   return (
     <div
       css={css`

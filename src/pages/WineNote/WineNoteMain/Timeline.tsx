@@ -11,7 +11,7 @@ const Timeline = () => {
     return <Spinner />;
   }
 
-  if (data.totalElements === 0) {
+  if (data?.totalElements === 0) {
     return (
       <div
         css={css`
@@ -46,7 +46,7 @@ const Timeline = () => {
 
   return (
     <div>
-      {data.wineNoteTimeLineResultList.map((item) => (
+      {data?.wineNoteTimeLineResultList.map((item) => (
         <WineNote key={item.id} {...item} />
       ))}
     </div>

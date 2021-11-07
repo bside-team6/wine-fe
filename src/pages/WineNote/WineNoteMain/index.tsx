@@ -1,7 +1,7 @@
 import WineNoteMainContent from './WineNoteMainContent';
 import WineNoteMainHeader from './WineNoteMainHeader';
 
-const WineNote = () => {
+const WineNote: React.VFC = () => {
   return (
     <>
       <WineNoteMainHeader />
