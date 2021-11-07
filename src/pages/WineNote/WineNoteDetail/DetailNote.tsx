@@ -117,6 +117,7 @@ const DetailNote = ({
               >
                 {wineasyUserNickName}님의 평가
               </div>
+              {/* TODO: 입맛 평가 추가 필요 */}
               <div
                 css={(theme: Theme) => css`
                   color: ${theme.colors.main.primary};
