@@ -49,11 +49,12 @@ const RelatedWineNotes = () => {
           >
             {data?.map((note) => (
               <li
+                key={note.wineNoteId}
                 css={css`
                   margin-right: 36px;
                 `}
               >
-                <WineNote key={note.wineNoteId} {...wineNotes[0]} />
+                <WineNote {...wineNotes[0]} />
               </li>
             ))}
           </ul>
