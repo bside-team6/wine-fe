@@ -1,8 +1,12 @@
 import type { AxiosError } from 'axios';
-import type { QueryKey, UseQueryOptions } from 'react-query';
+import type {
+  QueryKey,
+  UseMutationOptions,
+  UseQueryOptions,
+} from 'react-query';
 
 export type QueryOptions<
-  TQueryFnData extends IResponse<unknown>,
+  TQueryFnData = unknown,
   TError = AxiosError,
   TData = TQueryFnData,
   TQueryKey extends QueryKey = QueryKey,
@@ -10,6 +14,13 @@ export type QueryOptions<
   UseQueryOptions<TQueryFnData, TError, TData, TQueryKey>,
   'queryKey' | 'queryFn'
 >;
+
+export type MutationOptions<
+  TData = unknown,
+  TError = AxiosError,
+  TVariables = void,
+  TContext = unknown,
+> = Omit<UseMutationOptions<TData, TError, TVariables, TContext>, 'mutationFn'>;
 
 export interface IResponse<T> {
   result: boolean;
@@ -87,4 +98,43 @@ export interface IRelatedWineNote {
   likeCount: number;
   authorName: string;
   thumbnailUrl: string;
+}
+
+export interface KakaoToken {
+  token_type: string;
+  access_token: string;
+  expires_in: number;
+  refresh_token: string;
+  refresh_token_expires_in: number;
+  scope: string;
+}
+
+export interface RefreshedKakaoToken {
+  token_type: string;
+  access_token: string;
+  expires_in: number;
+  refresh_token?: string;
+  refresh_token_expires_in?: number;
+}
+
+export interface AccessToken {
+  isNewUser: boolean;
+  accessToken: string;
+  refreshToken: string;
+}
+
+export enum USER_ROLE {
+  NORMAL = 'NORMAL',
+  ADMIN = 'ADMIN',
+}
+
+export interface UserInfo {
+  id: number;
+  name: string;
+  email: string;
+  nickName: string;
+  profilePhotoURL: string;
+  role: USER_ROLE;
+  /** @description 유저 SNS 로그인 UUID */
+  uuid: number;
 }
