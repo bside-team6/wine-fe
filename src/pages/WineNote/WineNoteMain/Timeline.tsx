@@ -1,11 +1,11 @@
 import { css } from '@emotion/react';
 import Spinner from '~/components/common/Spinner';
 import WineNote from '~/components/wineNote/WineNote';
-import useWineNoteTimelineQuery from '~/queries/useWineNoteTimelineQuery';
+import useWineNotesQuery from '~/queries/useWineNotesQuery';
 
 const Timeline = () => {
   // TODO: 무한 스크롤 방식으로 변경
-  const { data, isLoading } = useWineNoteTimelineQuery();
+  const { data, isLoading } = useWineNotesQuery();
 
   if (isLoading) {
     return <Spinner />;
