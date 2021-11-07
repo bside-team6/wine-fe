@@ -128,7 +128,7 @@ const WineNote = ({
               margin-bottom: auto;
             `}
           >
-            {descript}
+            {description}
           </h3>
           <div
             css={(theme: Theme) => css`
