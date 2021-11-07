@@ -35,14 +35,14 @@ const ButtonGroup = ({ prevId, nextId }: ButtonGroupProps) => {
       >
         <RoundButton
           color="secondary"
-          disabled={!!prevId}
+          disabled={!prevId}
           onClick={() => navigate(`/wine-note/${prevId}`)}
         >
           이전글
         </RoundButton>
         <RoundButton
           color="secondary"
-          disabled={!!nextId}
+          disabled={!nextId}
           onClick={() => navigate(`/wine-note/${nextId}`)}
         >
           다음글
