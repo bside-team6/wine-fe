@@ -6,9 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import * as yup from 'yup';
 import LoginStep from '~/components/auth/LoginStep';
-import { getRefreshToken } from '~/helpers/auth';
-import useRefreshAccessTokenMutation from '~/queries/useRefreshAccessTokenMutation';
-import useRegisterNickNameMutation from '~/queries/useRegisterNickNameMutation';
+import useKakaoSignUpMutation from '~/queries/useKakaoSignUpMutation';
 import useUserInfoQuery from '~/queries/useUserInfoQuery';
 import { isAuthenticatedState } from '~/stores/auth';
 import {
@@ -18,7 +16,7 @@ import {
 } from '~/styles/login';
 
 interface FormValues {
-  nickname: string;
+  nickName: string;
 }
 
 const errorMessage = '2~16자, 국문/영문 대소문자/숫자';
@@ -26,7 +24,7 @@ const errorMessage = '2~16자, 국문/영문 대소문자/숫자';
 // TODO: 사용중인 닉네임 체크 validation 추가 필요
 const schema = yup
   .object({
-    nickname: yup
+    nickName: yup
       .string()
       .min(2, errorMessage)
       .max(16, errorMessage)
@@ -39,7 +37,7 @@ function SignupStep2() {
 
   const setIsAuthenticated = useSetRecoilState(isAuthenticatedState);
 
-  const { refetch } = useUserInfoQuery({
+  const { refetch: fetchUserInfo } = useUserInfoQuery({
     enabled: false,
     onSuccess: () => {
       setIsAuthenticated(true);
@@ -47,24 +45,10 @@ function SignupStep2() {
     },
   });
 
-  const { mutateAsync: refreshAccessToken } = useRefreshAccessTokenMutation({
-    onSuccess: () => {
-      // TODO: 토큰 재생 후 다시 닉네임 등록 : 스펙을 모름
-    },
-  });
-
-  const { mutate: registerNickName } = useRegisterNickNameMutation({
-    onSuccess: () => refetch(),
+  const { mutate: kakaoSignUp } = useKakaoSignUpMutation({
+    onSuccess: () => fetchUserInfo(),
     onError: () => {
-      // 토큰 만료인 경우
-      if (true) {
-        const refreshToken = getRefreshToken();
-        if (refreshToken) {
-          refreshAccessToken(refreshToken);
-        } else {
-          navigate('/signup/step1');
-        }
-      }
+      // TODO: 중복이라면?
     },
   });
 
@@ -76,11 +60,15 @@ function SignupStep2() {
     mode: 'onChange',
     resolver: yupResolver(schema),
     defaultValues: {
-      nickname: '',
+      nickName: '',
     },
   });
 
-  const onSubmit = ({ nickname }: FormValues) => registerNickName(nickname);
+  const onSubmit = ({ nickName }: FormValues) =>
+    kakaoSignUp({
+      nickName,
+      kakaoAccessToken: '',
+    });
 
   useEffect(() => {
     // 카카오토큰이 없으면 되돌아간다
@@ -118,7 +106,7 @@ function SignupStep2() {
             <input
               autoComplete="off"
               type="text"
-              {...register('nickname')}
+              {...register('nickName')}
               placeholder="닉네임"
               css={(theme: Theme) => css`
                 display: block;
@@ -163,7 +151,7 @@ function SignupStep2() {
             >
               {valid
                 ? '사용 가능한 닉네임입니다.'
-                : errors.nickname?.message || '2~16자, 국문/영문 대소문자/숫자'}
+                : errors.nickName?.message || '2~16자, 국문/영문 대소문자/숫자'}
             </div>
           </div>
           {/* TODO: 추후 버튼 컴포넌트화 필요 */}
