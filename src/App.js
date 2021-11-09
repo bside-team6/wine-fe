@@ -11,6 +11,9 @@ function App() {
           <Route path="/admin">
             <Routes.Admin />
           </Route>
+          <Route path="/wine-list">
+            <Routes.WineList />
+          </Route>
           <Route path="/wine-note">
             <Routes.WineNote />
           </Route>
