@@ -118,7 +118,7 @@ export interface RefreshedKakaoToken {
 }
 
 export interface AccessToken {
-  isNewUser: boolean;
+  // isNewUser: boolean;
   accessToken: string;
   refreshToken: string;
 }
@@ -137,4 +137,13 @@ export interface UserInfo {
   role: USER_ROLE;
   /** @description 유저 SNS 로그인 UUID */
   uuid: number;
+}
+
+export interface NickNameValidate {
+  isPresent: boolean;
+}
+
+export interface SignUpRequest {
+  kakaoAccessToken: string;
+  nickName: string;
 }
