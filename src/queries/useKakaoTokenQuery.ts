@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import { getKakaoToken } from '~/api/main';
+import { getKakaoToken } from '~/api/auth';
 import type { KakaoToken, QueryOptions } from '~/types';
 
 const useKakaoTokenQuery = (

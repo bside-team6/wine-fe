@@ -1,12 +1,15 @@
 import type { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
-import { postKakaoSignUp } from '~/api/main';
-import type { AccessToken, MutationOptions } from '~/types';
+import { signUpByKakao } from '~/api/auth';
+import type { AccessToken, MutationOptions, SignUpRequest } from '~/types';
 
 const useKakaoSignUpMutation = (
-  options?: MutationOptions<AccessToken, AxiosError, string>,
+  options?: MutationOptions<AccessToken, AxiosError, SignUpRequest>,
 ) => {
-  return useMutation<AccessToken, AxiosError, string>(postKakaoSignUp, options);
+  return useMutation<AccessToken, AxiosError, SignUpRequest>(
+    signUpByKakao,
+    options,
+  );
 };
 
 export default useKakaoSignUpMutation;

@@ -1,6 +1,6 @@
 import type { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
-import { getUserInfo } from '~/api/main';
+import { getUserInfo } from '~/api/auth';
 import type { IResponse, QueryOptions, UserInfo } from '~/types';
 
 const useUserInfoQuery = (

@@ -1,12 +1,12 @@
 import type { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
-import { postRefreshAccessToken } from '~/api/main';
+import { refreshAccessToken } from '~/api/auth';
 import type { MutationOptions } from '~/types';
 
 const useRefreshAccessTokenMutation = (
-  options?: MutationOptions<any, AxiosError, string>,
+  options?: MutationOptions<string, AxiosError, string>,
 ) => {
-  return useMutation<any, AxiosError, string>(postRefreshAccessToken, options);
+  return useMutation<string, AxiosError, string>(refreshAccessToken, options);
 };
 
 export default useRefreshAccessTokenMutation;
