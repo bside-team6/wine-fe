@@ -1,4 +1,3 @@
-import React from 'react';
 import { css } from '@emotion/react';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
@@ -47,6 +46,7 @@ const WineListMainHeader = () => {
 };
 
 export default WineListMainHeader;
+
 const RefreshBtnStyle = (theme) => css`
   width: 56px;
   height: 42px;
@@ -57,6 +57,7 @@ const RefreshBtnStyle = (theme) => css`
   justify-content: center;
   align-items: center;
 `;
-const marginRight = () => css`
+
+const marginRight = css`
   margin-right: 8px;
 `;

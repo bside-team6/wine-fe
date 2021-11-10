@@ -1,7 +1,6 @@
-import React from 'react';
 import { css } from '@emotion/react';
 import Spinner from '~/components/common/Spinner';
-import WineItem from '~/components/wineItem/WineItem';
+import WineItem from '~/components/wineList/WineItem';
 import useWineSearchQuery from '~/queries/useWineSearchQuery';
 
 const WineListMainContents = () => {
@@ -11,6 +10,7 @@ const WineListMainContents = () => {
     },
     { count: 10, page: 1 },
   );
+
   if (isLoading) {
     return (
       <div className="my-5 d-flex justify-content-center">
@@ -18,6 +18,7 @@ const WineListMainContents = () => {
       </div>
     );
   }
+
   return (
     <div
       css={css`
@@ -29,10 +30,9 @@ const WineListMainContents = () => {
         grid-template-columns: repeat(4, 1fr);
       `}
     >
-      {data &&
-        data.map((item, key) => (
-          <WineItem key={key} data={item} id={item.id} />
-        ))}
+      {data?.map((item) => (
+        <WineItem key={item.id} data={item} id={item.id} />
+      ))}
     </div>
   );
 };
