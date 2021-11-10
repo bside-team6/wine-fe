@@ -48,6 +48,15 @@ export const loginIcon = {
   marginTop: '24px',
 };
 
+export const nickNameInputArea = {
+  display: 'block',
+  margin: '0px auto',
+  width: '432px',
+  height: '83px',
+  left: '384px',
+  top: '415px',
+};
+
 export const nickNameInput = {
   fontSize: '18px',
   display: 'block',
@@ -65,6 +74,10 @@ export const nickNameInputStr = {
   fontSize: '14px',
   fontStyle: 'normal',
   fontWeight: '400',
+  height: '18px',
+  width: '161px',
+  left: '404px',
+  top: '480px',
   color: 'rgba(168, 168, 168, 1)',
 };
 
@@ -78,6 +91,7 @@ export const nFalse = {
   left: '744px',
   top: '415px',
   borderRadius: '8px',
+  outlineColor: 'rgba(255, 0, 0, 1)',
 };
 
 export const nTrue = {
@@ -90,6 +104,7 @@ export const nTrue = {
   left: '744px',
   top: '415px',
   borderRadius: '8px',
+  outlineColor: 'rgba(28, 200, 45, 1)',
 };
 
 export const btnArea = {
@@ -100,11 +115,23 @@ export const btnArea = {
 };
 
 export const btnConfirm = {
+  width: '432px',
   height: '60px',
-  width: '212px',
-  left: '964px',
+  left: '384px',
   top: '522px',
   borderRadius: '8px',
   color: 'rgba(255, 255, 255, 1)',
   backgroundColor: 'rgba(0, 0, 0, 1)',
+};
+
+export const fBtnConfirm = {
+  width: '432px',
+  height: '60px',
+  left: '384px',
+  top: '522px',
+  outline: '0',
+  border: '0',
+  borderRadius: '8px',
+  color: 'rgba(255, 255, 255, 1)',
+  backgroundColor: 'rgba(223,223,223, 1)',
 };
