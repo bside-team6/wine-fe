@@ -4,6 +4,8 @@ import { useQuery } from 'react-query';
 import { getFood } from '~/api/admin';
 import Spinner from '~/components/common/Spinner';
 import useWineSearchQuery from '~/queries/useWineSearchQuery';
+import { ReactComponent as DropDown } from '~/assets/ic_dropdown.svg';
+import { ReactComponent as DropUp } from '~/assets/ic_dropup.svg';
 import { ReactComponent as Info } from '~/assets/ic_info.svg';
 import { ReactComponent as Search } from '~/assets/ic_search.svg';
 
@@ -44,7 +46,7 @@ function MainSearchBar() {
     }
   };
   const handleClickMenu = (e, id) => {
-    setClickedId((prevState) => (prevState === id ? 0 : id));
+    setClickedId((prevState) => (prevState === id ? '0' : id));
   };
 
   const handleSubmit = (e) => {
@@ -239,6 +241,7 @@ const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
       `}
     >
       {menuType}
+      {clickedId === menuId ? <DropUp /> : <DropDown />}
     </div>
   );
 };
