@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { getFood } from '~/api/admin';
 import Spinner from '~/components/common/Spinner';
 import useWineSearchQuery from '~/queries/useWineSearchQuery';
