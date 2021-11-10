@@ -100,10 +100,14 @@ const WineItem = ({
             rating={data.wineScoreAverage}
             starDimension="12px"
             starSpacing="0px"
-            starRatedColor={theme.colors.purple}
+            starRatedColor={theme.colors.main.primary}
             starEmptyColor="#c5c5c5"
           />
-          <div>3만원대</div>
+          <div>
+            {Math.round(data.priceKrw / 10000) === 0
+              ? Math.round(data.priceKrw / 1000) + '천원 대'
+              : Math.round(data.priceKrw / 10000) + '만원 대'}
+          </div>
         </div>
       </div>
     </Link>

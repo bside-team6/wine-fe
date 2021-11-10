@@ -51,7 +51,7 @@ const RefreshBtnStyle = (theme) => css`
   width: 56px;
   height: 42px;
   border-radius: 20px;
-  background-color: ${theme.primePurple};
+  background-color: ${theme.colors.main.primary};
   margin-right: 8px;
   display: flex;
   justify-content: center;
