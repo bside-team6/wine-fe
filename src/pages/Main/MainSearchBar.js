@@ -1,13 +1,17 @@
 import { useState } from 'react';
 import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 import { getFood } from '~/api/admin';
 import Spinner from '~/components/common/Spinner';
 import useWineSearchQuery from '~/queries/useWineSearchQuery';
+import { ReactComponent as DropDown } from '~/assets/ic_dropdown.svg';
+import { ReactComponent as DropUp } from '~/assets/ic_dropup.svg';
 import { ReactComponent as Info } from '~/assets/ic_info.svg';
 import { ReactComponent as Search } from '~/assets/ic_search.svg';
 
 function MainSearchBar() {
+  const navigate = useNavigate();
   const [clickedId, setClickedId] = useState('0');
   const [foodId, setFoodId] = useState();
   const [priceInfo, setPriceInfo] = useState({
@@ -44,11 +48,12 @@ function MainSearchBar() {
     }
   };
   const handleClickMenu = (e, id) => {
-    setClickedId((prevState) => (prevState === id ? 0 : id));
+    setClickedId((prevState) => (prevState === id ? '0' : id));
   };
 
   const handleSubmit = (e) => {
     refetch();
+    navigate(`/wine-list`);
   };
 
   const { data: foodsList } = useQuery('get-food', getFood, {
@@ -238,6 +243,7 @@ const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
       `}
     >
       {menuType}
+      {clickedId === menuId ? <DropUp /> : <DropDown />}
     </div>
   );
 };
