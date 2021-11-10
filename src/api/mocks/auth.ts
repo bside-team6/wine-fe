@@ -1,7 +1,11 @@
 import { rest } from 'msw';
 import { API_URL } from '~/api/urls';
-import { createErrorHandler, createMswHandler } from '~/helpers/msw';
-import type { AccessToken, NickNameValidate } from '~/types';
+import {
+  createErrorHandler,
+  createMswHandler,
+  successResponse,
+} from '~/helpers/msw';
+import type { AccessToken, IResponse, NickNameValidate } from '~/types';
 
 export const loginSuccessHandler = createMswHandler<AccessToken>(
   API_URL.LOGIN,
@@ -51,9 +55,11 @@ export const nicknameValidateHandler = rest.get(
   (req, res, ctx) => {
     const nickName = req.url.searchParams.get('nickName');
     return res(
-      ctx.json<NickNameValidate>({
-        isPresent: ['어드민', '와인이지', '관리자'].includes(nickName || ''),
-      }),
+      ctx.json<IResponse<NickNameValidate>>(
+        successResponse({
+          isPresent: ['어드민', '와인이지', '관리자'].includes(nickName || ''),
+        }),
+      ),
     );
   },
 );

@@ -5,7 +5,9 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import * as yup from 'yup';
+import { validateNickname } from '~/api/auth';
 import LoginStep from '~/components/auth/LoginStep';
+import { setAccessToken, setRefreshToken } from '~/helpers/auth';
 import useKakaoSignUpMutation from '~/queries/useKakaoSignUpMutation';
 import useUserInfoQuery from '~/queries/useUserInfoQuery';
 import { isAuthenticatedState } from '~/stores/auth';
@@ -28,7 +30,12 @@ const schema = yup
       .string()
       .min(2, errorMessage)
       .max(16, errorMessage)
-      .matches(/^[가-힣a-zA-Z0-9]+$/g, errorMessage),
+      .matches(/^[가-힣a-zA-Z0-9]+$/g, errorMessage)
+      .test(
+        'is-valid-nickname',
+        '이미 사용중인 닉네임입니다.',
+        async (value) => !(await validateNickname(value || '')).data.isPresent,
+      ),
   })
   .required();
 
@@ -43,19 +50,29 @@ function SignupStep2() {
       setIsAuthenticated(true);
       navigate('/', { replace: true });
     },
+    onError: () => {
+      // TODO: 가입성공 직후 세팅했던 와인이지 토큰 삭제
+    },
   });
 
   const { mutate: kakaoSignUp } = useKakaoSignUpMutation({
-    onSuccess: () => fetchUserInfo(),
+    onSuccess: ({ accessToken, refreshToken }) => {
+      // KakaoCallback.useLoginMutation 과 동일한 로직
+      setAccessToken(accessToken);
+      setRefreshToken(refreshToken);
+
+      fetchUserInfo();
+    },
     onError: () => {
-      // TODO: 중복이라면?
+      // TODO: 1. 중복가입
+      // TODO: 2. 카카오토큰 만료 (닉네임등록을 너무 늦게 한 경우)
     },
   });
 
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isDirty },
+    formState: { errors, isValid, isDirty, isValidating },
   } = useForm<FormValues>({
     mode: 'onChange',
     resolver: yupResolver(schema),
@@ -67,7 +84,7 @@ function SignupStep2() {
   const onSubmit = ({ nickName }: FormValues) =>
     kakaoSignUp({
       nickName,
-      kakaoAccessToken: '',
+      kakaoAccessToken: window.Kakao?.Auth?.getAccessToken()!,
     });
 
   useEffect(() => {
@@ -77,8 +94,8 @@ function SignupStep2() {
     }
   }, [navigate]);
 
-  const valid = isValid && isDirty;
-  const invalid = !isValid && isDirty;
+  const valid = isValid && isDirty && !isValidating;
+  const invalid = (!isValid && isDirty) || isValidating;
 
   return (
     <div css={loginStepContainer}>

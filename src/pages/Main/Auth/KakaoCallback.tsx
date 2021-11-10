@@ -20,20 +20,27 @@ function KakaoCallback() {
       setIsAuthenticated(true);
       navigate('/', { replace: true });
     },
+    onError: () => {
+      // TODO: 로그인성공 직후 세팅했던 와인이지 토큰 삭제
+    },
   });
 
   const { mutate: kakaoSignIn } = useLoginMutation({
     onSuccess: ({ accessToken, refreshToken }) => {
       // TODO: refreshToken의 만료기간도 같이 기록하고 앱 시작시 만료되었으면 삭제
+
+      // accessToken은 axios에 세팅하고 refreshToken은 localStorage에 세팅한다
       setAccessToken(accessToken);
       setRefreshToken(refreshToken);
 
       // 기존 회원인 경우 유저 정보 불러옴
       fetchUserInfo();
     },
-    onError: () => {
-      // 신규유저면 닉네임 등록 페이지로
-      navigate('/signup/step2', { replace: true });
+    onError: (error) => {
+      if (error.response?.status === 401) {
+        // 신규유저면 닉네임 등록 페이지로
+        navigate('/signup/step2', { replace: true });
+      }
     },
   });
 
