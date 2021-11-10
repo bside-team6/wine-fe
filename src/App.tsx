@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from '~/components/layout/Layout';
-import { Admin, Main, WineNote } from '~/Routes';
+import { Admin, Main, WineList, WineNote } from '~/Routes';
 
 function App() {
   return (
@@ -9,6 +9,7 @@ function App() {
         <Route element={<Layout />}>
           <Route path="/*" element={<Main />} />
           <Route path="admin/*" element={<Admin />} />
+          <Route path="wine-list/*" element={<WineList />} />
           <Route path="wine-note/*" element={<WineNote />} />
         </Route>
       </Routes>
