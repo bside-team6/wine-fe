@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { css, Theme } from '@emotion/react';
 import { yupResolver } from '@hookform/resolvers/yup';
+import debouncePromise from 'awesome-debounce-promise';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
 import * as yup from 'yup';
 import { validateNickname } from '~/api/auth';
 import LoginStep from '~/components/auth/LoginStep';
-import { setAccessToken, setRefreshToken } from '~/helpers/auth';
-import useKakaoSignUpMutation from '~/queries/useKakaoSignUpMutation';
+import useSignupMutation from '~/queries/useSignupMutation';
 import useUserInfoQuery from '~/queries/useUserInfoQuery';
 import { isAuthenticatedState } from '~/stores/auth';
 import {
@@ -23,7 +23,6 @@ interface FormValues {
 
 const errorMessage = '2~16자, 국문/영문 대소문자/숫자';
 
-// TODO: 사용중인 닉네임 체크 validation 추가 필요
 const schema = yup
   .object({
     nickName: yup
@@ -34,7 +33,10 @@ const schema = yup
       .test(
         'is-valid-nickname',
         '이미 사용중인 닉네임입니다.',
-        async (value) => !(await validateNickname(value || '')).data.isPresent,
+        debouncePromise(
+          async (value = '') => !(await validateNickname(value)).data.isPresent,
+          500,
+        ),
       ),
   })
   .required();
@@ -45,27 +47,14 @@ function SignupStep2() {
   const setIsAuthenticated = useSetRecoilState(isAuthenticatedState);
 
   const { refetch: fetchUserInfo } = useUserInfoQuery({
-    enabled: false,
-    onSuccess: () => {
-      setIsAuthenticated(true);
-      navigate('/', { replace: true });
-    },
-    onError: () => {
-      // TODO: 가입성공 직후 세팅했던 와인이지 토큰 삭제
-    },
+    onSuccess: (userInfo) => setIsAuthenticated(!!userInfo),
   });
 
-  const { mutate: kakaoSignUp } = useKakaoSignUpMutation({
-    onSuccess: ({ accessToken, refreshToken }) => {
-      // KakaoCallback.useLoginMutation 과 동일한 로직
-      setAccessToken(accessToken);
-      setRefreshToken(refreshToken);
-
-      fetchUserInfo();
-    },
+  const { mutate: signup } = useSignupMutation({
+    onSuccess: () => fetchUserInfo(),
     onError: () => {
-      // TODO: 1. 중복가입
-      // TODO: 2. 카카오토큰 만료 (닉네임등록을 너무 늦게 한 경우)
+      // TODO: CASE 1. 중복가입
+      // TODO: CASE 2. 카카오토큰 만료 (닉네임등록을 너무 늦게 한 경우)
     },
   });
 
@@ -82,7 +71,7 @@ function SignupStep2() {
   });
 
   const onSubmit = ({ nickName }: FormValues) =>
-    kakaoSignUp({
+    signup({
       nickName,
       kakaoAccessToken: window.Kakao?.Auth?.getAccessToken()!,
     });
@@ -121,8 +110,8 @@ function SignupStep2() {
             `}
           >
             <input
-              autoComplete="off"
               type="text"
+              autoComplete="off"
               {...register('nickName')}
               placeholder="닉네임"
               css={(theme: Theme) => css`

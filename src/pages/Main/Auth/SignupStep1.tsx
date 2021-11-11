@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import LoginStep from '~/components/auth/LoginStep';
-import { REDIRECT_URI } from '~/helpers/auth';
-import useKakao from '~/hooks/useKakao';
+import { kakaoLogin } from '~/helpers/auth';
 import {
   imageButton,
   loginDescription,
@@ -11,14 +10,6 @@ import {
 import kakaoLoginImg from '~/assets/login/kakao_login_large_wide.png';
 
 function SignupStep1() {
-  useKakao();
-
-  const handleClick = () => {
-    window.Kakao?.Auth?.authorize({
-      redirectUri: REDIRECT_URI,
-    });
-  };
-
   return (
     <div css={loginStepContainer}>
       <LoginStep step={1} />
@@ -34,7 +25,7 @@ function SignupStep1() {
             ${imageButton}
             height: 60px;
           `}
-          onClick={handleClick}
+          onClick={kakaoLogin}
         >
           <img src={kakaoLoginImg} alt="kakaoLoginImg" />
         </button>

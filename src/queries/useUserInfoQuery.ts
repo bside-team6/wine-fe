@@ -4,12 +4,17 @@ import { getUserInfo } from '~/api/auth';
 import type { IResponse, QueryOptions, UserInfo } from '~/types';
 
 const useUserInfoQuery = (
-  options?: QueryOptions<IResponse<UserInfo>, AxiosError, UserInfo>,
+  options?: QueryOptions<
+    IResponse<UserInfo | null>,
+    AxiosError,
+    UserInfo | null
+  >,
 ) => {
-  return useQuery<IResponse<UserInfo>, AxiosError, UserInfo>(
+  return useQuery<IResponse<UserInfo | null>, AxiosError, UserInfo | null>(
     'user-info',
     getUserInfo,
     {
+      enabled: false,
       staleTime: Infinity,
       cacheTime: Infinity,
       ...options,

@@ -1,12 +1,12 @@
 import type { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import { login } from '~/api/auth';
-import type { AccessToken, MutationOptions } from '~/types';
+import type { MutationOptions } from '~/types';
 
 const useLoginMutation = (
-  options?: MutationOptions<AccessToken, AxiosError, string>,
+  options?: MutationOptions<unknown, AxiosError, string>,
 ) => {
-  return useMutation<AccessToken, AxiosError, string>(login, options);
+  return useMutation<unknown, AxiosError, string>(login, options);
 };
 
 export default useLoginMutation;
