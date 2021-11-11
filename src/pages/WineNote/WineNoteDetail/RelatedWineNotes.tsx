@@ -1,5 +1,5 @@
 import { css } from '@emotion/react';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { wineNotes } from '~/api/mocks/wine-note';
 import Spinner from '~/components/common/Spinner';
 import WineNote from '~/components/wineNote/WineNote';
