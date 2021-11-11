@@ -48,7 +48,7 @@ const WineItem = ({ id, data }) => {
         <div>
           <Chip wineType={data.type} />
           <div
-            css={() => css`
+            css={css`
               font-size: 14px;
               font-weight: 700;
             `}
