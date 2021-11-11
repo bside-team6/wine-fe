@@ -1,4 +1,3 @@
-import instance from './instance';
 import { API_URL } from '~/api/urls';
 import type {
   IRelatedWineNote,
@@ -6,6 +5,7 @@ import type {
   ITimelineWineNoteList,
   IWineNoteDetail,
 } from '~/types';
+import instance from './instance';
 
 /**
  * GET 모든 와인노트 목록

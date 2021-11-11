@@ -1,10 +1,10 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import WineNoteDetail from './index';
 import {
   getWineNoteLoadingHandler,
   getWineNoteSuccessHandler,
 } from '~/api/mocks/wine-note';
 import { providerDecorator } from '~/helpers/storybook';
+import WineNoteDetail from './index';
 
 export default {
   title: 'pages/WineNoteDetail',
