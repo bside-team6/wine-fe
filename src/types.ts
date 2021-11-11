@@ -117,12 +117,6 @@ export interface RefreshedKakaoToken {
   refresh_token_expires_in?: number;
 }
 
-export interface AccessToken {
-  // isNewUser: boolean;
-  accessToken: string;
-  refreshToken: string;
-}
-
 export enum USER_ROLE {
   NORMAL = 'NORMAL',
   ADMIN = 'ADMIN',
@@ -143,7 +137,7 @@ export interface NickNameValidate {
   isPresent: boolean;
 }
 
-export interface SignUpRequest {
+export interface SignupRequest {
   kakaoAccessToken: string;
   nickName: string;
 }

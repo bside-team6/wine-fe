@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { context, createResponseComposition, rest } from 'msw';
 import type { RestHandler } from 'msw';
 import type { IResponse } from '~/types';
 
@@ -37,3 +37,7 @@ export const createErrorHandler = (
     return res(...transformers);
   });
 };
+
+export const delayedResponse = createResponseComposition(undefined, [
+  context.delay('real'),
+]);

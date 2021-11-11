@@ -3,17 +3,15 @@ import { API_URL } from '~/api/urls';
 import {
   createErrorHandler,
   createMswHandler,
+  delayedResponse,
   successResponse,
 } from '~/helpers/msw';
-import type { AccessToken, IResponse, NickNameValidate } from '~/types';
+import { NickNameValidate, SignupRequest, USER_ROLE, UserInfo } from '~/types';
 
-export const loginSuccessHandler = createMswHandler<AccessToken>(
+export const loginSuccessHandler = createMswHandler(
   API_URL.LOGIN,
   'post',
-  {
-    accessToken: 'login-access-token',
-    refreshToken: 'login-refresh-token',
-  },
+  undefined,
   'real',
 );
 
@@ -25,14 +23,14 @@ export const loginErrorHandler = createErrorHandler(
   'real',
 );
 
-export const signupSuccessHandler = createMswHandler<AccessToken>(
+let nickName: string | undefined = undefined;
+
+export const signupSuccessHandler = rest.post<SignupRequest>(
   API_URL.SIGNUP,
-  'post',
-  {
-    accessToken: 'signup-access-token',
-    refreshToken: 'signup-refresh-token',
+  (req, res, ctx) => {
+    nickName = req.body.nickName;
+    return delayedResponse(ctx.status(204));
   },
-  'real',
 );
 
 // 중복회원
@@ -43,11 +41,12 @@ export const signupErrorHandler = createErrorHandler(
   'real',
 );
 
-export const refreshTokenSuccessHandler = createMswHandler(
-  API_URL.REFRESH_ACCESS_TOKEN,
-  'post',
-  'new-access-token',
-  'real',
+export const logoutSuccessHandler = rest.post<SignupRequest>(
+  API_URL.LOGOUT,
+  (req, res, ctx) => {
+    nickName = undefined;
+    return delayedResponse(ctx.status(204));
+  },
 );
 
 export const nicknameValidateHandler = rest.get(
@@ -55,11 +54,36 @@ export const nicknameValidateHandler = rest.get(
   (req, res, ctx) => {
     const nickName = req.url.searchParams.get('nickName');
     return res(
-      ctx.json<IResponse<NickNameValidate>>(
-        successResponse({
+      ctx.json(
+        successResponse<NickNameValidate>({
           isPresent: ['어드민', '와인이지', '관리자'].includes(nickName || ''),
         }),
       ),
     );
   },
 );
+
+export const userInfoHandler = rest.get(API_URL.USER_INFO, (req, res, ctx) => {
+  if (nickName) {
+    return delayedResponse(
+      ctx.json(
+        successResponse<UserInfo>({
+          id: 10000,
+          name: '홍길동',
+          email: 'aaa@test.com',
+          nickName,
+          profilePhotoURL: 'https://via.placeholder.com/150',
+          role: USER_ROLE.NORMAL,
+          uuid: 10000,
+        }),
+      ),
+    );
+  }
+  return delayedResponse(
+    ctx.json({
+      result: false,
+      message: '회원이 아닙니다.',
+      data: null,
+    }),
+  );
+});

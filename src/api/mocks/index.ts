@@ -1,14 +1,16 @@
 import { setupWorker } from 'msw';
 import {
   loginErrorHandler,
+  logoutSuccessHandler,
   nicknameValidateHandler,
-  refreshTokenSuccessHandler,
   signupSuccessHandler,
+  userInfoHandler,
 } from '~/api/mocks/auth';
 
 export const worker = setupWorker(
   loginErrorHandler,
   signupSuccessHandler,
-  refreshTokenSuccessHandler,
   nicknameValidateHandler,
+  userInfoHandler,
+  logoutSuccessHandler,
 );

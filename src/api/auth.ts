@@ -1,27 +1,29 @@
-import instance, { kakaoAuth } from './instance';
 import { API_URL } from '~/api/urls';
 import { KAKAO_REST_APP_KEY, REDIRECT_URI } from '~/helpers/auth';
 import type {
-  AccessToken,
   IResponse,
   KakaoToken,
   NickNameValidate,
   RefreshedKakaoToken,
-  SignUpRequest,
+  SignupRequest,
   UserInfo,
 } from '~/types';
+import instance, { kakaoAuth } from './instance';
 
 /**
  * POST 로그인
  * @description 카카오토큰으로 로그인
  * @param kakaoAccessToken 카카오 accessToken
  */
-export const login = async (kakaoAccessToken: string) => {
-  const { data } = await instance.post<IResponse<AccessToken>>(API_URL.LOGIN, {
+export const login = async (kakaoAccessToken: string) =>
+  instance.post(API_URL.LOGIN, {
     kakaoAccessToken,
   });
-  return data.data;
-};
+
+/**
+ * POST 로그아웃
+ */
+export const logout = async () => instance.post(API_URL.LOGOUT);
 
 /**
  * POST 회원가입
@@ -29,16 +31,14 @@ export const login = async (kakaoAccessToken: string) => {
  * @param kakaoAccessToken 카카오 accessToken
  * @param nickName 닉네임
  */
-export const signUpByKakao = async ({
+export const signupByKakao = async ({
   kakaoAccessToken,
   nickName,
-}: SignUpRequest) => {
-  const { data } = await instance.post<IResponse<AccessToken>>(API_URL.SIGNUP, {
+}: SignupRequest) =>
+  instance.post(API_URL.SIGNUP, {
     kakaoAccessToken,
     nickName,
   });
-  return data.data;
-};
 
 /**
  * GET 닉네임 중복검사
@@ -59,23 +59,14 @@ export const validateNickname = async (nickName: string) => {
 /**
  * GET 본인 정보 불러오기
  */
-export const getUserInfo = async () => {
-  const { data } = await instance.get<IResponse<UserInfo>>(API_URL.USER_INFO);
-  return data;
-};
-
-/**
- * POST 와인이지 AccessToken 재발급
- * @param refreshToken 와인이지 refreshToken
- */
-export const refreshAccessToken = async (refreshToken: string) => {
-  const { data } = await instance.post<IResponse<string>>(
-    API_URL.REFRESH_ACCESS_TOKEN,
+export const getUserInfo = async ({ signal }: { signal?: AbortSignal }) => {
+  const { data } = await instance.get<IResponse<UserInfo | null>>(
+    API_URL.USER_INFO,
     {
-      refreshToken,
+      signal,
     },
   );
-  return data.data;
+  return data;
 };
 
 /**
