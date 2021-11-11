@@ -1,23 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { RecoilRoot } from 'recoil';
-import App from './App';
 import { isProduction } from '~/helpers/constants';
 import { QueryProvider } from '~/helpers/query';
 import { ThemeProvider } from '~/helpers/theme';
+import App from './App';
 
 (async () => {
+  // TODO: sentry 추가
+
   if (!isProduction) {
     const { worker } = await import(
       /* webpackChunkName: "mocks" */ '~/api/mocks'
     );
     await worker.start({
       onUnhandledRequest: 'bypass',
-      serviceWorker: {
-        options: {
-          scope: '/signup',
-        },
-      },
     });
   }
 
