@@ -1,5 +1,5 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import SquareButton from './SquareButton';
+import SquareButton, { SquareButtonGroup } from './SquareButton';
 
 export default {
   title: 'components/SquareButton',
@@ -41,3 +41,28 @@ Medium.args = {
   color: 'secondary',
   size: 'medium',
 };
+
+export const HorizontalButtonGroup = () => (
+  <SquareButtonGroup align="horizontal">
+    <SquareButton variant="contained" color="secondary" size="large">
+      취소
+    </SquareButton>
+    <SquareButton variant="contained" color="primary" size="large">
+      공유하기
+    </SquareButton>
+  </SquareButtonGroup>
+);
+
+export const VerticalButtonGroup = () => (
+  <SquareButtonGroup align="vertical">
+    <SquareButton variant="outlined" color="secondary">
+      노트공유
+    </SquareButton>
+    <SquareButton variant="outlined" color="secondary">
+      수정
+    </SquareButton>
+    <SquareButton variant="contained" color="secondary">
+      삭제
+    </SquareButton>
+  </SquareButtonGroup>
+);

@@ -1,4 +1,5 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
+import type { SerializedStyles, Theme } from '@emotion/react';
 import Icon, { IconName } from '~/components/common/Icon';
 
 type IconPosition = 'left' | 'right';
@@ -33,6 +34,7 @@ export interface RoundButtonProps
   icon?: IconName;
   iconPosition?: IconPosition;
   inactive?: boolean;
+  css?: SerializedStyles | ((theme: Theme) => SerializedStyles);
 }
 
 const RoundButton: React.FC<RoundButtonProps> = ({
@@ -44,55 +46,61 @@ const RoundButton: React.FC<RoundButtonProps> = ({
   icon,
   iconPosition = 'left',
   inactive = false,
+  css: cssProps,
   ...restProps
 }) => {
+  const theme = useTheme();
+
   return (
     <button
-      css={(theme: Theme) => css`
-        cursor: pointer;
-        outline: none;
-        position: relative;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        appearance: none;
-        padding: 0 ${children ? 20 : 16}px;
-        font-size: 14px;
-        font-weight: ${bold ? 'bold' : 'normal'};
-        border-radius: ${radiusMap[size]}px;
-        height: ${heightMap[size]}px;
-        ${size === 'large' &&
+      css={[
         css`
-          min-width: 320px;
-        `}
-        background: ${variant === 'contained'
-          ? color === 'primary'
+          cursor: pointer;
+          outline: none;
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          appearance: none;
+          padding: 0 ${children ? 20 : 16}px;
+          font-size: 14px;
+          font-weight: ${bold ? 'bold' : 'normal'};
+          border-radius: ${radiusMap[size]}px;
+          height: ${heightMap[size]}px;
+          ${size === 'large' &&
+          css`
+            min-width: 320px;
+          `}
+          background: ${variant === 'contained'
+            ? color === 'primary'
+              ? theme.colors.main.primary
+              : theme.colors.black07
+            : theme.colors.white};
+          border: ${variant === 'contained' ? 'none' : '2px solid'};
+          border-color: ${color === 'primary'
             ? theme.colors.main.primary
-            : theme.colors.black07
-          : theme.colors.white};
-        border: ${variant === 'contained' ? 'none' : '2px solid'};
-        border-color: ${color === 'primary'
-          ? theme.colors.main.primary
-          : theme.colors.black07};
-        color: ${variant === 'contained'
-          ? theme.colors.white
-          : color === 'primary'
-          ? theme.colors.main.primary
-          : theme.colors.black02};
-        ${inactive && inactiveStyle(theme)}
-        svg {
-          &.left-icon {
-            margin-right: ${children ? 8 : 0}px;
+            : theme.colors.black07};
+          color: ${variant === 'contained'
+            ? theme.colors.white
+            : color === 'primary'
+            ? theme.colors.main.primary
+            : theme.colors.black02};
+          ${inactive && inactiveStyle(theme)}
+          svg {
+            &.left-icon {
+              margin-right: ${children ? 8 : 0}px;
+            }
+            &.right-icon {
+              margin-left: 8px;
+            }
           }
-          &.right-icon {
-            margin-left: 8px;
+          &:disabled {
+            cursor: not-allowed;
+            ${inactiveStyle(theme)}
           }
-        }
-        &:disabled {
-          cursor: not-allowed;
-          ${inactiveStyle(theme)}
-        }
-      `}
+        `,
+        typeof cssProps === 'function' ? cssProps(theme) : cssProps,
+      ]}
       {...restProps}
     >
       {icon && iconPosition === 'left' && (

@@ -1,4 +1,5 @@
-import { css, SerializedStyles } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
+import type { SerializedStyles, Theme } from '@emotion/react';
 import { ReactComponent as BookmarkIcon } from '~/assets/icon/ic_bookmark.svg';
 import { ReactComponent as CancelIcon } from '~/assets/icon/ic_cancel.svg';
 import { ReactComponent as ArrowDownIcon } from '~/assets/icon/ic_dropdown.svg';
@@ -29,57 +30,74 @@ export type IconName =
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
-  css?: SerializedStyles;
+  css?: SerializedStyles | ((theme: Theme) => SerializedStyles);
 }
 
 const Icon = ({ name, ...props }: IconProps) => {
+  const theme = useTheme();
+
   if (name === 'arrow-down') {
     return <ArrowDownIcon {...props} />;
   }
+
   if (name === 'arrow-up') {
     return (
       <ArrowDownIcon
         {...props}
-        css={css`
-          ${props.css};
-          transform: rotate(180deg);
-        `}
+        css={[
+          css`
+            transform: rotate(180deg);
+          `,
+          typeof props.css === 'function' ? props.css(theme) : props.css,
+        ]}
       />
     );
   }
+
   if (name === 'filter') {
     return <FilterIcon {...props} />;
   }
+
   if (name === 'refresh') {
     return <RefreshIcon {...props} />;
   }
+
   if (name === 'share') {
     return <ShareIcon {...props} />;
   }
+
   if (name === 'bookmark') {
     return <BookmarkIcon {...props} />;
   }
+
   if (name === 'write') {
     return <WriteIcon {...props} />;
   }
+
   if (name === 'heart') {
     return <HeartIcon {...props} />;
   }
+
   if (name === 'heart-fill') {
     return <FilledHeartIcon {...props} />;
   }
+
   if (name === 'search') {
     return <SearchIcon {...props} />;
   }
+
   if (name === 'info') {
     return <InfoIcon {...props} />;
   }
+
   if (name === 'mypage') {
     return <MyPageIcon {...props} />;
   }
+
   if (name === 'cancel') {
     return <CancelIcon {...props} />;
   }
+
   return null;
 };
 
