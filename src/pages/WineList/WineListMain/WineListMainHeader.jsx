@@ -1,7 +1,7 @@
 import { css } from '@emotion/react';
+import Icon from '~/components/common/Icon';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
-import { ReactComponent as Refresh } from '~/assets/ic_refresh.svg';
 
 const WineListMainHeader = () => {
   return (
@@ -31,7 +31,7 @@ const WineListMainHeader = () => {
         `}
       >
         <div css={RefreshBtnStyle}>
-          <Refresh />
+          <Icon name="refresh" />
         </div>
         <RoundButton css={marginRight} color="secondary">
           스테이크

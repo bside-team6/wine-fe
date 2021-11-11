@@ -2,10 +2,11 @@ import { css, Theme } from '@emotion/react';
 import toast from 'react-hot-toast';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
+import Icon from '~/components/common/Icon';
 import { kakaoLogin } from '~/helpers/auth';
 import useLogoutMutation from '~/queries/useLogoutMutation';
 import { isAuthenticatedState } from '~/stores/auth';
-import { alignCenter, spritesStyle } from '~/styles/common';
+import { alignCenter } from '~/styles/common';
 import { ReactComponent as KakaoSmallLogo } from '~/assets/ic_kakao.svg';
 import logo from '~/assets/logo.png';
 
@@ -89,6 +90,7 @@ const Header = () => {
               cursor: pointer;
               border: 0;
               background: none;
+              outline: none;
               padding: 10px 0;
               margin-right: 6px;
               width: 138px;
@@ -121,24 +123,16 @@ const Header = () => {
           )}
           {/* TODO: 로그인 했을때 경로 변경 */}
           <NavLink to={isAuthenticated ? '/signup/step1' : '/signup/step1'}>
-            <span
+            <Icon
+              name="mypage"
               css={css`
-                ${spritesStyle}
-                display: block;
-                background-position: -68px 0px;
                 margin-left: 10px;
                 margin-right: 10px;
               `}
             />
           </NavLink>
           <NavLink to="/">
-            <span
-              css={css`
-                ${spritesStyle}
-                display: block;
-                background-position: -272px 0px;
-              `}
-            />
+            <Icon name="bookmark" />
           </NavLink>
         </div>
       </div>

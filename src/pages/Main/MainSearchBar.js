@@ -3,12 +3,9 @@ import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getFood } from '~/api/admin';
+import Icon from '~/components/common/Icon';
 import Spinner from '~/components/common/Spinner';
 import useWineSearchQuery from '~/queries/useWineSearchQuery';
-import { ReactComponent as DropDown } from '~/assets/ic_dropdown.svg';
-import { ReactComponent as DropUp } from '~/assets/ic_dropup.svg';
-import { ReactComponent as Info } from '~/assets/ic_info.svg';
-import { ReactComponent as Search } from '~/assets/ic_search.svg';
 
 function MainSearchBar() {
   const navigate = useNavigate();
@@ -111,8 +108,11 @@ function MainSearchBar() {
             menuId="3"
             clickedId={clickedId}
           />
-          <div css={(theme) => RoundBtnStyle(theme)}>
-            <Search onClick={(e) => handleSubmit(e)} />
+          <div
+            css={(theme) => RoundBtnStyle(theme)}
+            onClick={(e) => handleSubmit(e)}
+          >
+            <Icon name="search" />
           </div>
         </div>
         {clickedId !== '0' && (
@@ -122,7 +122,8 @@ function MainSearchBar() {
                 <div css={(theme) => divOptStyle(theme)}>
                   <span>메인음식</span>
                   <span>
-                    <Info
+                    <Icon
+                      name="info"
                       css={css`
                         margin-right: 3px;
                         position: relative;
@@ -151,7 +152,8 @@ function MainSearchBar() {
                 <div css={(theme) => divOptStyle(theme)}>
                   <span>가격대</span>
                   <span>
-                    <Info
+                    <Icon
+                      name="info"
                       css={css`
                         margin-right: 3px;
                         position: relative;
@@ -244,7 +246,7 @@ const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
       `}
     >
       {menuType}
-      {clickedId === menuId ? <DropUp /> : <DropDown />}
+      <Icon name={clickedId === menuId ? 'arrow-up' : 'arrow-down'} />
     </div>
   );
 };
