@@ -15,3 +15,11 @@ export const alignCenter = css`
   display: flex;
   align-items: center;
 `;
+
+export const iconButtonStyle = css`
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  outline: 0;
+`;
