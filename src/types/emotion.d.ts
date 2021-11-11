@@ -10,6 +10,8 @@ declare module '@emotion/react' {
         light2: string;
       };
       border: string;
+      white: string;
+      black: string;
       black02: string;
       black04: string;
       black06: string;
