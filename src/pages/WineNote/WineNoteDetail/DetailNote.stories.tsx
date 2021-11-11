@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import DetailNote from './DetailNote';
 import { wineNote } from '~/api/mocks/wine-note';
+import DetailNote from './DetailNote';
 
 export default {
   title: 'pages/WineNoteDetail/DetailNote',

@@ -1,4 +1,10 @@
-import type { ITimelineWineNote, IWineNoteDetail } from '~/types';
+import { API_URL } from '~/api/urls';
+import { createMswHandler } from '~/helpers/msw';
+import type {
+  ITimelineWineNote,
+  ITimelineWineNoteList,
+  IWineNoteDetail,
+} from '~/types';
 import { WINE_TYPE } from '~/types';
 
 export const wineNote: IWineNoteDetail = {
@@ -32,6 +38,20 @@ export const wineNote: IWineNoteDetail = {
   previousWineNoteId: 9,
   nextWineNoteId: 11,
 };
+
+export const getWineNoteSuccessHandler = createMswHandler(
+  `${API_URL.WINE_NOTE}/:wineNoteId`,
+  'get',
+  wineNote,
+  'real',
+);
+
+export const getWineNoteLoadingHandler = createMswHandler(
+  `${API_URL.WINE_NOTE}/:wineNoteId`,
+  'get',
+  undefined,
+  'infinite',
+);
 
 export const wineNotes: ITimelineWineNote[] = [
   {
@@ -161,6 +181,33 @@ export const wineNotes: ITimelineWineNote[] = [
   },
 ];
 
+export const getWineNotesSuccessHandler = (delay?: 'real') =>
+  createMswHandler<ITimelineWineNoteList>(
+    API_URL.WINE_NOTE,
+    'get',
+    {
+      totalElements: 6,
+      totalPages: 1,
+      currentPage: 0,
+      wineNoteTimeLineResultList: wineNotes,
+    },
+    'real',
+  );
+
+export const getWineNotesLoadingHandler = createMswHandler(
+  API_URL.WINE_NOTE,
+  'get',
+  undefined,
+  'infinite',
+);
+
+export const getWineNotesEmptyHandler = createMswHandler(
+  API_URL.WINE_NOTE,
+  'get',
+  [],
+  'real',
+);
+
 export const popularWineNotes: IWineNoteDetail[] = [
   {
     id: 2,
@@ -241,3 +288,24 @@ export const popularWineNotes: IWineNoteDetail[] = [
     ],
   },
 ];
+
+export const getPopularWineNotesSuccessHandler = createMswHandler(
+  API_URL.POPULAR_WINE_NOTE,
+  'get',
+  popularWineNotes,
+  'real',
+);
+
+export const getPopularWineNotesEmptyHandler = createMswHandler(
+  API_URL.POPULAR_WINE_NOTE,
+  'get',
+  [],
+  'real',
+);
+
+export const getPopularWineNotesLoadingHandler = createMswHandler(
+  API_URL.POPULAR_WINE_NOTE,
+  'get',
+  undefined,
+  'infinite',
+);

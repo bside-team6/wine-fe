@@ -1,10 +1,10 @@
 import { css } from '@emotion/react';
 import { useParams } from 'react-router-dom';
+import Spinner from '~/components/common/Spinner';
+import useWineNoteQuery from '~/queries/useWineNoteQuery';
 import ButtonGroup from './ButtonGroup';
 import DetailNote from './DetailNote';
 import RelatedWineNotes from './RelatedWineNotes';
-import Spinner from '~/components/common/Spinner';
-import useWineNoteQuery from '~/queries/useWineNoteQuery';
 
 const WineNoteDetail: React.VFC = () => {
   const { wineNoteId } = useParams();

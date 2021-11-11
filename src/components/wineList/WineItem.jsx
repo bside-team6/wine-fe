@@ -3,21 +3,10 @@ import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import { theme } from '~/helpers/theme';
+import { formatSweet } from '~/helpers/utils';
 import wineBottle from '~/assets/wineBottle.png';
 
-const WineItem = ({
-  id,
-  data,
-  descript,
-  wineName,
-  wineType,
-  wineasyUserNickName,
-  regDate,
-  viewCount,
-  wineNoteLikeCount,
-  wineNoteWineImagePath,
-  isLike,
-}) => {
+const WineItem = ({ id, data }) => {
   return (
     <Link
       to={`/wine-list/${id}`}
@@ -30,17 +19,15 @@ const WineItem = ({
       `}
     >
       <div
-        css={() =>
-          css`
-            display: flex;
-            flex-direction: column;
-            width: 282px;
-            height: 490px;
-          `
-        }
+        css={css`
+          display: flex;
+          flex-direction: column;
+          width: 282px;
+          height: 490px;
+        `}
       >
         <div
-          css={() => css`
+          css={css`
             display: flex;
             justify-content: center;
             align-items: center;
@@ -69,28 +56,24 @@ const WineItem = ({
             {data.nameKr}
           </div>
           <div
-            css={() => css`
+            css={css`
               font-size: 12px;
               color: #424242;
             `}
           >
             <span
-              css={() => css`
+              css={css`
                 margin-right: 12px;
               `}
             >
-              {data.sweet === 1 && '달지않음'}
-              {(data.sweet === 2 || data.sweet === 3) && '약간 달달함'}
-              {(data.sweet === 4 || data.sweet === 5) && '아주 달달함'}
+              {formatSweet(data.sweet)}
             </span>
-            {data.foodList.map((food, key) => (
+            {data.foodList.map((food) => (
               <span
-                css={() =>
-                  css`
-                    margin-left: 2px;
-                  `
-                }
-                key={key}
+                key={food}
+                css={css`
+                  margin-left: 2px;
+                `}
               >
                 #{food}
               </span>
@@ -103,11 +86,12 @@ const WineItem = ({
             starRatedColor={theme.colors.main.primary}
             starEmptyColor="#c5c5c5"
           />
-          <div>
-            {Math.round(data.priceKrw / 10000) === 0
-              ? Math.round(data.priceKrw / 1000) + '천원 대'
-              : Math.round(data.priceKrw / 10000) + '만원 대'}
-          </div>
+          {data.priceKrw && data.priceKrw >= 1_000 && (
+            <div>
+              {String(data.priceKrw).slice(0, -3)}
+              {data.priceKrw >= 10_000 ? '만원 대' : '천원 대'}
+            </div>
+          )}
         </div>
       </div>
     </Link>

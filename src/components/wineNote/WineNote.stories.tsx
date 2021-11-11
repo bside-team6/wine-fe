@@ -1,7 +1,7 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import WineNote from './WineNote';
 import { wineNotes } from '~/api/mocks/wine-note';
 import { providerDecorator } from '~/helpers/storybook';
+import WineNote from './WineNote';
 
 export default {
   title: 'components/WineNote',

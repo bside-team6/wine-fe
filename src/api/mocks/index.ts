@@ -1,9 +1,16 @@
-import type { IResponse } from '~/types';
+import { setupWorker } from 'msw';
+import {
+  loginErrorHandler,
+  logoutSuccessHandler,
+  nicknameValidateHandler,
+  signupSuccessHandler,
+  userInfoHandler,
+} from '~/api/mocks/auth';
 
-export const successResponse = <T>(data: T): IResponse<T> => ({
-  result: true,
-  message: '',
-  data,
-});
-
-export const failureResponse = (data: unknown) => ({});
+export const worker = setupWorker(
+  loginErrorHandler,
+  signupSuccessHandler,
+  nicknameValidateHandler,
+  userInfoHandler,
+  logoutSuccessHandler,
+);
