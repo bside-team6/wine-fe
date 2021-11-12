@@ -1,7 +1,6 @@
 import { css } from '@emotion/react';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
-import { ReactComponent as Refresh } from '~/assets/ic_refresh.svg';
 
 const WineListMainHeader = () => {
   return (
@@ -26,38 +25,44 @@ const WineListMainHeader = () => {
       </h2>
       <div
         css={css`
-          margin-top: 80px;
           ${alignCenter}
+          margin-top: 80px;
+          button {
+            margin-right: 8px;
+            &:last-child {
+              margin-right: 0;
+            }
+          }
         `}
       >
-        <div css={RefreshBtnStyle}>
-          <Refresh />
-        </div>
-        <RoundButton css={marginRight} color="secondary">
+        <RoundButton variant="contained" icon="refresh" />
+        <RoundButton
+          variant="outlined"
+          color="primary"
+          icon="arrow-down"
+          iconPosition="right"
+        >
           스테이크
         </RoundButton>
-        <RoundButton css={marginRight} color="secondary">
+        <RoundButton
+          variant="outlined"
+          color="secondary"
+          icon="arrow-down"
+          iconPosition="right"
+        >
           1~3만원
         </RoundButton>
-        <RoundButton color="secondary">필터</RoundButton>
+        <RoundButton
+          variant="outlined"
+          color="secondary"
+          icon="filter"
+          iconPosition="right"
+        >
+          필터
+        </RoundButton>
       </div>
     </div>
   );
 };
 
 export default WineListMainHeader;
-
-const RefreshBtnStyle = (theme) => css`
-  width: 56px;
-  height: 42px;
-  border-radius: 20px;
-  background-color: ${theme.colors.main.primary};
-  margin-right: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const marginRight = css`
-  margin-right: 8px;
-`;

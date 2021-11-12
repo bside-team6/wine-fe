@@ -3,11 +3,10 @@ import { css, Theme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
+import Icon from '~/components/common/Icon';
 import { formatDate } from '~/helpers/utils';
 import { alignCenter } from '~/styles/common';
 import type { ITimelineWineNote } from '~/types';
-import { ReactComponent as Heart } from '~/assets/ic_heart.svg';
-import { ReactComponent as HeartOn } from '~/assets/ic_heart_on.svg';
 
 const WineNote = ({
   id,
@@ -76,7 +75,7 @@ const WineNote = ({
             }
           `}
         >
-          {isLike ? <HeartOn /> : <Heart />}
+          <Icon name={isLike ? 'heart-fill' : 'heart'} />
         </button>
         <div
           css={css`

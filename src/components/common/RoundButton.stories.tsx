@@ -5,7 +5,10 @@ export default {
   title: 'components/RoundButton',
   component: RoundButton,
   args: {
+    variant: 'outlined',
     color: 'primary',
+    size: 'medium',
+    bold: true,
     children: '텍스트',
   },
   parameters: {
@@ -24,14 +27,38 @@ Secondary.args = {
   color: 'secondary',
 };
 
-export const DropdownClose = Template.bind({});
-DropdownClose.args = {
-  dropdown: 'close',
+export const Contained = Template.bind({});
+Contained.args = {
+  variant: 'contained',
 };
 
-export const DropdownOpen = Template.bind({});
-DropdownOpen.args = {
-  dropdown: 'open',
+export const NormalWeight = Template.bind({});
+NormalWeight.args = {
+  color: 'secondary',
+  bold: false,
+};
+
+export const RightIcon = Template.bind({});
+RightIcon.args = {
+  color: 'primary',
+  icon: 'arrow-up',
+  iconPosition: 'right',
+};
+
+export const LeftIcon = Template.bind({});
+LeftIcon.args = {
+  variant: 'contained',
+  icon: 'write',
+  iconPosition: 'left',
+  children: '노트쓰러가기',
+};
+
+export const OnlyIcon = Template.bind({});
+OnlyIcon.args = {
+  variant: 'contained',
+  icon: 'refresh',
+  iconPosition: 'left',
+  children: null,
 };
 
 export const Inactive = Template.bind({});
@@ -42,4 +69,15 @@ Inactive.args = {
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
+  children: '이전글',
+};
+
+export const Small = Template.bind({});
+Small.args = {
+  size: 'small',
+};
+
+export const Large = Template.bind({});
+Large.args = {
+  size: 'large',
 };

@@ -2,12 +2,11 @@ import { css, Theme } from '@emotion/react';
 import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
+import Icon from '~/components/common/Icon';
 import { theme } from '~/helpers/theme';
 import { formatDate, formatSweet } from '~/helpers/utils';
 import { alignCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
-import { ReactComponent as Heart } from '~/assets/ic_heart.svg';
-import { ReactComponent as HeartOn } from '~/assets/ic_heart_on.svg';
 
 const DetailNote = ({
   wineNoteWineImages,
@@ -196,7 +195,9 @@ const DetailNote = ({
           text-align: center;
         `}
       >
-        <div>{isLike ? <HeartOn /> : <Heart />}</div>
+        <div>
+          <Icon name={isLike ? 'heart-fill' : 'heart'} />
+        </div>
         <div
           css={(theme: Theme) => css`
             color: ${theme.colors.black04};

@@ -1,8 +1,11 @@
 import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
 
 const WineNoteMainHeader = () => {
+  const navigate = useNavigate();
+
   return (
     <div
       css={css`
@@ -30,13 +33,30 @@ const WineNoteMainHeader = () => {
         `}
       >
         <RoundButton
+          variant="outlined"
+          onClick={() => navigate('/wine-note')}
           css={css`
             margin-right: 8px;
           `}
         >
           전체 노트
         </RoundButton>
-        <RoundButton inactive>나의 노트</RoundButton>
+        <RoundButton
+          variant="outlined"
+          inactive
+          onClick={() => navigate('/wine-note/my-note')}
+        >
+          나의 노트
+        </RoundButton>
+        <RoundButton
+          icon="write"
+          onClick={() => navigate('/wine-note/write')}
+          css={css`
+            margin-left: auto;
+          `}
+        >
+          노트쓰러가기
+        </RoundButton>
       </div>
     </div>
   );

@@ -15,6 +15,8 @@ export const theme: Theme = {
       light2: '#f1eafc',
     },
     border: '#dfdfdf',
+    white: '#ffffff',
+    black: '#000000',
     black02: '#424242',
     black04: '#757575',
     black06: '#a8a8a8',
@@ -44,6 +46,9 @@ const globalStyle = css`
   }
   img {
     max-width: 100%;
+    vertical-align: middle;
+  }
+  svg {
     vertical-align: middle;
   }
   .notKor {
