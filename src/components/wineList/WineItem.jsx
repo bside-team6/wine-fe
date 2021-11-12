@@ -58,7 +58,7 @@ const WineItem = ({ id, data }) => {
           <div
             css={css`
               font-size: 12px;
-              color: #424242;
+              color: ${theme.colors.black02};
             `}
           >
             <span
@@ -84,7 +84,7 @@ const WineItem = ({ id, data }) => {
             starDimension="12px"
             starSpacing="0px"
             starRatedColor={theme.colors.main.primary}
-            starEmptyColor="#c5c5c5"
+            starEmptyColor={theme.colors.black07}
           />
           {data.priceKrw && data.priceKrw >= 1_000 && (
             <div>

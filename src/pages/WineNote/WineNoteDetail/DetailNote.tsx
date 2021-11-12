@@ -153,7 +153,7 @@ const DetailNote = ({
                 starDimension="12px"
                 starSpacing="0px"
                 starRatedColor={theme.colors.main.primary}
-                starEmptyColor="#c5c5c5"
+                starEmptyColor={theme.colors.black07}
               />
             </div>
             <div>

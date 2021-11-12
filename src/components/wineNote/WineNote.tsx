@@ -138,7 +138,7 @@ const WineNote = ({
           <div
             css={css`
               font-family: ${theme.typography.lato};
-              color: #424242;
+              color: ${theme.colors.black02};
             `}
           >
             by. {wineasyUserNickName}
