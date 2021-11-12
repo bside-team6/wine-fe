@@ -55,7 +55,6 @@ function MainSearchBar() {
 
   const { data: foodsList } = useQuery('get-food', getFood, {
     staleTime: Infinity,
-    select: (data) => data.data,
   });
 
   const { isLoading, refetch } = useWineSearchQuery(

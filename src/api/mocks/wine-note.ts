@@ -1,10 +1,6 @@
 import { rest } from 'msw';
 import { API_URL } from '~/api/urls';
-import {
-  createMswHandler,
-  delayedResponse,
-  successResponse,
-} from '~/helpers/msw';
+import { createMswHandler, delayedResponse } from '~/helpers/msw';
 import type {
   ITimelineWineNote,
   ITimelineWineNoteList,
@@ -189,16 +185,21 @@ export const wineNotes: ITimelineWineNote[] = [
 export const getWineNotesHandler = rest.get(
   API_URL.WINE_NOTE,
   (req, res, ctx) => {
-    const page = req.url.searchParams.get('page');
+    const page = Number(req.url.searchParams.get('page') || 0);
+    const size = wineNotes.length;
+    const totalPages = 5;
     return delayedResponse(
-      ctx.json(
-        successResponse<ITimelineWineNoteList>({
-          currentPage: Number(page),
-          totalElements: 5 * wineNotes.length,
-          totalPages: 5,
-          wineNoteTimeLineResultList: wineNotes,
-        }),
-      ),
+      ctx.json<ITimelineWineNoteList>({
+        content: wineNotes,
+        empty: false,
+        first: page === 0,
+        last: page + 1 === totalPages,
+        number: page,
+        numberOfElements: size,
+        size,
+        totalElements: totalPages * page,
+        totalPages,
+      }),
     );
   },
 );
@@ -208,10 +209,15 @@ export const getWineNotesSuccessHandler =
     API_URL.WINE_NOTE,
     'get',
     {
+      content: wineNotes,
+      empty: false,
+      first: true,
+      last: true,
+      number: 0,
+      numberOfElements: 6,
+      size: 10,
       totalElements: 6,
       totalPages: 1,
-      currentPage: 0,
-      wineNoteTimeLineResultList: wineNotes,
     },
     'real',
   );
@@ -227,10 +233,15 @@ export const getWineNotesEmptyHandler = createMswHandler<ITimelineWineNoteList>(
   API_URL.WINE_NOTE,
   'get',
   {
+    content: [],
+    empty: true,
+    first: true,
+    last: true,
+    number: 0,
+    numberOfElements: 0,
+    size: 10,
     totalElements: 0,
     totalPages: 1,
-    currentPage: 0,
-    wineNoteTimeLineResultList: [],
   },
   'real',
 );

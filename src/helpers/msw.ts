@@ -1,12 +1,5 @@
 import { context, createResponseComposition, rest } from 'msw';
 import type { RestHandler } from 'msw';
-import type { IResponse } from '~/types';
-
-export const successResponse = <T>(data: T): IResponse<T> => ({
-  result: true,
-  message: '',
-  data,
-});
 
 export const createMswHandler = <T>(
   path: string,
@@ -15,7 +8,7 @@ export const createMswHandler = <T>(
   delay?: 'real' | 'infinite',
 ): RestHandler => {
   return rest[method](path, (req, res, ctx) => {
-    const transformers = [ctx.json(successResponse<T>(response))];
+    const transformers = [ctx.json<T>(response)];
     if (delay) {
       transformers.unshift(ctx.delay(delay));
     }

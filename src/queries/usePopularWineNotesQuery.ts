@@ -1,16 +1,12 @@
 import type { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { getPopularWineNotes } from '~/api/wine-note';
-import type { IResponse, IWineNoteDetail, QueryOptions } from '~/types';
+import type { IWineNoteDetail, QueryOptions } from '~/types';
 
 const usePopularWineNotesQuery = (
-  options?: QueryOptions<
-    IResponse<IWineNoteDetail[]>,
-    AxiosError,
-    IWineNoteDetail[]
-  >,
+  options?: QueryOptions<IWineNoteDetail[], AxiosError>,
 ) => {
-  return useQuery<IResponse<IWineNoteDetail[]>, AxiosError, IWineNoteDetail[]>(
+  return useQuery<IWineNoteDetail[], AxiosError>(
     'popular-wine-notes',
     getPopularWineNotes,
     {

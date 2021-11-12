@@ -12,7 +12,7 @@ const PopularNoteList = () => {
     enabled: false,
     suspense: true,
   });
-  const hasWineNotes = !!wineNotes?.pages[0]?.data.totalElements;
+  const hasWineNotes = !wineNotes?.pages[0]?.empty;
 
   // Dependent Queries
   const { data } = usePopularWineNotesQuery({

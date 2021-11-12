@@ -35,7 +35,7 @@ const schema = yup
         'is-valid-nickname',
         '이미 사용중인 닉네임입니다.',
         debouncePromise(
-          async (value = '') => !(await validateNickname(value)).data.isPresent,
+          async (value = '') => !(await validateNickname(value)).isPresent,
           500,
         ),
       ),

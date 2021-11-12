@@ -122,7 +122,6 @@ function AdminRegister() {
     getFood,
     {
       staleTime: Infinity,
-      select: (data) => data.data,
     },
   );
 
@@ -131,7 +130,6 @@ function AdminRegister() {
     getWineRegions,
     {
       staleTime: Infinity,
-      select: (data) => data.data,
     },
   );
 
@@ -140,7 +138,6 @@ function AdminRegister() {
     getWineVarieties,
     {
       staleTime: Infinity,
-      select: (data) => data.data,
     },
   );
 

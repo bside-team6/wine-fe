@@ -21,7 +21,7 @@ const WineNoteList = () => {
     }
   }, [fetchNextPage, hasNextPage]);
 
-  if (data?.pages[0]?.data.totalElements === 0) {
+  if (data?.pages[0]?.empty) {
     return (
       <div
         css={css`
@@ -56,15 +56,13 @@ const WineNoteList = () => {
 
   return (
     <div>
-      {data?.pages.map(
-        ({ data: { wineNoteTimeLineResultList, currentPage } }) => (
-          <Fragment key={currentPage}>
-            {wineNoteTimeLineResultList.map((item) => (
-              <WineNote key={item.id} {...item} />
-            ))}
-          </Fragment>
-        ),
-      )}
+      {data?.pages.map(({ content, number: page }) => (
+        <Fragment key={page}>
+          {content.map((item) => (
+            <WineNote key={item.id} {...item} />
+          ))}
+        </Fragment>
+      ))}
       <div ref={targetRef} />
     </div>
   );
