@@ -1,5 +1,10 @@
+import { rest } from 'msw';
 import { API_URL } from '~/api/urls';
-import { createMswHandler } from '~/helpers/msw';
+import {
+  createMswHandler,
+  delayedResponse,
+  successResponse,
+} from '~/helpers/msw';
 import type {
   ITimelineWineNote,
   ITimelineWineNoteList,
@@ -181,7 +186,24 @@ export const wineNotes: ITimelineWineNote[] = [
   },
 ];
 
-export const getWineNotesSuccessHandler = (delay?: 'real') =>
+export const getWineNotesHandler = rest.get(
+  API_URL.WINE_NOTE,
+  (req, res, ctx) => {
+    const page = req.url.searchParams.get('page');
+    return delayedResponse(
+      ctx.json(
+        successResponse<ITimelineWineNoteList>({
+          currentPage: Number(page),
+          totalElements: 5 * wineNotes.length,
+          totalPages: 5,
+          wineNoteTimeLineResultList: wineNotes,
+        }),
+      ),
+    );
+  },
+);
+
+export const getWineNotesSuccessHandler =
   createMswHandler<ITimelineWineNoteList>(
     API_URL.WINE_NOTE,
     'get',

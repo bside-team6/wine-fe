@@ -22,7 +22,7 @@ const Template: ComponentStory<typeof AllWineNotes> = (args) => (
 export const Default = Template.bind({});
 Default.storyName = '와인노트 메인 (타임라인)';
 Default.parameters = {
-  msw: [getWineNotesSuccessHandler('real'), getPopularWineNotesSuccessHandler],
+  msw: [getWineNotesSuccessHandler, getPopularWineNotesSuccessHandler],
 };
 
 export const NoTimeline = Template.bind({});
@@ -34,5 +34,5 @@ NoTimeline.parameters = {
 export const NoPopularNote = Template.bind({});
 NoPopularNote.storyName = '이달의 인기노트 없음';
 NoPopularNote.parameters = {
-  msw: [getWineNotesSuccessHandler(), getPopularWineNotesEmptyHandler],
+  msw: [getWineNotesSuccessHandler, getPopularWineNotesEmptyHandler],
 };

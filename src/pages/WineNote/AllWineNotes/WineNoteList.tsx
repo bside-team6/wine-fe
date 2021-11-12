@@ -1,14 +1,27 @@
+import { Fragment, useEffect, useRef } from 'react';
 import { css } from '@emotion/react';
 import WineNote from '~/components/wineNote/WineNote';
 import useWineNotesQuery from '~/queries/useWineNotesQuery';
 
 const WineNoteList = () => {
-  // TODO: 무한 스크롤 방식으로 변경
-  const { data } = useWineNotesQuery({
+  const { data, fetchNextPage, hasNextPage } = useWineNotesQuery({
     suspense: true,
   });
 
-  if (data?.totalElements === 0) {
+  const targetRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const target = targetRef.current;
+    if (target && hasNextPage) {
+      const observer = new IntersectionObserver((entries) =>
+        entries.forEach((entry) => entry.isIntersecting && fetchNextPage()),
+      );
+      observer.observe(target);
+      return () => observer.disconnect();
+    }
+  }, [fetchNextPage, hasNextPage]);
+
+  if (data?.pages[0]?.data.totalElements === 0) {
     return (
       <div
         css={css`
@@ -43,9 +56,16 @@ const WineNoteList = () => {
 
   return (
     <div>
-      {data?.wineNoteTimeLineResultList.map((item) => (
-        <WineNote key={item.id} {...item} />
-      ))}
+      {data?.pages.map(
+        ({ data: { wineNoteTimeLineResultList, currentPage } }) => (
+          <Fragment key={currentPage}>
+            {wineNoteTimeLineResultList.map((item) => (
+              <WineNote key={item.id} {...item} />
+            ))}
+          </Fragment>
+        ),
+      )}
+      <div ref={targetRef} />
     </div>
   );
 };
