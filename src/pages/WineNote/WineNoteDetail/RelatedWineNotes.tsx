@@ -9,6 +9,8 @@ import { alignCenter } from '~/styles/common';
 // FIXME: 백엔드 스펙 수정 후 목데이터 삭제 및 재연결
 
 const RelatedWineNotes = () => {
+  // TODO: 관련 와인노트 없을때
+
   const { wineNoteId } = useParams();
   const { data, isLoading } = useRelatedWineNotesQuery(Number(wineNoteId));
 

@@ -74,12 +74,12 @@ const RoundButton: React.FC<RoundButtonProps> = ({
           background: ${variant === 'contained'
             ? color === 'primary'
               ? theme.colors.main.primary
-              : theme.colors.black07
+              : theme.colors.black08
             : theme.colors.white};
           border: ${variant === 'contained' ? 'none' : '2px solid'};
           border-color: ${color === 'primary'
             ? theme.colors.main.primary
-            : theme.colors.black07};
+            : theme.colors.black08};
           color: ${variant === 'contained'
             ? theme.colors.white
             : color === 'primary'

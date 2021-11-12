@@ -33,6 +33,7 @@ const WineNoteMainHeader = () => {
         `}
       >
         <RoundButton
+          variant="outlined"
           onClick={() => navigate('/wine-note')}
           css={css`
             margin-right: 8px;
@@ -40,8 +41,21 @@ const WineNoteMainHeader = () => {
         >
           전체 노트
         </RoundButton>
-        <RoundButton inactive onClick={() => navigate('/wine-note/my-note')}>
+        <RoundButton
+          variant="outlined"
+          inactive
+          onClick={() => navigate('/wine-note/my-note')}
+        >
           나의 노트
+        </RoundButton>
+        <RoundButton
+          icon="write"
+          onClick={() => navigate('/wine-note/write')}
+          css={css`
+            margin-left: auto;
+          `}
+        >
+          노트쓰러가기
         </RoundButton>
       </div>
     </div>
