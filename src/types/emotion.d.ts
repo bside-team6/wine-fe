@@ -2,6 +2,9 @@ import '@emotion/react';
 
 declare module '@emotion/react' {
   export interface Theme {
+    breakpoints: {
+      lg: string;
+    };
     colors: {
       main: {
         primary: string;

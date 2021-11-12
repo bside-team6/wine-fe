@@ -23,8 +23,8 @@ const RelatedWineNotes = () => {
       `}
     >
       <div
-        css={css`
-          width: 1200px;
+        css={(theme: Theme) => css`
+          width: ${theme.breakpoints.lg};
           margin: 0 auto;
         `}
       >

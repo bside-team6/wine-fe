@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
@@ -8,8 +8,8 @@ const WineNoteMainHeader = () => {
 
   return (
     <div
-      css={css`
-        width: 1200px;
+      css={(theme: Theme) => css`
+        width: ${theme.breakpoints.lg};
         max-width: 100%;
         margin: 80px auto 40px;
       `}

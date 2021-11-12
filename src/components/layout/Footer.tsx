@@ -1,11 +1,13 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import { alignCenter } from '~/styles/common';
 
 const Footer = () => {
+  const theme = useTheme();
+
   return (
     <div
-      css={(theme: Theme) => css`
+      css={css`
         border-top: 1px solid;
         border-color: ${theme.colors.border};
         flex-shrink: 0;
@@ -13,7 +15,7 @@ const Footer = () => {
     >
       <div
         css={css`
-          width: 1200px;
+          width: ${theme.breakpoints.lg};
           margin: 0 auto;
           ${alignCenter}
           justify-content: center;
@@ -21,7 +23,7 @@ const Footer = () => {
         `}
       >
         <div
-          css={(theme: Theme) => css`
+          css={css`
             ${alignCenter}
             a {
               color: ${theme.colors.black02};
@@ -40,7 +42,7 @@ const Footer = () => {
           <Link to="/">개인정보처리방침</Link>
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={css`
             margin-left: auto;
             font-family: ${theme.typography.lato};
             color: ${theme.colors.black04};

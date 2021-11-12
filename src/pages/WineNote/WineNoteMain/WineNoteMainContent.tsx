@@ -12,12 +12,12 @@ const WineNoteMainContent = () => {
       `}
     >
       <div
-        css={css`
+        css={(theme: Theme) => css`
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
           position: relative;
-          width: 1200px;
+          width: ${theme.breakpoints.lg};
           max-width: 100%;
           margin: 0 auto;
         `}
