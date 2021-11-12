@@ -12,6 +12,7 @@ const AllWineNotesHeader = () => {
         width: ${theme.breakpoints.lg};
         max-width: 100%;
         margin: 80px auto 40px;
+        flex-shrink: 0;
       `}
     >
       <h2

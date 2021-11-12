@@ -95,7 +95,7 @@ export const wineNotes: ITimelineWineNote[] = [
     viewCount: 0,
     wineNoteLikeCount: 0,
     wineNoteWineImagePath:
-      'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/default_thumbnail_4.jpg',
+      'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/default_thumbnail_2.jpg',
   },
   {
     id: 12,
@@ -201,10 +201,15 @@ export const getWineNotesLoadingHandler = createMswHandler(
   'infinite',
 );
 
-export const getWineNotesEmptyHandler = createMswHandler(
+export const getWineNotesEmptyHandler = createMswHandler<ITimelineWineNoteList>(
   API_URL.WINE_NOTE,
   'get',
-  [],
+  {
+    totalElements: 0,
+    totalPages: 1,
+    currentPage: 0,
+    wineNoteTimeLineResultList: [],
+  },
   'real',
 );
 
@@ -282,7 +287,7 @@ export const popularWineNotes: IWineNoteDetail[] = [
       {
         id: 9,
         imagePath:
-          'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/default_thumbnail_4.jpg',
+          'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/default_thumbnail_3.jpg',
         imageName: 'default_image_4',
       },
     ],

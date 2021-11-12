@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { css, Theme } from '@emotion/react';
 import PopularNoteList from './PopularNoteList';
 import WineNoteList from './WineNoteList';
@@ -8,7 +9,7 @@ const AllWineNotesContent = () => {
       css={(theme: Theme) => css`
         background: ${theme.colors.black10};
         padding: 80px 0 120px;
-        min-height: 568px;
+        flex-grow: 1;
       `}
     >
       <div
@@ -16,14 +17,15 @@ const AllWineNotesContent = () => {
           display: flex;
           justify-content: space-between;
           align-items: flex-start;
-          position: relative;
           width: ${theme.breakpoints.lg};
           max-width: 100%;
           margin: 0 auto;
         `}
       >
-        <WineNoteList />
-        <PopularNoteList />
+        <Suspense fallback={<></>}>
+          <WineNoteList />
+          <PopularNoteList />
+        </Suspense>
       </div>
     </div>
   );
