@@ -22,7 +22,7 @@ const AllWineNotesContent = () => {
           margin: 0 auto;
         `}
       >
-        <Suspense fallback={<></>}>
+        <Suspense fallback={null}>
           <WineNoteList />
           <PopularNoteList />
         </Suspense>

@@ -6,7 +6,12 @@ import {
   signupSuccessHandler,
   userInfoHandler,
 } from '~/api/mocks/auth';
-import { getWineNotesHandler } from '~/api/mocks/wine-note';
+import {
+  getPopularWineNotesSuccessHandler,
+  getRelatedWineNotesSuccessHandler,
+  getWineNotesHandler,
+  getWineNoteSuccessHandler,
+} from '~/api/mocks/wine-note';
 
 export const worker = setupWorker(
   loginErrorHandler,
@@ -15,4 +20,7 @@ export const worker = setupWorker(
   userInfoHandler,
   logoutSuccessHandler,
   getWineNotesHandler,
+  getPopularWineNotesSuccessHandler,
+  getRelatedWineNotesSuccessHandler,
+  getWineNoteSuccessHandler,
 );

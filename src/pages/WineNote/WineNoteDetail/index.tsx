@@ -1,6 +1,5 @@
 import { css, Theme } from '@emotion/react';
 import { useParams } from 'react-router-dom';
-import Spinner from '~/components/common/Spinner';
 import useWineNoteQuery from '~/queries/useWineNoteQuery';
 import ButtonGroup from './ButtonGroup';
 import DetailNote from './DetailNote';
@@ -8,12 +7,9 @@ import RelatedWineNotes from './RelatedWineNotes';
 
 const WineNoteDetail: React.VFC = () => {
   const { wineNoteId } = useParams();
-
-  const { data, isLoading } = useWineNoteQuery(Number(wineNoteId));
-
-  if (isLoading) {
-    return <Spinner />;
-  }
+  const { data } = useWineNoteQuery(Number(wineNoteId), {
+    suspense: true,
+  });
 
   return (
     <div

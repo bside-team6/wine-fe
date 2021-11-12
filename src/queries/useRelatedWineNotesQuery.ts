@@ -8,7 +8,7 @@ const useRelatedWineNotesQuery = (
   options?: QueryOptions<IRelatedWineNote[], AxiosError>,
 ) => {
   return useQuery<IRelatedWineNote[], AxiosError>(
-    ['popular-wine-notes', wineNoteId],
+    ['related-wine-notes', wineNoteId],
     () => getRelatedWineNotes(wineNoteId),
     {
       staleTime: 1000 * 60 * 5, // 5min

@@ -40,7 +40,7 @@ export const wineNote: IWineNoteDetail = {
   nextWineNoteId: 11,
 };
 
-export const getWineNoteSuccessHandler = createMswHandler(
+export const getWineNoteSuccessHandler = createMswHandler<IWineNoteDetail>(
   `${API_URL.WINE_NOTE}/:wineNoteId`,
   'get',
   wineNote,
@@ -327,12 +327,9 @@ export const popularWineNotes: IWineNoteDetail[] = [
   },
 ];
 
-export const getPopularWineNotesSuccessHandler = createMswHandler(
-  API_URL.POPULAR_WINE_NOTE,
-  'get',
-  popularWineNotes,
-  'real',
-);
+export const getPopularWineNotesSuccessHandler = createMswHandler<
+  IWineNoteDetail[]
+>(API_URL.POPULAR_WINE_NOTE, 'get', popularWineNotes, 'real');
 
 export const getPopularWineNotesEmptyHandler = createMswHandler(
   API_URL.POPULAR_WINE_NOTE,
@@ -347,3 +344,7 @@ export const getPopularWineNotesLoadingHandler = createMswHandler(
   undefined,
   'infinite',
 );
+
+export const getRelatedWineNotesSuccessHandler = createMswHandler<
+  ITimelineWineNote[]
+>(API_URL.RELATED_WINE_NOTE, 'get', wineNotes.slice(0, 2), 'real');
