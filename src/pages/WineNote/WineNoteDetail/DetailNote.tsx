@@ -34,7 +34,7 @@ const DetailNote = ({
         position: relative;
         display: flex;
         width: 1200px;
-        background: #fff;
+        background: ${theme.colors.white};
         margin: 0 auto;
         padding: 20px;
         box-shadow: ${theme.colors.shadow};
@@ -94,7 +94,7 @@ const DetailNote = ({
           css={css`
             margin-top: auto;
             align-self: stretch;
-            background: #fafafa;
+            background: ${theme.colors.black10};
             border-radius: 20px;
             ${alignCenter}
           `}

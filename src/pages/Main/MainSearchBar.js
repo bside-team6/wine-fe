@@ -221,7 +221,7 @@ const SearchMenuStyle = (theme) => css`
   top: 0;
   border-radius: 30px;
   border: 2px solid ${theme.colors.main.primary};
-  box-shadow: 0px 4px 8px 0px #0000000d;
+  box-shadow: ${theme.colors.shadow};
 `;
 
 const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
@@ -255,7 +255,7 @@ const OptBox = (theme) => css`
   word-break: break-all;
   width: 486px;
   border: 1px solid ${theme.colors.border};
-  box-shadow: 0px 4px 8px 0px #0000000d;
+  box-shadow: ${theme.colors.shadow};
   border-radius: 20px;
   margin-top: 15px;
   padding: 20px;

@@ -1,4 +1,4 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import { AnimatePresence, motion } from 'framer-motion';
 import IconButton from '~/components/common/IconButton';
 import SquareButton, {
@@ -26,6 +26,8 @@ const Confirm = ({
   onClose,
   onCancel,
 }: ConfirmProps) => {
+  const theme = useTheme();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -63,7 +65,7 @@ const Confirm = ({
           >
             <div
               css={css`
-                background-color: #fff;
+                background-color: ${theme.colors.white};
                 margin: 32px;
                 position: relative;
                 overflow-y: auto;
@@ -80,7 +82,8 @@ const Confirm = ({
                   text-align: center;
                   padding-top: 16px;
                   padding-bottom: 15px;
-                  border-bottom: 1px solid #ececec;
+                  border-bottom: 1px solid;
+                  border-color: ${theme.colors.black09};
                 `}
               >
                 <span
@@ -102,7 +105,7 @@ const Confirm = ({
                 />
               </div>
               <div
-                css={(theme: Theme) => css`
+                css={css`
                   color: ${theme.colors.black02};
                   white-space: pre-wrap;
                   text-align: center;

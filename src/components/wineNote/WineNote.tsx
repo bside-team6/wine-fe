@@ -53,15 +53,15 @@ const WineNote = ({
           border-color: ${theme.colors.border};
           border-radius: 20px;
           box-shadow: ${theme.colors.shadow};
-          background: #ffffff;
+          background: ${theme.colors.white};
           &:hover {
-            background: #fafafa;
+            background: ${theme.colors.black10};
           }
         `}
       >
         <IconButton
           name={isLike ? 'heart-fill' : 'heart'}
-          color="#000"
+          color={theme.colors.black}
           css={css`
             position: absolute;
             top: 40px;

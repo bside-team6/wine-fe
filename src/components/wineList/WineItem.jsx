@@ -1,12 +1,13 @@
-import { css } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
-import { theme } from '~/helpers/theme';
 import { formatSweet } from '~/helpers/utils';
 import wineBottle from '~/assets/wineBottle.png';
 
 const WineItem = ({ id, data }) => {
+  const theme = useTheme();
+
   return (
     <Link
       to={`/wine-list/${id}`}
@@ -33,7 +34,7 @@ const WineItem = ({ id, data }) => {
             align-items: center;
             width: 282px;
             height: 352px;
-            background-color: #ececec;
+            background-color: ${theme.colors.black09};
           `}
         >
           <img

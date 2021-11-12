@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { useParams } from 'react-router-dom';
 import Spinner from '~/components/common/Spinner';
 import useWineNoteQuery from '~/queries/useWineNoteQuery';
@@ -17,8 +17,8 @@ const WineNoteDetail: React.VFC = () => {
 
   return (
     <div
-      css={css`
-        background: #fafafa;
+      css={(theme: Theme) => css`
+        background: ${theme.colors.black10};
         padding-top: 60px;
       `}
     >

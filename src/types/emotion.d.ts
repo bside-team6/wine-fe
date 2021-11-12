@@ -17,6 +17,8 @@ declare module '@emotion/react' {
       black06: string;
       black07: string;
       black08: string;
+      black09: string;
+      black10: string;
       shadow: string;
     };
     typography: {
