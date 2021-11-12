@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
 
-const WineNoteMainHeader = () => {
+const AllWineNotesHeader = () => {
   const navigate = useNavigate();
 
   return (
@@ -43,7 +43,7 @@ const WineNoteMainHeader = () => {
         <RoundButton
           variant="outlined"
           inactive
-          onClick={() => navigate('/wine-note/my-note')}
+          onClick={() => navigate('/wine-note/timeline')}
         >
           나의 노트
         </RoundButton>
@@ -61,4 +61,4 @@ const WineNoteMainHeader = () => {
   );
 };
 
-export default WineNoteMainHeader;
+export default AllWineNotesHeader;

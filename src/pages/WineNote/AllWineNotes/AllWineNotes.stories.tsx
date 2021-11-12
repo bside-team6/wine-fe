@@ -8,17 +8,17 @@ import {
   getWineNotesSuccessHandler,
 } from '~/api/mocks/wine-note';
 import { providerDecorator } from '~/helpers/storybook';
-import WineNoteMain from './index';
+import AllWineNotes from './index';
 
 export default {
-  title: 'pages/WineNoteMain',
-  component: WineNoteMain,
+  title: 'pages/AllWineNotes',
+  component: AllWineNotes,
   args: {},
   decorators: [providerDecorator()],
-} as ComponentMeta<typeof WineNoteMain>;
+} as ComponentMeta<typeof AllWineNotes>;
 
-const Template: ComponentStory<typeof WineNoteMain> = (args) => (
-  <WineNoteMain {...args} />
+const Template: ComponentStory<typeof AllWineNotes> = (args) => (
+  <AllWineNotes {...args} />
 );
 
 export const Default = Template.bind({});

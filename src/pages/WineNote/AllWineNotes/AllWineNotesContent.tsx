@@ -1,8 +1,8 @@
 import { css, Theme } from '@emotion/react';
-import PopularNote from './PopularNote';
-import Timeline from './Timeline';
+import PopularNoteList from './PopularNoteList';
+import WineNoteList from './WineNoteList';
 
-const WineNoteMainContent = () => {
+const AllWineNotesContent = () => {
   return (
     <div
       css={(theme: Theme) => css`
@@ -22,11 +22,11 @@ const WineNoteMainContent = () => {
           margin: 0 auto;
         `}
       >
-        <Timeline />
-        <PopularNote />
+        <WineNoteList />
+        <PopularNoteList />
       </div>
     </div>
   );
 };
 
-export default WineNoteMainContent;
+export default AllWineNotesContent;

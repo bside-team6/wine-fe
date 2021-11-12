@@ -8,7 +8,7 @@ import useWineNotesQuery from '~/queries/useWineNotesQuery';
 import { alignCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
-const PopularNote = () => {
+const PopularNoteList = () => {
   const { data: wineNotes } = useWineNotesQuery();
   const hasWineNotes = !!wineNotes?.totalElements;
 
@@ -48,7 +48,7 @@ const PopularNote = () => {
   );
 };
 
-export default PopularNote;
+export default PopularNoteList;
 
 const PopularNotes = ({ notes }: { notes: IWineNoteDetail[] }) => {
   if (notes.length === 0) {
