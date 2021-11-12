@@ -1,4 +1,4 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import toast from 'react-hot-toast';
 import { NavLink } from 'react-router-dom';
 import { useRecoilState } from 'recoil';
@@ -11,6 +11,8 @@ import { ReactComponent as KakaoSmallLogo } from '~/assets/ic_kakao.svg';
 import logo from '~/assets/logo.png';
 
 const Header = () => {
+  const theme = useTheme();
+
   const [isAuthenticated, setIsAuthenticated] =
     useRecoilState(isAuthenticatedState);
 
@@ -25,14 +27,14 @@ const Header = () => {
 
   return (
     <div
-      css={(theme: Theme) => css`
+      css={css`
         border-bottom: 1px solid ${theme.colors.black08};
         flex-shrink: 0;
       `}
     >
       <div
         css={css`
-          width: 1200px;
+          width: ${theme.breakpoints.lg};
           margin: 0 auto;
           ${alignCenter}
           justify-content: center;
@@ -54,7 +56,7 @@ const Header = () => {
           />
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={css`
             ${alignCenter}
             a {
               padding: 5px 30px;

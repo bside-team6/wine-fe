@@ -7,6 +7,9 @@ import {
 import reset from 'emotion-reset';
 
 export const theme: Theme = {
+  breakpoints: {
+    lg: '1200px',
+  },
   colors: {
     main: {
       primary: '#7430e4',

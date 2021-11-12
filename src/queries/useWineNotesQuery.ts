@@ -1,20 +1,25 @@
 import type { AxiosError } from 'axios';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery, UseInfiniteQueryOptions } from 'react-query';
 import { getWineNotes } from '~/api/wine-note';
-import type { IResponse, ITimelineWineNoteList, QueryOptions } from '~/types';
+import type { IResponse, ITimelineWineNoteList } from '~/types';
 
 const useWineNotesQuery = (
-  options?: QueryOptions<
+  options?: UseInfiniteQueryOptions<
     IResponse<ITimelineWineNoteList>,
     AxiosError,
-    ITimelineWineNoteList
+    IResponse<ITimelineWineNoteList>
   >,
 ) => {
-  return useQuery<
+  return useInfiniteQuery<
     IResponse<ITimelineWineNoteList>,
     AxiosError,
-    ITimelineWineNoteList
+    IResponse<ITimelineWineNoteList>
   >('wine-notes', getWineNotes, {
+    select: (data) => data,
+    getNextPageParam: ({ data }) => {
+      const { currentPage, totalPages } = data;
+      return currentPage + 1 === totalPages ? false : currentPage + 1;
+    },
     staleTime: 1000 * 60 * 5, // 5min
     ...options,
   });

@@ -1,17 +1,18 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
 
-const WineNoteMainHeader = () => {
+const AllWineNotesHeader = () => {
   const navigate = useNavigate();
 
   return (
     <div
-      css={css`
-        width: 1200px;
+      css={(theme: Theme) => css`
+        width: ${theme.breakpoints.lg};
         max-width: 100%;
         margin: 80px auto 40px;
+        flex-shrink: 0;
       `}
     >
       <h2
@@ -43,7 +44,7 @@ const WineNoteMainHeader = () => {
         <RoundButton
           variant="outlined"
           inactive
-          onClick={() => navigate('/wine-note/my-note')}
+          onClick={() => navigate('/wine-note/timeline')}
         >
           나의 노트
         </RoundButton>
@@ -61,4 +62,4 @@ const WineNoteMainHeader = () => {
   );
 };
 
-export default WineNoteMainHeader;
+export default AllWineNotesHeader;

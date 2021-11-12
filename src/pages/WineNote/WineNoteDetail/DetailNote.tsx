@@ -33,7 +33,7 @@ const DetailNote = ({
       css={css`
         position: relative;
         display: flex;
-        width: 1200px;
+        width: ${theme.breakpoints.lg};
         background: ${theme.colors.white};
         margin: 0 auto;
         padding: 20px;

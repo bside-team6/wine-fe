@@ -10,9 +10,14 @@ import instance from './instance';
 /**
  * GET 모든 와인노트 목록
  */
-export const getWineNotes = async () => {
+export const getWineNotes = async ({ pageParam = 0 }) => {
   const { data } = await instance.get<IResponse<ITimelineWineNoteList>>(
     API_URL.WINE_NOTE,
+    {
+      params: {
+        page: pageParam,
+      },
+    },
   );
   return data;
 };
@@ -73,9 +78,14 @@ export const patchWineNoteWineNamePublicAdmin = async (wineNoteId: number) => {
 /**
  * GET 타임라인
  */
-export const getWineNoteTimeline = async () => {
+export const getWineNoteTimeline = async ({ pageParam = 0 }) => {
   const { data } = await instance.get<IResponse<ITimelineWineNoteList>>(
     API_URL.WINE_NOTE_TIMELINE,
+    {
+      params: {
+        page: pageParam,
+      },
+    },
   );
   return data;
 };

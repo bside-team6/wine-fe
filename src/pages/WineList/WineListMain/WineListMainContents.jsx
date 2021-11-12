@@ -21,8 +21,8 @@ const WineListMainContents = () => {
 
   return (
     <div
-      css={css`
-        width: 1200px;
+      css={(theme) => css`
+        width: ${theme.breakpoints.lg};
         max-width: 100%;
         margin: 80px auto 40px;
         display: grid;

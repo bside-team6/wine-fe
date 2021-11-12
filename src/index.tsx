@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'intersection-observer';
 import { RecoilRoot } from 'recoil';
 import { isProduction } from '~/helpers/constants';
 import { QueryProvider } from '~/helpers/query';

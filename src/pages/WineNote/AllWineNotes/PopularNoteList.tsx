@@ -1,20 +1,23 @@
 import { css, Theme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import Divider from '~/components/common/Divider';
-import Spinner from '~/components/common/Spinner';
 import { formatDate } from '~/helpers/utils';
 import usePopularWineNotesQuery from '~/queries/usePopularWineNotesQuery';
 import useWineNotesQuery from '~/queries/useWineNotesQuery';
 import { alignCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
-const PopularNote = () => {
-  const { data: wineNotes } = useWineNotesQuery();
-  const hasWineNotes = !!wineNotes?.totalElements;
+const PopularNoteList = () => {
+  const { data: wineNotes } = useWineNotesQuery({
+    enabled: false,
+    suspense: true,
+  });
+  const hasWineNotes = !!wineNotes?.pages[0]?.data.totalElements;
 
   // Dependent Queries
-  const { data, isLoading } = usePopularWineNotesQuery({
+  const { data } = usePopularWineNotesQuery({
     enabled: hasWineNotes,
+    suspense: true,
   });
 
   if (!hasWineNotes) {
@@ -27,7 +30,7 @@ const PopularNote = () => {
       css={(theme: Theme) => css`
         width: 384px;
         border: 1px solid ${theme.colors.black08};
-        background: ${isLoading || data?.length !== 0
+        background: ${data?.length !== 0
           ? theme.colors.white
           : theme.colors.black09};
         border-radius: 20px;
@@ -43,12 +46,12 @@ const PopularNote = () => {
       >
         이달의 인기 노트
       </h2>
-      {isLoading ? <Spinner /> : <PopularNotes notes={data!} />}
+      <PopularNotes notes={data!} />
     </div>
   );
 };
 
-export default PopularNote;
+export default PopularNoteList;
 
 const PopularNotes = ({ notes }: { notes: IWineNoteDetail[] }) => {
   if (notes.length === 0) {

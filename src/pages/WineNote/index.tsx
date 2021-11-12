@@ -1,14 +1,17 @@
 import { Route, Routes } from 'react-router-dom';
-import MyWineNote from './MyWineNote';
+import AllWineNotes from './AllWineNotes';
 import WineNoteDetail from './WineNoteDetail';
-import WineNoteMain from './WineNoteMain';
+import WineNoteTimeline from './WineNoteTimeline';
 import WriteWineNote from './WriteWineNote';
 
 const WindNote = () => {
   return (
     <Routes>
-      <Route index element={<WineNoteMain />} />
-      <Route path="my-note" element={<MyWineNote />} />
+      <Route index element={<AllWineNotes />} />
+      <Route path="timeline">
+        <Route index element={<WineNoteTimeline />} />
+        <Route path=":userId" element={<WineNoteTimeline />} />
+      </Route>
       <Route path="write" element={<WriteWineNote />} />
       <Route path=":wineNoteId" element={<WineNoteDetail />} />
     </Routes>

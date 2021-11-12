@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import RoundButton from '~/components/common/RoundButton';
 
@@ -12,8 +12,8 @@ const ButtonGroup = ({ prevId, nextId }: ButtonGroupProps) => {
 
   return (
     <div
-      css={css`
-        width: 1200px;
+      css={(theme: Theme) => css`
+        width: ${theme.breakpoints.lg};
         margin: 24px auto 80px;
         display: flex;
         align-items: center;
