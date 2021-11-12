@@ -8,6 +8,7 @@ import { useSetRecoilState } from 'recoil';
 import * as yup from 'yup';
 import { validateNickname } from '~/api/auth';
 import LoginStep from '~/components/auth/LoginStep';
+import SquareButton from '~/components/common/SquareButton';
 import useSignupMutation from '~/queries/useSignupMutation';
 import useUserInfoQuery from '~/queries/useUserInfoQuery';
 import { isAuthenticatedState } from '~/stores/auth';
@@ -160,28 +161,17 @@ function SignupStep2() {
                 : errors.nickName?.message || '2~16자, 국문/영문 대소문자/숫자'}
             </div>
           </div>
-          {/* TODO: 추후 버튼 컴포넌트화 필요 */}
-          <button
+          <SquareButton
+            size="large"
+            bold
+            fullWidth
             disabled={!isValid}
-            css={(theme: Theme) => css`
-              display: block;
-              width: 100%;
+            css={css`
               height: 68px;
-              font-weight: 700;
-              font-size: 16px;
-              background: #000000;
-              color: #fff;
-              cursor: pointer;
-              border: none;
-              border-radius: 8px;
-              &:disabled {
-                background: ${theme.colors.black07};
-                cursor: not-allowed;
-              }
             `}
           >
             확인
-          </button>
+          </SquareButton>
         </div>
       </form>
     </div>

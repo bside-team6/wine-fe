@@ -20,8 +20,10 @@ export const theme: Theme = {
     black02: '#424242',
     black04: '#757575',
     black06: '#a8a8a8',
-    black07: '#c5c5c5',
-    black08: '#dfdfdf',
+    black07: '#c5c5c5', // bottom / line / bg
+    black08: '#dfdfdf', // bottom / line
+    black09: '#ececec', // bg
+    black10: '#fafafa', // bg
     shadow: '0px 4px 8px rgba(0, 0, 0, 0.05)',
   },
   typography: {

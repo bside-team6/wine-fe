@@ -35,11 +35,21 @@ Outlined.args = {
   variant: 'outlined',
 };
 
+export const Disabled = Template.bind({});
+Disabled.args = {
+  disabled: true,
+};
+
 export const Medium = Template.bind({});
 Medium.args = {
   variant: 'outlined',
   color: 'secondary',
   size: 'medium',
+};
+
+export const WeightBold = Template.bind({});
+WeightBold.args = {
+  bold: true,
 };
 
 export const HorizontalButtonGroup = () => (

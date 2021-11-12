@@ -16,7 +16,6 @@ const WineNoteMainHeader = () => {
     >
       <h2
         css={css`
-          color: #000;
           font-weight: 700;
           font-size: 40px;
           line-height: 57.92px;

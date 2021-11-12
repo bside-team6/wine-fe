@@ -10,6 +10,8 @@ export interface SquareButtonProps
   variant?: 'contained' | 'outlined';
   color?: 'primary' | 'secondary';
   size?: 'medium' | 'large';
+  bold?: boolean;
+  fullWidth?: boolean;
   css?: SerializedStyles | ((theme: Theme) => SerializedStyles);
 }
 
@@ -18,6 +20,8 @@ const SquareButton: React.FC<SquareButtonProps> = ({
   variant = 'contained',
   color = 'primary',
   size = 'medium',
+  bold,
+  fullWidth,
   css: cssProps,
   ...restProps
 }) => {
@@ -27,11 +31,15 @@ const SquareButton: React.FC<SquareButtonProps> = ({
     <button
       css={[
         css`
+          position: relative;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
           cursor: pointer;
           outline: none;
           appearance: none;
           font-size: ${size === 'medium' ? 14 : 16}px;
-          border: ${variant === 'contained' ? 'none' : '1px solid'};
+          border: 1px solid;
           border-color: ${color === 'primary'
             ? theme.colors.black
             : theme.colors.black07};
@@ -46,8 +54,23 @@ const SquareButton: React.FC<SquareButtonProps> = ({
               : theme.colors.black07
             : theme.colors.white};
           min-width: ${size === 'medium' ? 140 : 186}px;
+          ${bold &&
+          css`
+            font-weight: 700;
+          `}
+          ${fullWidth &&
+          css`
+            width: 100%;
+          `}
           &:disabled {
             cursor: not-allowed;
+            border-color: ${theme.colors.black07};
+            color: ${variant === 'contained'
+              ? theme.colors.white
+              : theme.colors.black07};
+            background: ${variant === 'contained'
+              ? theme.colors.black07
+              : theme.colors.white};
           }
         `,
         typeof cssProps === 'function' ? cssProps(theme) : cssProps,

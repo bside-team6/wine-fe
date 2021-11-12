@@ -1,10 +1,9 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import Icon from '~/components/common/Icon';
+import IconButton from '~/components/common/IconButton';
 import SquareButton, {
   SquareButtonGroup,
 } from '~/components/common/SquareButton';
-import { iconButtonStyle } from '~/styles/common';
 
 export interface ConfirmProps {
   isOpen: boolean;
@@ -27,6 +26,8 @@ const Confirm = ({
   onClose,
   onCancel,
 }: ConfirmProps) => {
+  const theme = useTheme();
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -64,7 +65,7 @@ const Confirm = ({
           >
             <div
               css={css`
-                background-color: #fff;
+                background-color: ${theme.colors.white};
                 margin: 32px;
                 position: relative;
                 overflow-y: auto;
@@ -81,7 +82,8 @@ const Confirm = ({
                   text-align: center;
                   padding-top: 16px;
                   padding-bottom: 15px;
-                  border-bottom: 1px solid #ececec;
+                  border-bottom: 1px solid;
+                  border-color: ${theme.colors.black09};
                 `}
               >
                 <span
@@ -92,20 +94,18 @@ const Confirm = ({
                 >
                   {title}
                 </span>
-                <button
+                <IconButton
+                  name="cancel"
                   onClick={onClose}
                   css={css`
                     position: absolute;
                     top: 17px;
                     right: 17px;
-                    ${iconButtonStyle}
                   `}
-                >
-                  <Icon name="cancel" />
-                </button>
+                />
               </div>
               <div
-                css={(theme: Theme) => css`
+                css={css`
                   color: ${theme.colors.black02};
                   white-space: pre-wrap;
                   text-align: center;

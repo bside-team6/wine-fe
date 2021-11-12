@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import { useParams } from 'react-router-dom';
 import { wineNotes } from '~/api/mocks/wine-note';
 import Spinner from '~/components/common/Spinner';
@@ -16,8 +16,8 @@ const RelatedWineNotes = () => {
 
   return (
     <div
-      css={css`
-        background: #ffffff;
+      css={(theme: Theme) => css`
+        background: ${theme.colors.white};
         padding-top: 80px;
         padding-bottom: 80px;
       `}

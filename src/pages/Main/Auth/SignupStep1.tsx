@@ -1,8 +1,8 @@
 import { css } from '@emotion/react';
 import LoginStep from '~/components/auth/LoginStep';
 import { kakaoLogin } from '~/helpers/auth';
+import { ImageButton } from '~/styles/common';
 import {
-  imageButton,
   loginDescription,
   loginStepContainer,
   loginTitle,
@@ -20,15 +20,14 @@ function SignupStep1() {
         카카오로 간편하고 빠르게 로그인 하세요
       </div>
       <div>
-        <button
+        <ImageButton
+          onClick={kakaoLogin}
           css={css`
-            ${imageButton}
             height: 60px;
           `}
-          onClick={kakaoLogin}
         >
           <img src={kakaoLoginImg} alt="kakaoLoginImg" />
-        </button>
+        </ImageButton>
       </div>
     </div>
   );

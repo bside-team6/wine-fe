@@ -5,8 +5,9 @@ import { alignCenter } from '~/styles/common';
 const Footer = () => {
   return (
     <div
-      css={css`
-        border-top: 1px solid #dfdfdf;
+      css={(theme: Theme) => css`
+        border-top: 1px solid;
+        border-color: ${theme.colors.border};
         flex-shrink: 0;
       `}
     >

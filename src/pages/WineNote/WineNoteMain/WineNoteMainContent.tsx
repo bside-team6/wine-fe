@@ -1,12 +1,12 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import PopularNote from './PopularNote';
 import Timeline from './Timeline';
 
 const WineNoteMainContent = () => {
   return (
     <div
-      css={css`
-        background: #fafafa;
+      css={(theme: Theme) => css`
+        background: ${theme.colors.black10};
         padding: 80px 0 120px;
         min-height: 568px;
       `}

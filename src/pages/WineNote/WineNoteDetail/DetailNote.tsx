@@ -1,11 +1,10 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import Icon from '~/components/common/Icon';
-import { theme } from '~/helpers/theme';
 import { formatDate, formatSweet } from '~/helpers/utils';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, buttonStyle } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
 const DetailNote = ({
@@ -24,16 +23,18 @@ const DetailNote = ({
   drinkDate,
   wineNoteFoodList,
 }: IWineNoteDetail) => {
+  const theme = useTheme();
+
   const imageUrl =
     wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/420';
 
   return (
     <div
-      css={(theme: Theme) => css`
+      css={css`
         position: relative;
         display: flex;
         width: 1200px;
-        background: #fff;
+        background: ${theme.colors.white};
         margin: 0 auto;
         padding: 20px;
         box-shadow: ${theme.colors.shadow};
@@ -68,7 +69,7 @@ const DetailNote = ({
           {wineName}
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={css`
             ${alignCenter}
             font-family: ${theme.typography.lato};
             color: ${theme.colors.black06};
@@ -83,7 +84,7 @@ const DetailNote = ({
           <span>조회 {viewCount}</span>
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={css`
             color: ${theme.colors.black02};
           `}
         >
@@ -93,7 +94,7 @@ const DetailNote = ({
           css={css`
             margin-top: auto;
             align-self: stretch;
-            background: #fafafa;
+            background: ${theme.colors.black10};
             border-radius: 20px;
             ${alignCenter}
           `}
@@ -118,7 +119,7 @@ const DetailNote = ({
               </div>
               {/* TODO: 입맛 평가 추가 필요 */}
               <div
-                css={(theme: Theme) => css`
+                css={css`
                   color: ${theme.colors.main.primary};
                 `}
               >
@@ -127,11 +128,12 @@ const DetailNote = ({
             </div>
           </div>
           <div
-            css={(theme: Theme) => css`
+            css={css`
               flex-grow: 1;
               display: grid;
               grid-template-columns: repeat(2, minmax(0, 1fr));
-              border-left: 1px solid #dfdfdf;
+              border-left: 1px solid;
+              border-color: ${theme.colors.border};
               margin-top: 16px;
               margin-bottom: 16px;
               padding-left: 60px;
@@ -151,7 +153,7 @@ const DetailNote = ({
                 starDimension="12px"
                 starSpacing="0px"
                 starRatedColor={theme.colors.main.primary}
-                starEmptyColor="#c5c5c5"
+                starEmptyColor={theme.colors.black07}
               />
             </div>
             <div>
@@ -185,21 +187,17 @@ const DetailNote = ({
       </div>
       <button
         css={css`
-          cursor: pointer;
-          background: #fff;
-          border: 0;
+          ${buttonStyle}
+          flex-direction: column;
           position: absolute;
           top: 20px;
           right: 20px;
           z-index: 1;
-          text-align: center;
         `}
       >
-        <div>
-          <Icon name={isLike ? 'heart-fill' : 'heart'} />
-        </div>
+        <Icon name={isLike ? 'heart-fill' : 'heart'} />
         <div
-          css={(theme: Theme) => css`
+          css={css`
             color: ${theme.colors.black04};
             font-size: 12px;
             font-family: ${theme.typography.lato};
