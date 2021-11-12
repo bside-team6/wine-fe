@@ -321,7 +321,8 @@ const BtnGreyStyle = (theme) => css`
   display: inline-block;
   padding: 8px 20px;
   min-height: 40px;
-  border: 2px solid #dfdfdf;
+  border: 2px solid;
+  border-color: ${theme.colors.border};
   box-sizing: border-box;
   border-radius: 20px;
   margin: 4px;

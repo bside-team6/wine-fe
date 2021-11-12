@@ -132,7 +132,8 @@ const DetailNote = ({
               flex-grow: 1;
               display: grid;
               grid-template-columns: repeat(2, minmax(0, 1fr));
-              border-left: 1px solid #dfdfdf;
+              border-left: 1px solid;
+              border-color: ${theme.colors.border};
               margin-top: 16px;
               margin-bottom: 16px;
               padding-left: 60px;

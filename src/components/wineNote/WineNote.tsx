@@ -49,7 +49,8 @@ const WineNote = ({
           width: 792px;
           max-width: 100%;
           padding: 32px;
-          border: 1px solid #dfdfdf;
+          border: 1px solid;
+          border-color: ${theme.colors.border};
           border-radius: 20px;
           box-shadow: ${theme.colors.shadow};
           background: #ffffff;
