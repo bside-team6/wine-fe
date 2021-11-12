@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
-import Icon from '~/components/common/Icon';
+import IconButton from '~/components/common/IconButton';
 import { formatDate } from '~/helpers/utils';
 import { alignCenter } from '~/styles/common';
 import type { ITimelineWineNote } from '~/types';
@@ -20,6 +20,8 @@ const WineNote = ({
   wineNoteWineImagePath,
   isLike,
 }: ITimelineWineNote) => {
+  const theme = useTheme();
+
   // TODO: 와인노트 좋아요 mutation 기능 추가
   const imageUrl = wineNoteWineImagePath || 'https://via.placeholder.com/160';
 
@@ -41,7 +43,7 @@ const WineNote = ({
       `}
     >
       <div
-        css={(theme: Theme) => css`
+        css={css`
           position: relative;
           display: flex;
           width: 792px;
@@ -56,27 +58,16 @@ const WineNote = ({
           }
         `}
       >
-        <button
+        <IconButton
+          name={isLike ? 'heart-fill' : 'heart'}
+          color="#000"
           css={css`
-            cursor: pointer;
             position: absolute;
             top: 40px;
             right: 40px;
             z-index: 1;
-            background: none;
-            border: 0;
-            width: 24px;
-            height: 24px;
-            padding: 0;
-            ${alignCenter}
-            justify-content: center;
-            svg {
-              color: #000;
-            }
           `}
-        >
-          <Icon name={isLike ? 'heart-fill' : 'heart'} />
-        </button>
+        />
         <div
           css={css`
             position: relative;
@@ -111,7 +102,7 @@ const WineNote = ({
           >
             <Chip wineType={wineType} />
             <div
-              css={(theme: Theme) => css`
+              css={css`
                 font-size: 14px;
                 color: ${theme.colors.black02};
                 letter-spacing: -3%;
@@ -130,7 +121,7 @@ const WineNote = ({
             {description}
           </h3>
           <div
-            css={(theme: Theme) => css`
+            css={css`
               ${alignCenter}
               font-family: ${theme.typography.lato};
               color: ${theme.colors.black04};
@@ -144,7 +135,7 @@ const WineNote = ({
             <span>좋아요 {wineNoteLikeCount}</span>
           </div>
           <div
-            css={(theme: Theme) => css`
+            css={css`
               font-family: ${theme.typography.lato};
               color: #424242;
             `}

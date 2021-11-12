@@ -32,8 +32,8 @@ Contained.args = {
   variant: 'contained',
 };
 
-export const NormalWeight = Template.bind({});
-NormalWeight.args = {
+export const WeightNormal = Template.bind({});
+WeightNormal.args = {
   color: 'secondary',
   bold: false,
 };

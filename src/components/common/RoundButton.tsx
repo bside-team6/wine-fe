@@ -4,6 +4,7 @@ import Icon, { IconName } from '~/components/common/Icon';
 
 type IconPosition = 'left' | 'right';
 type Size = 'small' | 'medium' | 'large';
+type Variant = 'contained' | 'outlined';
 
 const heightMap: Record<Size, number> = {
   small: 40,
@@ -17,9 +18,12 @@ const radiusMap: Record<Size, number> = {
   large: 28,
 };
 
-const inactiveStyle = (theme: Theme) => css`
-  color: ${theme.colors.black06};
+const inactiveStyle = (theme: Theme, variant: Variant) => css`
   border-color: ${theme.colors.black08};
+  color: ${variant === 'contained' ? theme.colors.white : theme.colors.black06};
+  background: ${variant === 'contained'
+    ? theme.colors.black08
+    : theme.colors.white};
 `;
 
 export interface RoundButtonProps
@@ -27,10 +31,11 @@ export interface RoundButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     HTMLButtonElement
   > {
-  variant?: 'contained' | 'outlined';
+  variant?: Variant;
   color?: 'primary' | 'secondary';
   size?: 'small' | 'medium' | 'large';
   bold?: boolean;
+  fullWidth?: boolean;
   icon?: IconName;
   iconPosition?: IconPosition;
   inactive?: boolean;
@@ -43,6 +48,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
   color = 'primary',
   size = 'medium',
   bold = true,
+  fullWidth,
   icon,
   iconPosition = 'left',
   inactive = false,
@@ -55,12 +61,12 @@ const RoundButton: React.FC<RoundButtonProps> = ({
     <button
       css={[
         css`
-          cursor: pointer;
-          outline: none;
           position: relative;
           display: inline-flex;
           align-items: center;
           justify-content: center;
+          cursor: pointer;
+          outline: none;
           appearance: none;
           padding: 0 ${children ? 20 : 16}px;
           font-size: 14px;
@@ -71,12 +77,16 @@ const RoundButton: React.FC<RoundButtonProps> = ({
           css`
             min-width: 320px;
           `}
+          ${fullWidth &&
+          css`
+            width: 100%;
+          `}
           background: ${variant === 'contained'
             ? color === 'primary'
               ? theme.colors.main.primary
               : theme.colors.black08
             : theme.colors.white};
-          border: ${variant === 'contained' ? 'none' : '2px solid'};
+          border: 2px solid;
           border-color: ${color === 'primary'
             ? theme.colors.main.primary
             : theme.colors.black08};
@@ -85,7 +95,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
             : color === 'primary'
             ? theme.colors.main.primary
             : theme.colors.black02};
-          ${inactive && inactiveStyle(theme)}
+          ${inactive && inactiveStyle(theme, variant)}
           svg {
             &.left-icon {
               margin-right: ${children ? 8 : 0}px;
@@ -96,7 +106,7 @@ const RoundButton: React.FC<RoundButtonProps> = ({
           }
           &:disabled {
             cursor: not-allowed;
-            ${inactiveStyle(theme)}
+            ${inactiveStyle(theme, variant)}
           }
         `,
         typeof cssProps === 'function' ? cssProps(theme) : cssProps,

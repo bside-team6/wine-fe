@@ -1,10 +1,9 @@
 import { css, Theme } from '@emotion/react';
 import { AnimatePresence, motion } from 'framer-motion';
-import Icon from '~/components/common/Icon';
+import IconButton from '~/components/common/IconButton';
 import SquareButton, {
   SquareButtonGroup,
 } from '~/components/common/SquareButton';
-import { iconButtonStyle } from '~/styles/common';
 
 export interface ConfirmProps {
   isOpen: boolean;
@@ -92,17 +91,15 @@ const Confirm = ({
                 >
                   {title}
                 </span>
-                <button
+                <IconButton
+                  name="cancel"
                   onClick={onClose}
                   css={css`
                     position: absolute;
                     top: 17px;
                     right: 17px;
-                    ${iconButtonStyle}
                   `}
-                >
-                  <Icon name="cancel" />
-                </button>
+                />
               </div>
               <div
                 css={(theme: Theme) => css`

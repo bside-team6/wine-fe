@@ -17,19 +17,3 @@ export const loginDescription = (theme: Theme) => css`
   margin-top: 24px;
   margin-bottom: 24px;
 `;
-
-export const imageButton = css`
-  cursor: pointer;
-  border: none;
-  background: none;
-  outline: none;
-  padding: 0;
-  margin: 0;
-  img {
-    max-width: 100%;
-    max-height: 100%;
-  }
-  &::disabled {
-    cursor: not-allowed;
-  }
-`;

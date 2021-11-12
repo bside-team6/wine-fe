@@ -18,3 +18,4 @@ const Template: ComponentStory<typeof Confirm> = (args) => (
 );
 
 export const Default = Template.bind({});
+Default.storyName = 'Confirm';

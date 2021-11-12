@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import styled from '@emotion/styled';
 import sprites from '~/assets/sprites-24.png';
 
 export const spritesStyle = css`
@@ -16,10 +17,40 @@ export const alignCenter = css`
   align-items: center;
 `;
 
-export const iconButtonStyle = css`
+export const buttonStyle = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   cursor: pointer;
   background: none;
   border: 0;
   padding: 0;
   outline: 0;
+  appearance: none;
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+
+export const imageButtonStyle = css`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  background: none;
+  border: 0;
+  padding: 0;
+  outline: 0;
+  appearance: none;
+  img {
+    max-width: 100%;
+    max-height: 100%;
+  }
+  &:disabled {
+    cursor: not-allowed;
+  }
+`;
+
+export const ImageButton = styled.button`
+  ${imageButtonStyle}
 `;

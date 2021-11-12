@@ -6,7 +6,7 @@ import Icon from '~/components/common/Icon';
 import { kakaoLogin } from '~/helpers/auth';
 import useLogoutMutation from '~/queries/useLogoutMutation';
 import { isAuthenticatedState } from '~/stores/auth';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, buttonStyle } from '~/styles/common';
 import { ReactComponent as KakaoSmallLogo } from '~/assets/ic_kakao.svg';
 import logo from '~/assets/logo.png';
 
@@ -81,55 +81,40 @@ const Header = () => {
             margin-left: auto;
             ${alignCenter}
             a {
-              margin-right: 13px;
-              &::last-child {
-                margin-right: 0;
+              display: inline-flex;
+              align-items: center;
+              justify-content: center;
+              padding: 0 10px;
+              &:last-of-type {
+                margin-left: 3px;
               }
             }
             button {
-              cursor: pointer;
-              border: 0;
-              background: none;
-              outline: none;
-              padding: 10px 0;
-              margin-right: 6px;
-              width: 138px;
+              padding: 0 10px;
+              margin-right: 16px;
             }
           `}
         >
           {isAuthenticated ? (
-            <button onClick={() => logout()}>로그아웃</button>
+            <button css={buttonStyle} onClick={() => logout()}>
+              로그아웃
+            </button>
           ) : (
-            <>
-              <button onClick={kakaoLogin}>
-                <div
-                  css={css`
-                    ${alignCenter}
-                    justify-content: center;
-                  `}
-                >
-                  <KakaoSmallLogo />
-                  <span
-                    css={css`
-                      margin-left: 6px;
-                      font-size: 12px;
-                    `}
-                  >
-                    카카오로 로그인
-                  </span>
-                </div>
-              </button>
-            </>
+            <button css={buttonStyle} onClick={kakaoLogin}>
+              <KakaoSmallLogo />
+              <span
+                css={css`
+                  margin-left: 6px;
+                  font-size: 12px;
+                `}
+              >
+                카카오로 로그인
+              </span>
+            </button>
           )}
           {/* TODO: 로그인 했을때 경로 변경 */}
           <NavLink to={isAuthenticated ? '/signup/step1' : '/signup/step1'}>
-            <Icon
-              name="mypage"
-              css={css`
-                margin-left: 10px;
-                margin-right: 10px;
-              `}
-            />
+            <Icon name="mypage" />
           </NavLink>
           <NavLink to="/">
             <Icon name="bookmark" />
