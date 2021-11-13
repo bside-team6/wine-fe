@@ -342,3 +342,10 @@ export const getRelatedWineNotesSuccessHandler = createMswHandler<IWineNote[]>(
   wineNotes.slice(0, 2),
   'real',
 );
+
+export const getRelatedWineNotesEmptyHandler = createMswHandler<IWineNote[]>(
+  API_URL.RELATED_WINE_NOTE,
+  'get',
+  [],
+  'real',
+);

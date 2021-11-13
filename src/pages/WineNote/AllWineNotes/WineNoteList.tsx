@@ -1,7 +1,8 @@
 import { Fragment, useEffect, useRef } from 'react';
-import { css } from '@emotion/react';
 import WineNote from '~/components/wineNote/WineNote';
 import useWineNotesQuery from '~/queries/useWineNotesQuery';
+import { emptyStyle } from '~/styles/wine-note';
+import noDataImg from '~/assets/no_data_wine.png';
 
 const WineNoteList = () => {
   const { data, fetchNextPage, hasNextPage } = useWineNotesQuery({
@@ -23,33 +24,13 @@ const WineNoteList = () => {
 
   if (data?.pages[0]?.empty) {
     return (
-      <div
-        css={css`
-          margin: 20px auto;
-        `}
-      >
-        <div
-          css={css`
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 24px;
-          `}
-        >
-          <img src="https://via.placeholder.com/180" alt="no-wine-note" />
-        </div>
-        <div
-          css={css`
-            text-align: center;
-            font-weight: 700;
-            font-size: 18px;
-          `}
-        >
+      <div css={emptyStyle}>
+        <img src={noDataImg} alt="empty" />
+        <p>
           아직 작성된 와인노트가 없습니다.
           <br />
           첫번째 작성자가 되어주세요!
-        </div>
+        </p>
       </div>
     );
   }

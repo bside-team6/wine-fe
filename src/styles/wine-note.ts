@@ -31,3 +31,16 @@ export const contentStyle = (theme: Theme) => css`
   padding: 80px 0 120px;
   flex-grow: 1;
 `;
+
+export const emptyStyle = (theme: Theme) => css`
+  text-align: center;
+  margin: 20px auto;
+  img {
+    width: 180px;
+    margin-bottom: 24px;
+  }
+  p {
+    font-size: 18px;
+    color: ${theme.colors.black02};
+  }
+`;
