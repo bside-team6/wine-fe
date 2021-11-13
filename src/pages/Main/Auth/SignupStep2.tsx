@@ -16,7 +16,7 @@ import {
   loginDescription,
   loginStepContainer,
   loginTitle,
-} from '~/styles/login';
+} from '~/styles/auth';
 
 interface FormValues {
   nickName: string;
