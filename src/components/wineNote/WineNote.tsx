@@ -65,7 +65,7 @@ const WineNote = ({
         {isAuthenticated && (
           <IconButton
             name={isLike ? 'heart-fill' : 'heart'}
-            color={theme.colors.black}
+            color={isLike ? theme.colors.black : theme.colors.black07}
             css={css`
               position: absolute;
               top: 40px;
