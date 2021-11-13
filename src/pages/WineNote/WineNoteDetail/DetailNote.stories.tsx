@@ -32,5 +32,5 @@ NoDrinkDate.args = {
 export const NoFood = Template.bind({});
 NoFood.storyName = '음식 없음';
 NoFood.args = {
-  wineNoteFoodList: [],
+  matchingFoods: [],
 };

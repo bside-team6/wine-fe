@@ -10,10 +10,7 @@ const useKakaoTokenQuery = (
   return useQuery<KakaoToken, AxiosError>(
     ['kakao-token', code],
     () => getKakaoToken(code),
-    {
-      select: (data) => data,
-      ...options,
-    },
+    options,
   );
 };
 

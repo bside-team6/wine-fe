@@ -8,25 +8,26 @@ import { alignCenter, buttonStyle } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
 const DetailNote = ({
-  wineNoteWineImages,
+  wineImages,
   wineType,
   wineName,
-  wineasyUserNickName,
+  userNickName,
   regDate,
   viewCount,
   descript,
   isLike,
-  wineNoteLikeCount,
+  isFitted,
+  likeCount,
   sweet,
   score,
   price,
   drinkDate,
-  wineNoteFoodList,
+  matchingFoods,
 }: IWineNoteDetail) => {
   const theme = useTheme();
 
   const imageUrl =
-    wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/420';
+    wineImages[0]?.imagePath || 'https://via.placeholder.com/420';
 
   return (
     <div
@@ -77,7 +78,7 @@ const DetailNote = ({
             margin-bottom: 32px;
           `}
         >
-          <span>by. {wineasyUserNickName}</span>
+          <span>by. {userNickName}</span>
           <Divider />
           <span>{formatDate(regDate)}</span>
           <Divider />
@@ -115,7 +116,7 @@ const DetailNote = ({
                   margin-bottom: 8px;
                 `}
               >
-                {wineasyUserNickName}님의 평가
+                {userNickName}님의 평가
               </div>
               {/* TODO: 입맛 평가 추가 필요 */}
               <div
@@ -172,14 +173,14 @@ const DetailNote = ({
                 <div>{formatDate(drinkDate, 'yyyy-MM-dd')}</div>
               </div>
             )}
-            {wineNoteFoodList.length > 0 && (
+            {matchingFoods.length > 0 && (
               <div
                 css={css`
                   grid-column: span 2 / span 2;
                 `}
               >
                 <span>음식</span>
-                <div>{wineNoteFoodList.join(', ')}</div>
+                <div>{matchingFoods.join(', ')}</div>
               </div>
             )}
           </div>
@@ -203,7 +204,7 @@ const DetailNote = ({
             font-family: ${theme.typography.lato};
           `}
         >
-          {wineNoteLikeCount}
+          {likeCount}
         </div>
       </button>
     </div>

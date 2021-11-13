@@ -22,16 +22,16 @@ export type MutationOptions<
   TContext = unknown,
 > = Omit<UseMutationOptions<TData, TError, TVariables, TContext>, 'mutationFn'>;
 
-export interface IResponse<T> {
-  result: boolean;
-  message: string;
-  data: T;
-}
-
-export interface IPageable {
-  totalPages: number;
-  currentPage: number;
-  totalElements: number;
+export interface IPageable<T> {
+  content: T[]; // 페이징 되는 item array
+  empty: boolean; // pageable 객체가 빈 array 인가
+  first: boolean; // 첫번째 페이지 여부
+  last: boolean; // 마지막 페이지 여부
+  number: number; // 현재 페이지 번호
+  numberOfElements: number; // 실제 요소 개수
+  size: number; // 페이지 크기
+  totalElements: number; // 모든 페이지에 존재하는 총 요소 수
+  totalPages: number; // 총 페이지 수
 }
 
 export enum WINE_TYPE {
@@ -44,11 +44,28 @@ export enum WINE_TYPE {
   WHITE = 'WHITE',
 }
 
-export interface IWineNoteBase {
+export interface IWineNote {
   id: number;
   wineId: number;
   wineName: string;
   wineType: WINE_TYPE;
+  descript?: string;
+  /** @example 2021-10-11T15:00:00 */
+  regDate: string;
+  userId: number;
+  userNickName: string;
+  isLike: boolean;
+  isPublic: boolean;
+  viewCount: number;
+  likeCount: number;
+  wineImages: {
+    id: number;
+    imagePath: string;
+    imageName: string;
+  }[];
+}
+
+export interface IWineNoteDetail extends IWineNote {
   /** @description int */
   sweet: number;
   /** @description float */
@@ -56,48 +73,12 @@ export interface IWineNoteBase {
   price?: number;
   /** @example 2021-09-13 */
   drinkDate?: string;
-  descript?: string;
-  /** @example 2021-10-11T15:00:00 */
-  regDate: string;
   /** @example 2021-10-11T15:00:00 */
   updateDate?: string;
-  wineasyUserId: number;
-  wineasyUserNickName: string;
-  isLike: boolean;
-  isPublic: boolean;
-  viewCount: number;
-  wineNoteLikeCount: number;
-}
-
-export interface ITimelineWineNote extends IWineNoteBase {
-  wineNoteWineImagePath: string;
-}
-
-export interface ITimelineWineNoteList extends IPageable {
-  wineNoteTimeLineResultList: ITimelineWineNote[];
-}
-
-export interface IWineNoteDetail extends IWineNoteBase {
-  wineNoteFoodList: string[];
-  wineNoteWineImages: {
-    id: number;
-    imagePath: string;
-    imageName: string;
-  }[];
+  isFitted: boolean;
+  matchingFoods: string[];
   previousWineNoteId?: number;
   nextWineNoteId?: number;
-}
-
-export interface IRelatedWineNote {
-  wineNoteId: number;
-  wineNoteTitle: string;
-  wineName: string;
-  /** @example 2021-10-11T15:02:00 */
-  regDate: string;
-  viewCount: number;
-  likeCount: number;
-  authorName: string;
-  thumbnailUrl: string;
 }
 
 export interface KakaoToken {

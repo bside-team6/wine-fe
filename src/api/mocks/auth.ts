@@ -4,7 +4,6 @@ import {
   createErrorHandler,
   createMswHandler,
   delayedResponse,
-  successResponse,
 } from '~/helpers/msw';
 import { NickNameValidate, SignupRequest, USER_ROLE, UserInfo } from '~/types';
 
@@ -54,11 +53,9 @@ export const nicknameValidateHandler = rest.get(
   (req, res, ctx) => {
     const nickName = req.url.searchParams.get('nickName');
     return res(
-      ctx.json(
-        successResponse<NickNameValidate>({
-          isPresent: ['어드민', '와인이지', '관리자'].includes(nickName || ''),
-        }),
-      ),
+      ctx.json<NickNameValidate>({
+        isPresent: ['어드민', '와인이지', '관리자'].includes(nickName || ''),
+      }),
     );
   },
 );
@@ -66,24 +63,16 @@ export const nicknameValidateHandler = rest.get(
 export const userInfoHandler = rest.get(API_URL.USER_INFO, (req, res, ctx) => {
   if (nickName) {
     return delayedResponse(
-      ctx.json(
-        successResponse<UserInfo>({
-          id: 10000,
-          name: '홍길동',
-          email: 'aaa@test.com',
-          nickName,
-          profilePhotoURL: 'https://via.placeholder.com/150',
-          role: USER_ROLE.NORMAL,
-          uuid: 10000,
-        }),
-      ),
+      ctx.json<UserInfo>({
+        id: 10000,
+        name: '홍길동',
+        email: 'aaa@test.com',
+        nickName,
+        profilePhotoURL: 'https://via.placeholder.com/150',
+        role: USER_ROLE.NORMAL,
+        uuid: 10000,
+      }),
     );
   }
-  return delayedResponse(
-    ctx.json({
-      result: false,
-      message: '회원이 아닙니다.',
-      data: null,
-    }),
-  );
+  return delayedResponse(ctx.json(null));
 });

@@ -1,24 +1,16 @@
 import { API_URL } from '~/api/urls';
-import type {
-  IRelatedWineNote,
-  IResponse,
-  ITimelineWineNoteList,
-  IWineNoteDetail,
-} from '~/types';
+import type { IPageable, IWineNote, IWineNoteDetail } from '~/types';
 import instance from './instance';
 
 /**
  * GET 모든 와인노트 목록
  */
 export const getWineNotes = async ({ pageParam = 0 }) => {
-  const { data } = await instance.get<IResponse<ITimelineWineNoteList>>(
-    API_URL.WINE_NOTE,
-    {
-      params: {
-        page: pageParam,
-      },
+  const { data } = await instance.get<IPageable<IWineNote>>(API_URL.WINE_NOTE, {
+    params: {
+      page: pageParam,
     },
-  );
+  });
   return data;
 };
 
@@ -26,7 +18,7 @@ export const getWineNotes = async ({ pageParam = 0 }) => {
  * GET 와인 노트 상세보기
  */
 export const getWineNote = async (wineNoteId: number) => {
-  const { data } = await instance.get<IResponse<IWineNoteDetail>>(
+  const { data } = await instance.get<IWineNoteDetail>(
     `${API_URL.WINE_NOTE}/${wineNoteId}`,
   );
   return data;
@@ -79,7 +71,7 @@ export const patchWineNoteWineNamePublicAdmin = async (wineNoteId: number) => {
  * GET 타임라인
  */
 export const getWineNoteTimeline = async ({ pageParam = 0 }) => {
-  const { data } = await instance.get<IResponse<ITimelineWineNoteList>>(
+  const { data } = await instance.get<IPageable<IWineNote>>(
     API_URL.WINE_NOTE_TIMELINE,
     {
       params: {
@@ -95,7 +87,7 @@ export const getWineNoteTimeline = async ({ pageParam = 0 }) => {
  * @description 내가 쓴 와인노트 상세보기
  */
 export const getWineNoteTimelineDetail = async (wineNoteId: number) => {
-  const { data } = await instance.get<IResponse<IWineNoteDetail>>(
+  const { data } = await instance.get<IWineNoteDetail>(
     `${API_URL.WINE_NOTE_TIMELINE}/${wineNoteId}`,
   );
   return data;
@@ -105,7 +97,7 @@ export const getWineNoteTimelineDetail = async (wineNoteId: number) => {
  * GET 이달의와인 목록
  */
 export const getPopularWineNotes = async () => {
-  const { data } = await instance.get<IResponse<IWineNoteDetail[]>>(
+  const { data } = await instance.get<IWineNoteDetail[]>(
     API_URL.POPULAR_WINE_NOTE,
   );
   return data;
@@ -116,14 +108,11 @@ export const getPopularWineNotes = async () => {
  * @description wineType과 당도가 같고 음식명이 하나라도 중첩되는 노트
  */
 export const getRelatedWineNotes = async (wineNoteId: number) => {
-  const { data } = await instance.get<IResponse<IRelatedWineNote[]>>(
-    API_URL.RELATED_WINE_NOTE,
-    {
-      params: {
-        wineNoteId,
-      },
+  const { data } = await instance.get<IWineNote[]>(API_URL.RELATED_WINE_NOTE, {
+    params: {
+      wineNoteId,
     },
-  );
+  });
   return data;
 };
 

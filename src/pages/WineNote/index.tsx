@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import AllWineNotes from './AllWineNotes';
 import WineNoteDetail from './WineNoteDetail';
@@ -13,7 +14,14 @@ const WindNote = () => {
         <Route path=":userId" element={<WineNoteTimeline />} />
       </Route>
       <Route path="write" element={<WriteWineNote />} />
-      <Route path=":wineNoteId" element={<WineNoteDetail />} />
+      <Route
+        path=":wineNoteId"
+        element={
+          <Suspense fallback={null}>
+            <WineNoteDetail />
+          </Suspense>
+        }
+      />
     </Routes>
   );
 };

@@ -1,7 +1,6 @@
 import { API_URL } from '~/api/urls';
 import { KAKAO_REST_APP_KEY, REDIRECT_URI } from '~/helpers/auth';
 import type {
-  IResponse,
   KakaoToken,
   NickNameValidate,
   RefreshedKakaoToken,
@@ -45,7 +44,7 @@ export const signupByKakao = async ({
  * @param nickName
  */
 export const validateNickname = async (nickName: string) => {
-  const { data } = await instance.get<IResponse<NickNameValidate>>(
+  const { data } = await instance.get<NickNameValidate>(
     API_URL.VALIDATE_NICKNAME,
     {
       params: {
@@ -60,12 +59,9 @@ export const validateNickname = async (nickName: string) => {
  * GET 본인 정보 불러오기
  */
 export const getUserInfo = async ({ signal }: { signal?: AbortSignal }) => {
-  const { data } = await instance.get<IResponse<UserInfo | null>>(
-    API_URL.USER_INFO,
-    {
-      signal,
-    },
-  );
+  const { data } = await instance.get<UserInfo | null>(API_URL.USER_INFO, {
+    signal,
+  });
   return data;
 };
 
