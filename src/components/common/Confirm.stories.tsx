@@ -2,7 +2,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import Confirm from './Confirm';
 
 export default {
-  title: 'components/Confirm',
+  title: 'components/common/Confirm',
   component: Confirm,
   args: {
     isOpen: true,

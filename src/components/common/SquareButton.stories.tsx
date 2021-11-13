@@ -2,7 +2,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import SquareButton, { SquareButtonGroup } from './SquareButton';
 
 export default {
-  title: 'components/SquareButton',
+  title: 'components/common/SquareButton',
   component: SquareButton,
   args: {
     variant: 'contained',

@@ -2,7 +2,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import Spinner from './Spinner';
 
 export default {
-  title: 'components/Spinner',
+  title: 'components/common/Spinner',
   component: Spinner,
   args: {
     align: 'center',

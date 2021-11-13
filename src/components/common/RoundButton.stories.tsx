@@ -2,7 +2,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import RoundButton from './RoundButton';
 
 export default {
-  title: 'components/RoundButton',
+  title: 'components/common/RoundButton',
   component: RoundButton,
   args: {
     variant: 'outlined',

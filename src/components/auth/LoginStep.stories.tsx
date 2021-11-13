@@ -2,7 +2,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import LoginStep from './LoginStep';
 
 export default {
-  title: 'components/LoginStep',
+  title: 'components/auth/LoginStep',
   component: LoginStep,
   args: {
     step: 1,
