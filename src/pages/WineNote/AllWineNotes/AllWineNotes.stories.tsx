@@ -5,14 +5,14 @@ import {
   getWineNotesEmptyHandler,
   getWineNotesSuccessHandler,
 } from '~/api/mocks/wine-note';
-import { providerDecorator } from '~/helpers/storybook';
+import { withProvider } from '~/helpers/storybook';
 import AllWineNotes from './index';
 
 export default {
   title: 'pages/AllWineNotes',
   component: AllWineNotes,
   args: {},
-  decorators: [providerDecorator()],
+  decorators: [withProvider],
 } as ComponentMeta<typeof AllWineNotes>;
 
 const Template: ComponentStory<typeof AllWineNotes> = (args) => (
@@ -35,4 +35,13 @@ export const NoPopularNote = Template.bind({});
 NoPopularNote.storyName = '이달의 인기노트 없음';
 NoPopularNote.parameters = {
   msw: [getWineNotesSuccessHandler, getPopularWineNotesEmptyHandler],
+};
+
+export const isAuthenticated = Template.bind({});
+isAuthenticated.storyName = '회원';
+isAuthenticated.parameters = {
+  msw: [getWineNotesSuccessHandler, getPopularWineNotesSuccessHandler],
+  provider: {
+    isAuthenticated: true,
+  },
 };
