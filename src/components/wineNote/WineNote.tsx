@@ -6,24 +6,25 @@ import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
 import { formatDate } from '~/helpers/utils';
 import { alignCenter } from '~/styles/common';
-import type { ITimelineWineNote } from '~/types';
+import type { IWineNote } from '~/types';
 
 const WineNote = ({
   id,
   descript,
   wineName,
   wineType,
-  wineasyUserNickName,
+  userNickName,
   regDate,
   viewCount,
-  wineNoteLikeCount,
-  wineNoteWineImagePath,
+  likeCount,
+  wineImages,
   isLike,
-}: ITimelineWineNote) => {
+}: IWineNote) => {
+  // TODO: 와인노트 좋아요 mutation 기능 추가
   const theme = useTheme();
 
-  // TODO: 와인노트 좋아요 mutation 기능 추가
-  const imageUrl = wineNoteWineImagePath || 'https://via.placeholder.com/160';
+  const imageUrl =
+    wineImages[0]?.imagePath || 'https://via.placeholder.com/160';
 
   const description = useMemo(() => {
     return descript && descript.length > 80
@@ -133,7 +134,7 @@ const WineNote = ({
             <Divider />
             <span>조회 {viewCount}</span>
             <Divider />
-            <span>좋아요 {wineNoteLikeCount}</span>
+            <span>좋아요 {likeCount}</span>
           </div>
           <div
             css={css`
@@ -141,7 +142,7 @@ const WineNote = ({
               color: ${theme.colors.black02};
             `}
           >
-            by. {wineasyUserNickName}
+            by. {userNickName}
           </div>
         </div>
       </div>

@@ -48,7 +48,7 @@ const RelatedWineNotes = () => {
         >
           {data?.map((note) => (
             <li
-              key={note.wineNoteId}
+              key={note.id}
               css={css`
                 margin-right: 36px;
               `}

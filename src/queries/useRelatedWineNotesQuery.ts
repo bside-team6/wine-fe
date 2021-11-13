@@ -1,13 +1,13 @@
 import type { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { getRelatedWineNotes } from '~/api/wine-note';
-import type { IRelatedWineNote, QueryOptions } from '~/types';
+import type { IWineNote, QueryOptions } from '~/types';
 
 const useRelatedWineNotesQuery = (
   wineNoteId: number,
-  options?: QueryOptions<IRelatedWineNote[], AxiosError>,
+  options?: QueryOptions<IWineNote[], AxiosError>,
 ) => {
-  return useQuery<IRelatedWineNote[], AxiosError>(
+  return useQuery<IWineNote[], AxiosError>(
     ['related-wine-notes', wineNoteId],
     () => getRelatedWineNotes(wineNoteId),
     {

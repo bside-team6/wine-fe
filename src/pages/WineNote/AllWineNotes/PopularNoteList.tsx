@@ -5,7 +5,7 @@ import { formatDate } from '~/helpers/utils';
 import usePopularWineNotesQuery from '~/queries/usePopularWineNotesQuery';
 import useWineNotesQuery from '~/queries/useWineNotesQuery';
 import { alignCenter } from '~/styles/common';
-import type { IWineNoteDetail } from '~/types';
+import type { IWineNote } from '~/types';
 
 const PopularNoteList = () => {
   const { data: wineNotes } = useWineNotesQuery({
@@ -53,7 +53,7 @@ const PopularNoteList = () => {
 
 export default PopularNoteList;
 
-const PopularNotes = ({ notes }: { notes: IWineNoteDetail[] }) => {
+const PopularNotes = ({ notes }: { notes: IWineNote[] }) => {
   if (notes.length === 0) {
     return (
       <div
@@ -77,19 +77,18 @@ const PopularNotes = ({ notes }: { notes: IWineNoteDetail[] }) => {
 };
 
 type PopularNoteItemProps = Pick<
-  IWineNoteDetail,
-  'id' | 'descript' | 'wineasyUserNickName' | 'regDate' | 'wineNoteWineImages'
+  IWineNote,
+  'id' | 'descript' | 'userNickName' | 'regDate' | 'wineImages'
 >;
 
 const PopularNoteItem = ({
   id,
   descript,
-  wineNoteWineImages,
-  wineasyUserNickName,
+  wineImages,
+  userNickName,
   regDate,
 }: PopularNoteItemProps) => {
-  const imageUrl =
-    wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/48';
+  const imageUrl = wineImages[0]?.imagePath || 'https://via.placeholder.com/48';
 
   return (
     <li
@@ -148,7 +147,7 @@ const PopularNoteItem = ({
                 color: ${theme.colors.black02};
               `}
             >
-              by. {wineasyUserNickName}
+              by. {userNickName}
             </span>
             <Divider />
             <span

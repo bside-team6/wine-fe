@@ -31,5 +31,5 @@ NoDescription.args = {
 export const NoImage = Template.bind({});
 NoImage.storyName = '사진 없음';
 NoImage.args = {
-  wineNoteWineImagePath: '',
+  wineImages: [],
 };

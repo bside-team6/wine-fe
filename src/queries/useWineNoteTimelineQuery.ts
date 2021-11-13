@@ -1,12 +1,12 @@
 import type { AxiosError } from 'axios';
 import { useInfiniteQuery, UseInfiniteQueryOptions } from 'react-query';
 import { getWineNoteTimeline } from '~/api/wine-note';
-import type { ITimelineWineNoteList } from '~/types';
+import type { IPageable, IWineNote } from '~/types';
 
 const useWineNoteTimelineQuery = (
-  options?: UseInfiniteQueryOptions<ITimelineWineNoteList, AxiosError>,
+  options?: UseInfiniteQueryOptions<IPageable<IWineNote>, AxiosError>,
 ) => {
-  return useInfiniteQuery<ITimelineWineNoteList, AxiosError>(
+  return useInfiniteQuery<IPageable<IWineNote>, AxiosError>(
     'wine-note-timeline',
     getWineNoteTimeline,
     {
