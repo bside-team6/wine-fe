@@ -1,17 +1,11 @@
-import { css } from '@emotion/react';
+import WineNotesHeader from '~/components/wineNote/WineNotesHeader';
+import { containerStyle } from '~/styles/wine-note';
 import AllWineNotesContent from './AllWineNotesContent';
-import AllWineNotesHeader from './AllWineNotesHeader';
 
 const AllWineNotes: React.VFC = () => {
   return (
-    <div
-      css={css`
-        flex-grow: 1;
-        display: flex;
-        flex-direction: column;
-      `}
-    >
-      <AllWineNotesHeader />
+    <div css={containerStyle}>
+      <WineNotesHeader title={`와인노트를 작성하고\n공유해보세요!`} />
       <AllWineNotesContent />
     </div>
   );
