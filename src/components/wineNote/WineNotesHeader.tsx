@@ -1,8 +1,7 @@
 import { css } from '@emotion/react';
 import { useMatch, useNavigate } from 'react-router-dom';
-import { useRecoilValue } from 'recoil';
 import RoundButton from '~/components/common/RoundButton';
-import { isAuthenticatedState } from '~/stores/auth';
+import useAuth from '~/hooks/useAuth';
 import {
   headerButtonGroupStyle,
   headerStyle,
@@ -14,7 +13,7 @@ interface WineNotesHeaderProps {
 }
 
 const WineNotesHeader: React.VFC<WineNotesHeaderProps> = ({ title }) => {
-  const isAuthenticated = useRecoilValue(isAuthenticatedState);
+  const isAuthenticated = useAuth();
 
   const navigate = useNavigate();
   const match = useMatch('/wine-note/timeline');
