@@ -44,3 +44,10 @@ export const emptyStyle = (theme: Theme) => css`
     color: ${theme.colors.black02};
   }
 `;
+
+export const wineNoteListItemStyle = css`
+  margin-bottom: 20px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+`;
