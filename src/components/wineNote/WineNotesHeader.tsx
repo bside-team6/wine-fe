@@ -26,9 +26,19 @@ const WineNotesHeader: React.VFC<WineNotesHeaderProps> = ({ title }) => {
     if (isAuthenticated) {
       navigate('/wine-note/timeline');
     } else {
-      // 비로그인유저
       confirm({
         content: `나의 노트는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
+        onConfirm: () => navigate('/signup/step1'),
+      });
+    }
+  };
+
+  const onClickWriteNote = () => {
+    if (isAuthenticated) {
+      navigate('/wine-note/write');
+    } else {
+      confirm({
+        content: `노트 작성은 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
         onConfirm: () => navigate('/signup/step1'),
       });
     }
@@ -55,17 +65,15 @@ const WineNotesHeader: React.VFC<WineNotesHeaderProps> = ({ title }) => {
         >
           나의 노트
         </RoundButton>
-        {isAuthenticated && (
-          <RoundButton
-            icon="write"
-            onClick={() => navigate('/wine-note/write')}
-            css={css`
-              margin-left: auto;
-            `}
-          >
-            노트쓰러가기
-          </RoundButton>
-        )}
+        <RoundButton
+          icon="write"
+          onClick={onClickWriteNote}
+          css={css`
+            margin-left: auto;
+          `}
+        >
+          노트쓰러가기
+        </RoundButton>
       </div>
     </div>
   );
