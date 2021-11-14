@@ -1,10 +1,10 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { wineNotes } from '~/api/mocks/wine-note';
-import { providerDecorator } from '~/helpers/storybook';
+import { withProvider } from '~/helpers/storybook';
 import WineNote from './WineNote';
 
 export default {
-  title: 'components/WineNote',
+  title: 'components/wineNote/WineNote',
   component: WineNote,
   args: {
     ...wineNotes[0], // timeline item format
@@ -12,7 +12,7 @@ export default {
   parameters: {
     layout: 'padded',
   },
-  decorators: [providerDecorator()],
+  decorators: [withProvider],
 } as ComponentMeta<typeof WineNote>;
 
 const Template: ComponentStory<typeof WineNote> = (args) => (
@@ -32,4 +32,12 @@ export const NoImage = Template.bind({});
 NoImage.storyName = '사진 없음';
 NoImage.args = {
   wineImages: [],
+};
+
+export const isAuthenticated = Template.bind({});
+isAuthenticated.storyName = '회원';
+isAuthenticated.parameters = {
+  provider: {
+    isAuthenticated: true,
+  },
 };

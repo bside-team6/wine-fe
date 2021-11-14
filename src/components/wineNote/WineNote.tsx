@@ -5,6 +5,7 @@ import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
 import { formatDate } from '~/helpers/utils';
+import useAuth from '~/hooks/useAuth';
 import { alignCenter } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
@@ -22,6 +23,7 @@ const WineNote = ({
 }: IWineNote) => {
   // TODO: 와인노트 좋아요 mutation 기능 추가
   const theme = useTheme();
+  const isAuthenticated = useAuth();
 
   const imageUrl =
     wineImages[0]?.imagePath || 'https://via.placeholder.com/160';
@@ -60,16 +62,18 @@ const WineNote = ({
           }
         `}
       >
-        <IconButton
-          name={isLike ? 'heart-fill' : 'heart'}
-          color={theme.colors.black}
-          css={css`
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            z-index: 1;
-          `}
-        />
+        {isAuthenticated && (
+          <IconButton
+            name={isLike ? 'heart-fill' : 'heart'}
+            color={isLike ? theme.colors.black : theme.colors.black07}
+            css={css`
+              position: absolute;
+              top: 40px;
+              right: 40px;
+              z-index: 1;
+            `}
+          />
+        )}
         <div
           css={css`
             position: relative;

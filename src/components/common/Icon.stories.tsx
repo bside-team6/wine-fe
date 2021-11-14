@@ -2,7 +2,7 @@ import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import Icon from './Icon';
 
 export default {
-  title: 'components/Icon',
+  title: 'components/common/Icon',
   component: Icon,
   args: {
     name: 'filter',

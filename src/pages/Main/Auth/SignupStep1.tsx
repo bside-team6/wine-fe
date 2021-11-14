@@ -1,12 +1,12 @@
 import { css } from '@emotion/react';
 import LoginStep from '~/components/auth/LoginStep';
 import { kakaoLogin } from '~/helpers/auth';
-import { ImageButton } from '~/styles/common';
 import {
   loginDescription,
   loginStepContainer,
   loginTitle,
-} from '~/styles/login';
+} from '~/styles/auth';
+import { ImageButton } from '~/styles/common';
 import kakaoLoginImg from '~/assets/login/kakao_login_large_wide.png';
 
 function SignupStep1() {

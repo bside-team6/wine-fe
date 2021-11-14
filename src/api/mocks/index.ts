@@ -8,9 +8,7 @@ import {
 } from '~/api/mocks/auth';
 import {
   getPopularWineNotesSuccessHandler,
-  getRelatedWineNotesSuccessHandler,
   getWineNotesHandler,
-  getWineNoteSuccessHandler,
 } from '~/api/mocks/wine-note';
 
 export const worker = setupWorker(
@@ -21,6 +19,4 @@ export const worker = setupWorker(
   logoutSuccessHandler,
   getWineNotesHandler,
   getPopularWineNotesSuccessHandler,
-  getRelatedWineNotesSuccessHandler,
-  getWineNoteSuccessHandler,
 );

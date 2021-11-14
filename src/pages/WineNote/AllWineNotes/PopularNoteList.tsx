@@ -111,17 +111,13 @@ const PopularNoteItem = ({
             border-radius: 50%;
             margin-right: 12px;
             overflow: hidden;
+            width: 48px;
+            height: 48px;
+            background-image: url(${imageUrl});
+            background-size: cover;
+            background-repeat: no-repeat;
           `}
-        >
-          <img
-            src={imageUrl}
-            alt="thumb"
-            css={css`
-              width: 48px;
-              height: 48px;
-            `}
-          />
-        </div>
+        />
         <div
           css={css`
             flex-grow: 1;
