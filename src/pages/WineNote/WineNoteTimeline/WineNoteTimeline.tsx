@@ -1,12 +1,11 @@
-import React, { Fragment, useRef } from 'react';
+import { Fragment, useRef } from 'react';
 import { css, useTheme } from '@emotion/react';
 import Icon from '~/components/common/Icon';
-import WineNote from '~/components/wineNote/WineNote';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import useWineNotesQuery from '~/queries/useWineNotesQuery';
-import { alignCenter, buttonStyle } from '~/styles/common';
-import { emptyStyle, wineNoteListItemStyle } from '~/styles/wine-note';
-import type { IWineNote } from '~/types';
+import { buttonStyle } from '~/styles/common';
+import { emptyStyle } from '~/styles/wine-note';
+import TimelineItem from './TimelineItem';
 import noDataImg from '~/assets/no_data_wine.png';
 
 const WineNoteTimeline = () => {
@@ -86,62 +85,3 @@ const WineNoteTimeline = () => {
 };
 
 export default WineNoteTimeline;
-
-interface TimelineItemProps {
-  note: IWineNote;
-}
-
-const TimelineItem: React.VFC<TimelineItemProps> = ({ note }) => {
-  const theme = useTheme();
-
-  return (
-    <div
-      css={css`
-        ${wineNoteListItemStyle}
-        ${alignCenter}
-      `}
-    >
-      <div
-        css={css`
-          position: relative;
-          z-index: 1;
-          width: 28px;
-          height: 28px;
-          border-radius: 50%;
-          border: 4px solid ${theme.colors.black10};
-          background: ${theme.colors.main.primary};
-        `}
-      />
-      <div
-        css={css`
-          font-family: ${theme.typography.lato};
-          font-weight: 700;
-          text-align: center;
-          min-width: 82px;
-          margin-left: 31px;
-          margin-right: 53px;
-        `}
-      >
-        <div
-          css={css`
-            font-size: 32px;
-            color: ${theme.colors.black04};
-            line-height: 38px;
-          `}
-        >
-          10.10
-        </div>
-        <div
-          css={css`
-            font-size: 18px;
-            color: ${theme.colors.black06};
-            line-height: 22x;
-          `}
-        >
-          2021
-        </div>
-      </div>
-      <WineNote {...note} />
-    </div>
-  );
-};

@@ -35,6 +35,7 @@ const WineNoteList = () => {
   return (
     <div
       css={css`
+        flex-grow: 1;
         a {
           ${wineNoteListItemStyle}
         }

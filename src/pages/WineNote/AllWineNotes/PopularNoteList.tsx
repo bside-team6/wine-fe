@@ -32,6 +32,8 @@ const PopularNoteList = () => {
   return (
     <div
       css={(theme: Theme) => css`
+        margin-left: 24px;
+        flex-shrink: 0;
         width: 384px;
         border: 1px solid ${theme.colors.black08};
         background: ${data?.length !== 0
