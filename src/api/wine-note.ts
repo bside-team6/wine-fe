@@ -40,7 +40,7 @@ export const postWineNote = async (data: any) => {
 /**
  * POST 와인노트 좋아요
  */
-export const postWineNoteLike = async (wineNoteId: number) => {
+export const toggleWineNoteLike = async (wineNoteId: number) => {
   await instance.post(API_URL.WINE_NOTE_LIKE, {
     wineNoteId,
   });
@@ -49,7 +49,7 @@ export const postWineNoteLike = async (wineNoteId: number) => {
 /**
  * PATCH 잘맞아요/안맞아요
  */
-export const patchWineNoteFitsMe = async (wineNoteId: number) => {
+export const toggleWineNoteFitsMe = async (wineNoteId: number) => {
   await instance.patch(API_URL.WINE_NOTE_FITS_ME, {
     wineNoteId,
   });
@@ -58,7 +58,7 @@ export const patchWineNoteFitsMe = async (wineNoteId: number) => {
 /**
  * PATCH 와인노트 공개여부 변경
  */
-export const patchWineNotePublic = async (wineNoteId: number) => {
+export const toggleWineNotePublic = async (wineNoteId: number) => {
   await instance.patch(API_URL.WINE_NOTE_PUBLIC, {
     wineNoteId,
   });

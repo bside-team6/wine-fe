@@ -10,6 +10,7 @@ import SquareButton, {
 import { formatDate } from '~/helpers/utils';
 import useAuth from '~/hooks/useAuth';
 import useConfirm from '~/hooks/useConfirm';
+import useWineNoteLikeMutation from '~/queries/useWineNoteLikeMutation';
 import { alignCenter } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
@@ -36,11 +37,13 @@ const WineNote = ({
   const isAuthenticated = useAuth();
   const confirm = useConfirm();
 
+  const { mutate } = useWineNoteLikeMutation();
+
   const onClickLikeButton = (e: React.MouseEvent) => {
     e.preventDefault();
 
     if (isAuthenticated) {
-      // TODO: 와인노트 좋아요 mutation 기능 추가
+      mutate(id);
     } else {
       confirm({
         content: `좋아요만 보기는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
