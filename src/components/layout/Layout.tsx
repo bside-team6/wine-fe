@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { Toaster } from 'react-hot-toast';
 import { Outlet } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
+import CommonConfirm from '~/components/layout/CommonConfirm';
 import useUserInfoQuery from '~/queries/useUserInfoQuery';
 import { isAuthenticatedState } from '~/stores/auth';
 import Footer from './Footer';
@@ -36,6 +37,7 @@ const Layout = () => {
       </div>
       <Footer />
       <Toaster />
+      <CommonConfirm />
     </div>
   );
 };
