@@ -9,9 +9,12 @@ import { ReactComponent as FilledHeartIcon } from '~/assets/icon/ic_heart_on.svg
 import { ReactComponent as InfoIcon } from '~/assets/icon/ic_info.svg';
 import { ReactComponent as LockIcon } from '~/assets/icon/ic_lock.svg';
 import { ReactComponent as MyPageIcon } from '~/assets/icon/ic_mypage.svg';
+import { ReactComponent as OptionIcon } from '~/assets/icon/ic_option.svg';
 import { ReactComponent as RefreshIcon } from '~/assets/icon/ic_refresh.svg';
 import { ReactComponent as SearchIcon } from '~/assets/icon/ic_search.svg';
 import { ReactComponent as ShareIcon } from '~/assets/icon/ic_share.svg';
+import { ReactComponent as ThumbsDownIcon } from '~/assets/icon/ic_thumbs_down.svg';
+import { ReactComponent as ThumbsUpIcon } from '~/assets/icon/ic_thumbs_up.svg';
 import { ReactComponent as WriteIcon } from '~/assets/icon/ic_write.svg';
 
 export type IconName =
@@ -28,7 +31,10 @@ export type IconName =
   | 'info'
   | 'mypage'
   | 'cancel'
-  | 'lock';
+  | 'lock'
+  | 'option'
+  | 'thumbs-up'
+  | 'thumbs-down';
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -102,6 +108,18 @@ const Icon = ({ name, ...props }: IconProps) => {
 
   if (name === 'lock') {
     return <LockIcon {...props} />;
+  }
+
+  if (name === 'option') {
+    return <OptionIcon {...props} />;
+  }
+
+  if (name === 'thumbs-up') {
+    return <ThumbsUpIcon {...props} />;
+  }
+
+  if (name === 'thumbs-down') {
+    return <ThumbsDownIcon {...props} />;
   }
 
   return null;

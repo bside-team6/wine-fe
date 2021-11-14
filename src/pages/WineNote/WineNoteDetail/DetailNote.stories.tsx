@@ -1,5 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { wineNote } from '~/api/mocks/wine-note';
+import { withProvider } from '~/helpers/storybook';
 import DetailNote from './DetailNote';
 
 export default {
@@ -8,6 +9,7 @@ export default {
   args: {
     ...wineNote,
   },
+  decorators: [withProvider],
 } as ComponentMeta<typeof DetailNote>;
 
 const Template: ComponentStory<typeof DetailNote> = (args) => (
