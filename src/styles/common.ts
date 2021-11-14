@@ -33,21 +33,10 @@ export const buttonStyle = css`
 `;
 
 export const imageButtonStyle = css`
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  background: none;
-  border: 0;
-  padding: 0;
-  outline: 0;
-  appearance: none;
+  ${buttonStyle}
   img {
     max-width: 100%;
     max-height: 100%;
-  }
-  &:disabled {
-    cursor: not-allowed;
   }
 `;
 

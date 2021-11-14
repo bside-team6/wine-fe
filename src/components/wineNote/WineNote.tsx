@@ -39,10 +39,6 @@ const WineNote = ({
       to={`/wine-note/${id}`}
       css={css`
         display: block;
-        margin-bottom: 20px;
-        &:last-child {
-          margin-bottom: 0;
-        }
       `}
     >
       <div

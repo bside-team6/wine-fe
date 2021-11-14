@@ -1,7 +1,9 @@
-import { Fragment, useEffect, useRef } from 'react';
+import { Fragment, useRef } from 'react';
+import { css } from '@emotion/react';
 import WineNote from '~/components/wineNote/WineNote';
+import useIntersectionObserver from '~/hooks/useIntersectionObserver';
 import useWineNotesQuery from '~/queries/useWineNotesQuery';
-import { emptyStyle } from '~/styles/wine-note';
+import { emptyStyle, wineNoteListItemStyle } from '~/styles/wine-note';
 import noDataImg from '~/assets/no_data_wine.png';
 
 const WineNoteList = () => {
@@ -11,16 +13,11 @@ const WineNoteList = () => {
 
   const targetRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const target = targetRef.current;
-    if (target && hasNextPage) {
-      const observer = new IntersectionObserver((entries) =>
-        entries.forEach((entry) => entry.isIntersecting && fetchNextPage()),
-      );
-      observer.observe(target);
-      return () => observer.disconnect();
-    }
-  }, [fetchNextPage, hasNextPage]);
+  useIntersectionObserver({
+    target: targetRef,
+    onIntersect: fetchNextPage,
+    enabled: hasNextPage,
+  });
 
   if (data?.pages[0]?.empty) {
     return (
@@ -36,7 +33,13 @@ const WineNoteList = () => {
   }
 
   return (
-    <div>
+    <div
+      css={css`
+        a {
+          ${wineNoteListItemStyle}
+        }
+      `}
+    >
       {data?.pages.map(({ content, number: page }) => (
         <Fragment key={page}>
           {content.map((item) => (

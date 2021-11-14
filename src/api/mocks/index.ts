@@ -9,6 +9,7 @@ import {
 import {
   getPopularWineNotesSuccessHandler,
   getWineNotesHandler,
+  getWineNoteTimelineHandler,
 } from '~/api/mocks/wine-note';
 
 export const worker = setupWorker(
@@ -19,4 +20,5 @@ export const worker = setupWorker(
   logoutSuccessHandler,
   getWineNotesHandler,
   getPopularWineNotesSuccessHandler,
+  getWineNoteTimelineHandler,
 );
