@@ -35,7 +35,8 @@ const schema = yup
         'is-valid-nickname',
         '이미 사용중인 닉네임입니다.',
         debouncePromise(
-          async (value = '') => !(await validateNickname(value)).isPresent,
+          async (value) =>
+            value ? !(await validateNickname(value)).isPresent : false,
           500,
         ),
       ),
@@ -48,7 +49,7 @@ function SignupStep2() {
   const setIsAuthenticated = useSetRecoilState(isAuthenticatedState);
 
   const { refetch: fetchUserInfo } = useUserInfoQuery({
-    onSuccess: (userInfo) => setIsAuthenticated(!!userInfo),
+    onSuccess: (user) => setIsAuthenticated(user.id !== null),
   });
 
   const { mutate: signup } = useSignupMutation({

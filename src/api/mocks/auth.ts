@@ -5,7 +5,13 @@ import {
   createMswHandler,
   delayedResponse,
 } from '~/helpers/msw';
-import { NickNameValidate, SignupRequest, USER_ROLE, UserInfo } from '~/types';
+import {
+  NickNameValidate,
+  NonUser,
+  SignupRequest,
+  User,
+  USER_ROLE,
+} from '~/types';
 
 export const loginSuccessHandler = createMswHandler(
   API_URL.LOGIN,
@@ -63,7 +69,7 @@ export const nicknameValidateHandler = rest.get(
 export const userInfoHandler = rest.get(API_URL.USER_INFO, (req, res, ctx) => {
   if (nickName) {
     return delayedResponse(
-      ctx.json<UserInfo>({
+      ctx.json<User>({
         id: 10000,
         name: '홍길동',
         email: 'aaa@test.com',
@@ -74,5 +80,15 @@ export const userInfoHandler = rest.get(API_URL.USER_INFO, (req, res, ctx) => {
       }),
     );
   }
-  return delayedResponse(ctx.json(null));
+  return delayedResponse(
+    ctx.json<NonUser>({
+      id: null,
+      name: null,
+      email: null,
+      nickName: null,
+      profilePhotoURL: null,
+      role: null,
+      uuid: null,
+    }),
+  );
 });

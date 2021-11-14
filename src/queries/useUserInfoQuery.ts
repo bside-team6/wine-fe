@@ -1,12 +1,12 @@
 import type { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { getUserInfo } from '~/api/auth';
-import type { QueryOptions, UserInfo } from '~/types';
+import type { NonUser, QueryOptions, User } from '~/types';
 
 const useUserInfoQuery = (
-  options?: QueryOptions<UserInfo | null, AxiosError>,
+  options?: QueryOptions<User | NonUser, AxiosError>,
 ) => {
-  return useQuery<UserInfo | null, AxiosError>('user-info', getUserInfo, {
+  return useQuery<User | NonUser, AxiosError>('user-info', getUserInfo, {
     enabled: false,
     staleTime: Infinity,
     cacheTime: Infinity,

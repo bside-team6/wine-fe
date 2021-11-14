@@ -3,9 +3,10 @@ import { KAKAO_REST_APP_KEY, REDIRECT_URI } from '~/helpers/auth';
 import type {
   KakaoToken,
   NickNameValidate,
+  NonUser,
   RefreshedKakaoToken,
   SignupRequest,
-  UserInfo,
+  User,
 } from '~/types';
 import instance, { kakaoAuth } from './instance';
 
@@ -59,7 +60,7 @@ export const validateNickname = async (nickName: string) => {
  * GET 본인 정보 불러오기
  */
 export const getUserInfo = async ({ signal }: { signal?: AbortSignal }) => {
-  const { data } = await instance.get<UserInfo | null>(API_URL.USER_INFO, {
+  const { data } = await instance.get<User | NonUser>(API_URL.USER_INFO, {
     signal,
   });
   return data;
