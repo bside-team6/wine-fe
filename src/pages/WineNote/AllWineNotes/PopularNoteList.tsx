@@ -8,10 +8,14 @@ import { alignCenter } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
 const PopularNoteList = () => {
-  const { data: wineNotes } = useWineNotesQuery({
-    enabled: false,
-    suspense: true,
-  });
+  const { data: wineNotes } = useWineNotesQuery(
+    {
+      isTimeline: false,
+    },
+    {
+      enabled: false,
+    },
+  );
   const hasWineNotes = !wineNotes?.pages[0]?.empty;
 
   // Dependent Queries

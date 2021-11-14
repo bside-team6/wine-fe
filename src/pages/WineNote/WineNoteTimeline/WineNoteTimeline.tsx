@@ -3,7 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import Icon from '~/components/common/Icon';
 import WineNote from '~/components/wineNote/WineNote';
 import useIntersectionObserver from '~/hooks/useIntersectionObserver';
-import useWineNoteTimelineQuery from '~/queries/useWineNoteTimelineQuery';
+import useWineNotesQuery from '~/queries/useWineNotesQuery';
 import { alignCenter, buttonStyle } from '~/styles/common';
 import { emptyStyle, wineNoteListItemStyle } from '~/styles/wine-note';
 import type { IWineNote } from '~/types';
@@ -12,8 +12,8 @@ import noDataImg from '~/assets/no_data_wine.png';
 const WineNoteTimeline = () => {
   const theme = useTheme();
 
-  const { data, fetchNextPage, hasNextPage } = useWineNoteTimelineQuery({
-    suspense: true,
+  const { data, fetchNextPage, hasNextPage } = useWineNotesQuery({
+    isTimeline: true,
   });
 
   const targetRef = useRef<HTMLDivElement>(null);
