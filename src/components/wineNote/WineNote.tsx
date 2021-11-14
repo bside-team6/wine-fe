@@ -1,11 +1,12 @@
 import { useMemo } from 'react';
 import { css, useTheme } from '@emotion/react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
 import { formatDate } from '~/helpers/utils';
 import useAuth from '~/hooks/useAuth';
+import useConfirm from '~/hooks/useConfirm';
 import { alignCenter } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
@@ -21,9 +22,23 @@ const WineNote = ({
   wineImages,
   isLike,
 }: IWineNote) => {
-  // TODO: 와인노트 좋아요 mutation 기능 추가
+  const navigate = useNavigate();
   const theme = useTheme();
   const isAuthenticated = useAuth();
+  const confirm = useConfirm();
+
+  const onClickLikeButton = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    if (isAuthenticated) {
+      // TODO: 와인노트 좋아요 mutation 기능 추가
+    } else {
+      confirm({
+        content: `좋아요만 보기는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
+        onConfirm: () => navigate('/signup/step1'),
+      });
+    }
+  };
 
   const imageUrl =
     wineImages[0]?.imagePath || 'https://via.placeholder.com/160';
@@ -58,18 +73,17 @@ const WineNote = ({
           }
         `}
       >
-        {isAuthenticated && (
-          <IconButton
-            name={isLike ? 'heart-fill' : 'heart'}
-            color={isLike ? theme.colors.black : theme.colors.black07}
-            css={css`
-              position: absolute;
-              top: 40px;
-              right: 40px;
-              z-index: 1;
-            `}
-          />
-        )}
+        <IconButton
+          onClick={onClickLikeButton}
+          name={isLike ? 'heart-fill' : 'heart'}
+          color={isLike ? theme.colors.black : theme.colors.black07}
+          css={css`
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            z-index: 1;
+          `}
+        />
         <div
           css={css`
             position: relative;
