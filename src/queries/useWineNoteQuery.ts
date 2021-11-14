@@ -1,21 +1,23 @@
 import type { AxiosError } from 'axios';
 import { useQuery } from 'react-query';
 import { getWineNote } from '~/api/wine-note';
-import type { IResponse, IWineNoteDetail, QueryOptions } from '~/types';
+import type { IWineNoteDetail, QueryOptions } from '~/types';
+
+interface QueryProps {
+  wineNoteId: number;
+  isTimeline?: boolean;
+}
 
 const useWineNoteQuery = (
-  wineNoteId: number,
-  options?: QueryOptions<
-    IResponse<IWineNoteDetail>,
-    AxiosError,
-    IWineNoteDetail
-  >,
+  { wineNoteId, isTimeline = false }: QueryProps,
+  options?: QueryOptions<IWineNoteDetail, AxiosError>,
 ) => {
-  return useQuery<IResponse<IWineNoteDetail>, AxiosError, IWineNoteDetail>(
-    ['wine-note', wineNoteId],
-    () => getWineNote(wineNoteId),
+  return useQuery<IWineNoteDetail, AxiosError>(
+    ['wine-note', wineNoteId, isTimeline],
+    () => getWineNote(wineNoteId, isTimeline),
     {
       staleTime: 1000 * 60 * 5, // 5min
+      suspense: true,
       ...options,
     },
   );

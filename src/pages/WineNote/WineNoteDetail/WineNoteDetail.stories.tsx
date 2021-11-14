@@ -1,42 +1,49 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import { rest } from 'msw';
+import {
+  getRelatedWineNotesEmptyHandler,
+  getRelatedWineNotesSuccessHandler,
+  getWineNoteSuccessHandler,
+} from '~/api/mocks/wine-note';
+import { withLazy, withProvider } from '~/helpers/storybook';
 import WineNoteDetail from './index';
-import { successResponse } from '~/api/mocks';
-import { wineNote } from '~/api/mocks/wine-note';
-import { providerDecorator } from '~/helpers/storybook';
+
+const LazyWineNoteDetail = (
+  args: React.ComponentProps<typeof WineNoteDetail>,
+) => withLazy(<WineNoteDetail {...args} />);
 
 export default {
   title: 'pages/WineNoteDetail',
-  component: WineNoteDetail,
-  decorators: [
-    providerDecorator({
+  component: LazyWineNoteDetail,
+  decorators: [withProvider],
+  parameters: {
+    provider: {
       path: '/wine-note/:wineNoteId',
       initialEntries: ['/wine-note/10'],
-    }),
-  ],
+    },
+  },
 } as ComponentMeta<typeof WineNoteDetail>;
 
 const Template: ComponentStory<typeof WineNoteDetail> = (args) => (
-  <WineNoteDetail {...args} />
+  <LazyWineNoteDetail {...args} />
 );
 
 export const Default = Template.bind({});
 Default.storyName = '와인노트상세';
 Default.parameters = {
-  msw: [
-    rest.get(`/api/v1/wine-note/:wineNoteId`, (req, res, ctx) => {
-      // const { wineNoteId } = req.params
-      return res(ctx.delay('real'), ctx.json(successResponse(wineNote)));
-    }),
-  ],
+  msw: [getRelatedWineNotesSuccessHandler, getWineNoteSuccessHandler],
 };
 
-export const Loading = Template.bind({});
-Loading.storyName = '와인노트상세 로딩중';
-Loading.parameters = {
-  msw: [
-    rest.get(`/api/v1/wine-note/:wineNoteId`, (req, res, ctx) => {
-      return res(ctx.delay('infinite'));
-    }),
-  ],
+export const NoRelated = Template.bind({});
+NoRelated.storyName = '관련와인노트 없음';
+NoRelated.parameters = {
+  msw: [getRelatedWineNotesEmptyHandler, getWineNoteSuccessHandler],
+};
+
+export const isAuthenticated = Template.bind({});
+isAuthenticated.storyName = '회원';
+isAuthenticated.parameters = {
+  msw: [getRelatedWineNotesSuccessHandler, getWineNoteSuccessHandler],
+  provider: {
+    isAuthenticated: true,
+  },
 };

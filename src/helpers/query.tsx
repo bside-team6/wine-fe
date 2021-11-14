@@ -6,8 +6,7 @@ export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       refetchOnWindowFocus: false,
-      retry: 1,
-      select: (data: any) => data?.data,
+      retry: false,
     },
   },
 });

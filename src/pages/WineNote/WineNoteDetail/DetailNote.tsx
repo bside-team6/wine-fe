@@ -1,40 +1,41 @@
-import { css, Theme } from '@emotion/react';
+import { css, useTheme } from '@emotion/react';
 import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
-import { theme } from '~/helpers/theme';
+import Icon from '~/components/common/Icon';
 import { formatDate, formatSweet } from '~/helpers/utils';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, buttonStyle } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
-import { ReactComponent as Heart } from '~/assets/ic_heart.svg';
-import { ReactComponent as HeartOn } from '~/assets/ic_heart_on.svg';
 
 const DetailNote = ({
-  wineNoteWineImages,
+  wineImages,
   wineType,
   wineName,
-  wineasyUserNickName,
+  userNickName,
   regDate,
   viewCount,
   descript,
   isLike,
-  wineNoteLikeCount,
+  isFitted,
+  likeCount,
   sweet,
   score,
   price,
   drinkDate,
-  wineNoteFoodList,
+  matchingFoods,
 }: IWineNoteDetail) => {
+  const theme = useTheme();
+
   const imageUrl =
-    wineNoteWineImages[0]?.imagePath || 'https://via.placeholder.com/420';
+    wineImages[0]?.imagePath || 'https://via.placeholder.com/420';
 
   return (
     <div
-      css={(theme: Theme) => css`
+      css={css`
         position: relative;
         display: flex;
-        width: 1200px;
-        background: #fff;
+        width: ${theme.breakpoints.lg};
+        background: ${theme.colors.white};
         margin: 0 auto;
         padding: 20px;
         box-shadow: ${theme.colors.shadow};
@@ -69,7 +70,7 @@ const DetailNote = ({
           {wineName}
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={css`
             ${alignCenter}
             font-family: ${theme.typography.lato};
             color: ${theme.colors.black06};
@@ -77,14 +78,14 @@ const DetailNote = ({
             margin-bottom: 32px;
           `}
         >
-          <span>by. {wineasyUserNickName}</span>
+          <span>by. {userNickName}</span>
           <Divider />
           <span>{formatDate(regDate)}</span>
           <Divider />
           <span>조회 {viewCount}</span>
         </div>
         <div
-          css={(theme: Theme) => css`
+          css={css`
             color: ${theme.colors.black02};
           `}
         >
@@ -94,7 +95,7 @@ const DetailNote = ({
           css={css`
             margin-top: auto;
             align-self: stretch;
-            background: #fafafa;
+            background: ${theme.colors.black10};
             border-radius: 20px;
             ${alignCenter}
           `}
@@ -115,11 +116,11 @@ const DetailNote = ({
                   margin-bottom: 8px;
                 `}
               >
-                {wineasyUserNickName}님의 평가
+                {userNickName}님의 평가
               </div>
               {/* TODO: 입맛 평가 추가 필요 */}
               <div
-                css={(theme: Theme) => css`
+                css={css`
                   color: ${theme.colors.main.primary};
                 `}
               >
@@ -128,11 +129,12 @@ const DetailNote = ({
             </div>
           </div>
           <div
-            css={(theme: Theme) => css`
+            css={css`
               flex-grow: 1;
               display: grid;
               grid-template-columns: repeat(2, minmax(0, 1fr));
-              border-left: 1px solid #dfdfdf;
+              border-left: 1px solid;
+              border-color: ${theme.colors.border};
               margin-top: 16px;
               margin-bottom: 16px;
               padding-left: 60px;
@@ -152,7 +154,7 @@ const DetailNote = ({
                 starDimension="12px"
                 starSpacing="0px"
                 starRatedColor={theme.colors.main.primary}
-                starEmptyColor="#c5c5c5"
+                starEmptyColor={theme.colors.black07}
               />
             </div>
             <div>
@@ -171,14 +173,14 @@ const DetailNote = ({
                 <div>{formatDate(drinkDate, 'yyyy-MM-dd')}</div>
               </div>
             )}
-            {wineNoteFoodList.length > 0 && (
+            {matchingFoods.length > 0 && (
               <div
                 css={css`
                   grid-column: span 2 / span 2;
                 `}
               >
                 <span>음식</span>
-                <div>{wineNoteFoodList.join(', ')}</div>
+                <div>{matchingFoods.join(', ')}</div>
               </div>
             )}
           </div>
@@ -186,25 +188,23 @@ const DetailNote = ({
       </div>
       <button
         css={css`
-          cursor: pointer;
-          background: #fff;
-          border: 0;
+          ${buttonStyle}
+          flex-direction: column;
           position: absolute;
           top: 20px;
           right: 20px;
           z-index: 1;
-          text-align: center;
         `}
       >
-        <div>{isLike ? <HeartOn /> : <Heart />}</div>
+        <Icon name={isLike ? 'heart-fill' : 'heart'} />
         <div
-          css={(theme: Theme) => css`
+          css={css`
             color: ${theme.colors.black04};
             font-size: 12px;
             font-family: ${theme.typography.lato};
           `}
         >
-          {wineNoteLikeCount}
+          {likeCount}
         </div>
       </button>
     </div>

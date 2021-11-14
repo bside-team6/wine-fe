@@ -82,7 +82,6 @@ function AdminList() {
     {
       staleTime: Infinity,
       cacheTime: Infinity,
-      select: (data) => data.data,
     },
   );
 

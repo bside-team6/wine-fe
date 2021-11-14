@@ -18,9 +18,7 @@ function AdminDetail() {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const { data, isLoading } = useQuery(['get-wine', id], () => getWine(id), {
-    select: (data) => data.data,
-  });
+  const { data, isLoading } = useQuery(['get-wine', id], () => getWine(id));
 
   const handleDelete = async () => {
     if (window.confirm('해당 와인을 삭제하시겠습니까?')) {

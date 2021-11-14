@@ -3,12 +3,9 @@ import { css } from '@emotion/react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getFood } from '~/api/admin';
+import Icon from '~/components/common/Icon';
 import Spinner from '~/components/common/Spinner';
 import useWineSearchQuery from '~/queries/useWineSearchQuery';
-import { ReactComponent as DropDown } from '~/assets/ic_dropdown.svg';
-import { ReactComponent as DropUp } from '~/assets/ic_dropup.svg';
-import { ReactComponent as Info } from '~/assets/ic_info.svg';
-import { ReactComponent as Search } from '~/assets/ic_search.svg';
 
 function MainSearchBar() {
   const navigate = useNavigate();
@@ -58,7 +55,6 @@ function MainSearchBar() {
 
   const { data: foodsList } = useQuery('get-food', getFood, {
     staleTime: Infinity,
-    select: (data) => data.data,
   });
 
   const { isLoading, refetch } = useWineSearchQuery(
@@ -71,19 +67,19 @@ function MainSearchBar() {
   if (isLoading) {
     return <Spinner />;
   }
+
   return (
     <div
-      css={() => css`
+      css={css`
         display: flex;
         width: 100vw;
-        height: calc(100vh - 10px);
         justify-content: center;
         position: relative;
         top: calc(100vh / 5);
       `}
     >
       <div
-        css={() => css`
+        css={css`
           display: flex;
           position: relative;
           flex-direction: column;
@@ -92,27 +88,30 @@ function MainSearchBar() {
           min-height: 322px;
         `}
       >
-        <div css={() => SearchMenuStyle}>
+        <div css={SearchMenuStyle}>
           <InnerSearch
             menuType={'메인음식'}
             handleClickMenu={(e) => handleClickMenu(e, '1')}
             menuId="1"
             clickedId={clickedId}
-          ></InnerSearch>
+          />
           <InnerSearch
             menuType={'가격대'}
             handleClickMenu={(e) => handleClickMenu(e, '2')}
             menuId="2"
             clickedId={clickedId}
-          ></InnerSearch>
+          />
           <InnerSearch
             menuType={'당도'}
             handleClickMenu={(e) => handleClickMenu(e, '3')}
             menuId="3"
             clickedId={clickedId}
-          ></InnerSearch>
-          <div css={(theme) => RoundBtnStyle(theme)}>
-            <Search onClick={(e) => handleSubmit(e)} />
+          />
+          <div
+            css={(theme) => RoundBtnStyle(theme)}
+            onClick={(e) => handleSubmit(e)}
+          >
+            <Icon name="search" />
           </div>
         </div>
         {clickedId !== '0' && (
@@ -122,7 +121,8 @@ function MainSearchBar() {
                 <div css={(theme) => divOptStyle(theme)}>
                   <span>메인음식</span>
                   <span>
-                    <Info
+                    <Icon
+                      name="info"
                       css={css`
                         margin-right: 3px;
                         position: relative;
@@ -132,10 +132,10 @@ function MainSearchBar() {
                     한 가지 음식만 선택해주세요
                   </span>
                 </div>
-                {foodsList?.map((foods, idx) => {
+                {foodsList?.map((foods) => {
                   return (
                     <BtnFood
-                      key={idx}
+                      key={foods.id}
                       id={foods.id}
                       foodId={foodId}
                       data={foods.foodName}
@@ -151,7 +151,8 @@ function MainSearchBar() {
                 <div css={(theme) => divOptStyle(theme)}>
                   <span>가격대</span>
                   <span>
-                    <Info
+                    <Icon
+                      name="info"
                       css={css`
                         margin-right: 3px;
                         position: relative;
@@ -208,7 +209,6 @@ function MainSearchBar() {
   );
 }
 
-// export default withRouter(MainSearchBar);
 export default MainSearchBar;
 
 const SearchMenuStyle = (theme) => css`
@@ -220,8 +220,9 @@ const SearchMenuStyle = (theme) => css`
   top: 0;
   border-radius: 30px;
   border: 2px solid ${theme.colors.main.primary};
-  box-shadow: 0px 4px 8px 0px #0000000d;
+  box-shadow: ${theme.colors.shadow};
 `;
+
 const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
   return (
     <div
@@ -244,7 +245,7 @@ const InnerSearch = ({ menuType, menuId, handleClickMenu, clickedId }) => {
       `}
     >
       {menuType}
-      {clickedId === menuId ? <DropUp /> : <DropDown />}
+      <Icon name={clickedId === menuId ? 'arrow-up' : 'arrow-down'} />
     </div>
   );
 };
@@ -253,7 +254,7 @@ const OptBox = (theme) => css`
   word-break: break-all;
   width: 486px;
   border: 1px solid ${theme.colors.border};
-  box-shadow: 0px 4px 8px 0px #0000000d;
+  box-shadow: ${theme.colors.shadow};
   border-radius: 20px;
   margin-top: 15px;
   padding: 20px;
@@ -274,6 +275,7 @@ const OptBox = (theme) => css`
     }
   }
 `;
+
 const BtnFood = ({ id, data, foodId, handleClickButton }) => {
   return (
     <div
@@ -286,6 +288,7 @@ const BtnFood = ({ id, data, foodId, handleClickButton }) => {
     </div>
   );
 };
+
 const BtnPrice = ({ id, price, handleClickButton, priceInfo }) => {
   return (
     <div
@@ -298,6 +301,7 @@ const BtnPrice = ({ id, price, handleClickButton, priceInfo }) => {
     </div>
   );
 };
+
 const BtnSweet = ({ id, data, sortBy, handleClickButton }) => {
   return (
     <div
@@ -311,11 +315,13 @@ const BtnSweet = ({ id, data, sortBy, handleClickButton }) => {
     </div>
   );
 };
+
 const BtnGreyStyle = (theme) => css`
   display: inline-block;
   padding: 8px 20px;
   min-height: 40px;
-  border: 2px solid #dfdfdf;
+  border: 2px solid;
+  border-color: ${theme.colors.border};
   box-sizing: border-box;
   border-radius: 20px;
   margin: 4px;
@@ -330,6 +336,7 @@ const BtnGreyStyle = (theme) => css`
     color: ${theme.colors.main.primary};
   }
 `;
+
 const divOptStyle = (theme) => css`
   display: flex;
   justify-content: space-between;

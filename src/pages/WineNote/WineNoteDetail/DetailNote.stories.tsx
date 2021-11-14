@@ -1,6 +1,6 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
-import DetailNote from './DetailNote';
 import { wineNote } from '~/api/mocks/wine-note';
+import DetailNote from './DetailNote';
 
 export default {
   title: 'pages/WineNoteDetail/DetailNote',
@@ -32,5 +32,5 @@ NoDrinkDate.args = {
 export const NoFood = Template.bind({});
 NoFood.storyName = '음식 없음';
 NoFood.args = {
-  wineNoteFoodList: [],
+  matchingFoods: [],
 };

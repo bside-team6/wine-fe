@@ -10,7 +10,7 @@ export const getAllWines = async (
   isPublic = true,
   page = 0,
 ) => {
-  const { data } = await instance.get('/manager/v1/wine', {
+  const { data } = await instance.get('/api/manager/v1/wine', {
     params: {
       sort,
       size,
@@ -26,7 +26,7 @@ export const getAllWines = async (
  * GET 와인 상세 조회
  */
 export const getWine = async (wineId) => {
-  const { data } = await instance.get(`/v1/wine/${wineId}`);
+  const { data } = await instance.get(`/api/v1/wine/${wineId}`);
   return data;
 };
 
@@ -34,7 +34,7 @@ export const getWine = async (wineId) => {
  * GET 와인 지역 목록 조회
  */
 export const getWineRegions = async () => {
-  const { data } = await instance.get(`/v1/wine-regions`);
+  const { data } = await instance.get(`/api/v1/wine-regions`);
   return data;
 };
 
@@ -42,7 +42,7 @@ export const getWineRegions = async () => {
  * GET 음식 조회
  */
 export const getFood = async () => {
-  const { data } = await instance.get(`/v1/food`);
+  const { data } = await instance.get(`/api/v1/food`);
   return data;
 };
 
@@ -50,6 +50,6 @@ export const getFood = async () => {
  * GET 와인 xx 조회
  */
 export const getWineVarieties = async () => {
-  const { data } = await instance.get(`/v1/wine-varieties`);
+  const { data } = await instance.get(`/api/v1/wine-varieties`);
   return data;
 };

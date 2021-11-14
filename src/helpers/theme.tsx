@@ -7,6 +7,9 @@ import {
 import reset from 'emotion-reset';
 
 export const theme: Theme = {
+  breakpoints: {
+    lg: '1200px',
+  },
   colors: {
     main: {
       primary: '#7430e4',
@@ -15,10 +18,15 @@ export const theme: Theme = {
       light2: '#f1eafc',
     },
     border: '#dfdfdf',
+    white: '#ffffff',
+    black: '#000000',
     black02: '#424242',
     black04: '#757575',
     black06: '#a8a8a8',
-    black08: '#dfdfdf',
+    black07: '#c5c5c5', // bottom / line / bg
+    black08: '#dfdfdf', // bottom / line
+    black09: '#ececec', // bg
+    black10: '#fafafa', // bg
     shadow: '0px 4px 8px rgba(0, 0, 0, 0.05)',
   },
   typography: {
@@ -43,6 +51,9 @@ const globalStyle = css`
   }
   img {
     max-width: 100%;
+    vertical-align: middle;
+  }
+  svg {
     vertical-align: middle;
   }
   .notKor {

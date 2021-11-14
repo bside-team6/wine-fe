@@ -36,7 +36,7 @@ export interface ChipProps {
   wineType: WINE_TYPE;
 }
 
-const Chip = ({ wineType }: ChipProps) => {
+const Chip: React.VFC<ChipProps> = ({ wineType }) => {
   return (
     <div
       css={css`

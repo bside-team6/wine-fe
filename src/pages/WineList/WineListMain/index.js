@@ -1,6 +1,6 @@
-import React from 'react';
-import WineListMainHeader from './WineListMainHeader';
 import WineListMainContents from './WineListMainContents';
+import WineListMainHeader from './WineListMainHeader';
+
 function WineList() {
   return (
     <>

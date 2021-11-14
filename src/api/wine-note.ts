@@ -1,27 +1,31 @@
+import { API_URL } from '~/api/urls';
+import type { IPageable, IWineNote, IWineNoteDetail } from '~/types';
 import instance from './instance';
-import type {
-  IRelatedWineNote,
-  IResponse,
-  ITimelineWineNoteList,
-  IWineNoteDetail,
-} from '~/types';
 
 /**
  * GET 모든 와인노트 목록
  */
-export const getWineNotes = async () => {
-  const { data } = await instance.get<IResponse<ITimelineWineNoteList>>(
-    `/v1/wine-note`,
-  );
+export const getWineNotes = async (page: number, isTimeline: boolean) => {
+  const { data } = await instance.get<IPageable<IWineNote>>(API_URL.WINE_NOTE, {
+    params: {
+      page,
+      isTimeline,
+    },
+  });
   return data;
 };
 
 /**
  * GET 와인 노트 상세보기
  */
-export const getWineNote = async (wineNoteId: number) => {
-  const { data } = await instance.get<IResponse<IWineNoteDetail>>(
-    `/v1/wine-note/${wineNoteId}`,
+export const getWineNote = async (wineNoteId: number, isTimeline: boolean) => {
+  const { data } = await instance.get<IWineNoteDetail>(
+    `${API_URL.WINE_NOTE}/${wineNoteId}`,
+    {
+      params: {
+        isTimeline,
+      },
+    },
   );
   return data;
 };
@@ -30,14 +34,14 @@ export const getWineNote = async (wineNoteId: number) => {
  * POST 와인 노트 등록
  */
 export const postWineNote = async (data: any) => {
-  await instance.post(`/v1/wine-note`, data);
+  await instance.post(API_URL.WINE_NOTE, data);
 };
 
 /**
  * POST 와인노트 좋아요
  */
 export const postWineNoteLike = async (wineNoteId: number) => {
-  await instance.post(`/v1/wine-note-like`, {
+  await instance.post(API_URL.WINE_NOTE_LIKE, {
     wineNoteId,
   });
 };
@@ -46,7 +50,7 @@ export const postWineNoteLike = async (wineNoteId: number) => {
  * PATCH 잘맞아요/안맞아요
  */
 export const patchWineNoteFitsMe = async (wineNoteId: number) => {
-  await instance.patch(`/v1/wine-note-fits-me`, {
+  await instance.patch(API_URL.WINE_NOTE_FITS_ME, {
     wineNoteId,
   });
 };
@@ -55,7 +59,7 @@ export const patchWineNoteFitsMe = async (wineNoteId: number) => {
  * PATCH 와인노트 공개여부 변경
  */
 export const patchWineNotePublic = async (wineNoteId: number) => {
-  await instance.patch(`/v1/wine-note-public`, {
+  await instance.patch(API_URL.WINE_NOTE_PUBLIC, {
     wineNoteId,
   });
 };
@@ -64,38 +68,17 @@ export const patchWineNotePublic = async (wineNoteId: number) => {
  * PATCH 와인노트 와인명 공개여부 변경 (관리자)
  */
 export const patchWineNoteWineNamePublicAdmin = async (wineNoteId: number) => {
-  await instance.patch(`/v1/manager/wine-note-wine-name-public`, {
+  await instance.patch(API_URL.WINE_NOTE_WINE_NAME_PUBLIC_ADMIN, {
     wineNoteId,
   });
-};
-
-/**
- * GET 타임라인
- */
-export const getWineNoteTimeline = async () => {
-  const { data } = await instance.get<IResponse<ITimelineWineNoteList>>(
-    `/v1/wine-note-timeline`,
-  );
-  return data;
-};
-
-/**
- * GET 타임라인 상세보기
- * @description 내가 쓴 와인노트 상세보기
- */
-export const getWineNoteTimelineDetail = async (wineNoteId: number) => {
-  const { data } = await instance.get<IResponse<IWineNoteDetail>>(
-    `/v1/wine-note-timeline/${wineNoteId}`,
-  );
-  return data;
 };
 
 /**
  * GET 이달의와인 목록
  */
 export const getPopularWineNotes = async () => {
-  const { data } = await instance.get<IResponse<IWineNoteDetail[]>>(
-    `/v1/wine-note-popular`,
+  const { data } = await instance.get<IWineNoteDetail[]>(
+    API_URL.POPULAR_WINE_NOTE,
   );
   return data;
 };
@@ -105,14 +88,11 @@ export const getPopularWineNotes = async () => {
  * @description wineType과 당도가 같고 음식명이 하나라도 중첩되는 노트
  */
 export const getRelatedWineNotes = async (wineNoteId: number) => {
-  const { data } = await instance.get<IResponse<IRelatedWineNote[]>>(
-    `/v1/wine-note/related`,
-    {
-      params: {
-        wineNoteId,
-      },
+  const { data } = await instance.get<IWineNote[]>(API_URL.RELATED_WINE_NOTE, {
+    params: {
+      wineNoteId,
     },
-  );
+  });
   return data;
 };
 
@@ -120,7 +100,7 @@ export const getRelatedWineNotes = async (wineNoteId: number) => {
  * GET 와인명 조회
  */
 export const getSearchWineName = async (searchName: string) => {
-  const { data } = await instance.get(`/v1/wine-name-search`, {
+  const { data } = await instance.get(API_URL.SEARCH_WINE_NAME, {
     params: {
       searchName,
     },
@@ -132,7 +112,7 @@ export const getSearchWineName = async (searchName: string) => {
  * GET 와인명 조회 (관리자)
  */
 export const getSearchWineNameAdmin = async () => {
-  const { data } = await instance.get(`/v1/manager/wine-name`);
+  const { data } = await instance.get(API_URL.SEARCH_WINE_NAME_ADMIN);
   return data;
 };
 
@@ -140,7 +120,7 @@ export const getSearchWineNameAdmin = async () => {
  * GET 음식명 조회
  */
 export const getSearchFoodName = async (keywords: string) => {
-  const { data } = await instance.get(`/v1/wine-note-food`, {
+  const { data } = await instance.get(API_URL.SEARCH_FOOD_NAME, {
     params: {
       keywords,
     },

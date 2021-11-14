@@ -1,9 +1,3 @@
-import type { IResponse } from '~/types';
+import { setupWorker } from 'msw';
 
-export const successResponse = <T>(data: T): IResponse<T> => ({
-  result: true,
-  message: '',
-  data,
-});
-
-export const failureResponse = (data: unknown) => ({});
+export const worker = setupWorker();
