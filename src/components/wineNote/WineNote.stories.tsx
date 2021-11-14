@@ -34,10 +34,8 @@ NoImage.args = {
   wineImages: [],
 };
 
-export const isAuthenticated = Template.bind({});
-isAuthenticated.storyName = '회원';
-isAuthenticated.parameters = {
-  provider: {
-    isAuthenticated: true,
-  },
+export const isTimelineNote = Template.bind({});
+isTimelineNote.storyName = '타임라인 노트';
+isTimelineNote.args = {
+  isTimeline: true,
 };

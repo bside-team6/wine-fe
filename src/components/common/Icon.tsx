@@ -7,6 +7,7 @@ import { ReactComponent as FilterIcon } from '~/assets/icon/ic_filter.svg';
 import { ReactComponent as HeartIcon } from '~/assets/icon/ic_heart.svg';
 import { ReactComponent as FilledHeartIcon } from '~/assets/icon/ic_heart_on.svg';
 import { ReactComponent as InfoIcon } from '~/assets/icon/ic_info.svg';
+import { ReactComponent as LockIcon } from '~/assets/icon/ic_lock.svg';
 import { ReactComponent as MyPageIcon } from '~/assets/icon/ic_mypage.svg';
 import { ReactComponent as RefreshIcon } from '~/assets/icon/ic_refresh.svg';
 import { ReactComponent as SearchIcon } from '~/assets/icon/ic_search.svg';
@@ -26,7 +27,8 @@ export type IconName =
   | 'search'
   | 'info'
   | 'mypage'
-  | 'cancel';
+  | 'cancel'
+  | 'lock';
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -96,6 +98,10 @@ const Icon = ({ name, ...props }: IconProps) => {
 
   if (name === 'cancel') {
     return <CancelIcon {...props} />;
+  }
+
+  if (name === 'lock') {
+    return <LockIcon {...props} />;
   }
 
   return null;

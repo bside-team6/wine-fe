@@ -4,11 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
+import SquareButton, {
+  SquareButtonGroup,
+} from '~/components/common/SquareButton';
 import { formatDate } from '~/helpers/utils';
 import useAuth from '~/hooks/useAuth';
 import useConfirm from '~/hooks/useConfirm';
 import { alignCenter } from '~/styles/common';
 import type { IWineNote } from '~/types';
+
+export interface WineNoteProps extends IWineNote {
+  isTimeline?: boolean;
+}
 
 const WineNote = ({
   id,
@@ -21,9 +28,11 @@ const WineNote = ({
   likeCount,
   wineImages,
   isLike,
-}: IWineNote) => {
-  const navigate = useNavigate();
+  isTimeline,
+  isPublic,
+}: WineNoteProps) => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const isAuthenticated = useAuth();
   const confirm = useConfirm();
 
@@ -54,13 +63,13 @@ const WineNote = ({
       to={`/wine-note/${id}`}
       css={css`
         display: block;
+        flex-grow: 1;
       `}
     >
       <div
         css={css`
-          position: relative;
           display: flex;
-          width: 792px;
+          align-items: stretch;
           max-width: 100%;
           padding: 32px;
           border: 1px solid;
@@ -73,17 +82,6 @@ const WineNote = ({
           }
         `}
       >
-        <IconButton
-          onClick={onClickLikeButton}
-          name={isLike ? 'heart-fill' : 'heart'}
-          color={isLike ? theme.colors.black : theme.colors.black07}
-          css={css`
-            position: absolute;
-            top: 40px;
-            right: 40px;
-            z-index: 1;
-          `}
-        />
         <div
           css={css`
             position: relative;
@@ -103,6 +101,7 @@ const WineNote = ({
         </div>
         <div
           css={css`
+            position: relative;
             display: flex;
             flex-direction: column;
             flex-grow: 1;
@@ -135,6 +134,17 @@ const WineNote = ({
             `}
           >
             {description}
+            {!isPublic && (
+              <span
+                css={css`
+                  color: ${theme.colors.black06};
+                  font-size: 12px;
+                  margin-left: 8px;
+                `}
+              >
+                (비공개)
+              </span>
+            )}
           </h3>
           <div
             css={css`
@@ -158,7 +168,41 @@ const WineNote = ({
           >
             by. {userNickName}
           </div>
+          <IconButton
+            onClick={onClickLikeButton}
+            name={isLike ? 'heart-fill' : 'heart'}
+            color={isLike ? theme.colors.black : theme.colors.black07}
+            css={css`
+              position: absolute;
+              top: 0;
+              right: 0;
+              z-index: 1;
+            `}
+          />
         </div>
+        {isTimeline && (
+          <SquareButtonGroup
+            align="vertical"
+            css={css`
+              flex-shrink: 0;
+              padding-left: 40px;
+              border-left: 1px solid #dfdfdf;
+              margin-left: 38px;
+              align-self: center;
+            `}
+          >
+            <SquareButton variant="outlined" color="secondary">
+              노트공유
+              {/* TODO: 버튼 기능 작성 */}
+            </SquareButton>
+            <SquareButton variant="outlined" color="secondary">
+              수정
+            </SquareButton>
+            <SquareButton variant="contained" color="secondary">
+              삭제
+            </SquareButton>
+          </SquareButtonGroup>
+        )}
       </div>
     </Link>
   );
