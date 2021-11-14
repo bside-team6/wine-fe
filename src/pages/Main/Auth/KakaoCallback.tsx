@@ -17,7 +17,8 @@ function KakaoCallback() {
   const { mutate: login } = useLoginMutation({
     onSuccess: () => fetchUserInfo(), // 기존 회원인 경우 유저 정보 불러옴,
     onError: (error) => {
-      if (error.response?.status === 400) {
+      // FIXME: 임시 코드 처리 (이후 400은 삭제)
+      if (error.response?.status === 400 || error.response?.status === 401) {
         // 신규유저면 닉네임 등록 페이지로
         navigate('/signup/step2', { replace: true });
       }
