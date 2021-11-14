@@ -7,8 +7,9 @@ import RelatedWineNotes from './RelatedWineNotes';
 
 const WineNoteDetail: React.VFC = () => {
   const { wineNoteId } = useParams();
-  const { data } = useWineNoteQuery(Number(wineNoteId), {
-    suspense: true,
+  const { data } = useWineNoteQuery({
+    wineNoteId: Number(wineNoteId),
+    isTimeline: false,
   });
 
   return (

@@ -11,13 +11,13 @@ function KakaoCallback() {
   const setIsAuthenticated = useSetRecoilState(isAuthenticatedState);
 
   const { refetch: fetchUserInfo } = useUserInfoQuery({
-    onSuccess: (userInfo) => setIsAuthenticated(!!userInfo),
+    onSuccess: (user) => setIsAuthenticated(user.id !== null),
   });
 
   const { mutate: login } = useLoginMutation({
     onSuccess: () => fetchUserInfo(), // 기존 회원인 경우 유저 정보 불러옴,
     onError: (error) => {
-      if (error.response?.status === 401) {
+      if (error.response?.status === 400) {
         // 신규유저면 닉네임 등록 페이지로
         navigate('/signup/step2', { replace: true });
       }

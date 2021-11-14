@@ -10,7 +10,6 @@ export const API_URL = {
   WINE_NOTE_PUBLIC: '/api/v2/wine-note-public',
   WINE_NOTE_WINE_NAME_PUBLIC_ADMIN:
     '/api/v2/manager/wine-note-wine-name-public',
-  WINE_NOTE_TIMELINE: '/api/v2/wine-note-timeline',
   POPULAR_WINE_NOTE: '/api/v2/wine-note-popular',
   RELATED_WINE_NOTE: '/api/v2/wine-note/related',
   SEARCH_WINE_NAME: '/api/v2/wine-name-search',

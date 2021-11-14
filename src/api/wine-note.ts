@@ -5,10 +5,11 @@ import instance from './instance';
 /**
  * GET 모든 와인노트 목록
  */
-export const getWineNotes = async ({ pageParam = 0 }) => {
+export const getWineNotes = async (page: number, isTimeline: boolean) => {
   const { data } = await instance.get<IPageable<IWineNote>>(API_URL.WINE_NOTE, {
     params: {
-      page: pageParam,
+      page,
+      isTimeline,
     },
   });
   return data;
@@ -17,9 +18,14 @@ export const getWineNotes = async ({ pageParam = 0 }) => {
 /**
  * GET 와인 노트 상세보기
  */
-export const getWineNote = async (wineNoteId: number) => {
+export const getWineNote = async (wineNoteId: number, isTimeline: boolean) => {
   const { data } = await instance.get<IWineNoteDetail>(
     `${API_URL.WINE_NOTE}/${wineNoteId}`,
+    {
+      params: {
+        isTimeline,
+      },
+    },
   );
   return data;
 };
@@ -65,32 +71,6 @@ export const patchWineNoteWineNamePublicAdmin = async (wineNoteId: number) => {
   await instance.patch(API_URL.WINE_NOTE_WINE_NAME_PUBLIC_ADMIN, {
     wineNoteId,
   });
-};
-
-/**
- * GET 타임라인
- */
-export const getWineNoteTimeline = async ({ pageParam = 0 }) => {
-  const { data } = await instance.get<IPageable<IWineNote>>(
-    API_URL.WINE_NOTE_TIMELINE,
-    {
-      params: {
-        page: pageParam,
-      },
-    },
-  );
-  return data;
-};
-
-/**
- * GET 타임라인 상세보기
- * @description 내가 쓴 와인노트 상세보기
- */
-export const getWineNoteTimelineDetail = async (wineNoteId: number) => {
-  const { data } = await instance.get<IWineNoteDetail>(
-    `${API_URL.WINE_NOTE_TIMELINE}/${wineNoteId}`,
-  );
-  return data;
 };
 
 /**

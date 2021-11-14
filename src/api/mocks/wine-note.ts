@@ -209,28 +209,6 @@ export const getWineNotesHandler = rest.get(
   },
 );
 
-export const getWineNoteTimelineHandler = rest.get(
-  API_URL.WINE_NOTE_TIMELINE,
-  (req, res, ctx) => {
-    const page = Number(req.url.searchParams.get('page') || 0);
-    const size = wineNotes.length;
-    const totalPages = 5;
-    return delayedResponse(
-      ctx.json<IPageable<IWineNote>>({
-        content: wineNotes,
-        empty: false,
-        first: page === 0,
-        last: page + 1 === totalPages,
-        number: page,
-        numberOfElements: size,
-        size,
-        totalElements: totalPages * page,
-        totalPages,
-      }),
-    );
-  },
-);
-
 export const getWineNotesSuccessHandler = createMswHandler<
   IPageable<IWineNote>
 >(

@@ -14,7 +14,7 @@ const Layout = () => {
   useUserInfoQuery({
     enabled: true,
     suspense: true,
-    onSuccess: (userInfo) => setIsAuthenticated(!!userInfo),
+    onSuccess: (user) => setIsAuthenticated(user.id !== null),
   });
 
   return (

@@ -103,7 +103,7 @@ export enum USER_ROLE {
   ADMIN = 'ADMIN',
 }
 
-export interface UserInfo {
+export interface User {
   id: number;
   name: string;
   email: string;
@@ -112,6 +112,16 @@ export interface UserInfo {
   role: USER_ROLE;
   /** @description 유저 SNS 로그인 UUID */
   uuid: number;
+}
+
+export interface NonUser {
+  id: null;
+  name: null;
+  email: null;
+  nickName: null;
+  profilePhotoURL: null;
+  role: null;
+  uuid: null;
 }
 
 export interface NickNameValidate {
