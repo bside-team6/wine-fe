@@ -3,8 +3,9 @@ import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import Icon from '~/components/common/Icon';
+import IconButton from '~/components/common/IconButton';
 import { formatDate, formatSweet } from '~/helpers/utils';
-import { alignCenter, buttonStyle } from '~/styles/common';
+import { alignCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
 const DetailNote = ({
@@ -112,19 +113,38 @@ const DetailNote = ({
             <div>
               <div
                 css={css`
+                  ${alignCenter}
                   font-weight: 700;
                   margin-bottom: 8px;
                 `}
               >
-                {userNickName}님의 평가
+                <span>{userNickName}님의 평가</span>
+                <div
+                  css={css`
+                    display: inline-flex;
+                    align-items: center;
+                    justify-content: center;
+                    background: ${theme.colors.main.primary};
+                    color: ${theme.colors.white};
+                    width: 20px;
+                    height: 20px;
+                    border-radius: 50%;
+                    overflow: hidden;
+                    margin-left: 4px;
+                    svg {
+                      width: 12px;
+                    }
+                  `}
+                >
+                  <Icon name={isFitted ? 'thumbs-up' : 'thumbs-down'} />
+                </div>
               </div>
-              {/* TODO: 입맛 평가 추가 필요 */}
               <div
                 css={css`
                   color: ${theme.colors.main.primary};
                 `}
               >
-                입맛에 잘 맞아요!
+                {isFitted ? `입맛에 잘 맞아요!` : `제 입맛에는 안 맞아요.`}
               </div>
             </div>
           </div>
@@ -186,27 +206,43 @@ const DetailNote = ({
           </div>
         </div>
       </div>
-      <button
+      <div
         css={css`
-          ${buttonStyle}
-          flex-direction: column;
+          display: flex;
+          align-items: flex-start;
           position: absolute;
           top: 20px;
           right: 20px;
           z-index: 1;
+          > * {
+            margin-right: 24px;
+            &:last-child {
+              margin-right: 0px;
+            }
+          }
         `}
       >
-        <Icon name={isLike ? 'heart-fill' : 'heart'} />
         <div
           css={css`
-            color: ${theme.colors.black04};
-            font-size: 12px;
-            font-family: ${theme.typography.lato};
+            ${alignCenter}
+            flex-direction: column;
           `}
         >
-          {likeCount}
+          <Icon name={isLike ? 'heart-fill' : 'heart'} />
+          <div
+            css={css`
+              color: ${theme.colors.black04};
+              font-size: 12px;
+              font-family: ${theme.typography.lato};
+            `}
+          >
+            {likeCount}
+          </div>
         </div>
-      </button>
+        {/* TODO: 타인노트 & 본인노트 view 구분 분기 */}
+        <IconButton name="share" />
+        <IconButton name="option" />
+      </div>
     </div>
   );
 };
