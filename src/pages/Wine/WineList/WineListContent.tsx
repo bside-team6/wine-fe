@@ -1,25 +1,42 @@
-import { css, Theme } from '@emotion/react';
+import { css } from '@emotion/react';
 import Spinner from '~/components/common/Spinner';
 import WineItem from '~/components/wine/WineItem';
 import useWinesQuery from '~/queries/useWinesQuery';
+import { alignCenter } from '~/styles/common';
+import OrderDropdown from './OrderDropdown';
+import Pagination from './Pagination';
 
 const WineListContent = () => {
   const { data, isLoading } = useWinesQuery({ page: 0 });
 
   if (isLoading) {
-    return <Spinner />;
+    return (
+      <div
+        css={css`
+          display: flex;
+          justify-content: center;
+          margin-top: 100px;
+        `}
+      >
+        <Spinner />
+      </div>
+    );
   }
 
-  console.log(data);
-
   return (
-    <div>
+    <>
       <div
-        css={(theme: Theme) => css`
-          width: ${theme.breakpoints.lg};
-          max-width: 100%;
-          margin: 80px auto 40px;
-
+        css={css`
+          ${alignCenter}
+          justify-content: space-between;
+          margin-bottom: 22px;
+        `}
+      >
+        <div>총 {data?.totalElements || 0}건</div>
+        <OrderDropdown />
+      </div>
+      <div
+        css={css`
           display: grid;
           grid-template-columns: repeat(4, 1fr);
           grid-template-rows: repeat(4, 1fr);
@@ -31,8 +48,8 @@ const WineListContent = () => {
           <WineItem key={item.id} {...item} />
         ))}
       </div>
-      <div>패아장</div>
-    </div>
+      <Pagination />
+    </>
   );
 };
 

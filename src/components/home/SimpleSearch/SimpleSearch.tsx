@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
@@ -21,7 +21,7 @@ interface FormValues {
   [STEP.SWEET]: boolean | undefined;
 }
 
-const SimpleSearch = () => {
+const SimpleSearch: React.VFC = () => {
   const navigate = useNavigate();
 
   const theme = useTheme();
