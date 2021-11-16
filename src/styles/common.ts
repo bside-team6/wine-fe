@@ -43,3 +43,11 @@ export const imageButtonStyle = css`
 export const ImageButton = styled.button`
   ${imageButtonStyle}
 `;
+
+export const maxTwoLines = css`
+  display: -webkit-box;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+`;

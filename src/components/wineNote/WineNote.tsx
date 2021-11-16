@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
@@ -11,7 +10,7 @@ import { formatDate } from '~/helpers/utils';
 import useAuth from '~/hooks/useAuth';
 import useConfirm from '~/hooks/useConfirm';
 import useWineNoteLikeMutation from '~/queries/useWineNoteLikeMutation';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, maxTwoLines } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
 export interface WineNoteProps extends IWineNote {
@@ -54,12 +53,6 @@ const WineNote = ({
 
   const imageUrl =
     wineImages[0]?.imagePath || 'https://via.placeholder.com/160';
-
-  const description = useMemo(() => {
-    return descript && descript.length > 80
-      ? descript.substring(0, 80) + '...'
-      : descript;
-  }, [descript]);
 
   return (
     <Link
@@ -134,20 +127,21 @@ const WineNote = ({
             css={css`
               font-size: 18px;
               margin-bottom: auto;
+              ${maxTwoLines}
             `}
           >
-            {description}
             {!isPublic && (
               <span
                 css={css`
                   color: ${theme.colors.black06};
                   font-size: 12px;
-                  margin-left: 8px;
+                  margin-right: 8px;
                 `}
               >
                 (비공개)
               </span>
             )}
+            {descript}
           </h3>
           <div
             css={css`

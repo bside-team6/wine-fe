@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { Link, useNavigate } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
@@ -8,7 +7,7 @@ import { formatDate } from '~/helpers/utils';
 import useAuth from '~/hooks/useAuth';
 import useConfirm from '~/hooks/useConfirm';
 import useWineNoteLikeMutation from '~/queries/useWineNoteLikeMutation';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, maxTwoLines } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
 const WineNoteSlide: React.VFC<IWineNote> = ({
@@ -45,12 +44,6 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
 
   const imageUrl =
     wineImages[0]?.imagePath || 'https://via.placeholder.com/160';
-
-  const description = useMemo(() => {
-    return descript && descript.length > 80
-      ? descript.substring(0, 80) + '...'
-      : descript;
-  }, [descript]);
 
   return (
     <Link
@@ -98,14 +91,7 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
             overflow: hidden;
           `}
         />
-        <div
-          css={css`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            height: 152px;
-          `}
-        >
+        <div>
           <div
             css={css`
               ${alignCenter}
@@ -127,15 +113,18 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
               font-size: 18px;
               line-height: 26px;
               color: ${theme.colors.black};
-              margin-top: 12px;
+              margin: 12px auto 24px;
               flex-grow: 1;
+              width: 215px;
+              ${maxTwoLines}
             `}
           >
-            {description}
+            {descript}
           </div>
           <div
             css={css`
               ${alignCenter}
+              justify-content: center;
               font-family: ${theme.typography.lato};
               color: ${theme.colors.black04};
               font-size: 12px;
