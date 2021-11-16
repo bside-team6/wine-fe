@@ -132,3 +132,37 @@ export interface SignupRequest {
   kakaoAccessToken: string;
   nickName: string;
 }
+
+export interface SimpleSearchRequest {
+  count?: number; // 16
+  foodId: number;
+  keyword?: string;
+  maxPrice?: number; // 10000000
+  minPrice?: number; // 0
+  orderBy?: string; // asc
+  page?: number; // 1
+  sortBy?: 'price' | 'sweet'; // price asc
+}
+
+export interface WineSummary {
+  id: number;
+  wineName: string;
+  wineType: WINE_TYPE;
+  sweet: number;
+  scoreAverage: number; // 별점평균(float)
+  scoreCount: number; // 별점개수(와인노트에 맵핑된 와인개수)
+  price: number;
+  matchingFoods: string[];
+  isFridgeWine?: boolean; // 냉장고에 담은 와인
+  drinkDate?: string; // 날짜(2021-09-13)
+  wineImage: {
+    id: number;
+    imagePath: string;
+    imageName: string;
+  };
+}
+
+export interface Food {
+  id: number;
+  foodName: string;
+}
