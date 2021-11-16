@@ -4,7 +4,7 @@ import { withProvider } from '~/helpers/storybook';
 import WineNote from './WineNote';
 
 export default {
-  title: 'components/wineNote/WineNote',
+  title: 'components/와인노트/WineNote',
   component: WineNote,
   args: {
     ...wineNotes[0], // timeline item format

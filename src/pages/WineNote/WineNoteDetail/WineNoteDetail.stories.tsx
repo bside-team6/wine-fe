@@ -12,7 +12,7 @@ const LazyWineNoteDetail = (
 ) => withLazy(<WineNoteDetail {...args} />);
 
 export default {
-  title: 'pages/WineNoteDetail',
+  title: 'pages/와인노트/와인노트상세',
   component: LazyWineNoteDetail,
   decorators: [withProvider],
   parameters: {

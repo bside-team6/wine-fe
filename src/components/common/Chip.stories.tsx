@@ -3,7 +3,7 @@ import { WINE_TYPE } from '~/types';
 import Chip from './Chip';
 
 export default {
-  title: 'components/common/Chip',
+  title: 'components/공통/Chip',
   component: Chip,
   args: {
     wineType: WINE_TYPE.RED,

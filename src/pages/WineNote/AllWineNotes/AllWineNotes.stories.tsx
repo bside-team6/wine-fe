@@ -9,7 +9,7 @@ import { withProvider } from '~/helpers/storybook';
 import AllWineNotes from './index';
 
 export default {
-  title: 'pages/AllWineNotes',
+  title: 'pages/와인노트/모든와인노트',
   component: AllWineNotes,
   args: {},
   decorators: [withProvider],
