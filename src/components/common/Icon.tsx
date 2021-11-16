@@ -1,5 +1,6 @@
 import { css, useTheme } from '@emotion/react';
 import type { SerializedStyles, Theme } from '@emotion/react';
+import { ReactComponent as ArrowIcon } from '~/assets/icon/ic_arrow.svg';
 import { ReactComponent as BookmarkIcon } from '~/assets/icon/ic_bookmark.svg';
 import { ReactComponent as CancelIcon } from '~/assets/icon/ic_cancel.svg';
 import { ReactComponent as ArrowDownIcon } from '~/assets/icon/ic_dropdown.svg';
@@ -34,7 +35,8 @@ export type IconName =
   | 'lock'
   | 'option'
   | 'thumbs-up'
-  | 'thumbs-down';
+  | 'thumbs-down'
+  | 'arrow';
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -120,6 +122,10 @@ const Icon = ({ name, ...props }: IconProps) => {
 
   if (name === 'thumbs-down') {
     return <ThumbsDownIcon {...props} />;
+  }
+
+  if (name === 'arrow') {
+    return <ArrowIcon {...props} />;
   }
 
   return null;
