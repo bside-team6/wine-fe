@@ -1,4 +1,5 @@
 import { css, useTheme } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 import { FreeMode } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react/swiper-react';
 import IconButton from '~/components/common/IconButton';
@@ -10,6 +11,8 @@ import 'swiper/swiper.min.css';
 
 const WineNoteSwiper = () => {
   const theme = useTheme();
+
+  const navigate = useNavigate();
 
   const { data } = useWineNotesQuery({
     isTimeline: false,
@@ -47,6 +50,7 @@ const WineNoteSwiper = () => {
           누구나 나눌 수 있는 와인 이야기
         </h2>
         <IconButton
+          onClick={() => navigate('/wine-note')}
           name="arrow"
           css={css`
             svg {
