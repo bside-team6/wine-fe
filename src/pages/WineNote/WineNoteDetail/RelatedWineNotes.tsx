@@ -4,7 +4,7 @@ import WineNote from '~/components/wineNote/WineNote';
 import useRelatedWineNotesQuery from '~/queries/useRelatedWineNotesQuery';
 import { alignCenter } from '~/styles/common';
 import { emptyStyle } from '~/styles/wine-note';
-import { IWineNote } from '~/types';
+import type { IWineNote } from '~/types';
 import noDataImg from '~/assets/no_data_wine.png';
 
 const RelatedWineNotes = () => {
