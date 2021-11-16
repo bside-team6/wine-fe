@@ -6,10 +6,10 @@ import {
   delayedResponse,
 } from '~/helpers/msw';
 import {
+  INonUser,
+  IUser,
   NickNameValidate,
-  NonUser,
   SignupRequest,
-  User,
   USER_ROLE,
 } from '~/types';
 
@@ -69,7 +69,7 @@ export const nicknameValidateHandler = rest.get(
 export const userInfoHandler = rest.get(API_URL.USER_INFO, (req, res, ctx) => {
   if (nickName) {
     return delayedResponse(
-      ctx.json<User>({
+      ctx.json<IUser>({
         id: 10000,
         name: '홍길동',
         email: 'aaa@test.com',
@@ -81,7 +81,7 @@ export const userInfoHandler = rest.get(API_URL.USER_INFO, (req, res, ctx) => {
     );
   }
   return delayedResponse(
-    ctx.json<NonUser>({
+    ctx.json<INonUser>({
       id: null,
       name: null,
       email: null,

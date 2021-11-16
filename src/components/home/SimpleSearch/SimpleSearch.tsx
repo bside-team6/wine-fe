@@ -6,14 +6,14 @@ import IconButton from '~/components/common/IconButton';
 import RoundButton from '~/components/common/RoundButton';
 import useFoodsQuery from '~/queries/useFoodsQuery';
 import { alignCenter } from '~/styles/common';
-import type { Food } from '~/types';
+import type { IFood } from '~/types';
 import { Price, priceList, STEP } from './helpers';
 import Indicator from './Indicator';
 import SelectBox from './SelectBox';
 import StepButton from './StepButton';
 
 interface FormValues {
-  [STEP.FOOD]: Food | undefined;
+  [STEP.FOOD]: IFood | undefined;
   [STEP.PRICE]: {
     start: number;
     end: number;
@@ -66,28 +66,27 @@ const SimpleSearch = () => {
   }, [data]);
 
   const onSearch = () => {
-    // TODO: 메인음식 선택 required validate
     const searchParams = new URLSearchParams();
-    if (data[STEP.FOOD]) {
-      searchParams.set('foodId', data[STEP.FOOD]!.id.toString());
+    if (data[STEP.FOOD] !== undefined) {
+      searchParams.set('foodId', String(data[STEP.FOOD]!.id));
     }
     if (data[STEP.PRICE].start !== -1) {
-      searchParams.set(
-        'minPrice',
-        String(priceList[data[STEP.PRICE].start].minPrice || 0),
-      );
+      const { minPrice } = priceList[data[STEP.PRICE].start];
+      if (minPrice !== undefined) {
+        searchParams.set('minPrice', String(minPrice));
+      }
       if (data[STEP.PRICE].end !== -1) {
-        searchParams.set(
-          'maxPrice',
-          String(priceList[data[STEP.PRICE].end].maxPrice || 10000000),
-        );
+        const { maxPrice } = priceList[data[STEP.PRICE].end];
+        if (maxPrice !== undefined) {
+          searchParams.set('maxPrice', String(maxPrice));
+        }
       }
     }
     if (data[STEP.SWEET] !== undefined) {
       searchParams.set('sortBy', data[STEP.SWEET] ? 'sweet' : 'price');
     }
     navigate({
-      pathname: '/wine-list',
+      pathname: '/wine',
       search: searchParams.toString(),
     });
   };
@@ -179,7 +178,7 @@ interface SelectBoxProps<T> {
   moveToNextStep?: VoidFunction;
 }
 
-export interface FoodItem extends Food {
+export interface FoodItem extends IFood {
   color: 'primary' | 'secondary';
   inactive: boolean;
   bold: boolean;
@@ -212,7 +211,7 @@ const FoodBox = ({
     }));
   }, [foodData, data]);
 
-  const onClickItem = (food: Food) => {
+  const onClickItem = (food: IFood) => {
     if (food.id !== data?.id) {
       moveToNextStep?.();
     }
@@ -319,12 +318,10 @@ const PriceBox = ({
       info="복수 선택 가능"
       css={css`
         display: grid;
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-        grid-template-rows: 1fr 1fr;
-        gap: 10px 10px;
-        grid-template-areas:
-          '. . . .'
-          '. . . .';
+        grid-template-columns: repeat(4, 1fr);
+        grid-template-rows: repeat(2, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
         button {
           padding: 0;
         }

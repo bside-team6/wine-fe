@@ -103,7 +103,7 @@ export enum USER_ROLE {
   ADMIN = 'ADMIN',
 }
 
-export interface User {
+export interface IUser {
   id: number;
   name: string;
   email: string;
@@ -114,7 +114,7 @@ export interface User {
   uuid: number;
 }
 
-export interface NonUser {
+export interface INonUser {
   id: null;
   name: null;
   email: null;
@@ -133,28 +133,30 @@ export interface SignupRequest {
   nickName: string;
 }
 
-export interface SimpleSearchRequest {
-  count?: number; // 16
-  foodId: number;
-  keyword?: string;
-  maxPrice?: number; // 10000000
-  minPrice?: number; // 0
-  orderBy?: string; // asc
-  page?: number; // 1
-  sortBy?: 'price' | 'sweet'; // price asc
+export interface WinesRequest {
+  foodId?: number;
+  /** @default 10_000_000 */
+  maxPrice?: number;
+  /** @default 0 */
+  minPrice?: number;
+  /** @example 0..N */
+  page?: number;
+  size?: number;
+  sort?: string[]; // 기본: [price, ASC]
+  wineName?: string;
 }
 
-export interface WineSummary {
+export interface IWine {
   id: number;
   wineName: string;
   wineType: WINE_TYPE;
   sweet: number;
+  /** @description 별점평균 (float) */
   scoreAverage: number; // 별점평균(float)
-  scoreCount: number; // 별점개수(와인노트에 맵핑된 와인개수)
+  /** @description 별점 받은 개수 */
+  reviewCount: number;
   price: number;
   matchingFoods: string[];
-  isFridgeWine?: boolean; // 냉장고에 담은 와인
-  drinkDate?: string; // 날짜(2021-09-13)
   wineImage: {
     id: number;
     imagePath: string;
@@ -162,7 +164,11 @@ export interface WineSummary {
   };
 }
 
-export interface Food {
+export interface IWineDetail extends IWine {
+  // TODO: 추가 정의 필요
+}
+
+export interface IFood {
   id: number;
   foodName: string;
 }
