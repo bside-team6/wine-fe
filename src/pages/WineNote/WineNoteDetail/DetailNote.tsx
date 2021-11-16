@@ -1,9 +1,9 @@
 import { css, useTheme } from '@emotion/react';
-import StarRatings from 'react-star-ratings';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import Icon from '~/components/common/Icon';
 import IconButton from '~/components/common/IconButton';
+import StarRatings from '~/components/common/StarRatings';
 import { formatDate, formatSweet } from '~/helpers/utils';
 import { alignCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
@@ -169,13 +169,7 @@ const DetailNote = ({
           >
             <div>
               <span>별점</span>
-              <StarRatings
-                rating={score}
-                starDimension="12px"
-                starSpacing="0px"
-                starRatedColor={theme.colors.main.primary}
-                starEmptyColor={theme.colors.black07}
-              />
+              <StarRatings rating={score} />
             </div>
             <div>
               <span>당도</span>
