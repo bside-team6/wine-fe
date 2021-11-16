@@ -1,11 +1,11 @@
-import { css } from '@emotion/react';
+import { css, Theme } from '@emotion/react';
 import RoundButton from '~/components/common/RoundButton';
 import { alignCenter } from '~/styles/common';
 
-const WineListMainHeader = () => {
+const WineListHeader = () => {
   return (
     <div
-      css={(theme) => css`
+      css={(theme: Theme) => css`
         width: ${theme.breakpoints.lg};
         max-width: 100%;
         margin: 80px auto 40px;
@@ -64,4 +64,4 @@ const WineListMainHeader = () => {
   );
 };
 
-export default WineListMainHeader;
+export default WineListHeader;

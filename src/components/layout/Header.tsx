@@ -74,9 +74,8 @@ const Header = () => {
           `}
         >
           <NavLink to="/">홈</NavLink>
-          <NavLink to="/wine-list">와인리스트</NavLink>
+          <NavLink to="/wine">와인리스트</NavLink>
           <NavLink to="/wine-note">와인노트</NavLink>
-          <NavLink to="/wine-check">와인이 어렵다면?</NavLink>
         </div>
         <div
           css={css`
