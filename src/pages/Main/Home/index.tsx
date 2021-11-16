@@ -1,6 +1,6 @@
 import { Suspense } from 'react';
 import { css, useTheme } from '@emotion/react';
-import SimpleSearch from './SimpleSearch';
+import SimpleSearch from '~/components/home/SimpleSearch';
 import WineNoteSwiper from './WineNoteSwiper';
 import 'swiper/modules/free-mode/free-mode.min.css';
 import 'swiper/swiper.min.css';

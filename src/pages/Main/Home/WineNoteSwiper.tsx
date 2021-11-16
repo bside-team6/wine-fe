@@ -60,10 +60,10 @@ const WineNoteSwiper = () => {
         css={css`
           .swiper-slide {
             width: auto;
-            &:first-child {
+            &:first-of-type {
               margin-left: calc((100vw - ${theme.breakpoints.lg}) / 2);
             }
-            &:last-child {
+            &:last-of-type {
               margin-right: calc((100vw - ${theme.breakpoints.lg}) / 2);
             }
           }
