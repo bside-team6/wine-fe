@@ -40,7 +40,7 @@ const WineListContent = () => {
           grid-template-columns: repeat(4, 1fr);
           grid-template-rows: repeat(4, 1fr);
           grid-column-gap: 24px;
-          grid-row-gap: 54px;
+          grid-row-gap: 48px;
         `}
       >
         {data?.content?.map((item) => (
