@@ -59,10 +59,9 @@ const WineNote = ({
           border: 1px solid;
           border-color: ${theme.colors.border};
           border-radius: 20px;
-          box-shadow: ${theme.colors.shadow};
           background: ${theme.colors.white};
           &:hover {
-            background: ${theme.colors.black10};
+            box-shadow: ${theme.colors.shadow};
           }
         `}
       >
@@ -110,6 +109,17 @@ const WineNote = ({
             >
               {wineName}
             </div>
+            {!isPublic && (
+              <span
+                css={css`
+                  color: ${theme.colors.black06};
+                  font-size: 12px;
+                  margin-left: 8px;
+                `}
+              >
+                (비공개)
+              </span>
+            )}
           </div>
           <h3
             css={css`
@@ -118,17 +128,6 @@ const WineNote = ({
               ${maxTwoLines}
             `}
           >
-            {!isPublic && (
-              <span
-                css={css`
-                  color: ${theme.colors.black06};
-                  font-size: 12px;
-                  margin-right: 8px;
-                `}
-              >
-                (비공개)
-              </span>
-            )}
             {descript}
           </h3>
           <div
