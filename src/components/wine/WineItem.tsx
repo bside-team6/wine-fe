@@ -46,7 +46,7 @@ const WineItem = ({
         </div>
         <div>
           <Chip wineType={wineType} />
-          <div
+          <h4
             css={css`
               margin-top: 8px;
               margin-bottom: 8px;
@@ -58,7 +58,7 @@ const WineItem = ({
             `}
           >
             {wineName}
-          </div>
+          </h4>
           <div
             css={css`
               ${alignCenter}

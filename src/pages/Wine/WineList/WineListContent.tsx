@@ -31,7 +31,15 @@ const WineListContent = () => {
           margin-bottom: 22px;
         `}
       >
-        <div>총 {data?.totalElements || 0}건</div>
+        <div
+          css={css`
+            strong {
+              font-weight: 700;
+            }
+          `}
+        >
+          총 <strong>{data?.totalElements || 0}</strong>건
+        </div>
         <OrderDropdown />
       </div>
       <div
