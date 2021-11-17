@@ -4,6 +4,7 @@ import IconButton from '~/components/common/IconButton';
 import SquareButton, {
   SquareButtonGroup,
 } from '~/components/common/SquareButton';
+import { flexCenter } from '~/styles/common';
 
 export interface ConfirmProps {
   isOpen: boolean;
@@ -44,10 +45,8 @@ const Confirm = ({
         >
           <div
             css={css`
+              ${flexCenter}
               position: fixed;
-              display: flex;
-              align-items: center;
-              justify-content: center;
               inset: 0px;
               background-color: rgba(0, 0, 0, 0.5);
               -webkit-tap-highlight-color: transparent;
@@ -58,9 +57,7 @@ const Confirm = ({
             css={css`
               height: 100%;
               outline: 0px;
-              display: flex;
-              justify-content: center;
-              align-items: center;
+              ${flexCenter}
             `}
           >
             <div

@@ -1,6 +1,6 @@
 import { css, useTheme } from '@emotion/react';
 import { Link } from 'react-router-dom';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, flexCenter } from '~/styles/common';
 
 const Footer = () => {
   const theme = useTheme();
@@ -17,8 +17,7 @@ const Footer = () => {
         css={css`
           width: ${theme.breakpoints.lg};
           margin: 0 auto;
-          ${alignCenter}
-          justify-content: center;
+          ${flexCenter}
           height: 80px;
         `}
       >

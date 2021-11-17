@@ -4,7 +4,7 @@ import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import StarRatings from '~/components/common/StarRatings';
 import { formatSweet } from '~/helpers/utils';
-import { alignCenter, maxTwoLines } from '~/styles/common';
+import { alignCenter, flexCenter, maxTwoLines } from '~/styles/common';
 import type { IWine } from '~/types';
 
 const WineItem = ({
@@ -30,8 +30,7 @@ const WineItem = ({
       <div>
         <div
           css={css`
-            ${alignCenter}
-            justify-content: center;
+            ${flexCenter}
             width: 282px;
             height: 352px;
             padding-top: 49px;

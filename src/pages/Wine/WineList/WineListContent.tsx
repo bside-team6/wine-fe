@@ -2,7 +2,7 @@ import { css } from '@emotion/react';
 import Spinner from '~/components/common/Spinner';
 import WineItem from '~/components/wine/WineItem';
 import useWinesQuery from '~/queries/useWinesQuery';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, contentCenter } from '~/styles/common';
 import OrderDropdown from './OrderDropdown';
 import Pagination from './Pagination';
 
@@ -13,8 +13,7 @@ const WineListContent = () => {
     return (
       <div
         css={css`
-          display: flex;
-          justify-content: center;
+          ${contentCenter}
           margin-top: 100px;
         `}
       >

@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { flexCenter } from '~/styles/common';
 
 const Pagination = () => {
   return (
@@ -6,9 +7,7 @@ const Pagination = () => {
       css={css`
         margin-top: 100px;
         margin-bottom: 120px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        ${flexCenter}
       `}
     >
       Pagination

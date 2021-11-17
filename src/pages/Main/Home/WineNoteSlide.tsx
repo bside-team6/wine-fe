@@ -6,7 +6,7 @@ import IconButton from '~/components/common/IconButton';
 import { formatDate } from '~/helpers/utils';
 import useAuthConfirm from '~/hooks/useAuthConfirm';
 import useWineNoteLikeMutation from '~/queries/useWineNoteLikeMutation';
-import { alignCenter, maxTwoLines } from '~/styles/common';
+import { flexCenter, maxTwoLines } from '~/styles/common';
 import type { IWineNote } from '~/types';
 
 const WineNoteSlide: React.VFC<IWineNote> = ({
@@ -80,12 +80,7 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
           `}
         />
         <div>
-          <div
-            css={css`
-              ${alignCenter}
-              justify-content: center;
-            `}
-          >
+          <div css={flexCenter}>
             <Chip wineType={wineType} />
             <span
               css={css`
@@ -111,8 +106,7 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
           </div>
           <div
             css={css`
-              ${alignCenter}
-              justify-content: center;
+              ${flexCenter}
               font-family: ${theme.typography.lato};
               color: ${theme.colors.black04};
               font-size: 12px;

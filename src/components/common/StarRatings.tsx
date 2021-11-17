@@ -1,5 +1,6 @@
 import { css, useTheme } from '@emotion/react';
 import ReactStartRatings from 'react-star-ratings';
+import { inlineFlexCenter } from '~/styles/common';
 
 export interface StarRatingsProps {
   rating: number;
@@ -16,9 +17,7 @@ const StarRatings = ({ rating }: StarRatingsProps) => {
           display: inline-flex !important;
         }
         .star-container {
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
+          ${inlineFlexCenter}
         }
       `}
     >
