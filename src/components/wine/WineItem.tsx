@@ -4,7 +4,7 @@ import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import StarRatings from '~/components/common/StarRatings';
 import { formatSweet } from '~/helpers/utils';
-import { alignCenter, maxTwoLines } from '~/styles/common';
+import { alignCenter, flexCenter, maxTwoLines } from '~/styles/common';
 import type { IWine } from '~/types';
 
 const WineItem = ({
@@ -30,8 +30,7 @@ const WineItem = ({
       <div>
         <div
           css={css`
-            ${alignCenter}
-            justify-content: center;
+            ${flexCenter}
             width: 282px;
             height: 352px;
             padding-top: 49px;
@@ -50,11 +49,10 @@ const WineItem = ({
           <div
             css={css`
               margin-top: 8px;
-              margin-bottom: 4px;
+              margin-bottom: 8px;
               font-size: 14px;
               line-height: 20px;
               font-weight: bold;
-              letter-spacing: -0.03em;
               color: ${theme.colors.black};
               ${maxTwoLines}
             `}
@@ -68,7 +66,8 @@ const WineItem = ({
               font-family: ${theme.typography.lato};
               color: ${theme.colors.black02};
               font-size: 12px;
-              margin-bottom: 13px;
+              line-height: 17px;
+              margin-bottom: 12px;
             `}
           >
             <span>{formatSweet(sweet)}</span>
@@ -91,8 +90,7 @@ const WineItem = ({
           </div>
           <div
             css={css`
-              display: flex;
-              align-items: flex-start;
+              ${alignCenter}
               line-height: 12px;
             `}
           >
@@ -109,19 +107,17 @@ const WineItem = ({
               ({reviewCount})
             </span>
           </div>
-          {price >= 1_000 && (
-            <div
-              css={css`
-                margin-top: 6px;
-                line-height: 17px;
-                color: ${theme.colors.black};
-                font-family: ${theme.typography.lato};
-              `}
-            >
-              {String(price).slice(0, -3)}
-              {price >= 10_000 ? '만원 대' : '천원 대'}
-            </div>
-          )}
+          <div
+            css={css`
+              margin-top: 6px;
+              line-height: 17px;
+              color: ${theme.colors.black};
+              font-family: ${theme.typography.lato};
+            `}
+          >
+            {String(price).slice(0, -3)}
+            {price >= 10_000 ? '만원 대' : '천원 대'}
+          </div>
         </div>
       </div>
     </Link>

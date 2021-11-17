@@ -2,6 +2,7 @@ import { css } from '@emotion/react';
 import { ErrorBoundary as ReactErrorBoundary } from 'react-error-boundary';
 import { QueryErrorResetBoundary } from 'react-query';
 import RoundButton from '~/components/common/RoundButton';
+import { flexCenter } from '~/styles/common';
 
 const ErrorBoundary: React.FC = ({ children }) => {
   return (
@@ -12,9 +13,7 @@ const ErrorBoundary: React.FC = ({ children }) => {
           fallbackRender={({ resetErrorBoundary }) => (
             <div
               css={css`
-                display: flex;
-                align-items: center;
-                justify-content: center;
+                ${flexCenter}
                 flex-direction: column;
                 height: 100vh;
               `}

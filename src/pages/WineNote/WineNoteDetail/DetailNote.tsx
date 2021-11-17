@@ -5,7 +5,7 @@ import Icon from '~/components/common/Icon';
 import IconButton from '~/components/common/IconButton';
 import StarRatings from '~/components/common/StarRatings';
 import { formatDate, formatSweet } from '~/helpers/utils';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, contentCenter, inlineFlexCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
 const DetailNote = ({
@@ -106,8 +106,7 @@ const DetailNote = ({
               flex-shrink: 0;
               width: 253px;
               flex-basis: 253px;
-              display: flex;
-              justify-content: center;
+              ${contentCenter}
             `}
           >
             <div>
@@ -121,9 +120,7 @@ const DetailNote = ({
                 <span>{userNickName}님의 평가</span>
                 <div
                   css={css`
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
+                    ${inlineFlexCenter}
                     background: ${theme.colors.main.primary};
                     color: ${theme.colors.white};
                     width: 20px;

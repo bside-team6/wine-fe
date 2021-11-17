@@ -6,7 +6,7 @@ import Icon from '~/components/common/Icon';
 import { kakaoLogin } from '~/helpers/auth';
 import useLogoutMutation from '~/queries/useLogoutMutation';
 import { isAuthenticatedState } from '~/stores/auth';
-import { alignCenter, buttonStyle } from '~/styles/common';
+import { alignCenter, buttonStyle, inlineFlexCenter } from '~/styles/common';
 import { ReactComponent as KakaoSmallLogo } from '~/assets/ic_kakao.svg';
 import logo from '~/assets/logo.png';
 
@@ -37,7 +37,6 @@ const Header = () => {
           width: ${theme.breakpoints.lg};
           margin: 0 auto;
           ${alignCenter}
-          justify-content: center;
           height: 80px;
         `}
       >
@@ -82,9 +81,7 @@ const Header = () => {
             margin-left: auto;
             ${alignCenter}
             a {
-              display: inline-flex;
-              align-items: center;
-              justify-content: center;
+              ${inlineFlexCenter}
               padding: 0 10px;
               &:last-of-type {
                 margin-left: 3px;
