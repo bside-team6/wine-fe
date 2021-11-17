@@ -1,5 +1,5 @@
 import { css, useTheme } from '@emotion/react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
@@ -7,8 +7,7 @@ import SquareButton, {
   SquareButtonGroup,
 } from '~/components/common/SquareButton';
 import { formatDate } from '~/helpers/utils';
-import useAuth from '~/hooks/useAuth';
-import useConfirm from '~/hooks/useConfirm';
+import useAuthConfirm from '~/hooks/useAuthConfirm';
 import useWineNoteLikeMutation from '~/queries/useWineNoteLikeMutation';
 import { alignCenter, maxTwoLines } from '~/styles/common';
 import type { IWineNote } from '~/types';
@@ -32,24 +31,13 @@ const WineNote = ({
   isPublic,
 }: WineNoteProps) => {
   const theme = useTheme();
-  const navigate = useNavigate();
-  const isAuthenticated = useAuth();
-  const confirm = useConfirm();
 
   const { mutate } = useWineNoteLikeMutation();
 
-  const onClickLikeButton = (e: React.MouseEvent) => {
-    e.preventDefault();
-
-    if (isAuthenticated) {
-      mutate(id);
-    } else {
-      confirm({
-        content: `좋아요만 보기는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
-        onConfirm: () => navigate('/signup/step1'),
-      });
-    }
-  };
+  const onClickLikeButton = useAuthConfirm({
+    confirmContent: `좋아요만 보기는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
+    onSuccess: () => mutate(id),
+  });
 
   const imageUrl =
     wineImages[0]?.imagePath || 'https://via.placeholder.com/160';
