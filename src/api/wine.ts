@@ -1,3 +1,4 @@
+import { API_URL } from '~/api/urls';
 import type {
   IFood,
   IPageable,
@@ -11,7 +12,7 @@ import instance from './instance';
  * GET 와인 목록 조회
  */
 export const getWines = async (params: WinesRequest) => {
-  const { data } = await instance.get<IPageable<IWine>>('/api/v2/wine', {
+  const { data } = await instance.get<IPageable<IWine>>(API_URL.WINE, {
     params: {
       page: 0,
       size: 16,
@@ -26,7 +27,7 @@ export const getWines = async (params: WinesRequest) => {
  * GET 와인 조회
  */
 export const getWine = async (wineId: number) => {
-  const { data } = await instance.get<IWineDetail>(`/api/v2/wine/${wineId}`);
+  const { data } = await instance.get<IWineDetail>(`${API_URL.WINE}/${wineId}`);
   return data;
 };
 
@@ -34,6 +35,6 @@ export const getWine = async (wineId: number) => {
  * GET 음식명 목록 조회
  */
 export const getFoods = async () => {
-  const { data } = await instance.get<IFood[]>(`/api/v2/food`);
+  const { data } = await instance.get<IFood[]>(API_URL.FOOD);
   return data;
 };
