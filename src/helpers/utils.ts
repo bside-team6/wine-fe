@@ -20,12 +20,38 @@ export const formatDate = (
 /**
  * 당도 포맷
  * @param {number} sweet
- * @returns {string} 당도문구
+ * @returns 당도문구
  */
 export const formatSweet = (sweet: number) => {
   if (sweet <= 1) return '달지 않음';
   if (sweet <= 3) return '약간 달달함';
   else return '아주 달달함';
+};
+
+/**
+ * 당도 포맷 alter
+ * @param {number} sweet
+ * @returns 당도문구
+ */
+export const formatSweetAlt = (sweet: number) => {
+  if (sweet <= 1) return '달지 않고';
+  if (sweet <= 3) return '약간 달달하고';
+  else return '아주 달달하고';
+};
+
+export const formatAcidity = (acidity: number) => {
+  if (acidity <= 2) return '산미가 적어서';
+  if (acidity === 3) return '약간 산미가 있어서';
+  return '산미가 강해서';
+};
+
+/**
+ * 가격 포맷
+ * @param {number} price
+ * @returns 가격문구
+ */
+export const formatPrice = (price: number) => {
+  return `${String(price).slice(0, -3)}${price >= 10_000 ? '만' : '천'}원 대`;
 };
 
 /**

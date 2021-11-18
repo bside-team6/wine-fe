@@ -1,4 +1,7 @@
-import { IWine, WINE_TYPE } from '~/types';
+import { rest } from 'msw';
+import { API_URL } from '~/api/urls';
+import { delayedResponse } from '~/helpers/msw';
+import { IWine, IWineDetail, WINE_TYPE } from '~/types';
 
 export const wines: IWine[] = [
   {
@@ -258,3 +261,111 @@ export const wines: IWine[] = [
     },
   },
 ];
+
+export const wineDetails: IWineDetail[] = [
+  {
+    id: 421,
+    wineName: '스칼리올라 프리모 바치오 모스카토 다스티',
+    wineNameEn: "Scagliola Primo Bacio Moscato d'Asti DOCG",
+    varieties: ['모스카토 비앙코 100%'],
+    region: '이태리',
+    wineType: WINE_TYPE.WHITE,
+    sweet: 5,
+    acidity: 3,
+    body: 2,
+    capacity: 750,
+    price: 25_000,
+    wineImage: {
+      id: 421,
+      imageName: 'wn_421.jpg',
+      imagePath:
+        'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/wn_421.jpg',
+    },
+    reviewCount: 20,
+    scoreAverage: 3.5,
+    matchingFoods: ['디저트', '치즈', '과일', '빵'],
+    isRefrigerated: false,
+    refrigeratedCount: 10,
+  },
+  {
+    id: 595,
+    wineName: '지오코 피오레',
+    wineNameEn: 'Gioco Fiore',
+    varieties: ['브라케토 100%'],
+    region: '이태리',
+    wineType: WINE_TYPE.RED,
+    sweet: 5,
+    acidity: 3,
+    body: 3,
+    capacity: 750,
+    price: 25_000,
+    wineImage: {
+      id: 595,
+      imageName: 'wn_595.jpg',
+      imagePath:
+        'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/wn_595.jpg',
+    },
+    reviewCount: 2,
+    scoreAverage: 4.0,
+    matchingFoods: ['디저트', '튀김', '과일', '닭고기', '나쵸/소시지 등'],
+    isRefrigerated: false,
+    refrigeratedCount: 0,
+  },
+  {
+    id: 595,
+    wineName: '지오코 피오레',
+    wineNameEn: 'Gioco Fiore',
+    varieties: ['브라케토 100%'],
+    region: '이태리',
+    wineType: WINE_TYPE.RED,
+    sweet: 5,
+    acidity: 3,
+    body: 3,
+    capacity: 750,
+    price: 25_000,
+    wineImage: {
+      id: 595,
+      imageName: 'wn_595.jpg',
+      imagePath:
+        'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/wn_595.jpg',
+    },
+    reviewCount: 100,
+    scoreAverage: 4.5,
+    matchingFoods: ['디저트', '튀김', '과일', '닭고기', '나쵸/소시지 등'],
+    isRefrigerated: true,
+    refrigeratedCount: 0,
+  },
+  {
+    id: 714,
+    wineName: '토카이 아쑤 5 푸토뇨스',
+    wineNameEn: 'Tokaji Aszu 5 Puttonyos',
+    varieties: ['푸르민트70%', '하르쉬레벨류25%', '무스카드뤼넬5%'],
+    region: '헝가리',
+    wineType: WINE_TYPE.WHITE,
+    sweet: 5,
+    acidity: 3,
+    body: 4,
+    capacity: 500,
+    price: 153_000,
+    wineImage: {
+      id: 714,
+      imageName: 'wn_714.jpg',
+      imagePath:
+        'https://codepipeline-ap-northeast-2-299742750115.s3.ap-northeast-2.amazonaws.com/wine-image/wn_714.jpg',
+    },
+    reviewCount: 0,
+    scoreAverage: 0.0,
+    matchingFoods: ['치즈', '디저트', '과일'],
+    isRefrigerated: true,
+    refrigeratedCount: 0,
+  },
+];
+
+export const getWineHandler = rest.get(
+  `${API_URL.WINE}/:wineId`,
+  (req, res, ctx) => {
+    const { wineId } = req.params;
+    const wineDetail = wineDetails.find((item) => item.id === Number(wineId));
+    return delayedResponse(ctx.json<IWineDetail>(wineDetail || wineDetails[0]));
+  },
+);

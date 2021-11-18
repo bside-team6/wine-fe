@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import Divider from '~/components/common/Divider';
 import StarRatings from '~/components/common/StarRatings';
-import { formatSweet } from '~/helpers/utils';
+import { formatPrice, formatSweet } from '~/helpers/utils';
 import { alignCenter, flexCenter, maxTwoLines } from '~/styles/common';
 import type { IWine } from '~/types';
 
@@ -115,8 +115,7 @@ const WineItem = ({
               font-family: ${theme.typography.lato};
             `}
           >
-            {String(price).slice(0, -3)}
-            {price >= 10_000 ? '만원 대' : '천원 대'}
+            {formatPrice(price)}
           </div>
         </div>
       </div>

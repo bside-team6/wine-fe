@@ -15,4 +15,6 @@ export const API_URL = {
   SEARCH_WINE_NAME: '/api/v2/wine-name-search',
   SEARCH_WINE_NAME_ADMIN: '/api/v2/manager/wine-name',
   SEARCH_FOOD_NAME: '/api/v2/wine-note-food',
+  WINE: '/api/v2/wine',
+  FOOD: '/api/v2/food',
 } as const;
