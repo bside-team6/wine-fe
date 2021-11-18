@@ -15,8 +15,6 @@ import {
   priceLabelSelector,
   priceListSelector,
   priceState,
-  regionListSelector,
-  regionState,
   wineNameState,
   wineTypeListSelector,
   wineTypeState,
@@ -35,7 +33,6 @@ const WineSearch = () => {
           maxIndex: -1,
         });
         set(wineTypeState, undefined);
-        set(regionState, undefined);
         set(wineNameState, undefined);
       },
     [],
@@ -254,9 +251,6 @@ const Filter = () => {
   const [wineType, setWineType] = useRecoilState(wineTypeState);
   const wineTypeList = useRecoilValue(wineTypeListSelector);
 
-  const [region, setRegion] = useRecoilState(regionState);
-  const regionList = useRecoilValue(regionListSelector);
-
   return (
     <div
       css={css`
@@ -267,9 +261,7 @@ const Filter = () => {
       <RoundButton
         variant="outlined"
         color={
-          open === 'filter' || wineType !== undefined || region !== undefined
-            ? 'primary'
-            : 'secondary'
+          open === 'filter' || wineType !== undefined ? 'primary' : 'secondary'
         }
         icon="filter"
         iconPosition="right"
@@ -322,30 +314,6 @@ const Filter = () => {
                 }
               >
                 {typeKr}
-              </RoundButton>
-            ))}
-          </ButtonGroup>
-        </div>
-        <Divider
-          type="vertical"
-          css={css`
-            margin: 28px 0;
-          `}
-        />
-        <div>
-          <h4>생산지</h4>
-          <ButtonGroup>
-            {regionList.map(({ name, ...props }) => (
-              <RoundButton
-                key={name}
-                variant="outlined"
-                size="small"
-                {...props}
-                onClick={() =>
-                  setRegion((state) => (state === name ? undefined : name))
-                }
-              >
-                {name}
               </RoundButton>
             ))}
           </ButtonGroup>

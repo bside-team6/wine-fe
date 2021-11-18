@@ -154,7 +154,6 @@ export interface WinesRequest {
   sort?: ISort; // 기본: [score, DESC]
   wineName?: string;
   wineType?: WINE_TYPE;
-  region?: string;
 }
 
 export interface IWine {

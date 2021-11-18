@@ -3,7 +3,6 @@ import { atom, selector } from 'recoil';
 import {
   IWineType,
   priceList,
-  regionList,
   sortList,
   wineTypeList,
 } from '~/helpers/constants';
@@ -147,33 +146,6 @@ export const wineTypeListSelector = selector<(IWineType & SelectOne)[]>({
   },
 });
 
-// 와인리스트 - 생산지
-export const regionState = atom<string | undefined>({
-  key: 'regionState',
-  default: getSearchParam('region'),
-});
-
-export const regionListSelector = selector<({ name: string } & SelectOne)[]>({
-  key: 'regionListSelector',
-  get: ({ get }) => {
-    const region = get(regionState);
-    if (region) {
-      return regionList.map((item) => ({
-        name: item,
-        color: region === item ? 'primary' : 'secondary',
-        inactive: region !== item,
-        bold: region === item,
-      }));
-    }
-    return regionList.map((item) => ({
-      name: item,
-      color: 'secondary',
-      inactive: false,
-      bold: false,
-    }));
-  },
-});
-
 // 와인리스트 - 와인명
 export const wineNameState = atom<string | undefined>({
   key: 'wineNameState',
@@ -204,7 +176,6 @@ export const wineSearchState = selector<WinesRequest>({
     const foodId = get(foodIdState);
     const { minIndex, maxIndex } = get(priceState);
     const wineType = get(wineTypeState);
-    const region = get(regionState);
     const wineName = get(wineNameState);
     const sort = get(sortState);
 
@@ -219,7 +190,6 @@ export const wineSearchState = selector<WinesRequest>({
       sort,
       wineName,
       wineType,
-      region,
     };
   },
 });
