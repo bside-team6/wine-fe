@@ -44,13 +44,13 @@ const Confirm = ({
           `}
         >
           <div
+            onClick={onClose}
             css={css`
               ${flexCenter}
               position: fixed;
               inset: 0px;
               background-color: rgba(0, 0, 0, 0.5);
               -webkit-tap-highlight-color: transparent;
-              z-index: -1;
             `}
           />
           <div
