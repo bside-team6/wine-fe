@@ -73,7 +73,12 @@ const SortOrder = () => {
           <button
             key={label}
             onClick={() => setSort(value)}
-            className={isEqual(value, sort) ? 'active' : undefined}
+            className={
+              isEqual(value, sort) ||
+              (sort === undefined && isEqual(value, ['score', 'DESC']))
+                ? 'active'
+                : undefined
+            }
           >
             {label}
           </button>

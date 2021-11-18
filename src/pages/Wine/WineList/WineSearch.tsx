@@ -38,13 +38,6 @@ const WineSearch = () => {
     [],
   );
 
-  useEffect(() => {
-    return () => {
-      // TODO: reset all search condition
-      console.log('cleanup');
-    };
-  }, []);
-
   return (
     <>
       <div

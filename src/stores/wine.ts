@@ -153,9 +153,9 @@ export const wineNameState = atom<string | undefined>({
 });
 
 // 와인리스트 - 정렬
-export const sortState = atom<ISort>({
+export const sortState = atom<ISort | undefined>({
   key: 'sortState',
-  default: getSearchParams<ISort>('sort') || ['score', 'DESC'],
+  default: getSearchParams<ISort>('sort'),
 });
 
 export const sortLabelSelector = selector({
