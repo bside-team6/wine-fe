@@ -8,9 +8,10 @@ const roundHalf = (num: number) => Math.round(num * 2) / 2;
 
 export interface StarRatingsProps {
   rating: number;
+  size?: number;
 }
 
-const StarRatings = ({ rating }: StarRatingsProps) => {
+const StarRatings = ({ rating, size = 12 }: StarRatingsProps) => {
   const theme = useTheme();
   const score = useMemo(() => roundHalf(rating), [rating]);
 
@@ -22,6 +23,8 @@ const StarRatings = ({ rating }: StarRatingsProps) => {
         --star-inactive: ${theme.colors.black07};
         svg {
           fill: var(--star-inactive);
+          width: ${size}px;
+          height: ${size}px;
           &.active {
             fill: var(--star-active);
           }

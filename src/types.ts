@@ -161,6 +161,7 @@ export interface IWine {
   id: number;
   wineName: string;
   wineType: WINE_TYPE;
+  /** @description 당도 (int) */
   sweet: number;
   /** @description 별점평균 (float) */
   scoreAverage: number; // 별점평균(float)
@@ -176,7 +177,18 @@ export interface IWine {
 }
 
 export interface IWineDetail extends IWine {
-  // TODO: 추가 정의 필요
+  wineNameEn: string;
+  /** @description 바디 (int) */
+  body: number;
+  /** @description 용량 (int) */
+  capacity: number;
+  /** @description 산도 (int) */
+  acidity: number;
+  region: string;
+  /** @description 품종 */
+  varieties: string[];
+  isRefrigerated: boolean;
+  refrigeratedCount: number;
 }
 
 export interface IFood {

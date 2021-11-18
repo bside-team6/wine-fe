@@ -20,8 +20,10 @@ export const theme: Theme = {
     border: '#dfdfdf',
     white: '#ffffff',
     black: '#000000',
+    black01: '#282828',
     black02: '#424242',
     black04: '#757575',
+    black05: '#828282',
     black06: '#a8a8a8',
     black07: '#c5c5c5', // bottom / line / bg
     black08: '#dfdfdf', // bottom / line

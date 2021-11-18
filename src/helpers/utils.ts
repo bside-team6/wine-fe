@@ -20,12 +20,21 @@ export const formatDate = (
 /**
  * 당도 포맷
  * @param {number} sweet
- * @returns {string} 당도문구
+ * @returns 당도문구
  */
 export const formatSweet = (sweet: number) => {
   if (sweet <= 1) return '달지 않음';
   if (sweet <= 3) return '약간 달달함';
   else return '아주 달달함';
+};
+
+/**
+ * 가격 포맷
+ * @param {number} price
+ * @returns 가격문구
+ */
+export const formatPrice = (price: number) => {
+  return `${String(price).slice(0, -3)}${price >= 10_000 ? '만' : '천'}원 대`;
 };
 
 /**

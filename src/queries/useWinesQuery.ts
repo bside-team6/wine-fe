@@ -8,7 +8,7 @@ const useWinesQuery = (
   options?: QueryOptions<IPageable<IWine>, AxiosError>,
 ) => {
   return useQuery<IPageable<IWine>, AxiosError>(
-    ['wine-search', params],
+    ['wines', params],
     () => getWines(params),
     {
       staleTime: 1000 * 60 * 5, // 5min
