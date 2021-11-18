@@ -17,10 +17,24 @@ export const alignCenter = css`
   align-items: center;
 `;
 
-export const buttonStyle = css`
+export const contentCenter = css`
+  display: flex;
+  justify-content: center;
+`;
+
+export const flexCenter = css`
+  ${alignCenter}
+  justify-content: center;
+`;
+
+export const inlineFlexCenter = css`
   display: inline-flex;
   align-items: center;
   justify-content: center;
+`;
+
+export const buttonStyle = css`
+  ${inlineFlexCenter}
   cursor: pointer;
   background: none;
   border: 0;

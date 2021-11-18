@@ -3,7 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import { format } from 'date-fns';
 import Icon from '~/components/common/Icon';
 import WineNote from '~/components/wineNote/WineNote';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, inlineFlexCenter } from '~/styles/common';
 import { wineNoteListItemStyle } from '~/styles/wine-note';
 import type { IWineNote } from '~/types';
 
@@ -32,6 +32,7 @@ const TimelineItem: React.VFC<TimelineItemProps> = ({ note }) => {
     >
       <div
         css={css`
+          ${inlineFlexCenter}
           position: relative;
           z-index: 1;
           width: 28px;
@@ -43,9 +44,6 @@ const TimelineItem: React.VFC<TimelineItemProps> = ({ note }) => {
           background: ${isPublic
             ? theme.colors.main.primary
             : theme.colors.black08};
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
           svg {
             width: 12px;
             color: ${theme.colors.black06};

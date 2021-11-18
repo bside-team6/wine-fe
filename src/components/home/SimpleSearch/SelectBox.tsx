@@ -30,7 +30,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
         position: absolute;
         top: 76px;
         width: 100%;
-        border: 1px solid ${theme.colors.black08};
+        border: 1px solid ${theme.colors.border};
         box-shadow: ${theme.colors.shadow};
         border-radius: 20px;
         padding: 28px;

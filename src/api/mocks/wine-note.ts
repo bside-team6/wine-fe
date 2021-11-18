@@ -85,7 +85,7 @@ export const wineNotes: IWineNote[] = [
     userId: 2,
     userNickName: '닉네임123',
     isLike: true,
-    isPublic: true,
+    isPublic: false,
     viewCount: 0,
     likeCount: 0,
     wineImages: [

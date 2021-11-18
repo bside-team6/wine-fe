@@ -19,9 +19,7 @@ const WineNoteSwiper = () => {
   });
   const notes = data?.pages[0]?.content;
 
-  // TODO: 와인노트 없을떄
-  // const hasWineNotes = !data?.pages[0]?.empty;
-
+  // 와인노트가 없는 케이스는 고려하지 않음
   return (
     <div
       css={css`

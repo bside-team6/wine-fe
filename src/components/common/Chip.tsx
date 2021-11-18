@@ -1,4 +1,5 @@
 import { css } from '@emotion/react';
+import { inlineFlexCenter } from '~/styles/common';
 import { WINE_TYPE } from '~/types';
 
 const colorMap: Record<WINE_TYPE, { text: string; bg: string }> = {
@@ -45,9 +46,7 @@ const Chip: React.VFC<ChipProps> = ({ wineType }) => {
         border-radius: 99px;
         background-color: ${colorMap[wineType].bg};
         height: 20px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
+        ${inlineFlexCenter}
         vertical-align: middle;
       `}
     >

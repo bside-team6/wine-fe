@@ -1,6 +1,7 @@
 import { Children } from 'react';
 import { css, useTheme } from '@emotion/react';
 import type { SerializedStyles, Theme } from '@emotion/react';
+import { inlineFlexCenter } from '~/styles/common';
 
 export interface SquareButtonProps
   extends React.DetailedHTMLProps<
@@ -32,9 +33,7 @@ const SquareButton: React.FC<SquareButtonProps> = ({
       css={[
         css`
           position: relative;
-          display: inline-flex;
-          align-items: center;
-          justify-content: center;
+          ${inlineFlexCenter}
           cursor: pointer;
           outline: none;
           appearance: none;
