@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'intersection-observer';
-import { RecoilRoot } from 'recoil';
 import { isProduction } from '~/helpers/constants';
 import { QueryProvider } from '~/helpers/query';
 import { ThemeProvider } from '~/helpers/theme';
+import { RecoilProvider } from '~/stores';
 import App from './App';
 
 (async () => {
@@ -21,13 +21,13 @@ import App from './App';
 
   ReactDOM.render(
     <React.StrictMode>
-      <RecoilRoot>
+      <RecoilProvider>
         <QueryProvider>
           <ThemeProvider>
             <App />
           </ThemeProvider>
         </QueryProvider>
-      </RecoilRoot>
+      </RecoilProvider>
     </React.StrictMode>,
     document.getElementById('root'),
   );

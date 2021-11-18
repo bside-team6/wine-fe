@@ -133,6 +133,15 @@ export interface SignupRequest {
   nickName: string;
 }
 
+export interface IPrice {
+  id: number;
+  label: string;
+  minPrice?: number;
+  maxPrice?: number;
+}
+
+export type ISort = ['score' | 'price' | 'sweet', 'ASC' | 'DESC'];
+
 export interface WinesRequest {
   foodId?: number;
   /** @default 10_000_000 */
@@ -142,8 +151,10 @@ export interface WinesRequest {
   /** @example 0..N */
   page?: number;
   size?: number;
-  sort?: string[]; // 기본: [price, ASC]
+  sort?: ISort; // 기본: [score, DESC]
   wineName?: string;
+  wineType?: WINE_TYPE;
+  region?: string;
 }
 
 export interface IWine {

@@ -35,7 +35,7 @@ const PopularNoteList = () => {
         margin-left: 24px;
         flex-shrink: 0;
         width: 384px;
-        border: 1px solid ${theme.colors.black08};
+        border: 1px solid ${theme.colors.border};
         background: ${data?.length !== 0
           ? theme.colors.white
           : theme.colors.black09};

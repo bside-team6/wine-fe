@@ -52,7 +52,7 @@ const WineNoteTimeline = () => {
           height: 48px;
           border-radius: 50%;
           background: ${theme.colors.white};
-          border: 2px solid ${theme.colors.black08};
+          border: 2px solid ${theme.colors.border};
         `}
       >
         <Icon name="share" />
