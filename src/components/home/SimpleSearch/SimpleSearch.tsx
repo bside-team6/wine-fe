@@ -4,10 +4,11 @@ import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
 import IconButton from '~/components/common/IconButton';
 import RoundButton from '~/components/common/RoundButton';
+import { priceList } from '~/helpers/constants';
 import useFoodsQuery from '~/queries/useFoodsQuery';
 import { alignCenter } from '~/styles/common';
-import type { IFood } from '~/types';
-import { Price, priceList, STEP } from './helpers';
+import type { IFood, IPrice } from '~/types';
+import { STEP } from './helpers';
 import Indicator from './Indicator';
 import SelectBox from './SelectBox';
 import StepButton from './StepButton';
@@ -252,7 +253,7 @@ const FoodBox = ({
   );
 };
 
-interface PriceItem extends Price {
+interface PriceItem extends IPrice {
   color: 'primary' | 'secondary';
   bold: boolean;
 }

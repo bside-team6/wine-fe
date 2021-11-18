@@ -16,6 +16,7 @@ export const getWines = async (params: WinesRequest) => {
       page: 0,
       size: 16,
       ...params,
+      sort: params.sort ? params.sort.join(',') : undefined,
     },
   });
   return data;

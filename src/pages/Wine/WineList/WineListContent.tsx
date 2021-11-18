@@ -1,13 +1,26 @@
+import { useEffect } from 'react';
 import { css } from '@emotion/react';
+import { isUndefined, omitBy } from 'lodash-es';
+import { useSearchParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
 import Spinner from '~/components/common/Spinner';
 import WineItem from '~/components/wine/WineItem';
 import useWinesQuery from '~/queries/useWinesQuery';
+import { wineSearchState } from '~/stores/wine';
 import { alignCenter, contentCenter } from '~/styles/common';
-import OrderDropdown from './OrderDropdown';
 import Pagination from './Pagination';
+import SortOrder from './SortOrder';
 
 const WineListContent = () => {
-  const { data, isLoading } = useWinesQuery({ page: 0 });
+  const [, setSearchParams] = useSearchParams();
+  const wineSearch = useRecoilValue(wineSearchState);
+
+  const { data, isLoading } = useWinesQuery(wineSearch);
+
+  useEffect(() => {
+    // state -> searchParams
+    setSearchParams(omitBy(wineSearch, isUndefined), { replace: true });
+  }, [setSearchParams, wineSearch]);
 
   if (isLoading) {
     return (
@@ -31,8 +44,16 @@ const WineListContent = () => {
           margin-bottom: 22px;
         `}
       >
-        <div>총 {data?.totalElements || 0}건</div>
-        <OrderDropdown />
+        <div
+          css={css`
+            strong {
+              font-weight: 700;
+            }
+          `}
+        >
+          총 <strong>{data?.totalElements || 0}</strong>건
+        </div>
+        <SortOrder />
       </div>
       <div
         css={css`
