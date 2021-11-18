@@ -104,21 +104,6 @@ export const wineTypeList: IWineType[] = Object.entries(wineTypeMap).map(
   }),
 );
 
-export const regionList: string[] = [
-  '프랑스',
-  '이탈리아',
-  '스페인',
-  '포르투갈',
-  '독일',
-  '오스트리아',
-  '미국',
-  '호주',
-  '뉴질랜드',
-  '칠레',
-  '아르헨티나',
-  '남아프리카',
-];
-
 export const sortList: { label: string; value: ISort }[] = [
   {
     label: '평점 높은 순',

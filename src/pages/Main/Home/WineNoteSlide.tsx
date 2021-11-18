@@ -47,12 +47,14 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
           border: 1px solid;
           border-color: ${theme.colors.border};
           border-radius: 20px;
-          box-shadow: ${theme.colors.shadow};
           background: ${theme.colors.white};
           text-align: center;
           padding-top: 80px;
           padding-bottom: 80px;
           position: relative;
+          &:hover {
+            box-shadow: ${theme.colors.shadow};
+          }
         `}
       >
         <IconButton
