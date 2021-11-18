@@ -12,7 +12,7 @@ import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { getWine } from '~/api/admin';
-import RadioGroup from '~/components/RadioGroup';
+import RadioGroup from '~/components/admin/RadioGroup';
 
 function AdminDetail() {
   const navigate = useNavigate();

@@ -14,9 +14,9 @@ import styled from '@emotion/styled';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 import { getFood, getWineRegions, getWineVarieties } from '~/api/admin';
-import MultiSelect from '~/components/MutliSelect';
-import RadioGroup from '~/components/RadioGroup';
-import ToggleBtnGroup from '~/components/ToggleBtnGroup';
+import MultiSelect from '~/components/admin/MultiSelect';
+import RadioGroup from '~/components/admin/RadioGroup';
+import ToggleBtnGroup from '~/components/admin/ToggleBtnGroup';
 
 function AdminRegister() {
   const navigate = useNavigate();
