@@ -1,10 +1,13 @@
 import { Suspense } from 'react';
 import { css, useTheme } from '@emotion/react';
 import Divider from '~/components/common/Divider';
+import useResetWineSearch from '~/hooks/useResetWineSearch';
 import WineListContent from './WineListContent';
 import WineSearch from './WineSearch';
 
 function WineList() {
+  useResetWineSearch();
+
   const theme = useTheme();
 
   return (
