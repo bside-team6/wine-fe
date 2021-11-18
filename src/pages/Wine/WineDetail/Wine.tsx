@@ -4,6 +4,7 @@ import Chip from '~/components/common/Chip';
 import RoundButton from '~/components/common/RoundButton';
 import StarRatings from '~/components/common/StarRatings';
 import { formatPrice } from '~/helpers/utils';
+import useAuthConfirm from '~/hooks/useAuthConfirm';
 import { alignCenter, flexCenter } from '~/styles/common';
 import type { IWineDetail } from '~/types';
 
@@ -23,6 +24,14 @@ const Wine: React.VFC<IWineDetail> = ({
   varieties,
 }) => {
   const theme = useTheme();
+
+  const onClickRefrigerateButton = useAuthConfirm({
+    confirmContent: `와인냉장고 담기 기능은 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
+    onSuccess: () => {
+      // TODO: 와인냉장고에 담기
+      console.log(`와인냉장고에 담기`, id);
+    },
+  });
 
   return (
     <div
@@ -161,8 +170,8 @@ const Wine: React.VFC<IWineDetail> = ({
             text-align: center;
           `}
         >
-          {/* TODO: 냉장고에 담기 동작 */}
           <RoundButton
+            onClick={onClickRefrigerateButton}
             icon="bookmark"
             size="large"
             css={css`
