@@ -365,7 +365,7 @@ export const getWineHandler = rest.get(
   `${API_URL.WINE}/:wineId`,
   (req, res, ctx) => {
     const { wineId } = req.params;
-    const wineDetail = wineDetails.find((item) => item.id === wineId);
+    const wineDetail = wineDetails.find((item) => item.id === Number(wineId));
     return delayedResponse(ctx.json<IWineDetail>(wineDetail || wineDetails[0]));
   },
 );

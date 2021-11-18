@@ -3,8 +3,8 @@ import { useParams } from 'react-router-dom';
 import Divider from '~/components/common/Divider';
 import useWineQuery from '~/queries/useWineQuery';
 import AboutWine from './AboutWine';
+import EasyDescription from './EasyDescription';
 import Wine from './Wine';
-import WineDescription from './WineDescription';
 
 const WineDetail: React.VFC = () => {
   const { wineId } = useParams();
@@ -28,7 +28,7 @@ const WineDetail: React.VFC = () => {
           margin-bottom: 57px;
         `}
       />
-      <WineDescription {...data!} />
+      <EasyDescription {...data!} />
       <AboutWine {...data!} />
     </div>
   );

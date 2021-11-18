@@ -51,41 +51,58 @@ export const priceList: IPrice[] = [
   },
 ];
 
+export const wineTypeMap: Record<
+  WINE_TYPE,
+  { text: string; bg: string; typeKr: string }
+> = {
+  [WINE_TYPE.RED]: {
+    text: '#E53858',
+    bg: '#FAE6EA',
+    typeKr: '레드',
+  },
+  [WINE_TYPE.ROSE]: {
+    text: '#F86818',
+    bg: '#FEF0E8',
+    typeKr: '로제',
+  },
+  [WINE_TYPE.WHITE]: {
+    text: '#387DE5',
+    bg: '#EBF2FC',
+    typeKr: '화이트',
+  },
+  [WINE_TYPE.SPARKLING]: {
+    text: '#0EAB44',
+    bg: '#EAFEEC',
+    typeKr: '스파클링',
+  },
+  [WINE_TYPE.CHAMPAGNE]: {
+    text: '#A39200',
+    bg: '#FCF9DF',
+    typeKr: '샴페인',
+  },
+  [WINE_TYPE.FORTIFIED]: {
+    text: '#AE4444',
+    bg: '#F9EBEB',
+    typeKr: '포티파이드',
+  },
+  [WINE_TYPE.SWEET]: {
+    text: '#F06496',
+    bg: '#FFEDF6',
+    typeKr: '스위트',
+  },
+};
+
 export interface IWineType {
   type: WINE_TYPE;
   typeKr: string;
 }
 
-export const wineTypeList: IWineType[] = [
-  {
-    type: WINE_TYPE.RED,
-    typeKr: '레드',
-  },
-  {
-    type: WINE_TYPE.ROSE,
-    typeKr: '로제',
-  },
-  {
-    type: WINE_TYPE.WHITE,
-    typeKr: '화이트',
-  },
-  {
-    type: WINE_TYPE.SPARKLING,
-    typeKr: '스파클링',
-  },
-  {
-    type: WINE_TYPE.CHAMPAGNE,
-    typeKr: '샴페인',
-  },
-  {
-    type: WINE_TYPE.FORTIFIED,
-    typeKr: '포티파이드',
-  },
-  {
-    type: WINE_TYPE.SWEET,
-    typeKr: '스위트',
-  },
-];
+export const wineTypeList: IWineType[] = Object.entries(wineTypeMap).map(
+  ([type, { typeKr }]) => ({
+    type: type as WINE_TYPE,
+    typeKr,
+  }),
+);
 
 export const regionList: string[] = [
   '프랑스',

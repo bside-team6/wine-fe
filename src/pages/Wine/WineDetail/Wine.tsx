@@ -13,7 +13,6 @@ const Wine: React.VFC<IWineDetail> = ({
   wineType,
   wineName,
   wineNameEn,
-  sweet,
   scoreAverage,
   reviewCount,
   isRefrigerated,
@@ -150,6 +149,7 @@ const Wine: React.VFC<IWineDetail> = ({
               grid-column: 1 / span 3;
             `}
           >
+            {/* TODO: 추가 품종 툴팁 */}
             <div>품종</div>
             <p>{varieties[0]}</p>
           </div>
@@ -161,6 +161,7 @@ const Wine: React.VFC<IWineDetail> = ({
             text-align: center;
           `}
         >
+          {/* TODO: 냉장고에 담기 동작 */}
           <RoundButton
             icon="bookmark"
             size="large"
