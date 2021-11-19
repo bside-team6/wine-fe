@@ -6,6 +6,7 @@ import useWineQuery from '~/queries/useWineQuery';
 import AboutWine from './AboutWine';
 import EasyDescription from './EasyDescription';
 import Wine from './Wine';
+import WineNote from './WineNote';
 
 const WineDetail: React.VFC = () => {
   useResetWineSearch();
@@ -33,6 +34,7 @@ const WineDetail: React.VFC = () => {
       />
       <EasyDescription {...data!} />
       <AboutWine {...data!} />
+      <WineNote />
     </div>
   );
 };

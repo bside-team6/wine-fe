@@ -91,7 +91,10 @@ const EasyDescription: React.VFC<IWineDetail> = ({
           </strong>
         </p>
         <p>
-          <strong>{matchingFoods.join(', ')}</strong> 에 잘 어울리는 와인이에요!
+          <strong>
+            {matchingFoods.map((food) => food.foodName).join(', ')}
+          </strong>
+          에 잘 어울리는 와인이에요!
         </p>
       </div>
     </div>

@@ -13,7 +13,12 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 25000,
-    matchingFoods: ['디저트', '치즈', '과일', '빵'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '빵' },
+    ],
     wineImage: {
       id: 421,
       imageName: 'wn_421.jpg',
@@ -29,7 +34,13 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 25000,
-    matchingFoods: ['디저트', '튀김', '과일', '닭고기', '나쵸/소시지 등'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '튀김' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '닭고기' },
+      { imagePath: '', foodName: '나쵸/소시지 등' },
+    ],
     wineImage: {
       id: 595,
       imageName: 'wn_595.jpg',
@@ -45,7 +56,7 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 65000,
-    matchingFoods: ['치즈'],
+    matchingFoods: [{ imagePath: '', foodName: '치즈' }],
     wineImage: {
       id: 52,
       imageName: 'wn_52.jpg',
@@ -61,7 +72,11 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 153000,
-    matchingFoods: ['치즈', '디저트', '과일'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '과일' },
+    ],
     wineImage: {
       id: 714,
       imageName: 'wn_714.jpg',
@@ -77,7 +92,10 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 210000,
-    matchingFoods: ['치즈', '디저트'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '디저트' },
+    ],
     wineImage: {
       id: 161,
       imageName: 'wn_161.jpg',
@@ -93,7 +111,11 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 43124,
-    matchingFoods: ['치즈', '과일', '디저트'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '디저트' },
+    ],
     wineImage: {
       id: 495,
       imageName: 'wn_495.jpg',
@@ -109,7 +131,12 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 112000,
-    matchingFoods: ['해산물', '향신료 요리', '닭고기', '붉은 육류'],
+    matchingFoods: [
+      { imagePath: '', foodName: '해산물' },
+      { imagePath: '', foodName: '향신료 요리' },
+      { imagePath: '', foodName: '닭고기' },
+      { imagePath: '', foodName: '붉은 육류' },
+    ],
     wineImage: {
       id: 87,
       imageName: 'wn_87.jpg',
@@ -125,7 +152,12 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 28800,
-    matchingFoods: ['오리고기', '치즈', '과일', '디저트'],
+    matchingFoods: [
+      { imagePath: '', foodName: '오리고기' },
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '디저트' },
+    ],
     wineImage: {
       id: 440,
       imageName: 'wn_440.jpg',
@@ -141,7 +173,11 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 49000,
-    matchingFoods: ['치즈', '과일', '디저트'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '디저트' },
+    ],
     wineImage: {
       id: 124,
       imageName: 'wn_124.jpg',
@@ -157,7 +193,7 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 35000,
-    matchingFoods: ['디저트'],
+    matchingFoods: [{ imagePath: '', foodName: '디저트' }],
     wineImage: {
       id: 754,
       imageName: 'wn_754.jpg',
@@ -173,7 +209,10 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 60000,
-    matchingFoods: ['디저트', '과일'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '과일' },
+    ],
     wineImage: {
       id: 304,
       imageName: 'wn_304.jpg',
@@ -189,7 +228,7 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 550000,
-    matchingFoods: ['디저트'],
+    matchingFoods: [{ imagePath: '', foodName: '디저트' }],
     wineImage: {
       id: 139,
       imageName: 'wn_139.jpg',
@@ -205,7 +244,10 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 180000,
-    matchingFoods: ['치즈', '디저트'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '디저트' },
+    ],
     wineImage: {
       id: 162,
       imageName: 'wn_162.jpg',
@@ -221,7 +263,12 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 17000,
-    matchingFoods: ['디저트', '치즈', '과일', '나쵸/소시지 등'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '나쵸/소시지 등' },
+    ],
     wineImage: {
       id: 420,
       imageName: 'wn_420.jpg',
@@ -237,7 +284,13 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 25000,
-    matchingFoods: ['디저트', '치즈', '나쵸/소시지 등', '과일', '향신료 요리'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '나쵸/소시지 등' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '향신료 요리' },
+    ],
     wineImage: {
       id: 616,
       imageName: 'wn_616.jpg',
@@ -253,7 +306,10 @@ export const wines: IWine[] = [
     scoreAverage: 0.0,
     reviewCount: 0,
     price: 43000,
-    matchingFoods: ['치즈', '디저트'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '디저트' },
+    ],
     wineImage: {
       id: 336,
       imageName: 'wn_336.jpg',
@@ -284,7 +340,12 @@ export const wineDetails: IWineDetail[] = [
     },
     reviewCount: 20,
     scoreAverage: 3.5,
-    matchingFoods: ['디저트', '치즈', '과일', '빵'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '빵' },
+    ],
     isRefrigerated: false,
     refrigeratedCount: 10,
   },
@@ -308,7 +369,13 @@ export const wineDetails: IWineDetail[] = [
     },
     reviewCount: 2,
     scoreAverage: 4.0,
-    matchingFoods: ['디저트', '튀김', '과일', '닭고기', '나쵸/소시지 등'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '튀김' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '닭고기' },
+      { imagePath: '', foodName: '나쵸/소시지 등' },
+    ],
     isRefrigerated: false,
     refrigeratedCount: 0,
   },
@@ -332,7 +399,13 @@ export const wineDetails: IWineDetail[] = [
     },
     reviewCount: 100,
     scoreAverage: 4.5,
-    matchingFoods: ['디저트', '튀김', '과일', '닭고기', '나쵸/소시지 등'],
+    matchingFoods: [
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '튀김' },
+      { imagePath: '', foodName: '과일' },
+      { imagePath: '', foodName: '닭고기' },
+      { imagePath: '', foodName: '나쵸/소시지 등' },
+    ],
     isRefrigerated: true,
     refrigeratedCount: 0,
   },
@@ -356,7 +429,11 @@ export const wineDetails: IWineDetail[] = [
     },
     reviewCount: 0,
     scoreAverage: 0.0,
-    matchingFoods: ['치즈', '디저트', '과일'],
+    matchingFoods: [
+      { imagePath: '', foodName: '치즈' },
+      { imagePath: '', foodName: '디저트' },
+      { imagePath: '', foodName: '과일' },
+    ],
     isRefrigerated: true,
     refrigeratedCount: 0,
   },

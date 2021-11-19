@@ -50,6 +50,8 @@ export interface IWineNote {
   wineName: string;
   wineType: WINE_TYPE;
   descript?: string;
+  /** @description float */
+  score: number;
   /** @example 2021-10-11T15:00:00 */
   regDate: string;
   userId: number;
@@ -68,8 +70,6 @@ export interface IWineNote {
 export interface IWineNoteDetail extends IWineNote {
   /** @description int */
   sweet: number;
-  /** @description float */
-  score: number;
   price?: number;
   /** @example 2021-09-13 */
   drinkDate?: string;
@@ -137,6 +137,7 @@ export interface WineNotesRequest {
   isTimeline: boolean;
   page: number;
   size?: number;
+  wineId?: number;
 }
 
 export interface IPrice {
@@ -173,7 +174,10 @@ export interface IWine {
   /** @description 별점 받은 개수 */
   reviewCount: number;
   price: number;
-  matchingFoods: string[];
+  matchingFoods: {
+    foodName: string;
+    imagePath: string;
+  }[];
   wineImage: {
     id: number;
     imagePath: string;
