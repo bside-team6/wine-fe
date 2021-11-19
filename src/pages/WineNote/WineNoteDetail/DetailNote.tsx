@@ -5,10 +5,13 @@ import Icon from '~/components/common/Icon';
 import IconButton from '~/components/common/IconButton';
 import StarRatings from '~/components/common/StarRatings';
 import { formatDate, formatSweet } from '~/helpers/utils';
+import useAuthConfirm from '~/hooks/useAuthConfirm';
+import useWineNoteLikeMutation from '~/queries/useWineNoteLikeMutation';
 import { alignCenter, contentCenter, inlineFlexCenter } from '~/styles/common';
 import type { IWineNoteDetail } from '~/types';
 
 const DetailNote = ({
+  id,
   wineImages,
   wineType,
   wineName,
@@ -29,6 +32,13 @@ const DetailNote = ({
 
   const imageUrl =
     wineImages[0]?.imagePath || 'https://via.placeholder.com/420';
+
+  const { mutate } = useWineNoteLikeMutation();
+
+  const onClickLikeButton = useAuthConfirm({
+    confirmContent: `좋아요는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
+    onSuccess: () => mutate(id),
+  });
 
   return (
     <div
@@ -219,7 +229,10 @@ const DetailNote = ({
             flex-direction: column;
           `}
         >
-          <Icon name={isLike ? 'heart-fill' : 'heart'} />
+          <IconButton
+            onClick={onClickLikeButton}
+            name={isLike ? 'heart-fill' : 'heart'}
+          />
           <div
             css={css`
               color: ${theme.colors.black04};
