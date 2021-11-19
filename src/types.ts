@@ -133,6 +133,12 @@ export interface SignupRequest {
   nickName: string;
 }
 
+export interface WineNotesRequest {
+  isTimeline: boolean;
+  page: number;
+  size?: number;
+}
+
 export interface IPrice {
   id: number;
   label: string;
