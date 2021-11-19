@@ -1,11 +1,13 @@
+import { useState } from 'react';
 import { css, useTheme } from '@emotion/react';
 import { Link } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
+import IconButton from '~/components/common/IconButton';
 import RoundButton from '~/components/common/RoundButton';
 import StarRatings from '~/components/common/StarRatings';
 import { formatPrice } from '~/helpers/utils';
 import useAuthConfirm from '~/hooks/useAuthConfirm';
-import { alignCenter, flexCenter } from '~/styles/common';
+import { alignCenter, buttonStyle, flexCenter } from '~/styles/common';
 import type { IWineDetail } from '~/types';
 
 const Wine: React.VFC<IWineDetail> = ({
@@ -133,6 +135,7 @@ const Wine: React.VFC<IWineDetail> = ({
             font-family: ${theme.typography.lato};
             p {
               font-size: 16px;
+              ${alignCenter}
             }
           `}
         >
@@ -159,9 +162,13 @@ const Wine: React.VFC<IWineDetail> = ({
               grid-column: 1 / span 3;
             `}
           >
-            {/* TODO: 추가 품종 툴팁 */}
             <div>품종</div>
-            <p>{varieties[0]}</p>
+            <p>
+              <span>{varieties[0]}</span>
+              {varieties.length > 1 && (
+                <VarietiesToolTip varieties={varieties} />
+              )}
+            </p>
           </div>
         </div>
         <div
@@ -201,3 +208,87 @@ const Wine: React.VFC<IWineDetail> = ({
 };
 
 export default Wine;
+
+const VarietiesToolTip = ({ varieties }: { varieties: string[] }) => {
+  const theme = useTheme();
+
+  const [isOpen, setIsOpen] = useState(false);
+
+  return (
+    <>
+      <div
+        css={css`
+          position: relative;
+          margin-left: 12px;
+          ${alignCenter}
+        `}
+      >
+        <button
+          onClick={() => setIsOpen((state) => !state)}
+          css={css`
+            ${buttonStyle}
+            line-height: 20px;
+            height: 20px;
+            font-weight: bold;
+            font-size: 12px;
+            color: ${theme.colors.white};
+            background: ${theme.colors.black};
+            padding: 0 8px;
+            border-radius: 10px;
+          `}
+        >
+          더보기 +
+        </button>
+        <div
+          css={css`
+            display: ${isOpen ? 'block' : 'none'};
+            position: absolute;
+            width: 300px;
+            top: 36px;
+            left: 0px;
+            background: ${theme.colors.white};
+            border: 1px solid ${theme.colors.border};
+            box-shadow: ${theme.colors.shadow};
+            border-radius: 4px;
+            padding: 12px 52px 12px 16px;
+            &:before,
+            &:after {
+              content: ' ';
+              display: block;
+              width: 0;
+              height: 0;
+              position: absolute;
+              border-style: solid;
+            }
+            &:before {
+              border-color: transparent transparent ${theme.colors.border}
+                transparent;
+              border-width: 9px;
+              top: -18px;
+              left: 17px;
+            }
+            &:after {
+              border-color: transparent transparent ${theme.colors.white}
+                transparent;
+              border-width: 8px;
+              top: -16px;
+              left: 18px;
+            }
+          `}
+        >
+          {varieties.join(', ')}
+          <IconButton
+            onClick={() => setIsOpen(false)}
+            name="cancel"
+            css={css`
+              position: absolute;
+              top: 21px;
+              right: 12px;
+              z-index: 1;
+            `}
+          />
+        </div>
+      </div>
+    </>
+  );
+};
