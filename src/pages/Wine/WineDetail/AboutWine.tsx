@@ -1,4 +1,4 @@
-import { css, useTheme } from '@emotion/react';
+import { css } from '@emotion/react';
 import Divider from '~/components/common/Divider';
 import WineGauge from '~/components/wine/WineGauge';
 import { alignCenter } from '~/styles/common';
@@ -13,8 +13,6 @@ const AboutWine: React.VFC<IWineDetail> = ({
   body,
   matchingFoods,
 }) => {
-  const theme = useTheme();
-
   return (
     <div
       css={css`
