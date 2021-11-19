@@ -1,7 +1,7 @@
 import { css, useTheme } from '@emotion/react';
 import type { SerializedStyles, Theme } from '@emotion/react';
 import Icon, { IconName } from '~/components/common/Icon';
-import { inlineFlexCenter } from '~/styles/common';
+import { buttonStyle } from '~/styles/common';
 
 type IconPosition = 'left' | 'right';
 type Size = 'small' | 'medium' | 'large';
@@ -62,11 +62,8 @@ const RoundButton: React.FC<RoundButtonProps> = ({
     <button
       css={[
         css`
-          ${inlineFlexCenter}
+          ${buttonStyle}
           position: relative;
-          cursor: pointer;
-          outline: none;
-          appearance: none;
           padding: 0 ${children ? 20 : 16}px;
           font-size: 14px;
           font-weight: ${bold ? 'bold' : 'normal'};
