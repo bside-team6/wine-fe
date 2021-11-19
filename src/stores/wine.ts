@@ -189,7 +189,6 @@ export const wineSearchState = selector<WinesRequest>({
     const maxPrice = priceList[maxIndex]?.maxPrice;
 
     return {
-      page: 0,
       foodId,
       minPrice,
       maxPrice,

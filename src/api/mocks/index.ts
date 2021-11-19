@@ -1,4 +1,4 @@
 import { setupWorker } from 'msw';
-import { getWineHandler } from '~/api/mocks/wine';
+import { getWineHandler, getWinesHandler } from '~/api/mocks/wine';
 
-export const worker = setupWorker(getWineHandler);
+export const worker = setupWorker(getWineHandler, getWinesHandler);
