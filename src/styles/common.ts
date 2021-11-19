@@ -41,6 +41,9 @@ export const buttonStyle = css`
   padding: 0;
   outline: 0;
   appearance: none;
+  text-decoration: none;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
   &:disabled {
     cursor: not-allowed;
   }
