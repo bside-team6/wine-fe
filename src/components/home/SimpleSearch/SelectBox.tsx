@@ -1,12 +1,16 @@
 import { css, SerializedStyles, Theme, useTheme } from '@emotion/react';
+import { useRecoilValue } from 'recoil';
 import Icon from '~/components/common/Icon';
+import { stepState } from '~/stores/wine';
 import { alignCenter } from '~/styles/common';
+import { MAIN_STEP } from '~/types';
 
 export interface SelectBoxProps
   extends React.DetailedHTMLProps<
     React.HTMLAttributes<HTMLDivElement>,
     HTMLDivElement
   > {
+  step: MAIN_STEP;
   title: string;
   info?: string;
   css?: SerializedStyles | ((theme: Theme) => SerializedStyles);
@@ -16,6 +20,7 @@ export interface SelectBoxProps
  * 각 스텝 별 세부 선택 창
  */
 const SelectBox: React.FC<SelectBoxProps> = ({
+  step: boxStep,
   title,
   info,
   children,
@@ -23,10 +28,12 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   ...restProps
 }) => {
   const theme = useTheme();
+  const step = useRecoilValue(stepState);
 
   return (
     <div
       css={css`
+        display: ${step === boxStep ? 'block' : 'none'};
         position: absolute;
         top: 76px;
         width: 100%;

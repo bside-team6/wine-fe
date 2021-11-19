@@ -1,11 +1,14 @@
 import type { ComponentMeta, ComponentStory } from '@storybook/react';
 import { wineNote } from '~/api/mocks/wine-note';
-import { withProvider } from '~/helpers/storybook';
+import { withLazy, withProvider } from '~/helpers/storybook';
 import SimpleSearch from './SimpleSearch';
+
+const LazySimpleSearch = (args: React.ComponentProps<typeof SimpleSearch>) =>
+  withLazy(<SimpleSearch {...args} />);
 
 export default {
   title: 'components/메인/SimpleSearch',
-  component: SimpleSearch,
+  component: LazySimpleSearch,
   args: {
     ...wineNote,
   },
@@ -16,8 +19,8 @@ export default {
 } as ComponentMeta<typeof SimpleSearch>;
 
 const Template: ComponentStory<typeof SimpleSearch> = (args) => (
-  <SimpleSearch {...args} />
+  <LazySimpleSearch {...args} />
 );
 
 export const Default = Template.bind({});
-Default.storyName = '기본';
+Default.storyName = 'SimpleSearch';

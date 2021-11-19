@@ -25,15 +25,12 @@ const WineSearch = () => {
   const targetRef = useRef<HTMLDivElement>(null);
 
   const onReset = useRecoilCallback(
-    ({ set }) =>
+    ({ reset }) =>
       () => {
-        set(foodIdState, undefined);
-        set(priceState, {
-          minIndex: -1,
-          maxIndex: -1,
-        });
-        set(wineTypeState, undefined);
-        set(wineNameState, undefined);
+        reset(foodIdState);
+        reset(priceState);
+        reset(wineTypeState);
+        reset(wineNameState);
       },
     [],
   );

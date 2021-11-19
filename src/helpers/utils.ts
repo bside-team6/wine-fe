@@ -78,16 +78,3 @@ export const priceToIndex = (minPrice?: number, maxPrice?: number) => {
     maxIndex,
   };
 };
-
-export const getSearchParam = <T extends string>(name: string) => {
-  const searchParams = new URLSearchParams(window.location.search);
-  return (searchParams.get(name) as T) || undefined;
-};
-
-export const getSearchParams = <T extends string[]>(name: string) => {
-  const searchParams = new URLSearchParams(window.location.search);
-  const values = searchParams.getAll(name) as T;
-  return values.length > 0 ? values : undefined;
-};
-
-export const toNumber = (str: string | undefined) => Number(str) || undefined;

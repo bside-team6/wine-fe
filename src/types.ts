@@ -194,3 +194,9 @@ export interface IFood {
   id: number;
   foodName: string;
 }
+
+export enum MAIN_STEP {
+  FOOD = 1, // 메인음식
+  PRICE, // 가격대
+  SWEET, // 당도
+}
