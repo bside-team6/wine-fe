@@ -14,12 +14,14 @@ export const getWineNotes = async ({
   page,
   isTimeline,
   size,
+  wineId,
 }: WineNotesRequest) => {
   const { data } = await instance.get<IPageable<IWineNote>>(API_URL.WINE_NOTE, {
     params: {
       isTimeline,
       page,
       size,
+      wineId,
     },
   });
   return data;

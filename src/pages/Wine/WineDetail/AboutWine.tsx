@@ -6,7 +6,6 @@ import type { IWineDetail } from '~/types';
 import aboutWineLogoImg from '~/assets/about_wine.png';
 import { ReactComponent as One } from '~/assets/circle_one.svg';
 import { ReactComponent as Two } from '~/assets/circle_two.svg';
-import foodThumb from '~/assets/food_thumb.png';
 
 const AboutWine: React.VFC<IWineDetail> = ({
   sweet,
@@ -104,29 +103,17 @@ const AboutWine: React.VFC<IWineDetail> = ({
               margin-bottom: -16px;
             `}
           >
-            {matchingFoods.map((food) => (
+            {matchingFoods.map(({ foodName, imagePath }) => (
               <div
-                key={food}
+                key={foodName}
                 css={css`
                   margin-right: 16px;
                   margin-bottom: 16px;
-                  position: relative;
-                  padding: 20px 28px 20px 72px;
-                  background: ${theme.colors.black10};
                   border-radius: 30px;
                   letter-spacing: -0.03em;
-                  &:before {
-                    position: absolute;
-                    top: 14px;
-                    left: 28px;
-                    content: url(${foodThumb});
-                    width: 32px;
-                    height: 32px;
-                    display: block;
-                  }
                 `}
               >
-                {food}
+                <img src={imagePath} alt={foodName} />
               </div>
             ))}
           </div>
