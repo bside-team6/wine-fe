@@ -26,7 +26,7 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
   const { mutate } = useWineNoteLikeMutation();
 
   const onClickLikeButton = useAuthConfirm({
-    confirmContent: `좋아요만 보기는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
+    confirmContent: `좋아요는 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
     onSuccess: () => mutate(id),
   });
 

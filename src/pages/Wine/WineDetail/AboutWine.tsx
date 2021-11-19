@@ -57,7 +57,7 @@ const AboutWine: React.VFC<IWineDetail> = ({
         <div>
           <h3>
             <One />
-            <span>와인게이지</span>
+            <span>당도 / 산도 / 바디</span>
           </h3>
           <Divider type="vertical" />
           <div
