@@ -1,15 +1,25 @@
 import { API_URL } from '~/api/urls';
-import type { IPageable, IWineNote, IWineNoteDetail } from '~/types';
+import type {
+  IPageable,
+  IWineNote,
+  IWineNoteDetail,
+  WineNotesRequest,
+} from '~/types';
 import instance from './instance';
 
 /**
  * GET 모든 와인노트 목록
  */
-export const getWineNotes = async (page: number, isTimeline: boolean) => {
+export const getWineNotes = async ({
+  page,
+  isTimeline,
+  size,
+}: WineNotesRequest) => {
   const { data } = await instance.get<IPageable<IWineNote>>(API_URL.WINE_NOTE, {
     params: {
-      page,
       isTimeline,
+      page,
+      size,
     },
   });
   return data;

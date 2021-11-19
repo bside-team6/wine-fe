@@ -11,12 +11,13 @@ import 'swiper/swiper.min.css';
 
 const WineNoteSwiper = () => {
   const theme = useTheme();
-
   const navigate = useNavigate();
 
   const { data } = useWineNotesQuery({
+    size: 8,
     isTimeline: false,
   });
+
   const notes = data?.pages[0]?.content;
 
   // 와인노트가 없는 케이스는 고려하지 않음
