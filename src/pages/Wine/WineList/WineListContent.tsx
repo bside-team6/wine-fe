@@ -1,28 +1,37 @@
-import { useEffect } from 'react';
+import { useEffect, useMemo } from 'react';
 import { css } from '@emotion/react';
 import { isUndefined, omitBy } from 'lodash-es';
 import { useSearchParams } from 'react-router-dom';
 import { useRecoilValue } from 'recoil';
 import Spinner from '~/components/common/Spinner';
+import Pagination from '~/components/wine/Pagination';
 import WineItem from '~/components/wine/WineItem';
 import useWinesQuery from '~/queries/useWinesQuery';
 import { wineSearchState } from '~/stores/wine';
-import { alignCenter, contentCenter } from '~/styles/common';
-import Pagination from './Pagination';
+import { alignCenter, contentCenter, flexCenter } from '~/styles/common';
+import { WinesRequest } from '~/types';
 import SortOrder from './SortOrder';
 
 const WineListContent = () => {
-  const [, setSearchParams] = useSearchParams();
   const wineSearch = useRecoilValue(wineSearchState);
 
-  const { data, isLoading } = useWinesQuery(wineSearch);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = useMemo(() => {
+    const page = searchParams.get('page');
+    return page ? Number(page) : 0;
+  }, [searchParams]);
+
+  const { data, isLoading } = useWinesQuery({ ...wineSearch, page });
 
   useEffect(() => {
-    // state -> searchParams
+    /**
+     * state -> searchParams
+     * 검색조건을 바꿨을 때 page는 0으로 초기화
+     */
     setSearchParams(omitBy(wineSearch, isUndefined), { replace: true });
   }, [setSearchParams, wineSearch]);
 
-  if (isLoading) {
+  if (isLoading || !data) {
     return (
       <div
         css={css`
@@ -34,6 +43,8 @@ const WineListContent = () => {
       </div>
     );
   }
+
+  const { content, ...paginationProps } = data;
 
   return (
     <>
@@ -51,7 +62,7 @@ const WineListContent = () => {
             }
           `}
         >
-          총 <strong>{data?.totalElements || 0}</strong>건
+          총 <strong>{data.totalElements || 0}</strong>건
         </div>
         <SortOrder />
       </div>
@@ -64,11 +75,26 @@ const WineListContent = () => {
           grid-row-gap: 48px;
         `}
       >
-        {data?.content?.map((item) => (
+        {content.map((item) => (
           <WineItem key={item.id} {...item} />
         ))}
       </div>
-      <Pagination />
+      <div
+        css={css`
+          margin-top: 80px;
+          margin-bottom: 120px;
+          ${flexCenter}
+        `}
+      >
+        <Pagination
+          {...paginationProps}
+          onChange={(page) => {
+            const req: WinesRequest = { ...wineSearch, page: page - 1 };
+            setSearchParams(omitBy(req, isUndefined)); // push
+            window.scrollTo(0, 0);
+          }}
+        />
+      </div>
     </>
   );
 };
