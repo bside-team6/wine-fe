@@ -109,23 +109,11 @@ const AboutWine: React.VFC<IWineDetail> = ({
                 css={css`
                   margin-right: 16px;
                   margin-bottom: 16px;
-                  position: relative;
-                  padding: 20px 28px 20px 72px;
-                  background: ${theme.colors.black10};
                   border-radius: 30px;
                   letter-spacing: -0.03em;
-                  &:before {
-                    position: absolute;
-                    top: 14px;
-                    left: 28px;
-                    content: url(${imagePath});
-                    width: 32px;
-                    height: 32px;
-                    display: block;
-                  }
                 `}
               >
-                {foodName}
+                <img src={imagePath} alt={foodName} />
               </div>
             ))}
           </div>
