@@ -202,7 +202,7 @@ export const getWineNotesHandler = rest.get(
         number: page,
         numberOfElements: size,
         size,
-        totalElements: totalPages * page,
+        totalElements: totalPages * (page + 1) * 16,
         totalPages,
       }),
     );

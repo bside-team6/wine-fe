@@ -1,7 +1,8 @@
+import { shuffle } from 'lodash-es';
 import { rest } from 'msw';
 import { API_URL } from '~/api/urls';
 import { delayedResponse } from '~/helpers/msw';
-import { IWine, IWineDetail, WINE_TYPE } from '~/types';
+import { IPageable, IWine, IWineDetail, WINE_TYPE } from '~/types';
 
 export const wines: IWine[] = [
   {
@@ -360,6 +361,26 @@ export const wineDetails: IWineDetail[] = [
     refrigeratedCount: 0,
   },
 ];
+
+export const getWinesHandler = rest.get(API_URL.WINE, (req, res, ctx) => {
+  const page = Number(req.url.searchParams.get('page') || 0);
+  const size = wines.length; // 16
+  const totalPages = 20;
+
+  return delayedResponse(
+    ctx.json<IPageable<IWine>>({
+      content: shuffle(wines),
+      empty: false,
+      first: page === 0,
+      last: page + 1 === totalPages,
+      number: page,
+      numberOfElements: size,
+      size,
+      totalElements: totalPages * (page + 1) * 16,
+      totalPages,
+    }),
+  );
+});
 
 export const getWineHandler = rest.get(
   `${API_URL.WINE}/:wineId`,
