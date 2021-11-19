@@ -51,7 +51,10 @@ export const formatAcidity = (acidity: number) => {
  * @returns 가격문구
  */
 export const formatPrice = (price: number) => {
-  return `${String(price).slice(0, -3)}${price >= 10_000 ? '만' : '천'}원 대`;
+  if (price >= 10_000) {
+    return `${String(price).slice(0, -4)}만원 대`;
+  }
+  return `${String(price).slice(0, -3)}천원 대`;
 };
 
 /**
