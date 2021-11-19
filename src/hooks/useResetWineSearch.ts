@@ -5,6 +5,7 @@ import {
   foodIdState,
   priceState,
   sortState,
+  stepState,
   wineNameState,
   wineTypeState,
 } from '~/stores/wine';
@@ -12,30 +13,28 @@ import {
 /**
  * 와인 검색에서 사용하는 전역 store를 reset하는 훅
  */
-const useResetWineSearch = () => {
+const useResetWineSearch = (excludePath = '/wine/*') => {
   const onReset = useRecoilCallback(
-    ({ set }) =>
+    ({ reset }) =>
       () => {
-        set(foodIdState, undefined);
-        set(priceState, {
-          minIndex: -1,
-          maxIndex: -1,
-        });
-        set(wineTypeState, undefined);
-        set(wineNameState, undefined);
-        set(sortState, undefined);
+        reset(foodIdState);
+        reset(priceState);
+        reset(wineTypeState);
+        reset(wineNameState);
+        reset(sortState);
+        reset(stepState);
       },
     [],
   );
 
   useEffect(() => {
-    // 이동하는 라우트가 와인리스트/와인상세가 아닌 경우 스토어를 리셋
+    // 이동하는 라우트가 `excludePath`가 아닌 경우 관련 스토어를 리셋
     return () => {
-      if (!matchPath('/wine/*', window.location.pathname)) {
+      if (!matchPath(excludePath, window.location.pathname)) {
         onReset();
       }
     };
-  }, [onReset]);
+  }, [onReset, excludePath]);
 };
 
 export default useResetWineSearch;

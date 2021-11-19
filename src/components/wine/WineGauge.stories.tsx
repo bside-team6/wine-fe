@@ -32,4 +32,4 @@ const Template: ComponentStory<typeof WineGauge> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.storyName = '기본';
+Default.storyName = 'WineGauge';
