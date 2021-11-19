@@ -99,6 +99,7 @@ const Wine: React.VFC<IWineDetail> = ({
         </h2>
         <h4
           css={css`
+            font-family: 'condor', sans-serif;
             font-size: 20px;
             line-height: 24px;
             margin-bottom: 35px;
