@@ -99,6 +99,7 @@ const AboutWine: React.VFC<IWineDetail> = ({
           <div
             css={css`
               display: flex;
+              flex-wrap: wrap;
               margin-right: -16px;
               margin-bottom: -16px;
             `}
