@@ -77,14 +77,14 @@ const WineItem = ({
                 margin-bottom: 3px;
               `}
             />
-            {matchingFoods.slice(0, 3).map((food) => (
+            {matchingFoods.slice(0, 3).map(({ foodName }) => (
               <span
-                key={food}
+                key={foodName}
                 css={css`
                   margin-left: 2px;
                 `}
               >
-                #{food}
+                #{foodName}
               </span>
             ))}
           </div>

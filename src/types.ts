@@ -173,7 +173,10 @@ export interface IWine {
   /** @description 별점 받은 개수 */
   reviewCount: number;
   price: number;
-  matchingFoods: string[];
+  matchingFoods: {
+    foodName: string;
+    imagePath: string;
+  }[];
   wineImage: {
     id: number;
     imagePath: string;
