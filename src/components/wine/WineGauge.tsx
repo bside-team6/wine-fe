@@ -123,6 +123,7 @@ const WineGauge: React.VFC<WineGaugeProps> = ({
               white-space: nowrap;
               ${v === value &&
               css`
+                font-size: 14px;
                 font-weight: bold;
                 color: ${theme.colors.main.primary};
               `}
