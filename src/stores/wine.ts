@@ -8,12 +8,18 @@ import {
 } from '~/helpers/constants';
 import { queryClient } from '~/helpers/query';
 import {
-  getSearchParam,
-  getSearchParams,
-  priceToIndex,
-  toNumber,
-} from '~/helpers/utils';
-import { IFood, IPrice, ISort, WINE_TYPE, WinesRequest } from '~/types';
+  IFood,
+  IPrice,
+  ISort,
+  MAIN_STEP,
+  WINE_TYPE,
+  WinesRequest,
+} from '~/types';
+
+export const stepState = atom<MAIN_STEP | undefined>({
+  key: 'stepState',
+  default: undefined,
+});
 
 export const openState = atom<'food' | 'price' | 'filter' | undefined>({
   key: 'openState',
@@ -34,7 +40,7 @@ interface SelectMultiple {
 // 와인리스트 - 메인음식
 export const foodIdState = atom<number | undefined>({
   key: 'foodIdState',
-  default: toNumber(getSearchParam('foodId')),
+  default: undefined,
 });
 
 export const foodListSelector = selector<(IFood & SelectOne)[]>({
@@ -75,10 +81,10 @@ export const foodLabelSelector = selector({
 // 와인리스트 - 가격대
 export const priceState = atom({
   key: 'priceState',
-  default: priceToIndex(
-    toNumber(getSearchParam('minPrice')),
-    toNumber(getSearchParam('maxPrice')),
-  ),
+  default: {
+    minIndex: -1,
+    maxIndex: -1,
+  },
 });
 
 export const priceListSelector = selector<(IPrice & SelectMultiple)[]>({
@@ -122,7 +128,7 @@ export const priceLabelSelector = selector({
 // 와인리스트 - 와인종류
 export const wineTypeState = atom<WINE_TYPE | undefined>({
   key: 'wineTypeState',
-  default: getSearchParam<WINE_TYPE>('wineType'),
+  default: undefined,
 });
 
 export const wineTypeListSelector = selector<(IWineType & SelectOne)[]>({
@@ -149,13 +155,13 @@ export const wineTypeListSelector = selector<(IWineType & SelectOne)[]>({
 // 와인리스트 - 와인명
 export const wineNameState = atom<string | undefined>({
   key: 'wineNameState',
-  default: getSearchParam('wineName'),
+  default: undefined,
 });
 
 // 와인리스트 - 정렬
 export const sortState = atom<ISort | undefined>({
   key: 'sortState',
-  default: getSearchParams<ISort>('sort'),
+  default: undefined,
 });
 
 export const sortLabelSelector = selector({

@@ -1,96 +1,31 @@
-import { useMemo, useState } from 'react';
 import { css, useTheme } from '@emotion/react';
-import { produce } from 'immer';
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil';
 import IconButton from '~/components/common/IconButton';
 import RoundButton from '~/components/common/RoundButton';
-import { priceList } from '~/helpers/constants';
+import useResetWineSearch from '~/hooks/useResetWineSearch';
 import useFoodsQuery from '~/queries/useFoodsQuery';
+import {
+  foodIdState,
+  foodLabelSelector,
+  foodListSelector,
+  priceLabelSelector,
+  priceListSelector,
+  priceState,
+  sortState,
+  stepState,
+} from '~/stores/wine';
 import { alignCenter } from '~/styles/common';
-import type { IFood, IPrice } from '~/types';
-import { STEP } from './helpers';
+import { MAIN_STEP } from '~/types';
 import Indicator from './Indicator';
 import SelectBox from './SelectBox';
 import StepButton from './StepButton';
 
-interface FormValues {
-  [STEP.FOOD]: IFood | undefined;
-  [STEP.PRICE]: {
-    start: number;
-    end: number;
-  };
-  [STEP.SWEET]: boolean | undefined;
-}
-
 const SimpleSearch: React.VFC = () => {
-  const navigate = useNavigate();
+  useResetWineSearch();
 
   const theme = useTheme();
-
-  // 1: 메인음식, 2: 가격대, 3: 당도, undefined: 선택되지 않음
-  const [step, setStep] = useState<STEP | undefined>(undefined);
-
-  // 선택 데이터
-  const [data, setData] = useState<FormValues>({
-    [STEP.FOOD]: undefined,
-    [STEP.PRICE]: {
-      start: -1,
-      end: -1,
-    },
-    [STEP.SWEET]: undefined,
-  });
-
-  const onClickStepButton = (button: STEP) => {
-    setStep((step) => (step === button ? undefined : button));
-  };
-
-  const moveToNextStep = () => {
-    // 선택과정을 보여주기 위한 약간의 딜레이
-    setTimeout(() => {
-      setStep((step) => (!step || step === STEP.SWEET ? step : step + 1));
-    }, 50);
-  };
-
-  const priceLabel = useMemo(() => {
-    const { start, end } = data[STEP.PRICE];
-    if (start === -1) return '가격대';
-    const minPrice = priceList[start].minPrice?.toString()?.slice(0, -4);
-    const maxPrice = priceList[end].maxPrice?.toString()?.slice(0, -4);
-    if (minPrice === undefined) {
-      if (maxPrice === undefined) return '가격대';
-      return `${maxPrice}만원 이하`;
-    }
-    if (maxPrice === undefined) {
-      return `${minPrice}만원 이상`;
-    }
-    return `${minPrice}~${maxPrice}만원`;
-  }, [data]);
-
-  const onSearch = () => {
-    const searchParams = new URLSearchParams();
-    if (data[STEP.FOOD] !== undefined) {
-      searchParams.set('foodId', String(data[STEP.FOOD]!.id));
-    }
-    if (data[STEP.PRICE].start !== -1) {
-      const { minPrice } = priceList[data[STEP.PRICE].start];
-      if (minPrice !== undefined) {
-        searchParams.set('minPrice', String(minPrice));
-      }
-      if (data[STEP.PRICE].end !== -1) {
-        const { maxPrice } = priceList[data[STEP.PRICE].end];
-        if (maxPrice !== undefined) {
-          searchParams.set('maxPrice', String(maxPrice));
-        }
-      }
-    }
-    if (data[STEP.SWEET] !== undefined) {
-      searchParams.set('sortBy', data[STEP.SWEET] ? 'sweet' : 'price');
-    }
-    navigate({
-      pathname: '/wine',
-      search: searchParams.toString(),
-    });
-  };
+  const navigate = useNavigate();
 
   return (
     <div
@@ -109,7 +44,7 @@ const SimpleSearch: React.VFC = () => {
           overflow: hidden;
         `}
       >
-        {step && <Indicator step={step} />}
+        <Indicator />
         <div
           css={css`
             ${alignCenter}
@@ -117,29 +52,9 @@ const SimpleSearch: React.VFC = () => {
             height: 100%;
           `}
         >
-          <StepButton
-            width={170}
-            label={data[STEP.FOOD]?.foodName || '메인음식'}
-            step={STEP.FOOD}
-            currentStep={step}
-            onClick={onClickStepButton}
-          />
-          <StepButton
-            width={150}
-            label={priceLabel}
-            step={STEP.PRICE}
-            currentStep={step}
-            onClick={onClickStepButton}
-          />
-          <StepButton
-            width={112}
-            label="당도"
-            step={STEP.SWEET}
-            currentStep={step}
-            onClick={onClickStepButton}
-          />
+          <ButtonGroup />
           <IconButton
-            onClick={onSearch}
+            onClick={() => navigate('/wine')}
             name="search"
             css={css`
               width: 44px;
@@ -153,78 +68,52 @@ const SimpleSearch: React.VFC = () => {
           />
         </div>
       </div>
-      {/* 스텝별 세부 선택 박스 */}
-      {step === STEP.FOOD && (
-        <FoodBox
-          data={data[STEP.FOOD]}
-          setData={setData}
-          moveToNextStep={moveToNextStep}
-        />
-      )}
-      {step === STEP.PRICE && (
-        <PriceBox data={data[STEP.PRICE]} setData={setData} />
-      )}
-      {step === STEP.SWEET && (
-        <SweetBox data={data[STEP.SWEET]} setData={setData} />
-      )}
+      <FoodBox />
+      <PriceBox />
+      <SweetBox />
     </div>
   );
 };
 
 export default SimpleSearch;
 
-interface SelectBoxProps<T> {
-  data: T;
-  setData: React.Dispatch<React.SetStateAction<FormValues>>;
-  moveToNextStep?: VoidFunction;
-}
+const ButtonGroup = () => {
+  const foodLabel = useRecoilValue(foodLabelSelector);
+  const priceLabel = useRecoilValue(priceLabelSelector);
 
-export interface FoodItem extends IFood {
-  color: 'primary' | 'secondary';
-  inactive: boolean;
-  bold: boolean;
-}
+  return (
+    <>
+      <StepButton width={170} label={foodLabel} step={MAIN_STEP.FOOD} />
+      <StepButton width={150} label={priceLabel} step={MAIN_STEP.PRICE} />
+      <StepButton width={112} label="당도" step={MAIN_STEP.SWEET} />
+    </>
+  );
+};
 
-const FoodBox = ({
-  data,
-  setData,
-  moveToNextStep,
-}: SelectBoxProps<FormValues[STEP.FOOD]>) => {
-  const { data: foodData } = useFoodsQuery();
+const FoodBox = () => {
+  useFoodsQuery({
+    suspense: true,
+  });
 
-  const foods = useMemo<FoodItem[]>(() => {
-    if (!foodData) return [];
-    const foodId = data?.id;
-    if (foodId) {
-      return foodData.map((food) => ({
-        ...food,
-        color: foodId === food.id ? 'primary' : 'secondary',
-        inactive: foodId !== food.id,
-        bold: foodId === food.id,
-      }));
+  const setStep = useSetRecoilState(stepState);
+  const [foodId, setFood] = useRecoilState(foodIdState);
+  const foodList = useRecoilValue(foodListSelector);
+
+  const moveToNextStep = () => {
+    // 선택과정을 보여주기 위한 약간의 딜레이
+    setTimeout(() => setStep(MAIN_STEP.PRICE), 50);
+  };
+
+  const onClickItem = (id: number) => {
+    if (id !== foodId) {
+      moveToNextStep();
     }
-    // 선택값이 없으면 전부 default
-    return foodData.map((food) => ({
-      ...food,
-      color: 'secondary',
-      bold: false,
-      inactive: false,
-    }));
-  }, [foodData, data]);
-
-  const onClickItem = (food: IFood) => {
-    if (food.id !== data?.id) {
-      moveToNextStep?.();
-    }
-    setData(
-      produce((draft) => {
-        draft[STEP.FOOD] = draft[STEP.FOOD]?.id === food.id ? undefined : food;
-      }),
-    );
+    setFood((state) => (state === id ? undefined : id));
   };
 
   return (
     <SelectBox
+      step={MAIN_STEP.FOOD}
       title="메인음식"
       info="한 가지 음식만 선택해주세요."
       css={css`
@@ -238,13 +127,13 @@ const FoodBox = ({
         }
       `}
     >
-      {foods.map(({ id, foodName, ...props }) => (
+      {foodList.map(({ id, foodName, ...props }) => (
         <RoundButton
           key={id}
           variant="outlined"
           size="small"
           {...props}
-          onClick={() => onClickItem({ id, foodName })}
+          onClick={() => onClickItem(id)}
         >
           {foodName}
         </RoundButton>
@@ -253,68 +142,67 @@ const FoodBox = ({
   );
 };
 
-interface PriceItem extends IPrice {
-  color: 'primary' | 'secondary';
-  bold: boolean;
-}
-
-const PriceBox = ({
-  data,
-  setData,
-}: SelectBoxProps<FormValues[STEP.PRICE]>) => {
-  const prices = useMemo<PriceItem[]>(() => {
-    const startIdx = data.start;
-    const endIdx = data.end;
-    return priceList.map((price) => {
-      const selected = price.id >= startIdx && price.id <= endIdx;
-      return {
-        ...price,
-        color: selected ? 'primary' : 'secondary',
-        bold: selected,
-      };
-    });
-  }, [data]);
+const PriceBox = () => {
+  const [price, setPrice] = useRecoilState(priceState);
+  const priceList = useRecoilValue(priceListSelector);
 
   const onClickItem = (priceId: number) => {
-    setData(
-      produce((draft) => {
-        const { start, end } = draft[STEP.PRICE];
-        if (start === -1) {
-          // 선택값이 없는 경우
-          draft[STEP.PRICE] = {
-            start: priceId,
-            end: priceId,
-          };
-          return;
+    const { minIndex, maxIndex } = price;
+
+    if (minIndex === -1) {
+      // 선택값이 없는 경우
+      setPrice({
+        minIndex: priceId,
+        maxIndex: priceId,
+      });
+      return;
+    }
+
+    if (minIndex === maxIndex && minIndex === priceId) {
+      // 선택값이 하나고 그 값을 클릭한 경우
+      setPrice({
+        minIndex: -1,
+        maxIndex: -1,
+      });
+      return;
+    }
+
+    if (priceId < maxIndex) {
+      // start 바꾸기
+      if (priceId === minIndex) {
+        if (minIndex + 1 < 7) {
+          setPrice((price) => ({
+            ...price,
+            minIndex: price.minIndex + 1,
+          }));
         }
-        if (start === end && start === priceId) {
-          draft[STEP.PRICE] = {
-            start: -1,
-            end: -1,
-          };
-          return;
+      } else {
+        setPrice((price) => ({
+          ...price,
+          minIndex: priceId,
+        }));
+      }
+    } else {
+      // end 바꾸기
+      if (priceId === maxIndex) {
+        if (maxIndex - 1 >= 0) {
+          setPrice((price) => ({
+            ...price,
+            maxIndex: price.maxIndex - 1,
+          }));
         }
-        if (priceId < end) {
-          // start 바꾸기
-          if (priceId === start) {
-            if (draft[STEP.PRICE].start + 1 < 7) draft[STEP.PRICE].start += 1;
-          } else {
-            draft[STEP.PRICE].start = priceId;
-          }
-        } else {
-          // end 바꾸기
-          if (priceId === end) {
-            if (draft[STEP.PRICE].end - 1 >= 0) draft[STEP.PRICE].end -= 1;
-          } else {
-            draft[STEP.PRICE].end = priceId;
-          }
-        }
-      }),
-    );
+      } else {
+        setPrice((price) => ({
+          ...price,
+          maxIndex: priceId,
+        }));
+      }
+    }
   };
 
   return (
     <SelectBox
+      step={MAIN_STEP.PRICE}
       title="가격대"
       info="복수 선택 가능"
       css={css`
@@ -328,7 +216,7 @@ const PriceBox = ({
         }
       `}
     >
-      {prices.map(({ id, label, color, bold }) => (
+      {priceList.map(({ id, label, color, bold }) => (
         <RoundButton
           key={id}
           variant="outlined"
@@ -344,20 +232,16 @@ const PriceBox = ({
   );
 };
 
-const SweetBox = ({
-  data,
-  setData,
-}: SelectBoxProps<FormValues[STEP.SWEET]>) => {
-  const onClickItem = (bool: boolean) => {
-    setData(
-      produce((draft) => {
-        draft[STEP.SWEET] = draft[STEP.SWEET] === bool ? undefined : bool;
-      }),
-    );
+const SweetBox = () => {
+  const [sort, setSort] = useRecoilState(sortState);
+
+  const onClickItem = (sortBySweet: boolean) => {
+    setSort(sortBySweet ? ['sweet', 'DESC'] : undefined);
   };
 
   return (
     <SelectBox
+      step={MAIN_STEP.SWEET}
       title="달달한 순서대로 보여드릴까요?"
       css={css`
         button {
@@ -370,8 +254,8 @@ const SweetBox = ({
     >
       <RoundButton
         variant="outlined"
-        color={data === true ? 'primary' : 'secondary'}
-        bold={data === true}
+        color={!!sort ? 'primary' : 'secondary'}
+        bold={!!sort}
         size="large"
         onClick={() => onClickItem(true)}
       >
@@ -379,8 +263,8 @@ const SweetBox = ({
       </RoundButton>
       <RoundButton
         variant="outlined"
-        color={data === false ? 'primary' : 'secondary'}
-        bold={data === false}
+        color={!sort ? 'primary' : 'secondary'}
+        bold={!sort}
         size="large"
         onClick={() => onClickItem(false)}
       >
