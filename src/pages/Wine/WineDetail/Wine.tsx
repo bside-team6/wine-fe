@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { css, useTheme } from '@emotion/react';
+import { format } from 'date-fns';
 import { Link } from 'react-router-dom';
 import Chip from '~/components/common/Chip';
 import IconButton from '~/components/common/IconButton';
@@ -7,6 +8,7 @@ import RoundButton from '~/components/common/RoundButton';
 import StarRatings from '~/components/common/StarRatings';
 import { formatPrice } from '~/helpers/utils';
 import useAuthConfirm from '~/hooks/useAuthConfirm';
+import useWineRefrigeratorMutation from '~/queries/useWineRefrigeratorMutation';
 import { alignCenter, buttonStyle, flexCenter } from '~/styles/common';
 import type { IWineDetail } from '~/types';
 
@@ -27,12 +29,15 @@ const Wine: React.VFC<IWineDetail> = ({
 }) => {
   const theme = useTheme();
 
+  const { mutate } = useWineRefrigeratorMutation();
+
   const onClickRefrigerateButton = useAuthConfirm({
     confirmContent: `와인냉장고 담기 기능은 로그인 후 이용할 수 있어요.\n로그인 페이지로 이동할까요?`,
-    onSuccess: () => {
-      // TODO: 와인냉장고에 담기
-      console.log(`와인냉장고에 담기`, id);
-    },
+    onSuccess: () =>
+      mutate({
+        wineId: id,
+        drinkDate: format(new Date(), 'yyyy-MM-dd'),
+      }),
   });
 
   return (
@@ -133,7 +138,7 @@ const Wine: React.VFC<IWineDetail> = ({
             grid-row-gap: 27px;
             color: ${theme.colors.black01};
             font-family: ${theme.typography.lato};
-            p {
+            .grid-data {
               font-size: 16px;
               ${alignCenter}
             }
@@ -141,21 +146,22 @@ const Wine: React.VFC<IWineDetail> = ({
         >
           <div>
             <div>가격대</div>
-            <p
+            <div
+              className="grid-data"
               css={css`
                 font-weight: 700;
               `}
             >
               {formatPrice(price)}
-            </p>
+            </div>
           </div>
           <div>
             <div>용량</div>
-            <p>{capacity}ml</p>
+            <div className="grid-data">{capacity}ml</div>
           </div>
           <div>
             <div>생산지</div>
-            <p>{region}</p>
+            <div className="grid-data">{region}</div>
           </div>
           <div
             css={css`
@@ -163,12 +169,12 @@ const Wine: React.VFC<IWineDetail> = ({
             `}
           >
             <div>품종</div>
-            <p>
+            <div className="grid-data">
               <span>{varieties[0]}</span>
               {varieties.length > 1 && (
                 <VarietiesToolTip varieties={varieties} />
               )}
-            </p>
+            </div>
           </div>
         </div>
         <div
@@ -182,6 +188,7 @@ const Wine: React.VFC<IWineDetail> = ({
             onClick={onClickRefrigerateButton}
             icon="bookmark"
             size="large"
+            disabled={isRefrigerated}
             css={css`
               border-radius: 26px;
               border-color: ${theme.colors.black};
@@ -189,6 +196,11 @@ const Wine: React.VFC<IWineDetail> = ({
               width: 440px;
               font-size: 16px;
               letter-spacing: -0.03em;
+              &:disabled {
+                color: ${theme.colors.black04};
+                border-color: ${theme.colors.black08};
+                background: ${theme.colors.black08};
+              }
             `}
           >
             {isRefrigerated ? '담기 완료' : '와인냉장고에 담기'}
