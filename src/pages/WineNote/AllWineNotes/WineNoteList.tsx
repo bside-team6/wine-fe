@@ -9,6 +9,7 @@ import noDataImg from '~/assets/no_data_wine.png';
 const WineNoteList = () => {
   const { data, fetchNextPage, hasNextPage } = useWineNotesQuery({
     isTimeline: false,
+    size: 16,
   });
 
   const targetRef = useRef<HTMLDivElement>(null);
