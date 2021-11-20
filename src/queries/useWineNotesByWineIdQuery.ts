@@ -23,7 +23,7 @@ const useWineNotesByWineIdQuery = (
       }),
     {
       staleTime: 1000 * 60 * 5, // 5min
-      suspense: true,
+      keepPreviousData: true,
       ...options,
     },
   );

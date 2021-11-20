@@ -4,7 +4,7 @@ import { withProvider } from '~/helpers/storybook';
 import DetailNote from './DetailNote';
 
 export default {
-  title: 'pages/와인노트/와인노트상세/DetailNote',
+  title: 'components/와인노트/DetailNote',
   component: DetailNote,
   args: {
     ...wineNote,
