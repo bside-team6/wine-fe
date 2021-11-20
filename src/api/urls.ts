@@ -17,4 +17,5 @@ export const API_URL = {
   SEARCH_FOOD_NAME: '/api/v2/wine-note-food',
   WINE: '/api/v2/wine',
   FOOD: '/api/v2/food',
+  REFRIGERATOR: '/api/v2/wine-fridge',
 } as const;

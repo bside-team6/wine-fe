@@ -17,8 +17,6 @@ const useWineNoteLikeMutation = (
   return useMutation<unknown, AxiosError, number>(toggleWineNoteLike, {
     ...options,
     onMutate: (wineNoteId) => {
-      // Optimistic Updates
-
       // 와인노트 목록 `isLike` 토글
       queryClient.setQueriesData<InfiniteData<IPageable<IWineNote>>>(
         ['wine-notes'],

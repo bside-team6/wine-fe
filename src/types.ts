@@ -210,3 +210,8 @@ export enum MAIN_STEP {
   PRICE, // 가격대
   SWEET, // 당도
 }
+
+export interface RefrigeratorRequest {
+  wineId: number;
+  drinkDate: string;
+}
