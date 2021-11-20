@@ -51,3 +51,97 @@ export const wineNoteListItemStyle = css`
     margin-bottom: 0;
   }
 `;
+
+export const writeFormStyle = (theme: Theme) => css`
+  section {
+    margin-bottom: 32px;
+    &.inline {
+      ${alignCenter}
+      justify-content: space-between;
+
+      > label:first-of-type {
+        margin-bottom: 0;
+      }
+    }
+
+    > label:first-of-type {
+      display: block;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: bold;
+      color: ${theme.colors.black02};
+      margin-bottom: 16px;
+      &.required {
+        &:before {
+          content: '* ';
+          color: #e53858;
+        }
+      }
+    }
+  }
+
+  hr {
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+
+  button[type='submit'] {
+    background: ${theme.colors.black};
+    border-color: ${theme.colors.black};
+  }
+
+  input.input,
+  textarea {
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 100%;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    background: #ffffff;
+    &::placeholder {
+      color: #a8a8a8;
+    }
+  }
+  input.input {
+    height: 48px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+  textarea {
+    width: 100%;
+    height: 312px;
+    padding: 24px;
+  }
+
+  .flex-grow {
+    flex-grow: 1;
+  }
+
+  .select__control {
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    height: 48px;
+  }
+  .select__value-container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+  .select__placeholder {
+    font-size: 14px;
+    color: #a8a8a8;
+  }
+  .select__menu {
+    margin-top: 12px;
+    background: #ffffff;
+    border: 1px solid ${theme.colors.border};
+    box-shadow: ${theme.colors.shadow};
+    border-radius: 10px;
+    .select__menu-list {
+      margin-top: 16px;
+      margin-bottom: 16px;
+      .select__option {
+        padding: 10px 19px;
+      }
+    }
+  }
+`;

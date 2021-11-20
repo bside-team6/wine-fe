@@ -215,3 +215,15 @@ export interface RefrigeratorRequest {
   wineId: number;
   drinkDate: string;
 }
+
+export interface IWineSearch {
+  wineId: number;
+  wineName: string;
+}
+
+export interface IFoodSearch {
+  id: number;
+  foodName: string;
+  isPublic: boolean;
+  usedCount: number;
+}

@@ -68,3 +68,14 @@ export const maxTwoLines = css`
   -webkit-box-orient: vertical;
   overflow: hidden;
 `;
+
+export const spacing8Style = css`
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -8px;
+  margin-bottom: -8px;
+  > * {
+    margin-right: 8px;
+    margin-bottom: 8px;
+  }
+`;
