@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { css, useTheme } from '@emotion/react';
+import { css, Theme, useTheme } from '@emotion/react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
@@ -13,7 +13,9 @@ import useAuthConfirm from '~/hooks/useAuthConfirm';
 import useWineNoteQuery from '~/queries/useWineNoteQuery';
 import useWineNotesByWineIdQuery from '~/queries/useWineNotesByWineIdQuery';
 import { alignCenter, flexCenter } from '~/styles/common';
+import { emptyStyle } from '~/styles/wine-note';
 import type { IWineNote } from '~/types';
+import noDataImg from '~/assets/no_data_wine.png';
 import wineNoteLogoImg from '~/assets/wine_note.png';
 
 const WineNote = () => {
@@ -67,6 +69,8 @@ const WineNote = () => {
       />
       {isLoading ? (
         <Spinner />
+      ) : data?.empty ? (
+        <EmptyNote />
       ) : (
         <>
           <ul>
@@ -93,6 +97,25 @@ const WineNote = () => {
 };
 
 export default WineNote;
+
+const EmptyNote = () => {
+  return (
+    <div
+      css={(theme: Theme) => css`
+        ${emptyStyle(theme)};
+        margin-top: 100px;
+        margin-bottom: 23px;
+      `}
+    >
+      <img src={noDataImg} alt="empty" />
+      <p>
+        아직 작성된 와인노트가 없습니다.
+        <br />
+        첫번째 작성자가 되어주세요!
+      </p>
+    </div>
+  );
+};
 
 const WineNoteItem = ({
   id,
