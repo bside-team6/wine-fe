@@ -1,8 +1,8 @@
 import { css, Theme } from '@emotion/react';
 import { useParams } from 'react-router-dom';
+import DetailNote from '~/components/wineNote/DetailNote';
 import useWineNoteQuery from '~/queries/useWineNoteQuery';
 import ButtonGroup from './ButtonGroup';
-import DetailNote from './DetailNote';
 import RelatedWineNotes from './RelatedWineNotes';
 
 const WineNoteDetail: React.VFC = () => {

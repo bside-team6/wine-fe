@@ -5,6 +5,7 @@ import type { IPageable } from '~/types';
 import { ReactComponent as LeftArrow } from '~/assets/page_arrow.svg';
 
 export interface PaginationProps extends Omit<IPageable<unknown>, 'content'> {
+  disabled?: boolean;
   onChange(page: number): void;
 }
 
@@ -15,13 +16,14 @@ const Pagination: React.VFC<PaginationProps> = ({
   totalElements,
   first,
   last,
+  disabled,
   onChange,
 }) => {
   return (
     <div css={paginationStyle}>
       <button
         className="rc-pagination-first"
-        disabled={first}
+        disabled={disabled || first}
         onClick={() => onChange(1)}
       >
         <LeftArrow />
@@ -29,6 +31,7 @@ const Pagination: React.VFC<PaginationProps> = ({
       </button>
       <RcPagination
         onChange={onChange}
+        disabled={disabled}
         current={number + 1}
         total={totalElements}
         pageSize={size}
@@ -48,7 +51,7 @@ const Pagination: React.VFC<PaginationProps> = ({
       />
       <button
         className="rc-pagination-last"
-        disabled={last}
+        disabled={disabled || last}
         onClick={() => onChange(totalPages)}
       >
         <LeftArrow />
