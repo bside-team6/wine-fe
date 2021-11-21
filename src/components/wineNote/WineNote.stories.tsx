@@ -22,12 +22,6 @@ const Template: ComponentStory<typeof WineNote> = (args) => (
 export const Default = Template.bind({});
 Default.storyName = '기본';
 
-export const NoDescription = Template.bind({});
-NoDescription.storyName = '설명 없음';
-NoDescription.args = {
-  descript: undefined,
-};
-
 export const LongDescription = Template.bind({});
 LongDescription.storyName = '긴 설명';
 LongDescription.args = {

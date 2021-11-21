@@ -1,9 +1,0 @@
-<svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path d="M6 0L4.65292 4.1459H0.293661L3.82037 6.7082L2.47329 10.8541L6 8.2918L9.52671 10.8541L8.17963 6.7082L11.7063 4.1459H7.34708L6 0Z" fill="url(#mask)"/>
-  <defs>
-    <linearGradient id="mask" x1="0" x2="100%" y1="0" y2="0">
-      <stop offset="50%" stop-color="var(--star-active)"></stop>
-      <stop offset="50%" stop-color="var(--star-inactive)"></stop>
-    </linearGradient>
-  </defs>
-</svg>

@@ -115,7 +115,7 @@ const Wine: React.VFC<IWineDetail> = ({
           {wineNameEn}
         </h4>
         <div css={alignCenter}>
-          <StarRatings rating={scoreAverage} size={23} />
+          <StarRatings value={scoreAverage} size={23} />
           <span
             css={css`
               margin-left: 6px;

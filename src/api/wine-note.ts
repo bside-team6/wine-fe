@@ -1,8 +1,10 @@
 import { API_URL } from '~/api/urls';
 import type {
+  IFoodSearch,
   IPageable,
   IWineNote,
   IWineNoteDetail,
+  IWineSearch,
   WineNotesRequest,
 } from '~/types';
 import instance from './instance';
@@ -109,10 +111,11 @@ export const getRelatedWineNotes = async (wineNoteId: number) => {
 };
 
 /**
- * GET 와인명 조회
+ * GET 와인명으로 와인 검색
+ * @description 자동완성을 위한 와인명으로 와인 검색
  */
-export const getSearchWineName = async (searchName: string) => {
-  const { data } = await instance.get(API_URL.SEARCH_WINE_NAME, {
+export const getSearchWine = async (searchName: string) => {
+  const { data } = await instance.get<IWineSearch[]>(API_URL.SEARCH_WINE, {
     params: {
       searchName,
     },
@@ -121,18 +124,19 @@ export const getSearchWineName = async (searchName: string) => {
 };
 
 /**
- * GET 와인명 조회 (관리자)
+ * GET 와인명으로 와인 검색 (관리자)
  */
-export const getSearchWineNameAdmin = async () => {
-  const { data } = await instance.get(API_URL.SEARCH_WINE_NAME_ADMIN);
+export const getSearchWineAdmin = async () => {
+  const { data } = await instance.get(API_URL.SEARCH_WINE_ADMIN);
   return data;
 };
 
 /**
- * GET 음식명 조회
+ * GET 음식명으로 음식 검색
+ * @description 자동완성을 위한 음식명으로 음식 검색
  */
-export const getSearchFoodName = async (keywords: string) => {
-  const { data } = await instance.get(API_URL.SEARCH_FOOD_NAME, {
+export const getSearchFood = async (keywords: string) => {
+  const { data } = await instance.get<IFoodSearch[]>(API_URL.SEARCH_FOOD, {
     params: {
       keywords,
     },

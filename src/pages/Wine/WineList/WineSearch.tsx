@@ -1,7 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { css, useTheme } from '@emotion/react';
-import styled from '@emotion/styled';
 import { useRecoilCallback, useRecoilState, useRecoilValue } from 'recoil';
 import Divider from '~/components/common/Divider';
 import IconButton from '~/components/common/IconButton';
@@ -19,7 +18,7 @@ import {
   wineTypeListSelector,
   wineTypeState,
 } from '~/stores/wine';
-import { alignCenter, inlineFlexCenter } from '~/styles/common';
+import { alignCenter, inlineFlexCenter, spacing8Style } from '~/styles/common';
 
 const WineSearch = () => {
   const targetRef = useRef<HTMLDivElement>(null);
@@ -102,7 +101,7 @@ const Food = ({
                 margin: 20px 0;
               `}
             />
-            <ButtonGroup>
+            <div css={spacing8Style}>
               {foodList.map(({ id, foodName, ...props }) => (
                 <RoundButton
                   key={id}
@@ -114,7 +113,7 @@ const Food = ({
                   {foodName}
                 </RoundButton>
               ))}
-            </ButtonGroup>
+            </div>
           </>,
           portalRef.current,
         )}
@@ -212,7 +211,7 @@ const Price = ({
                 margin: 20px 0;
               `}
             />
-            <ButtonGroup>
+            <div css={spacing8Style}>
               {priceList.map(({ id, label, color, bold }) => (
                 <RoundButton
                   key={id}
@@ -225,7 +224,7 @@ const Price = ({
                   {label}
                 </RoundButton>
               ))}
-            </ButtonGroup>
+            </div>
           </>,
           portalRef.current,
         )}
@@ -292,7 +291,7 @@ const Filter = () => {
         />
         <div>
           <h4>와인종류</h4>
-          <ButtonGroup>
+          <div css={spacing8Style}>
             {wineTypeList.map(({ type, typeKr, ...props }) => (
               <RoundButton
                 key={type}
@@ -306,7 +305,7 @@ const Filter = () => {
                 {typeKr}
               </RoundButton>
             ))}
-          </ButtonGroup>
+          </div>
         </div>
       </div>
     </div>
@@ -376,14 +375,3 @@ const Input = () => {
     </div>
   );
 };
-
-const ButtonGroup = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -8px;
-  margin-bottom: -8px;
-  button {
-    margin-right: 8px;
-    margin-bottom: 8px;
-  }
-`;

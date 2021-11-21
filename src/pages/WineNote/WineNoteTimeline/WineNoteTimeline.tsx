@@ -13,6 +13,7 @@ const WineNoteTimeline = () => {
 
   const { data, fetchNextPage, hasNextPage } = useWineNotesQuery({
     isTimeline: true,
+    size: 16,
   });
 
   const targetRef = useRef<HTMLDivElement>(null);

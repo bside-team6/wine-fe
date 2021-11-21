@@ -81,13 +81,30 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
             overflow: hidden;
           `}
         />
-        <div>
-          <div css={flexCenter}>
+        <div
+          css={css`
+            display: flex;
+            flex-direction: column;
+            width: 215px;
+            height: 152px;
+            margin: 0 auto;
+          `}
+        >
+          <div
+            css={css`
+              ${flexCenter}
+              min-width: 0;
+              margin-bottom: 11px;
+            `}
+          >
             <Chip wineType={wineType} />
             <span
               css={css`
                 color: ${theme.colors.black02};
                 margin-left: 8px;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+                overflow: hidden;
               `}
             >
               {wineName}
@@ -98,9 +115,8 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
               font-size: 18px;
               line-height: 26px;
               color: ${theme.colors.black};
-              margin: 12px auto 24px;
-              flex-grow: 1;
               width: 215px;
+              height: 54px;
               ${maxTwoLines}
             `}
           >
@@ -112,6 +128,8 @@ const WineNoteSlide: React.VFC<IWineNote> = ({
               font-family: ${theme.typography.lato};
               color: ${theme.colors.black04};
               font-size: 12px;
+              margin-top: auto;
+              margin-bottom: 8px;
             `}
           >
             <span>{formatDate(regDate)}</span>

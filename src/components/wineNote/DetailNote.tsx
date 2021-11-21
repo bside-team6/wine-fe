@@ -263,7 +263,7 @@ export const DetailNoteSummary = ({
       >
         <div>
           <span>별점</span>
-          <StarRatings rating={score} />
+          <StarRatings value={score} />
         </div>
         <div>
           <span>당도</span>

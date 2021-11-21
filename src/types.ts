@@ -49,7 +49,7 @@ export interface IWineNote {
   wineId: number;
   wineName: string;
   wineType: WINE_TYPE;
-  descript?: string;
+  descript: string;
   /** @description float */
   score: number;
   /** @example 2021-10-11T15:00:00 */
@@ -214,4 +214,16 @@ export enum MAIN_STEP {
 export interface RefrigeratorRequest {
   wineId: number;
   drinkDate: string;
+}
+
+export interface IWineSearch {
+  wineId: number;
+  wineName: string;
+}
+
+export interface IFoodSearch {
+  id: number;
+  foodName: string;
+  isPublic: boolean;
+  usedCount: number;
 }

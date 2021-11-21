@@ -15,7 +15,7 @@ import {
   sortState,
   stepState,
 } from '~/stores/wine';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, spacing8Style } from '~/styles/common';
 import { MAIN_STEP } from '~/types';
 import Indicator from './Indicator';
 import SelectBox from './SelectBox';
@@ -116,16 +116,7 @@ const FoodBox = () => {
       step={MAIN_STEP.FOOD}
       title="메인음식"
       info="한 가지 음식만 선택해주세요."
-      css={css`
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: -8px;
-        margin-bottom: -8px;
-        button {
-          margin-right: 8px;
-          margin-bottom: 8px;
-        }
-      `}
+      css={spacing8Style}
     >
       {foodList.map(({ id, foodName, ...props }) => (
         <RoundButton
