@@ -94,7 +94,7 @@ const WineItem = ({
               line-height: 12px;
             `}
           >
-            <StarRatings rating={scoreAverage} />
+            <StarRatings value={scoreAverage} />
             <span
               css={css`
                 font-size: 12px;

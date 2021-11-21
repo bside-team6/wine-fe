@@ -49,7 +49,7 @@ export interface IWineNote {
   wineId: number;
   wineName: string;
   wineType: WINE_TYPE;
-  descript?: string;
+  descript: string;
   /** @description float */
   score: number;
   /** @example 2021-10-11T15:00:00 */

@@ -1,6 +1,13 @@
 import { useMemo } from 'react';
 import { css, Theme, useTheme } from '@emotion/react';
-import { Control, SubmitHandler, useForm, useWatch } from 'react-hook-form';
+import {
+  Control,
+  SubmitHandler,
+  useController,
+  useForm,
+  UseFormRegister,
+  useWatch,
+} from 'react-hook-form';
 import Divider from '~/components/common/Divider';
 import RoundButton from '~/components/common/RoundButton';
 import StarRatings from '~/components/common/StarRatings';
@@ -22,14 +29,13 @@ import WineSelect from './WineSelect';
 const WriteWineNote = () => {
   const theme = useTheme();
 
-  const { register, control, handleSubmit, getValues, setValue } =
-    useForm<FormValues>({
-      mode: 'onChange',
-      // resolver: yupResolver(schema),
-      defaultValues: {
-        isPublic: true,
-      },
-    });
+  const { register, control, handleSubmit, setValue } = useForm<FormValues>({
+    mode: 'onChange',
+    // resolver: yupResolver(schema),
+    defaultValues: {
+      isPublic: true,
+    },
+  });
 
   const onSubmit: SubmitHandler<FormValues> = (data) => {
     console.log(data);
@@ -55,7 +61,6 @@ const WriteWineNote = () => {
         <br />
         작성해보세요.
       </h2>
-      <button onClick={() => console.log(getValues())}>테스트</button>
       <form css={writeFormStyle} onSubmit={handleSubmit(onSubmit)}>
         <WineSelect control={control} />
         <section>
@@ -109,10 +114,7 @@ const WriteWineNote = () => {
         </section>
         <FoodsSelect control={control} />
         <Divider type="vertical" />
-        <section className="inline">
-          <p className="required">몇 점짜리 와인인가요?</p>
-          <StarRatings rating={3} size={32} />
-        </section>
+        <ScoreInput control={control} />
         <section>
           <p className="required">와인에 대해 설명해주세요.</p>
           <textarea
@@ -131,10 +133,7 @@ const WriteWineNote = () => {
           </div>
         </section>
         <Divider type="vertical" />
-        <section className="inline">
-          <p className="required">노트 공개 여부</p>
-          <Switch label="전체공개" {...register('isPublic')} />
-        </section>
+        <PublicSwitch register={register} control={control} />
         <div
           css={css`
             text-align: center;
@@ -150,6 +149,24 @@ const WriteWineNote = () => {
 };
 
 export default WriteWineNote;
+
+interface ScoreInputProps {
+  control: Control<FormValues>;
+}
+
+const ScoreInput = ({ control }: ScoreInputProps) => {
+  const { field } = useController({
+    name: 'score',
+    control,
+  });
+
+  return (
+    <section className="inline">
+      <p className="required">몇 점짜리 와인인가요?</p>
+      <StarRatings size={32} {...field} />
+    </section>
+  );
+};
 
 interface WordCalculatorProps {
   control: Control<FormValues>;
@@ -174,5 +191,27 @@ const WordCalculator = ({ control }: WordCalculatorProps) => {
     >
       글자수 제한 : ({byteCount}/500 bytes)
     </div>
+  );
+};
+
+interface PublicSwitchProps {
+  register: UseFormRegister<FormValues>;
+  control: Control<FormValues>;
+}
+
+const PublicSwitch = ({ register, control }: PublicSwitchProps) => {
+  const isPublic = useWatch({
+    name: 'isPublic',
+    control,
+  });
+
+  return (
+    <section className="inline">
+      <p className="required">노트 공개 여부</p>
+      <Switch
+        label={isPublic ? '전체공개' : '비공개'}
+        {...register('isPublic')}
+      />
+    </section>
   );
 };

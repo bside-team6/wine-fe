@@ -1,7 +1,10 @@
+import { memo } from 'react';
 import { css, useTheme } from '@emotion/react';
 import type { SerializedStyles, Theme } from '@emotion/react';
 import { ReactComponent as ArrowIcon } from '~/assets/icon/ic_arrow.svg';
+import { ReactComponent as BackIcon } from '~/assets/icon/ic_back.svg';
 import { ReactComponent as BookmarkIcon } from '~/assets/icon/ic_bookmark.svg';
+import { ReactComponent as CalendarIcon } from '~/assets/icon/ic_calendar.svg';
 import { ReactComponent as CancelIcon } from '~/assets/icon/ic_cancel.svg';
 import { ReactComponent as ArrowDownIcon } from '~/assets/icon/ic_dropdown.svg';
 import { ReactComponent as FilterIcon } from '~/assets/icon/ic_filter.svg';
@@ -36,14 +39,17 @@ export type IconName =
   | 'option'
   | 'thumbs-up'
   | 'thumbs-down'
-  | 'arrow';
+  | 'arrow'
+  | 'calendar'
+  | 'prev'
+  | 'next';
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
   css?: SerializedStyles | ((theme: Theme) => SerializedStyles);
 }
 
-const Icon = ({ name, ...props }: IconProps) => {
+const Icon = memo(({ name, ...props }: IconProps) => {
   const theme = useTheme();
 
   if (name === 'arrow-down') {
@@ -128,7 +134,29 @@ const Icon = ({ name, ...props }: IconProps) => {
     return <ArrowIcon {...props} />;
   }
 
+  if (name === 'calendar') {
+    return <CalendarIcon {...props} />;
+  }
+
+  if (name === 'prev') {
+    return (
+      <BackIcon
+        {...props}
+        css={[
+          css`
+            transform: rotate(180deg);
+          `,
+          typeof props.css === 'function' ? props.css(theme) : props.css,
+        ]}
+      />
+    );
+  }
+
+  if (name === 'next') {
+    return <BackIcon {...props} />;
+  }
+
   return null;
-};
+});
 
 export default Icon;

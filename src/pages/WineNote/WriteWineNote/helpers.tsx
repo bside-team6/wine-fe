@@ -19,7 +19,7 @@ export interface FormValues {
   wine: NestedValue<WineOption>;
   isFitted: boolean;
   wineType: WINE_TYPE;
-  drinkDate?: string;
+  drinkDate?: Date;
   price?: number;
   sweet: string; // radio number select이 안됨
   score: number;

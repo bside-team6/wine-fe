@@ -101,6 +101,12 @@ export const writeFormStyle = (theme: Theme) => css`
     &::placeholder {
       color: #a8a8a8;
     }
+    &:hover {
+      border-color: ${theme.colors.main.primary};
+    }
+    &:focus {
+      outline-color: ${theme.colors.main.primary};
+    }
   }
   input.input {
     width: 338px;
@@ -120,9 +126,16 @@ export const writeFormStyle = (theme: Theme) => css`
   }
 
   .select__control {
-    border: 1px solid #dfdfdf;
+    border: 1px solid ${theme.colors.border};
     border-radius: 8px;
     height: 48px;
+    &--is-focused {
+      box-shadow: 0 0 0 1px ${theme.colors.main.primary};
+      border-color: ${theme.colors.main.primary};
+    }
+    &:hover {
+      border-color: ${theme.colors.main.primary};
+    }
   }
   .select__value-container {
     padding-left: 12px;

@@ -6,6 +6,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "analyze": "ANALYZE=TRUE craco build",
     "test": "craco test",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "lint": "eslint './src/**/*.{js,jsx,ts,tsx}'",
@@ -33,7 +34,7 @@
     "lodash-es": "^4.17.21",
     "rc-pagination": "^3.1.13",
     "react": "^17.0.2",
-    "react-datepicker": "^4.3.0",
+    "react-date-picker": "^8.3.5",
     "react-dom": "^17.0.2",
     "react-error-boundary": "^3.1.4",
     "react-hook-form": "^7.20.2",
@@ -70,7 +71,8 @@
     "msw-storybook-addon": "^1.4.1",
     "prettier": "^2.4.1",
     "sass": "^1.43.4",
-    "storybook-preset-craco": "0.0.6"
+    "storybook-preset-craco": "0.0.6",
+    "webpack-bundle-analyzer": "^4.5.0"
   },
   "eslintConfig": {
     "extends": [

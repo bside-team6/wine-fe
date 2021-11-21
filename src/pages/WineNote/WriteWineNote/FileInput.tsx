@@ -3,7 +3,7 @@ import { css, useTheme } from '@emotion/react';
 import { Control, useController, UseFormSetValue } from 'react-hook-form';
 import IconButton from '~/components/common/IconButton';
 import { buttonStyle } from '~/styles/common';
-import { FormValues } from './helpers';
+import type { FormValues } from './helpers';
 import { ReactComponent as Camera } from '~/assets/camera.svg';
 
 export interface FileInputProps {
