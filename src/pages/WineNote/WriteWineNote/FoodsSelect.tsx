@@ -17,22 +17,23 @@ const promiseOptions: (inputValue: string) => Promise<Options<FoodOption>> =
     }));
   };
 
-export interface WineNameSelectProps {
+export interface FoodsSelectProps {
   control: Control<FormValues>;
 }
 
-const FoodSelect = ({ control }: WineNameSelectProps) => {
+const FoodsSelect = ({ control }: FoodsSelectProps) => {
   const { field } = useController({
-    name: 'food',
+    name: 'foods',
     control,
   });
 
   return (
     <section>
-      <label htmlFor="food">어떤 음식과 곁들였나요?</label>
+      <p>어떤 음식과 곁들였나요?</p>
       <PureAsyncCreatableSelect
         {...field}
         {...commonSelectProps}
+        isMulti
         placeholder="함께 먹은 음식명을 입력해주세요"
         loadOptions={promiseOptions}
       />
@@ -40,4 +41,4 @@ const FoodSelect = ({ control }: WineNameSelectProps) => {
   );
 };
 
-export default FoodSelect;
+export default FoodsSelect;

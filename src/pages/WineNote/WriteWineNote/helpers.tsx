@@ -1,6 +1,7 @@
 import { memo } from 'react';
 import type { NestedValue } from 'react-hook-form';
 import AsyncCreatableSelect from 'react-select/async-creatable';
+import { WINE_TYPE } from '~/types';
 
 export interface WineOption {
   readonly value: number | string; // wineId | wineName (create)
@@ -16,8 +17,16 @@ export interface FoodOption {
 
 export interface FormValues {
   wine: NestedValue<WineOption>;
-  food: NestedValue<FoodOption>;
+  isFitted: boolean;
+  wineType: WINE_TYPE;
+  drinkDate?: string;
+  price?: number;
+  sweet: string; // radio number select이 안됨
+  score: number;
+  foods: NestedValue<FoodOption[]>;
+  descript: string;
   isPublic: boolean;
+  image?: File;
 }
 
 export const PureAsyncCreatableSelect = memo(AsyncCreatableSelect);

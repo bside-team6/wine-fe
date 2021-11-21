@@ -15,4 +15,11 @@ export default {
 const Template: ComponentStory<typeof Switch> = (args) => <Switch {...args} />;
 
 export const Default = Template.bind({});
-Default.storyName = 'Switch';
+Default.storyName = '기본';
+
+export const WithLabel = Template.bind({});
+WithLabel.storyName = '라벨 있음';
+WithLabel.args = {
+  label: '라벨',
+  checked: false,
+};

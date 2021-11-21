@@ -59,12 +59,12 @@ export const writeFormStyle = (theme: Theme) => css`
       ${alignCenter}
       justify-content: space-between;
 
-      > label:first-of-type {
+      > p {
         margin-bottom: 0;
       }
     }
 
-    > label:first-of-type {
+    > p {
       display: block;
       font-size: 14px;
       line-height: 20px;
@@ -103,6 +103,7 @@ export const writeFormStyle = (theme: Theme) => css`
     }
   }
   input.input {
+    width: 338px;
     height: 48px;
     padding-left: 14px;
     padding-right: 14px;
@@ -111,6 +112,7 @@ export const writeFormStyle = (theme: Theme) => css`
     width: 100%;
     height: 312px;
     padding: 24px;
+    display: block;
   }
 
   .flex-grow {
@@ -141,6 +143,22 @@ export const writeFormStyle = (theme: Theme) => css`
       margin-bottom: 16px;
       .select__option {
         padding: 10px 19px;
+      }
+    }
+  }
+  .select__multi-value {
+    background: ${theme.colors.main.light2};
+    border-radius: 16px;
+    padding-right: 6px;
+    .select__multi-value__label {
+      color: ${theme.colors.main.primary};
+      font-weight: bold;
+      font-size: 14px;
+      padding: 6px 0px 6px 16px;
+    }
+    .select__multi-value__remove {
+      svg {
+        color: ${theme.colors.main.primary};
       }
     }
   }
