@@ -150,7 +150,8 @@ export const wineNotes: IWineNote[] = [
     wineId: 1,
     wineName: '메네골리, 부가티 아마로네',
     wineType: WINE_TYPE.RED,
-    descript: undefined,
+    descript:
+      '인생에 품었기 때까지 보이는 있다. 대한 하여도 같은 불어 장식하는 것이다. 그것은 인간의 피어나는 넣는 같이, 이것이다. 발휘하기 무한한 일월과 거선의 이상이 싸인 품으며, 듣는다. 가는 그들의 원질이 찾아 봄바람이다. 하는 크고 원질이 어디 인생의 부패뿐이다. 희망의 생의 예수는 그들의 것이다. 열락의 것은 광야에서 꽃 운다. 동력은 미묘한 일월과 때까지 있다. 소리다.이것은 얼음이 인생에 봄바람이다.',
     score: 1,
     userId: 4,
     userNickName: 'helloworld',
@@ -264,7 +265,8 @@ export const popularWineNotes: IWineNote[] = [
     wineId: 1,
     wineName: '장 로롱, 물랭아방',
     wineType: WINE_TYPE.RED,
-    descript: undefined,
+    descript:
+      '대고, 커다란 붙잡아 철환하였는가? 인간의 오직 주며, 보이는 때문이다. 일월과 보내는 천지는 것이다. 남는 그와 얼마나 끓는 것이다. 생생하며, 바이며, 설산에서 피는 주며, 이상, 없으면, 이것이다. 뛰노는 천하를 가치를 풀이 것이다. 속에 용감하고 하는 꾸며 희망의 튼튼하며, 가슴에 청춘의 말이다. 노년에게서 가지에 용기가 있으랴? 곧 군영과 이상 풀밭에 노래하며 것이다. 창공에 우리의 같은 얼음이 전인 아니한 청춘의 오아이스도 무한한 아니다. 붙잡아 속에서 실현에 무엇을 구하지 힘차게 두기 그리하였는가?',
     score: 4,
     userId: 3,
     userNickName: 'abcde',

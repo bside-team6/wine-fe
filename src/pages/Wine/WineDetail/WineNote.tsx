@@ -157,9 +157,9 @@ const WineNoteItem = ({
           >
             by. {userNickName}
           </span>
-          <StarRatings rating={score} />
+          <StarRatings value={score} />
         </div>
-        {descript && <div>{descript}</div>}
+        <div>{descript}</div>
         <div
           css={css`
             ${alignCenter}

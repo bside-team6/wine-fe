@@ -11,6 +11,7 @@ const Chip: React.VFC<ChipProps> = ({ wineType }) => {
   return (
     <div
       css={css`
+        flex-shrink: 0;
         padding-left: 8px;
         padding-right: 8px;
         border-radius: 99px;
