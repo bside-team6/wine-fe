@@ -1,8 +1,8 @@
-import { useEffect } from 'react';
 import { css } from '@emotion/react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { format } from 'date-fns';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z } from 'zod';
 import Divider from '~/components/common/Divider';
 import RoundButton from '~/components/common/RoundButton';
@@ -57,26 +57,16 @@ const schema = z.object({
 const WriteWineNote = () => {
   usePrompt(`페이지를 이동하면\n작성중인 데이터는 저장되지 않습니다`);
 
-  const {
-    register,
-    control,
-    handleSubmit,
-    setValue,
-    resetField,
-    formState: { errors },
-  } = useForm<FormValues>({
-    mode: 'onChange',
-    resolver: zodResolver(schema),
-  });
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
+  const { register, control, handleSubmit, setValue, resetField } =
+    useForm<FormValues>({
+      mode: 'onChange',
+      resolver: zodResolver(schema),
+    });
 
   const { mutate, isLoading } = useWineNoteMutation({
-    onSuccess: () => {
-      // TODO: // 성공 후 이동, 토스트
-    },
+    onSuccess: ({ wineNoteId }) => navigate(`/wine-note/${wineNoteId}`),
   });
 
   const onSubmit: SubmitHandler<FormValues> = ({

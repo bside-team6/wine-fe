@@ -6,6 +6,7 @@ import type {
   IWineNoteDetail,
   IWineSearch,
   WineNoteRequest,
+  WineNoteResponse,
   WineNotesRequest,
 } from '~/types';
 import instance from './instance';
@@ -55,11 +56,16 @@ export const postWineNote = async ({ image, data }: WineNoteRequest) => {
     formData.set('image', image);
   }
 
-  await instance.post(API_URL.WINE_NOTE, formData, {
-    headers: {
-      'Content-Type': 'multipart/form-data',
+  const res = await instance.post<WineNoteResponse>(
+    API_URL.WINE_NOTE,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
     },
-  });
+  );
+  return res.data;
 };
 
 /**

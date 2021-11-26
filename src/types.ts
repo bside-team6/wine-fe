@@ -247,3 +247,7 @@ export interface WineNoteRequest {
     isFitted: boolean;
   };
 }
+
+export interface WineNoteResponse {
+  wineNoteId: number;
+}
