@@ -1,5 +1,5 @@
 import { css, Theme } from '@emotion/react';
-import { alignCenter } from '~/styles/common';
+import { alignCenter, buttonStyle } from '~/styles/common';
 
 export const containerStyle = css`
   flex-grow: 1;
@@ -74,7 +74,7 @@ export const writeFormStyle = (theme: Theme) => css`
       &.required {
         &:before {
           content: '* ';
-          color: #e53858;
+          color: ${theme.colors.red};
         }
       }
     }
@@ -106,6 +106,13 @@ export const writeFormStyle = (theme: Theme) => css`
     }
     &:focus {
       outline-color: ${theme.colors.main.primary};
+    }
+    &:disabled {
+      background: ${theme.colors.black09};
+      border-color: ${theme.colors.black09};
+      color: ${theme.colors.black07};
+      outline-color: none;
+      cursor: not-allowed;
     }
   }
   input.input {
@@ -173,6 +180,28 @@ export const writeFormStyle = (theme: Theme) => css`
       svg {
         color: ${theme.colors.main.primary};
       }
+    }
+  }
+`;
+
+export const cantRememberStyle = (theme: Theme) => css`
+  ${buttonStyle}
+  margin-left: 20px;
+  color: ${theme.colors.black07};
+  font-weight: bold;
+  svg {
+    margin-right: 6px;
+    width: 20px;
+    height: 20px;
+    padding: 6px 4px 6px 5px;
+    background: ${theme.colors.black07};
+    border-radius: 50%;
+    color: ${theme.colors.black10};
+  }
+  &.checked {
+    color: ${theme.colors.main.primary};
+    svg {
+      background: ${theme.colors.main.primary};
     }
   }
 `;

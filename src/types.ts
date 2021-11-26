@@ -227,3 +227,27 @@ export interface IFoodSearch {
   isPublic: boolean;
   usedCount: number;
 }
+
+export interface WineNoteRequest {
+  image?: File;
+  data: {
+    wineId?: number;
+    wineName: string;
+    wineType: WINE_TYPE;
+    sweet: number;
+    price?: number;
+    score?: number;
+    drinkDate?: string;
+    matchingFoods: {
+      foodId?: number;
+      foodName: string;
+    }[];
+    descript: string;
+    isPublic: boolean;
+    isFitted: boolean;
+  };
+}
+
+export interface WineNoteResponse {
+  wineNoteId: number;
+}

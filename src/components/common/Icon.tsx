@@ -6,6 +6,7 @@ import { ReactComponent as BackIcon } from '~/assets/icon/ic_back.svg';
 import { ReactComponent as BookmarkIcon } from '~/assets/icon/ic_bookmark.svg';
 import { ReactComponent as CalendarIcon } from '~/assets/icon/ic_calendar.svg';
 import { ReactComponent as CancelIcon } from '~/assets/icon/ic_cancel.svg';
+import { ReactComponent as CheckIcon } from '~/assets/icon/ic_check.svg';
 import { ReactComponent as ArrowDownIcon } from '~/assets/icon/ic_dropdown.svg';
 import { ReactComponent as FilterIcon } from '~/assets/icon/ic_filter.svg';
 import { ReactComponent as HeartIcon } from '~/assets/icon/ic_heart.svg';
@@ -42,7 +43,8 @@ export type IconName =
   | 'arrow'
   | 'calendar'
   | 'prev'
-  | 'next';
+  | 'next'
+  | 'check';
 
 export interface IconProps extends React.SVGProps<SVGSVGElement> {
   name: IconName;
@@ -154,6 +156,10 @@ const Icon = memo(({ name, ...props }: IconProps) => {
 
   if (name === 'next') {
     return <BackIcon {...props} />;
+  }
+
+  if (name === 'check') {
+    return <CheckIcon {...props} />;
   }
 
   return null;

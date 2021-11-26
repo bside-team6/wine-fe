@@ -30,6 +30,7 @@ export const theme: Theme = {
     black09: '#ececec', // bg
     black10: '#fafafa', // bg
     shadow: '0px 4px 8px rgba(0, 0, 0, 0.05)',
+    red: '#e53858',
   },
   typography: {
     lato: "'Lato', 'Noto Sans KR', sans-serif",

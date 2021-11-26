@@ -5,6 +5,8 @@ import type {
   IWineNote,
   IWineNoteDetail,
   IWineSearch,
+  WineNoteRequest,
+  WineNoteResponse,
   WineNotesRequest,
 } from '~/types';
 import instance from './instance';
@@ -47,8 +49,23 @@ export const getWineNote = async (wineNoteId: number, isTimeline: boolean) => {
 /**
  * POST 와인 노트 등록
  */
-export const postWineNote = async (data: any) => {
-  await instance.post(API_URL.WINE_NOTE, data);
+export const postWineNote = async ({ image, data }: WineNoteRequest) => {
+  const formData = new FormData();
+  formData.set('data', JSON.stringify(data));
+  if (image) {
+    formData.set('image', image);
+  }
+
+  const res = await instance.post<WineNoteResponse>(
+    API_URL.WINE_NOTE,
+    formData,
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    },
+  );
+  return res.data;
 };
 
 /**

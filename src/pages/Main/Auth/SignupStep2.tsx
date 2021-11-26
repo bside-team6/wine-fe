@@ -1,11 +1,11 @@
 import { useEffect } from 'react';
 import { css, Theme } from '@emotion/react';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { zodResolver } from '@hookform/resolvers/zod';
 import debouncePromise from 'awesome-debounce-promise';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import * as yup from 'yup';
+import { z } from 'zod';
 import { validateNickname } from '~/api/auth';
 import LoginStep from '~/components/auth/LoginStep';
 import SquareButton from '~/components/common/SquareButton';
@@ -24,24 +24,21 @@ interface FormValues {
 
 const errorMessage = '2~16자, 국문/영문 대소문자/숫자';
 
-const schema = yup
-  .object({
-    nickName: yup
-      .string()
-      .min(2, errorMessage)
-      .max(16, errorMessage)
-      .matches(/^[가-힣a-zA-Z0-9]+$/g, errorMessage)
-      .test(
-        'is-valid-nickname',
-        '이미 사용중인 닉네임입니다.',
-        debouncePromise(
-          async (value) =>
-            value ? !(await validateNickname(value)).isPresent : false,
-          500,
-        ),
+const schema = z.object({
+  nickName: z
+    .string()
+    .min(2, errorMessage)
+    .max(16, errorMessage)
+    .regex(/^[가-힣a-zA-Z0-9]+$/g, errorMessage)
+    .refine(
+      debouncePromise(
+        async (value) =>
+          value ? !(await validateNickname(value)).isPresent : false,
+        500,
       ),
-  })
-  .required();
+      '이미 사용중인 닉네임입니다.',
+    ),
+});
 
 function SignupStep2() {
   const navigate = useNavigate();
@@ -66,7 +63,7 @@ function SignupStep2() {
     formState: { errors, isValid, isDirty, isValidating },
   } = useForm<FormValues>({
     mode: 'onChange',
-    resolver: yupResolver(schema),
+    resolver: zodResolver(schema),
     defaultValues: {
       nickName: '',
     },

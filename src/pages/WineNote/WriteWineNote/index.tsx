@@ -1,44 +1,95 @@
-import { useMemo } from 'react';
-import { css, Theme, useTheme } from '@emotion/react';
-import {
-  Control,
-  SubmitHandler,
-  useController,
-  useForm,
-  UseFormRegister,
-  useWatch,
-} from 'react-hook-form';
+import { css } from '@emotion/react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { format } from 'date-fns';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
+import { z } from 'zod';
 import Divider from '~/components/common/Divider';
 import RoundButton from '~/components/common/RoundButton';
-import StarRatings from '~/components/common/StarRatings';
-import RadioButton from '~/components/wineNote/form/RadioButton';
-import Switch from '~/components/wineNote/form/Switch';
-import { wineTypeList } from '~/helpers/constants';
-import { alignCenter, spacing8Style } from '~/styles/common';
+import { getByteLength } from '~/helpers/utils';
+import { usePrompt } from '~/hooks/useExtendedRouter';
+import useWineNoteMutation from '~/queries/useWineNoteMutation';
 import { writeFormStyle } from '~/styles/wine-note';
-import DrinkDateInput from './DrinkDateInput';
-import FileInput from './FileInput';
-import FoodsSelect from './FoodsSelect';
+import { WINE_TYPE } from '~/types';
 import type { FormValues } from './helpers';
-import WineSelect from './WineSelect';
+import {
+  DrinkDateInput,
+  FileInput,
+  FittedInput,
+  FoodsSelect,
+  PriceInput,
+  PublicSwitch,
+  ScoreInput,
+  SweetInput,
+  WineSelect,
+  WineTypeInput,
+  WordCalculator,
+} from './Inputs';
 
-// import { yupResolver } from '@hookform/resolvers/yup';
-// import * as yup from 'yup';
-// const schema = yup.object({}).required();
+const schema = z.object({
+  wine: z.object({
+    value: z.union([z.string(), z.number()]),
+    label: z.string(),
+    isNew: z.boolean().optional(),
+  }),
+  isFitted: z.boolean(),
+  wineType: z.nativeEnum(WINE_TYPE),
+  sweet: z.number().int().min(1).max(5),
+  drinkDate: z.date().optional(),
+  price: z.number().int().positive().optional(),
+  score: z.number().min(0.5).max(5).multipleOf(0.5).optional(),
+  foods: z
+    .array(
+      z.object({
+        value: z.union([z.string(), z.number()]),
+        label: z.string(),
+        isNew: z.boolean().optional(),
+      }),
+    )
+    .optional(),
+  descript: z
+    .string()
+    .refine((value) => getByteLength(value) <= 500, '500bytes 이하'),
+  isPublic: z.boolean(),
+  image: z.any().optional(),
+});
 
 const WriteWineNote = () => {
-  const theme = useTheme();
+  usePrompt(`페이지를 이동하면\n작성중인 데이터는 저장되지 않습니다`);
 
-  const { register, control, handleSubmit, setValue } = useForm<FormValues>({
-    mode: 'onChange',
-    // resolver: yupResolver(schema),
-    defaultValues: {
-      isPublic: true,
-    },
+  const navigate = useNavigate();
+
+  const { register, control, handleSubmit, setValue, resetField } =
+    useForm<FormValues>({
+      mode: 'onChange',
+      resolver: zodResolver(schema),
+    });
+
+  const { mutate, isLoading } = useWineNoteMutation({
+    onSuccess: ({ wineNoteId }) => navigate(`/wine-note/${wineNoteId}`),
   });
 
-  const onSubmit: SubmitHandler<FormValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<FormValues> = ({
+    image,
+    foods,
+    wine,
+    drinkDate,
+    ...value
+  }) => {
+    mutate({
+      image,
+      data: {
+        ...value,
+        drinkDate: drinkDate ? format(drinkDate, 'yyyy-MM-dd') : undefined,
+        wineId: wine.isNew ? undefined : Number(wine.value),
+        wineName: wine.label,
+        matchingFoods:
+          foods?.map((food) => ({
+            foodId: food.isNew ? undefined : Number(food.value),
+            foodName: food.label,
+          })) || [],
+      },
+    });
   };
 
   return (
@@ -63,57 +114,14 @@ const WriteWineNote = () => {
       </h2>
       <form css={writeFormStyle} onSubmit={handleSubmit(onSubmit)}>
         <WineSelect control={control} />
-        <section>
-          <p className="required">와인의 종류는 무엇인가요?</p>
-          <div css={spacing8Style}>
-            {wineTypeList.map(({ type, typeKr }) => (
-              <RadioButton key={type} value={type} {...register('wineType')}>
-                {typeKr}와인
-              </RadioButton>
-            ))}
-          </div>
-        </section>
+        <WineTypeInput control={control} />
         <Divider type="vertical" />
         <DrinkDateInput control={control} />
-        <section>
-          <p>얼마에 구매하셨나요?</p>
-          <div css={alignCenter}>
-            <input
-              type="number"
-              placeholder="구매한 가격을 입력해주세요."
-              autoComplete="off"
-              className="input"
-              {...register('price', {
-                setValueAs: (v) => (v ? parseInt(v) : undefined),
-              })}
-            />
-            <span
-              css={css`
-                font-weight: bold;
-                color: ${theme.colors.black02};
-                margin-left: 8px;
-              `}
-            >
-              원
-            </span>
-          </div>
-        </section>
-        <section>
-          <p className="required">와인의 당도는 어땠나요?</p>
-          <div css={spacing8Style}>
-            <RadioButton {...register('sweet')} value={5}>
-              아주 달달함
-            </RadioButton>
-            <RadioButton {...register('sweet')} value={3}>
-              약간 달달함
-            </RadioButton>
-            <RadioButton {...register('sweet')} value={1}>
-              달지 않음
-            </RadioButton>
-          </div>
-        </section>
+        <PriceInput register={register} resetField={resetField} />
+        <SweetInput control={control} />
         <FoodsSelect control={control} />
         <Divider type="vertical" />
+        <FittedInput control={control} />
         <ScoreInput control={control} />
         <section>
           <p className="required">와인에 대해 설명해주세요.</p>
@@ -133,13 +141,18 @@ const WriteWineNote = () => {
           </div>
         </section>
         <Divider type="vertical" />
-        <PublicSwitch register={register} control={control} />
+        <PublicSwitch control={control} />
         <div
           css={css`
             text-align: center;
           `}
         >
-          <RoundButton type="submit" variant="contained" size="large">
+          <RoundButton
+            disabled={isLoading}
+            type="submit"
+            variant="contained"
+            size="large"
+          >
             작성완료
           </RoundButton>
         </div>
@@ -149,69 +162,3 @@ const WriteWineNote = () => {
 };
 
 export default WriteWineNote;
-
-interface ScoreInputProps {
-  control: Control<FormValues>;
-}
-
-const ScoreInput = ({ control }: ScoreInputProps) => {
-  const { field } = useController({
-    name: 'score',
-    control,
-  });
-
-  return (
-    <section className="inline">
-      <p className="required">몇 점짜리 와인인가요?</p>
-      <StarRatings size={32} {...field} />
-    </section>
-  );
-};
-
-interface WordCalculatorProps {
-  control: Control<FormValues>;
-}
-
-const WordCalculator = ({ control }: WordCalculatorProps) => {
-  const descript = useWatch({
-    name: 'descript',
-    control,
-  });
-
-  const byteCount = useMemo(() => {
-    return new TextEncoder().encode(descript).length;
-  }, [descript]);
-
-  return (
-    <div
-      css={(theme: Theme) => css`
-        font-size: 12px;
-        color: ${theme.colors.black02};
-      `}
-    >
-      글자수 제한 : ({byteCount}/500 bytes)
-    </div>
-  );
-};
-
-interface PublicSwitchProps {
-  register: UseFormRegister<FormValues>;
-  control: Control<FormValues>;
-}
-
-const PublicSwitch = ({ register, control }: PublicSwitchProps) => {
-  const isPublic = useWatch({
-    name: 'isPublic',
-    control,
-  });
-
-  return (
-    <section className="inline">
-      <p className="required">노트 공개 여부</p>
-      <Switch
-        label={isPublic ? '전체공개' : '비공개'}
-        {...register('isPublic')}
-      />
-    </section>
-  );
-};
