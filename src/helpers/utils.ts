@@ -81,3 +81,6 @@ export const priceToIndex = (minPrice?: number, maxPrice?: number) => {
     maxIndex,
   };
 };
+
+export const getByteLength = (str: string) =>
+  new TextEncoder().encode(str).length;

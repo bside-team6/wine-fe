@@ -1,9 +1,11 @@
+import { useState } from 'react';
 import { css, Theme } from '@emotion/react';
 import { getDate } from 'date-fns';
 import DatePicker from 'react-date-picker';
 import { Control, useController } from 'react-hook-form';
 import Icon from '~/components/common/Icon';
 import { alignCenter } from '~/styles/common';
+import { cantRememberStyle } from '~/styles/wine-note';
 import type { FormValues } from './helpers';
 
 export interface DrinkDateInputProps {
@@ -11,12 +13,24 @@ export interface DrinkDateInputProps {
 }
 
 const DrinkDateInput = ({ control }: DrinkDateInputProps) => {
+  const [disabled, setDisabled] = useState(false);
+
   const {
     field: { ref, ...field },
   } = useController({
     name: 'drinkDate',
     control,
+    defaultValue: new Date(),
   });
+
+  const handleClick = () => {
+    if (disabled) {
+      setDisabled(false);
+    } else {
+      field.onChange(undefined);
+      setDisabled(true);
+    }
+  };
 
   return (
     <section>
@@ -24,19 +38,18 @@ const DrinkDateInput = ({ control }: DrinkDateInputProps) => {
       <div css={alignCenter}>
         <DatePicker
           {...field}
+          disabled={disabled}
           format="y년 M월 d일"
           maxDate={new Date()}
           locale="ko-KR"
-          clearIcon={<Icon name="cancel" />}
+          clearIcon={null}
           calendarIcon={<Icon name="calendar" />}
           prevLabel={<Icon name="prev" />}
           nextLabel={<Icon name="next" />}
           prev2Label={null}
           next2Label={null}
           formatDay={(_, date) => getDate(date).toString()}
-          inputRef={(instance) => {
-            ref(instance);
-          }}
+          inputRef={(instance) => ref(instance)}
           css={(theme: Theme) => css`
             .react-date-picker {
               &__wrapper {
@@ -141,6 +154,15 @@ const DrinkDateInput = ({ control }: DrinkDateInputProps) => {
             }
           `}
         />
+        <button
+          type="button"
+          onClick={handleClick}
+          className={disabled ? 'checked' : undefined}
+          css={cantRememberStyle}
+        >
+          <Icon name="check" />
+          <span>기억나지 않아요</span>
+        </button>
       </div>
     </section>
   );

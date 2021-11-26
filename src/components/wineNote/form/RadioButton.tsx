@@ -16,13 +16,13 @@ const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
             position: absolute;
             appearance: none;
             opacity: 0;
-            &:checked + .button {
+            &:checked + .radio-button {
               border-color: ${theme.colors.main.primary};
               color: ${theme.colors.main.primary};
               font-weight: bold;
             }
           }
-          .button {
+          .radio-button {
             ${buttonStyle}
             height: 40px;
             position: relative;
@@ -39,7 +39,7 @@ const RadioButton = forwardRef<HTMLInputElement, RadioButtonProps>(
         `}
       >
         <input type="radio" {...props} ref={ref} />
-        <span className="button">
+        <span className="radio-button">
           <span>{children}</span>
         </span>
       </label>
